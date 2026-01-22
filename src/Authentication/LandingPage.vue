@@ -8,8 +8,8 @@
 
       <!-- Branding Header -->
       <header class="branding">
-        <img src="@/img/BCPO 1 LOGO.png" alt="BCPS 1 Logo" class="logo" />
-        <img src="@/img/bxulogo.png" alt="BXU Logo" class="logo" />
+        <img src="@/assets/BCPO 1 LOGO.png" alt="BCPS 1 Logo" class="logo" />
+        <img src="@/assets/bxulogo.png" alt="BXU Logo" class="logo" />
       </header>
 
       <!-- Hero -->
@@ -102,7 +102,7 @@ export default {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('@/img/landing.jpg');
+  background-image: url('@/assets/landing.jpg');
   background-size: cover;
   background-position: center;
   filter: blur(6px);

@@ -2,7 +2,7 @@
   <div class="intro-page">
     <div class="logo-container">
       <img 
-        src="@/img/BCPO 1 LOGO.png" 
+        src="@/assets/BCPO 1 LOGO.png" 
         alt="BCPO Logo" 
         class="logo"
         :class="{ 'fade-in': isAnimating }"
