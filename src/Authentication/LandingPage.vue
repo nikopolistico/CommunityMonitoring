@@ -162,14 +162,16 @@ export default {
   text-decoration: none;
   background-color: #004595;
   color: #ffffff;
-  border: 2px solid #004595;
+  border: 2px solid #ffffff;
   border-radius: 4px;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .sign-in-btn:hover {
-  background-color: #00397a;
-  border-color: #00397a;
+  background-color: #ffffff;
+  color: #004595;
+  border-color: #004595;
 }
 
 .hero-container {
@@ -246,14 +248,17 @@ export default {
   font-weight: 600;
   background-color: #004595;
   color: #ffffff;
-  border: none;
+  border: 2px solid #ffffff;
   border-radius: 4px;
   text-decoration: none;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .btn-primary:hover {
-  background-color: #00397a;
+  background-color: #ffffff;
+  color: #004595;
+  border-color: #004595;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 69, 149, 0.3);
 }
@@ -360,14 +365,14 @@ export default {
   backdrop-filter: blur(10px);
   padding: 2.5rem 2rem;
   border-radius: 8px;
-  border: 2px solid rgba(0, 69, 149, 0.6);
+  border: 2px solid #fff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
 .service-card:hover {
   background: rgba(0, 69, 149, 0.95);
-  border-color: #004595;
+  border-color: #fff;
   transform: translateY(-8px);
   box-shadow: 0 8px 25px rgba(0, 69, 149, 0.4);
 }
