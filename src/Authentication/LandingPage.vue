@@ -163,15 +163,18 @@ export default {
   background-color: #004595;
   color: #ffffff;
   border: 2px solid #ffffff;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  border-radius: 999px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 33, 71, 0.10);
+  letter-spacing: 1px;
 }
 
 .sign-in-btn:hover {
   background-color: #ffffff;
   color: #004595;
   border-color: #004595;
+  box-shadow: 0 4px 16px rgba(0, 69, 149, 0.18);
 }
 
 .hero-container {
@@ -249,10 +252,12 @@ export default {
   background-color: #004595;
   color: #ffffff;
   border: 2px solid #ffffff;
-  border-radius: 4px;
+  border-radius: 999px;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 33, 71, 0.10);
+  letter-spacing: 1px;
 }
 
 .btn-primary:hover {
@@ -260,7 +265,7 @@ export default {
   color: #004595;
   border-color: #004595;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 69, 149, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 69, 149, 0.18);
 }
 
 .info-section {
