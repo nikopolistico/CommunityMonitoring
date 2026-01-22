@@ -105,7 +105,8 @@
 <script setup>
 import { ref } from 'vue'
 import landingBg from '@/img/landing.jpg'
-import logo from '@/img/bcps1logo.png'
+import logo from '@/img/BCPO 1 LOGO.png'
+
 
 const email = ref('')
 const password = ref('')

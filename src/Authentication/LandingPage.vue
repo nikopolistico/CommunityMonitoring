@@ -8,7 +8,7 @@
 
       <!-- Branding Header -->
       <header class="branding">
-        <img src="@/img/bcps1logo.png" alt="BCPS 1 Logo" class="logo" />
+        <img src="@/img/BCPO 1 LOGO.png" alt="BCPS 1 Logo" class="logo" />
         <img src="@/img/bxulogo.png" alt="BXU Logo" class="logo" />
       </header>
 
