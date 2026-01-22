@@ -1,61 +1,87 @@
 <template>
   <div class="landing">
     
-    <!-- Sign In Button Top Right -->
-    <router-link to="/login" class="btn primary sign-in-btn">Sign In</router-link>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+      <div class="nav-brand">
+        <img src="@/img/BCPO 1 LOGO.png" alt="BCPS 1 Logo" class="nav-logo" />
+        <div class="nav-text">
+          <span class="nav-title">BUTUAN CITY POLICE STATION 1</span>
+          <span class="nav-subtitle">Community Monitoring System</span>
+        </div>
+      </div>
+      <router-link to="/login" class="sign-in-btn">Sign In</router-link>
+    </nav>
 
     <div class="content">
 
-      <!-- Branding Header -->
-      <header class="branding">
-        <img src="@/img/BCPO 1 LOGO.png" alt="BCPS 1 Logo" class="logo" />
-        <img src="@/img/bxulogo.png" alt="BXU Logo" class="logo" />
-      </header>
-
-      <!-- Hero -->
-      <section class="hero-container" v-observe>
+      <!-- Hero Section -->
+      <section class="hero-container">
         <div class="hero">
-          <h1>Butuan City Police Station 1 </h1>
-          <h1>Community Monitoring System</h1>
-          <p class="subtitle">
-            Strengthening coordination, visibility, and rapid response across Butuan City.
+          <div class="hero-logos">
+            <img src="@/img/BCPO 1 LOGO.png" alt="BCPS 1 Logo" class="hero-logo" />
+            <img src="@/img/bxulogo.png" alt="BXU Logo" class="hero-logo" />
+          </div>
+          <h1 class="hero-title">COMMUNITY MONITORING SYSTEM</h1>
+          <p class="hero-subtitle">Butuan City Police Station 1</p>
+          <p class="hero-description">
+            Real-time monitoring and coordination for schools, businesses, and community events across 28 barangays in Butuan City.
           </p>
+          <router-link to="/login" class="btn-primary">Access System</router-link>
         </div>
       </section>
 
-      <!-- About Section -->
-      <section class="about" v-observe>
-        <h2>About the System</h2>
-        <p>
-          This Community Monitoring System is designed to support schools, businesses,
-          churches, and public events—especially church-related activities—within the
-          jurisdiction of Butuan City Police Station 1.
-        </p>
-        <p>
-          The platform enables real-time monitoring and coordination to ensure faster
-          response and situational awareness across all <strong>28 barangays</strong>
-          covered by Station 1 in Butuan City.
-        </p>
-      </section>
-
-      <!-- Features -->
-      <section class="features" v-observe>
-        <div class="feature">
-          <h3>City-wide Visibility</h3>
-          <p>Centralized monitoring of activities across all covered barangays.</p>
-        </div>
-        <div class="feature">
-          <h3>Event Awareness</h3>
-          <p>Focused support for church and community events requiring police presence.</p>
-        </div>
-        <div class="feature">
-          <h3>Rapid Response</h3>
-          <p>Improved coordination to enable timely action by Station 1.</p>
+      <!-- Info Cards -->
+      <section class="info-section">
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="info-number">28</div>
+            <div class="info-label">Barangays Covered</div>
+          </div>
+          <div class="info-card">
+            <div class="info-number">24/7</div>
+            <div class="info-label">Monitoring</div>
+          </div>
+          <div class="info-card">
+            <div class="info-number">100%</div>
+            <div class="info-label">Coverage</div>
+          </div>
         </div>
       </section>
 
-      <footer class="footer" v-observe>
-        <p>© {{ new Date().getFullYear() }} Butuan City Police Station 1</p>
+      <!-- Services Section -->
+      <section class="services-section">
+        <h2 class="section-title">OUR SERVICES</h2>
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>Educational Institutions</h3>
+            <p>Monitoring and support for schools within our jurisdiction</p>
+          </div>
+          <div class="service-card">
+            <h3>Business Establishments</h3>
+            <p>Security coordination for commercial areas and businesses</p>
+          </div>
+          <div class="service-card">
+            <h3>Community Events</h3>
+            <p>Support for church activities and public gatherings</p>
+          </div>
+          <div class="service-card">
+            <h3>Rapid Response</h3>
+            <p>Quick deployment and emergency coordination</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-logos">
+            <img src="@/img/BCPO 1 LOGO.png" alt="BCPS 1 Logo" class="footer-logo" />
+            <img src="@/img/bxulogo.png" alt="BXU Logo" class="footer-logo" />
+          </div>
+          <p class="footer-text">© {{ new Date().getFullYear() }} Butuan City Police Station 1</p>
+          <p class="footer-subtext">Serving and Protecting the Community</p>
+        </div>
       </footer>
 
     </div>
@@ -63,226 +89,371 @@
 </template>
 
 <script setup>
-// No additional logic needed
+// Simple landing page - no complex logic needed
 </script>
 
 <script>
 export default {
-  directives: {
-    observe: {
-      mounted(el) {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('in-view');
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.1 });
-        observer.observe(el);
-      }
-    }
-  }
+  name: 'LandingPage'
 };
 </script>
 
 <style scoped>
-/* =========================
-   Landing Base
-========================= */
+
 .landing {
   position: relative;
   min-height: 100vh;
-  color: #e5e7eb;
-  overflow: hidden;
+  background-color: #f3f1ee;
+  color: #002147;
 }
 
-/* Background image layer */
-.landing::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('@/img/landing.jpg');
-  background-size: cover;
-  background-position: center;
-  filter: blur(6px);
-  transform: scale(1.05);
-  z-index: 0;
-}
-
-/* Dark overlay for contrast */
-.landing::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(2, 6, 23, 0.75);
-  z-index: 1;
-}
-
-/* Content container */
 .content {
-   position: relative;
-   z-index: 2;
-   display: flex;
-   flex-direction: column;
-   scroll-behavior: smooth;
+  display: flex;
+  flex-direction: column;
 }
 
-/* =========================
-   Branding Header
-========================= */
-.branding {
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 3rem;
-  padding: 2rem 2rem 1rem;
+  padding: 1rem 3rem;
+  background-color: #002147;
+  box-shadow: 0 2px 10px rgba(0, 33, 71, 0.1);
+  z-index: 100;
 }
 
-.logo {
-  height: 100px;
-  max-width: 180px;
-  object-fit: contain;
-  opacity: 0.95;
-}
-
-.logo:hover {
-  opacity: 1;
-}
-
-/* =========================
-   Hero Section
-========================= */
-.hero-container {
+.nav-brand {
   display: flex;
-  justify-content: center; /* horizontal center */
-  align-items: center;     /* vertical center */
-  min-height: 100vh;       /* full viewport height */
-  text-align: center;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  align-items: center;
+  gap: 1rem;
 }
 
-.hero-container.in-view {
-  opacity: 1;
-  transform: translateY(0);
+.nav-logo {
+  height: 50px;
+  width: auto;
 }
 
-.hero h1 {
-  font-size: 2.75rem;
+.nav-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-title {
+  font-size: 0.95rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  color: #ffffff;
+  letter-spacing: 0.5px;
 }
 
-.subtitle {
-  max-width: 720px;
-  margin: 0 auto 2rem;
-  font-size: 1.15rem;
-  color: #cbd5f5;
+.nav-subtitle {
+  font-size: 0.75rem;
+  color: #f3f1ee;
+  opacity: 0.9;
 }
 
-/* =========================
-   Buttons
-========================= */
 .sign-in-btn {
-  position: absolute !important;
-  top: 1.5rem;
-  right: 2rem;
-  z-index: 10;
-  padding: 0.5rem 1.25rem;
+  padding: 0.625rem 1.75rem;
   font-weight: 600;
-  border-radius: 0.5rem;
+  font-size: 0.95rem;
   text-decoration: none;
-  background: transparent !important;
-  border: 2px solid #6366f1;
-  color: #6366f1;
+  background-color: #004595;
+  color: #ffffff;
+  border: 2px solid #004595;
+  border-radius: 4px;
   transition: all 0.3s ease;
 }
 
 .sign-in-btn:hover {
-  background-color: #6366f1 !important;
-  color: #fff !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: #00397a;
+  border-color: #00397a;
 }
 
-/* =========================
-   About Section
-========================= */
-.about {
+.hero-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 8rem 2rem 4rem;
+  background-image: url('@/img/landing.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.hero-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(243, 241, 238, 0.60);
+  z-index: 0;
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+  text-align: center;
   max-width: 900px;
-  margin: 0 auto;
-  padding: 3rem 2rem;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.about.in-view {
-  opacity: 1;
-  transform: translateY(0);
+.hero-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 3rem;
 }
 
-.about h2 {
-  font-size: 1.75rem;
-  margin-bottom: 1.25rem;
-  color: #a5b4fc;
+.hero-logo {
+  height: 120px;
+  width: auto;
 }
 
-.about p {
-  margin-bottom: 1rem;
-  line-height: 1.7;
-  color: #e5e7eb;
-}
-
-/* =========================
-   Features
-========================= */
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 2rem;
-  padding: 3rem 2rem 4rem;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.features.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.feature {
-  background: rgba(2, 6, 23, 0.85);
-  border: 1px solid #1e293b;
-  border-radius: 0.75rem;
-  padding: 2rem;
-  text-align: center;
-}
-
-.feature h3 {
+.hero-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #002147;
   margin-bottom: 0.5rem;
-  color: #a5b4fc;
+  letter-spacing: 1px;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #00397a;
+  margin-bottom: 1.5rem;
+}
+
+.hero-description {
+  font-size: 1.125rem;
+  color: #002147;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  opacity: 0.8;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 1rem 3rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  background-color: #004595;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #00397a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 69, 149, 0.3);
+}
+
+.info-section {
+  padding: 4rem 2rem;
+  background-color: #f3f1ee;
+}
+
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.info-card {
+  background-color: #ffffff;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border: 2px solid #004595;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 69, 149, 0.15);
+}
+
+.info-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #004595;
+  margin-bottom: 0.5rem;
+}
+
+.info-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #002147;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.services-section {
+  position: relative;
+  padding: 5rem 2rem;
+  background-image: url('@/img/landing.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.services-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 33, 71, 0.80);
+  z-index: 0;
+}
+
+.section-title {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 3rem;
+  letter-spacing: 1px;
+}
+
+.services-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-card {
+  background-color: #00397a;
+  padding: 2.5rem 2rem;
+  border-radius: 4px;
+  border: 2px solid #004595;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  background-color: #004595;
+  transform: translateY(-5px);
+}
+
+.service-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.service-card p {
+  font-size: 1rem;
+  color: #f3f1ee;
+  line-height: 1.6;
 }
 
 /* =========================
    Footer
 ========================= */
 .footer {
-  margin-top: auto;
-  padding: 1.5rem;
-  text-align: center;
-  font-size: 0.875rem;
-  color: #94a3b8;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  padding: 3rem 2rem;
+  background-color: #00397a;
+  border-top: 3px solid #004595;
 }
 
-.footer.in-view {
-  opacity: 1;
-  transform: translateY(0);
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-logo {
+  height: 70px;
+  width: auto;
+}
+
+.footer-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.footer-subtext {
+  font-size: 0.9rem;
+  color: #f3f1ee;
+  opacity: 0.9;
+}
+
+/* =========================
+   Responsive Design
+========================= */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+  
+  .nav-logo {
+    height: 40px;
+  }
+  
+  .nav-text {
+    display: none;
+  }
+  
+  .hero-title {
+    font-size: 1.75rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+  }
+  
+  .hero-logos {
+    gap: 1.5rem;
+  }
+  
+  .hero-logo {
+    height: 80px;
+  }
+  
+  .section-title {
+    font-size: 1.75rem;
+  }
+  
+  .info-cards,
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-logos {
+    gap: 1rem;
+  }
+  
+  .footer-logo {
+    height: 50px;
+  }
 }
 </style>

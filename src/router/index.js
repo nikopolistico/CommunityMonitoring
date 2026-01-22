@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import IntroPage from '@/Authentication/Intropage.vue'
+import IntroPage from '@/Authentication/IntroPage.vue'
 import LandingPage from '@/Authentication/LandingPage.vue'
 import LoginPage from '@/Authentication/LoginPage.vue'
 import Dashboard from '@/Pages/DashBoard.vue'
