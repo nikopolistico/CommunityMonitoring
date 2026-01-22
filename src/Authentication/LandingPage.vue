@@ -89,7 +89,7 @@
 </template>
 
 <script setup>
-// Simple landing page - no complex logic needed
+  
 </script>
 
 <script>
@@ -189,7 +189,7 @@ export default {
   content: '';
   position: absolute;
   inset: 0;
-  background-color: rgba(243, 241, 238, 0.60);
+  background-color: rgba(100, 109, 136, 0.5);
   z-index: 0;
 }
 
@@ -216,24 +216,27 @@ export default {
 .hero-title {
   font-size: 2.75rem;
   font-weight: 800;
-  color: #002147;
+  color: #ffffff;
   margin-bottom: 0.5rem;
   letter-spacing: 1px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .hero-subtitle {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #00397a;
+  color: #e0e7ff;
   margin-bottom: 1.5rem;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
 }
 
 .hero-description {
   font-size: 1.125rem;
-  color: #002147;
+  color: #f3f1ee;
   line-height: 1.7;
   margin-bottom: 2.5rem;
-  opacity: 0.8;
+  opacity: 1;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
 }
 
 .btn-primary {
@@ -256,11 +259,25 @@ export default {
 }
 
 .info-section {
+  position: relative;
   padding: 4rem 2rem;
-  background-color: #f3f1ee;
+  background-image: url('@/img/landing.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.info-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(243, 241, 238, 0.70);
+  z-index: 0;
 }
 
 .info-cards {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
@@ -269,8 +286,9 @@ export default {
 }
 
 .info-card {
-  background-color: #ffffff;
-  padding: 2.5rem 2rem;
+  background-color: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(10px);
+  padding: 1rem 1rem;
   text-align: center;
   border: 2px solid #004595;
   border-radius: 4px;
@@ -280,17 +298,18 @@ export default {
 .info-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 69, 149, 0.15);
+  background-color: rgba(255, 255, 255, 0.70);
 }
 
 .info-number {
-  font-size: 3rem;
+  font-size: 2.25rem;
   font-weight: 800;
   color: #004595;
   margin-bottom: 0.5rem;
 }
 
 .info-label {
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #002147;
   text-transform: uppercase;
@@ -310,7 +329,7 @@ export default {
   content: '';
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 33, 71, 0.80);
+  background-color: rgba(0, 33, 71, 0.70);
   z-index: 0;
 }
 
@@ -318,11 +337,12 @@ export default {
   position: relative;
   z-index: 1;
   text-align: center;
-  font-size: 2.25rem;
-  font-weight: 700;
+  font-size: 2.5rem;
+  font-weight: 800;
   color: #ffffff;
-  margin-bottom: 3rem;
-  letter-spacing: 1px;
+  margin-bottom: 3.5rem;
+  letter-spacing: 1.5px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .services-grid {
@@ -336,37 +356,40 @@ export default {
 }
 
 .service-card {
-  background-color: #00397a;
+  background: rgba(0, 57, 122, 0.85);
+  backdrop-filter: blur(10px);
   padding: 2.5rem 2rem;
-  border-radius: 4px;
-  border: 2px solid #004595;
+  border-radius: 8px;
+  border: 2px solid rgba(0, 69, 149, 0.6);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
 .service-card:hover {
-  background-color: #004595;
-  transform: translateY(-5px);
+  background: rgba(0, 69, 149, 0.95);
+  border-color: #004595;
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 69, 149, 0.4);
 }
 
 .service-card h3 {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 1rem;
   letter-spacing: 0.5px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .service-card p {
   font-size: 1rem;
   color: #f3f1ee;
   line-height: 1.6;
+  opacity: 0.95;
 }
 
-/* =========================
-   Footer
-========================= */
 .footer {
-  padding: 3rem 2rem;
+  padding: 2rem 2rem;
   background-color: #00397a;
   border-top: 3px solid #004595;
 }
@@ -381,12 +404,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
-  margin-bottom: 1.5rem;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .footer-logo {
-  height: 70px;
+  height: 50px;
   width: auto;
 }
 
@@ -403,9 +426,6 @@ export default {
   opacity: 0.9;
 }
 
-/* =========================
-   Responsive Design
-========================= */
 @media (max-width: 768px) {
   .navbar {
     padding: 1rem;
