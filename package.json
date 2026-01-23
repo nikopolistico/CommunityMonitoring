@@ -14,12 +14,15 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
+    "@mapbox/togeojson": "^0.16.2",
     "@tailwindcss/vite": "^4.1.18",
+    "@turf/turf": "^7.3.2",
     "maplibre-gl": "^5.16.0",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.1.18",
     "vue": "^3.5.26",
-    "vue-router": "^4.6.4"
+    "vue-router": "^4.6.4",
+    "vue3-google-map": "^0.27.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
