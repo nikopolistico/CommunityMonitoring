@@ -1,29 +1,37 @@
 <template>
-  <div
-    class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600"
-  >
-    <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
-      <!-- Header with Police Badge Icon -->
+  <div class="min-h-screen flex items-center justify-center relative">
+    <!-- Background Image with Blur -->
+    <div
+      class="absolute inset-0 bg-cover bg-center filter blur-sm"
+      :style="{ backgroundImage: `url(${landingBg})` }"
+    ></div>
+
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black/60"></div>
+
+    <!-- Background Text -->
+    <div class="absolute top-10 left-1/2 -translate-x-1/2 z-0 select-none pointer-events-none">
+      <h1 class="text-[12rem] md:text-[18rem] font-extrabold text-white/5 tracking-wider">BCPS1</h1>
+    </div>
+
+    <!-- Login Card -->
+    <div
+      class="relative bg-white/10 backdrop-blur p-6 rounded-lg shadow-2xl w-full max-w-sm z-10 border border-white/20"
+    >
+      <!-- Header with PNG Logo -->
       <div class="text-center mb-6">
         <div
-          class="inline-flex items-center justify-center w-20 h-20 bg-blue-600 rounded-full mb-4"
+          class="inline-flex items-center justify-center w-20 h-20 rounded-full mb-4 bg-white/20 border border-white/30"
         >
-          <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z"
-              clip-rule="evenodd"
-            />
-          </svg>
+          <img :src="logo" alt="BCPS Logo" class="w-16 h-16 object-contain" />
         </div>
-        <h2 class="text-3xl font-bold text-gray-800">Barangay Monitoring</h2>
-        <p class="text-gray-600 mt-2">Police Officer Portal</p>
-        <p class="text-sm text-blue-600 font-semibold">28 Barangays Network</p>
       </div>
 
-      <form @submit.prevent="handleLogin">
-        <div class="mb-4">
-          <label class="block text-gray-700 font-semibold mb-2" for="email">
+      <!-- Login Form -->
+      <form @submit.prevent="handleLogin" class="space-y-4">
+        <!-- Email Field -->
+        <div>
+          <label class="block text-gray-100 font-semibold mb-1" for="email">
             <span class="flex items-center">
               <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
@@ -37,13 +45,14 @@
             id="email"
             type="text"
             required
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
             placeholder="Enter your email or badge ID"
+            class="w-full px-3 py-2 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent bg-white/20 text-white placeholder-white/70 text-sm"
           />
         </div>
 
-        <div class="mb-6">
-          <label class="block text-gray-700 font-semibold mb-2" for="password">
+        <!-- Password Field with Eye Toggle -->
+        <div class="relative">
+          <label class="block text-gray-100 font-semibold mb-1" for="password">
             <span class="flex items-center">
               <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path
@@ -57,27 +66,69 @@
           </label>
           <input
             v-model="password"
+            :type="showPassword ? 'password' : 'text'"
             id="password"
-            type="password"
             required
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
             placeholder="Enter your password"
+            class="w-full pr-10 px-3 py-2 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent bg-white/20 text-white placeholder-white/70 text-sm"
           />
+          <button
+            type="button"
+            @click="showPassword = !showPassword"
+            class="absolute right-3 top-[calc(50%+14px)] -translate-y-1/2 text-white/70 hover:text-white transition-colors"
+          >
+            <svg
+              v-if="!showPassword"
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+              />
+            </svg>
+            <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 3l18 18"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6.223 6.223a9.956 9.956 0 0111.554 0M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+              />
+            </svg>
+          </button>
         </div>
 
+        <!-- Login Button -->
         <button
           type="submit"
-          class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+          class="w-full bg-[#004595] text-white border-2 border-white py-2.5 rounded-full hover:bg-white hover:text-[#004595] hover:border-[#004595] transition-all duration-300 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm tracking-widest"
         >
           Login to Dashboard
         </button>
       </form>
 
-      <div class="mt-6 pt-6 border-t border-gray-200">
-        <p class="text-center text-sm text-gray-600">
-          <a href="#" class="text-blue-600 hover:underline font-semibold">Forgot Password?</a>
+      <!-- Footer Info -->
+      <div class="mt-5 pt-5 border-t border-white/20">
+        <p class="text-center text-sm text-white/70">
+          <a href="#" class="text-[#e0e7ff] hover:underline font-semibold">Forgot Password?</a>
         </p>
-        <p class="text-center text-xs text-gray-500 mt-4">🔒 Secure Police Officer Access Only</p>
+        <p class="text-center text-xs text-white/50 mt-2">🔒 Secure Police Officer Access Only</p>
       </div>
     </div>
   </div>
@@ -85,14 +136,27 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import landingBg from '@/assets/landing.jpg'
+import logo from '@/assets/BCPO 1 LOGO.png'
 
+const router = useRouter()
 const email = ref('')
 const password = ref('')
+const showPassword = ref(false)
 
 function handleLogin() {
-  // Add your login logic here for police officer authentication
+  if (!email.value || !password.value) return alert('Please fill in all fields.')
   console.log(`Badge ID/Email: ${email.value}`)
   console.log('Attempting login to Barangay Monitoring System...')
   alert(`Welcome Officer!\nAccessing 28 Barangays Monitoring Dashboard...`)
+  router.push({ name: 'dashboard' })
 }
 </script>
+
+<style scoped>
+.filter.blur-sm {
+  filter: blur(6px);
+  transform: scale(1.05);
+}
+</style>
