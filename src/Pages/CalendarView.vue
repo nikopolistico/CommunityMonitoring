@@ -139,14 +139,14 @@
     <!-- Main Content -->
     <main class="flex-1 flex flex-col">
       <!-- Top Header -->
-      <header class="relative shadow-2xl overflow-hidden h-48 lg:sticky lg:top-0 lg:z-20">
+      <header class="relative shadow-2xl overflow-hidden h-32 lg:sticky lg:top-0 lg:z-20">
         <div
           class="absolute inset-0 bg-cover bg-center"
           :style="{ backgroundImage: `url(${headbk})` }"
         ></div>
         <div class="absolute inset-0 bg-linear-to-r from-[#002147]/60 to-[#004595]/50"></div>
 
-        <div class="relative z-10 p-4 lg:p-8">
+        <div class="relative z-10 p-3 lg:p-5">
           <div class="max-w-6xl mx-auto">
             <div class="flex items-center gap-2 lg:gap-3 mb-2 lg:mb-3">
               <div class="p-1.5 lg:p-2 bg-white/20 backdrop-blur-sm rounded-lg shrink-0">
@@ -182,9 +182,9 @@
             class="bg-white rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden relative border-2 lg:border-4 border-white/50"
           >
             <!-- Custom Calendar -->
-            <div class="p-6 h-full flex flex-col">
+            <div class="p-6 flex flex-col max-h-[600px]">
               <!-- Calendar Header -->
-              <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center justify-between mb-6 flex-shrink-0">
                 <button
                   @click="prevMonth"
                   class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -217,42 +217,46 @@
               </div>
 
               <!-- Calendar Grid -->
-              <div class="flex-1 grid grid-cols-7 gap-1">
-                <!-- Day Headers -->
-                <div
-                  v-for="day in ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']"
-                  :key="day"
-                  class="p-3 text-center font-semibold text-gray-600 border-b"
-                >
-                  {{ day }}
-                </div>
-
-                <!-- Calendar Days -->
-                <div
-                  v-for="day in calendarDays"
-                  :key="day.dateStr"
-                  :class="[
-                    'min-h-24 p-2 border cursor-pointer transition-colors relative',
-                    day.isCurrentMonth ? 'bg-white' : 'bg-gray-50 text-gray-400',
-                    day.isToday ? 'bg-blue-50 border-blue-200' : 'border-gray-200',
-                    day.hasEvents ? 'hover:bg-blue-50' : 'hover:bg-gray-50',
-                  ]"
-                  @click="selectDate(day)"
-                >
-                  <div class="text-sm font-medium mb-1">
-                    {{ day.date.getDate() }}
+              <div class="flex-1 overflow-y-auto">
+                <div class="grid grid-cols-7 gap-1 min-h-[400px]">
+                  <!-- Day Headers -->
+                  <div
+                    v-for="day in ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']"
+                    :key="day"
+                    class="p-3 text-center font-semibold text-gray-600 border-b"
+                  >
+                    {{ day }}
                   </div>
-                  <div class="space-y-1">
-                    <div
-                      v-for="event in day.events.slice(0, 2)"
-                      :key="event.id"
-                      class="text-xs bg-[#004595] text-white px-1 py-0.5 rounded truncate"
-                      :title="event.title"
-                    >
-                      {{ event.title }}
+
+                  <!-- Calendar Days -->
+                  <div
+                    v-for="day in calendarDays"
+                    :key="day.dateStr"
+                    :class="[
+                      'min-h-24 p-2 border cursor-pointer transition-colors relative',
+                      day.isCurrentMonth ? 'bg-white' : 'bg-gray-50 text-gray-400',
+                      day.isToday ? 'bg-blue-50 border-blue-200' : 'border-gray-200',
+                      day.hasEvents ? 'hover:bg-blue-50' : 'hover:bg-gray-50',
+                    ]"
+                    @click="selectDate(day)"
+                  >
+                    <div class="text-sm font-medium mb-1">
+                      {{ day.date.getDate() }}
                     </div>
-                    <div v-if="day.events.length > 2" class="text-xs text-gray-500">
-                      +{{ day.events.length - 2 }} more
+
+                    <div class="space-y-1">
+                      <div
+                        v-for="event in day.events.slice(0, 2)"
+                        :key="event.id"
+                        class="text-xs bg-[#004595] text-white px-1 py-0.5 rounded truncate"
+                        :title="event.title"
+                      >
+                        {{ event.title }}
+                      </div>
+
+                      <div v-if="day.events.length > 2" class="text-xs text-gray-500">
+                        +{{ day.events.length - 2 }} more
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -264,9 +268,9 @@
           <div
             class="bg-white rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden relative border-2 lg:border-4 border-white/50"
           >
-            <div class="p-6 h-full flex flex-col">
+            <div class="p-6 flex flex-col max-h-[600px]">
               <!-- Events Header -->
-              <div class="mb-6">
+              <div class="mb-6 flex-shrink-0">
                 <h3 class="text-xl font-bold text-[#002147] mb-2">
                   {{
                     selectedDate
