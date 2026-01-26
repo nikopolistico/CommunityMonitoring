@@ -167,6 +167,11 @@
           <div class="grid gap-6 md:grid-cols-3">
             <article
               class="group relative overflow-hidden rounded-xl border-2 border-[#004595]/20 p-5 hover:border-[#004595] transition-all duration-300 hover:shadow-lg bg-linear-to-br from-white to-[#f3f1ee]"
+              role="button"
+              tabindex="0"
+              @click="goToSchools"
+              @keyup.enter="goToSchools"
+              @keyup.space="goToSchools"
             >
               <div
                 class="absolute top-0 right-0 w-20 h-20 bg-[#004595]/5 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"
@@ -199,6 +204,11 @@
 
             <article
               class="group relative overflow-hidden rounded-xl border-2 border-[#00397a]/20 p-5 hover:border-[#00397a] transition-all duration-300 hover:shadow-lg bg-linear-to-br from-white to-[#f3f1ee]"
+              role="button"
+              tabindex="0"
+              @click="goToChurches"
+              @keyup.enter="goToChurches"
+              @keyup.space="goToChurches"
             >
               <div
                 class="absolute top-0 right-0 w-20 h-20 bg-[#00397a]/5 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"
@@ -233,6 +243,11 @@
 
             <article
               class="group relative overflow-hidden rounded-xl border-2 border-[#002147]/20 p-5 hover:border-[#002147] transition-all duration-300 hover:shadow-lg bg-linear-to-br from-white to-[#f3f1ee]"
+              role="button"
+              tabindex="0"
+              @click="goToEstablishments"
+              @keyup.enter="goToEstablishments"
+              @keyup.space="goToEstablishments"
             >
               <div
                 class="absolute top-0 right-0 w-20 h-20 bg-[#002147]/5 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"
@@ -344,5 +359,20 @@ const goBack = () => {
     return
   }
   router.push({ name: 'dashboard' })
+}
+
+const goToSchools = () => {
+  if (!barangayId.value) return
+  router.push({ name: 'schools', params: { barangayId: barangayId.value } })
+}
+
+const goToChurches = () => {
+  if (!barangayId.value) return
+  router.push({ name: 'churches', params: { barangayId: barangayId.value } })
+}
+
+const goToEstablishments = () => {
+  if (!barangayId.value) return
+  router.push({ name: 'establishments', params: { barangayId: barangayId.value } })
 }
 </script>
