@@ -12,12 +12,12 @@ const router = createRouter({
   routes: [
     { name: 'login', path: '/login', component: LoginPage },
     { name: 'dashboard', path: '/dashboard', component: Dashboard },
-    { name: 'CommunityView', path: '/community/:barangayId', component: CommunityView },
-    { name: 'schools', path: '/community/:barangayId/schools', component: Schools },
-    { name: 'churches', path: '/community/:barangayId/churches', component: Churches },
+    { name: 'CommunityView', path: '/community/:barangayName', component: CommunityView },
+    { name: 'schools', path: '/community/:barangayName/schools', component: Schools },
+    { name: 'churches', path: '/community/:barangayName/churches', component: Churches },
     {
-      name: 'establishments',
-      path: '/community/:barangayId/establishments',
+      name: 'establishments', 
+      path: '/community/:barangayName/establishments',
       component: Establishments,
     },
     { name: 'landing', path: '/', component: LandingPage}

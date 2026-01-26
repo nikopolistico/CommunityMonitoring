@@ -73,7 +73,9 @@
               <!-- Captain Info -->
               <div class="flex-1 space-y-4">
                 <div>
-                  <h3 class="text-2xl font-bold text-[#002147]">Hon. Juan Dela Cruz</h3>
+                  <h3 class="text-2xl font-bold text-[#002147]">
+                    {{ loadingCaptain ? 'Loading...' : captainInfo.name }}
+                  </h3>
                   <p class="text-sm text-gray-600 font-medium">Barangay Captain</p>
                 </div>
 
@@ -90,7 +92,7 @@
                       </div>
                       <div>
                         <p class="text-xs text-gray-600 font-medium">Phone</p>
-                        <p class="text-sm font-bold text-[#002147]">+63 912 345 6789</p>
+                        <p class="text-sm font-bold text-[#002147]">{{ captainInfo.phone }}</p>
                       </div>
                     </div>
 
@@ -106,7 +108,7 @@
                       <div>
                         <p class="text-xs text-gray-600 font-medium">Email</p>
                         <p class="text-sm font-bold text-[#002147]">
-                          captain@{{ barangayId }}.gov.ph
+                          {{ captainInfo.email }}
                         </p>
                       </div>
                     </div>
@@ -125,7 +127,7 @@
                       </div>
                       <div>
                         <p class="text-xs text-gray-600 font-medium">Office Hours</p>
-                        <p class="text-sm font-bold text-[#002147]">Mon-Fri, 8AM-5PM</p>
+                        <p class="text-sm font-bold text-[#002147]">{{ captainInfo.officeHours }}</p>
                       </div>
                     </div>
 
@@ -161,18 +163,28 @@
                 d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
               />
             </svg>
-            Community Establishments
+            Communities
           </h2>
 
           <div class="grid gap-6 md:grid-cols-3">
             <article
-              class="group relative overflow-hidden rounded-xl border-2 border-[#004595]/20 p-5 hover:border-[#004595] transition-all duration-300 hover:shadow-lg bg-linear-to-br from-white to-[#f3f1ee]"
+              class="group relative overflow-hidden rounded-xl border-2 border-[#004595]/20 p-5 hover:border-[#004595] transition-all duration-300 hover:shadow-lg bg-linear-to-br from-white to-[#f3f1ee] cursor-pointer"
               role="button"
               tabindex="0"
               @click="goToSchools"
               @keyup.enter="goToSchools"
               @keyup.space="goToSchools"
             >
+              <!-- View More Overlay -->
+              <div class="absolute inset-0 bg-[#004595]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                <div class="text-center">
+                  <svg class="w-6 h-6 text-white mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  <p class="text-white font-semibold text-sm">View More</p>
+                </div>
+              </div>
               <div
                 class="absolute top-0 right-0 w-20 h-20 bg-[#004595]/5 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"
               ></div>
@@ -203,13 +215,23 @@
             </article>
 
             <article
-              class="group relative overflow-hidden rounded-xl border-2 border-[#00397a]/20 p-5 hover:border-[#00397a] transition-all duration-300 hover:shadow-lg bg-linear-to-br from-white to-[#f3f1ee]"
+              class="group relative overflow-hidden rounded-xl border-2 border-[#00397a]/20 p-5 hover:border-[#00397a] transition-all duration-300 hover:shadow-lg bg-linear-to-br from-white to-[#f3f1ee] cursor-pointer"
               role="button"
               tabindex="0"
               @click="goToChurches"
               @keyup.enter="goToChurches"
               @keyup.space="goToChurches"
             >
+              <!-- View More Overlay -->
+              <div class="absolute inset-0 bg-[#00397a]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                <div class="text-center">
+                  <svg class="w-6 h-6 text-white mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  <p class="text-white font-semibold text-sm">View More</p>
+                </div>
+              </div>
               <div
                 class="absolute top-0 right-0 w-20 h-20 bg-[#00397a]/5 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"
               ></div>
@@ -242,13 +264,23 @@
             </article>
 
             <article
-              class="group relative overflow-hidden rounded-xl border-2 border-[#002147]/20 p-5 hover:border-[#002147] transition-all duration-300 hover:shadow-lg bg-linear-to-br from-white to-[#f3f1ee]"
+              class="group relative overflow-hidden rounded-xl border-2 border-[#002147]/20 p-5 hover:border-[#002147] transition-all duration-300 hover:shadow-lg bg-linear-to-br from-white to-[#f3f1ee] cursor-pointer"
               role="button"
               tabindex="0"
               @click="goToEstablishments"
               @keyup.enter="goToEstablishments"
               @keyup.space="goToEstablishments"
             >
+              <!-- View More Overlay -->
+              <div class="absolute inset-0 bg-[#002147]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                <div class="text-center">
+                  <svg class="w-6 h-6 text-white mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  <p class="text-white font-semibold text-sm">View More</p>
+                </div>
+              </div>
               <div
                 class="absolute top-0 right-0 w-20 h-20 bg-[#002147]/5 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"
               ></div>
@@ -319,9 +351,10 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { communityData } from '@/data/communityData'
+import { supabase } from '@/lib/supabase'
 
 const route = useRoute()
 const router = useRouter()
@@ -333,13 +366,87 @@ const featureLabels = {
   business: 'Business',
 }
 
-const barangayId = computed(() => (route.params.barangayId || '').toString())
+const barangayName = computed(() => (route.params.barangayName || '').toString())
 
 const communityInfo = computed(() => {
-  if (!barangayId.value) {
+  if (!barangayName.value) {
     return null
   }
-  return communityData[barangayId.value] ?? null
+  return communityData[barangayName.value] ?? null
+})
+
+const captainInfo = ref({
+  name: 'Loading...',
+  phone: '+63 912 345 6789',
+  email: 'captain@barangay.gov.ph',
+  officeHours: 'Loading...',
+})
+const loadingCaptain = ref(false)
+
+// Fetch Barangay Captain information
+const fetchCaptainInfo = async () => {
+  if (!communityInfo.value) return
+  
+  loadingCaptain.value = true
+  try {
+    // First, get the barangay details including cpt_id
+    const { data: barangayData, error: barangayError } = await supabase
+      .from('Barangays')
+      .select('cpt_id, brgyname')
+      .ilike('brgyname', communityInfo.value.name)
+      .single()
+
+    if (barangayError) throw barangayError
+    
+    if (barangayData && barangayData.cpt_id) {
+      // Then fetch the captain details using cpt_id
+      const { data: captainData, error: captainError } = await supabase
+        .from('BrgyCaptain')
+        .select('*')
+        .eq('id', barangayData.cpt_id)
+        .single()
+
+      console.log('Fetched captain data:', captainData)  
+      if (captainError) throw captainError
+      
+      if (captainData) {
+        captainInfo.value = {
+          name: captainData.fullname || 'Hon. Juan Dela Cruz',
+          phone: captainData.phone || '+63 912 345 6789',
+          email: captainData.email || `captain@${barangayName.value}.gov.ph`,
+          officeHours: captainData.office_hours || 'Mon-Fri, 8AM-5PM'
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching captain info:', error)
+    // Keep default values on error
+    captainInfo.value = {
+      name: 'Hon. Juan Dela Cruz',
+      phone: '+63 912 345 6789',
+      email: `captain@${barangayName.value}.gov.ph`,
+      officeHours: 'Mon-Fri, 8AM-5PM'
+    }
+  } finally {
+    loadingCaptain.value = false
+  }
+}
+
+// Watch for changes in barangay and fetch captain info
+watch(
+  () => communityInfo.value,
+  (newVal) => {
+    if (newVal) {
+      fetchCaptainInfo()
+    }
+  },
+  { immediate: true }
+)
+
+onMounted(() => {
+  if (communityInfo.value) {
+    fetchCaptainInfo()
+  }
 })
 
 const locationName = computed(() => (route.query.location || '').toString())
@@ -354,25 +461,25 @@ const focusSummary = computed(() => {
 })
 
 const goBack = () => {
-  if (barangayId.value) {
-    router.push({ name: 'dashboard', query: { barangay: barangayId.value } })
+  if (barangayName.value) {
+    router.push({ name: 'dashboard', query: { barangay: barangayName.value } })
     return
   }
   router.push({ name: 'dashboard' })
 }
 
 const goToSchools = () => {
-  if (!barangayId.value) return
-  router.push({ name: 'schools', params: { barangayId: barangayId.value } })
+  if (!barangayName.value) return
+  router.push({ name: 'schools', params: { barangayName: barangayName.value } })
 }
 
 const goToChurches = () => {
-  if (!barangayId.value) return
-  router.push({ name: 'churches', params: { barangayId: barangayId.value } })
+  if (!barangayName.value) return
+  router.push({ name: 'churches', params: { barangayName: barangayName.value } })
 }
 
 const goToEstablishments = () => {
-  if (!barangayId.value) return
-  router.push({ name: 'establishments', params: { barangayId: barangayId.value } })
+  if (!barangayName.value) return
+  router.push({ name: 'establishments', params: { barangayName: barangayName.value } })
 }
 </script>

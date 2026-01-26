@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@mapbox/togeojson": "^0.16.2",
+    "@supabase/supabase-js": "^2.91.1",
     "@tailwindcss/vite": "^4.1.18",
     "@turf/turf": "^7.3.2",
     "maplibre-gl": "^5.16.0",

@@ -1,6 +1,6 @@
 <template>
 	<div class="min-h-screen bg-[#f3f1ee]">
-		<div class="mx-auto max-w-5xl px-4 py-10 space-y-8">
+		<div class="mx-auto max-w-7xl px-4 py-10 space-y-8">
 			<button
 				type="button"
 				class="inline-flex items-center gap-2 rounded-full bg-[#00397a] px-5 py-2.5 text-sm font-bold text-white hover:bg-white hover:text-[#00397a] border-2 border-[#00397a] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
@@ -17,33 +17,86 @@
 					<p class="text-lg text-[#e0e7ff] mt-2">Places of worship within this barangay.</p>
 				</div>
 
-				<div class="bg-white rounded-2xl border-2 border-[#00397a]/15 p-5 shadow-md space-y-4">
-					<div class="flex flex-col md:flex-row md:items-end gap-3">
-						<label class="flex-1 space-y-2">
-							<span class="text-sm font-semibold text-[#002147]">Add a church</span>
-							<input
-								v-model="newName"
-								type="text"
-								placeholder="Enter church name"
-								class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#00397a] focus:ring-2 focus:ring-[#00397a]/30 transition"
-							/>
-						</label>
-						<button
-							type="button"
-							class="self-start md:self-auto inline-flex items-center gap-2 rounded-lg bg-[#00397a] px-4 py-2 text-sm font-bold text-white hover:bg-white hover:text-[#00397a] border-2 border-[#00397a] transition"
-							@click="addItem"
-						>
-							<span aria-hidden="true">＋</span>
-							Add
-						</button>
+				<div class="flex gap-3">
+					<!-- Add Button -->
+					<button
+						type="button"
+						class="inline-flex items-center gap-2 rounded-lg bg-[#00397a] px-4 py-2 text-sm font-bold text-white hover:bg-white hover:text-[#00397a] border-2 border-[#00397a] transition"
+						@click="showAddForm = !showAddForm"
+					>
+						<span aria-hidden="true">＋</span>
+						Add Church
+					</button>
+
+					<!-- Search Bar -->
+					<div class="flex-1">
+						<input
+							v-model="searchQuery"
+							type="text"
+							placeholder="Search churches..."
+							class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-[#00397a] focus:ring-2 focus:ring-[#00397a]/30 transition"
+						/>
 					</div>
-					<p class="text-xs text-gray-500">Changes are local only for this session.</p>
 				</div>
 
+					<!-- Collapsible Add Form -->
+					<div v-if="showAddForm" class="bg-white rounded-2xl border-2 border-[#00397a]/15 p-5 shadow-md space-y-4">
+						<div class="space-y-3">
+							<label class="block space-y-2">
+								<span class="text-sm font-semibold text-[#002147]">Church Name</span>
+								<input
+									v-model="newName"
+									type="text"
+									placeholder="Enter church name"
+									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#00397a] focus:ring-2 focus:ring-[#00397a]/30 transition"
+									:disabled="loading"
+								/>
+							</label>
+							<label class="block space-y-2">
+								<span class="text-sm font-semibold text-[#002147]">Church Address</span>
+								<input
+									v-model="newAddress"
+									type="text"
+									placeholder="Enter church address"
+									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#00397a] focus:ring-2 focus:ring-[#00397a]/30 transition"
+									:disabled="loading"
+								/>
+							</label>
+							<div class="flex gap-2">
+								<button
+									type="button"
+									class="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-[#00397a] px-4 py-2 text-sm font-bold text-white hover:bg-white hover:text-[#00397a] border-2 border-[#00397a] transition disabled:opacity-50 disabled:cursor-not-allowed"
+									@click="addItem"
+									:disabled="loading"
+								>
+									<span aria-hidden="true">＋</span>
+									Add
+								</button>
+								<button
+									type="button"
+									class="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-sm font-bold text-gray-700 hover:bg-gray-200 border-2 border-gray-300 transition"
+									@click="showAddForm = false"
+								>
+									Cancel
+								</button>
+							</div>
+						</div>
+						<p class="text-xs text-gray-500">Changes are saved to Supabase database.</p>
+					</div>
+
 				<div class="grid gap-5 md:grid-cols-2">
+					<div v-if="loading" class="col-span-2 text-center py-12">
+						<div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#00397a] border-t-transparent"></div>
+						<p class="mt-4 text-gray-600">Loading churches...</p>
+					</div>
+
+					<div v-else-if="filteredItems.length === 0" class="col-span-2 text-center py-12">
+						<p class="text-gray-600">{{ searchQuery ? 'No churches found matching your search.' : 'No churches yet. Add one to get started!' }}</p>
+					</div>
+					
 					<article
-						v-for="(item, index) in items"
-						:key="item + index"
+						v-for="(item, index) in filteredItems"
+						:key="item.id || index"
 						class="rounded-xl bg-white border-2 border-[#00397a]/15 p-5 shadow-md hover:shadow-lg transition-all duration-300"
 					>
 						<div class="flex items-start gap-3">
@@ -82,7 +135,7 @@
 								</div>
 
 								<div v-else class="space-y-1">
-									<h2 class="text-xl font-bold text-[#002147]">{{ item }}</h2>
+								<h2 class="text-xl font-bold text-[#002147]">{{ item.churchName }}</h2>
 									<p class="text-sm text-gray-600">Serving {{ communityInfo.name }}, Butuan City.</p>
 								</div>
 							</div>
@@ -169,106 +222,244 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { communityData } from '@/data/communityData'
+import { supabase } from '@/lib/supabase'
 
 const route = useRoute()
 const router = useRouter()
 
-const barangayId = computed(() => (route.params.barangayId || '').toString())
+const barangayName = computed(() => (route.params.barangayName || '').toString())
+const barangayId = ref(null)
 
 const communityInfo = computed(() => {
-	if (!barangayId.value) {
+	if (!barangayName.value) {
 		return null
 	}
-	return communityData[barangayId.value] ?? null
+	return communityData[barangayName.value] ?? null
 })
 
 const items = ref([])
 const newName = ref('')
-const editingIndex = ref(null)
+const newAddress = ref('')
+const editingId = ref(null)
 const editingName = ref('')
 const showDeleteConfirm = ref(false)
-const deleteIndex = ref(null)
+const deleteId = ref(null)
 const deleteName = ref('')
+const loading = ref(false)
+const showAddForm = ref(false)
+const searchQuery = ref('')
+
+const filteredItems = computed(() => {
+	if (!searchQuery.value.trim()) {
+		return items.value
+	}
+	const query = searchQuery.value.toLowerCase()
+	return items.value.filter(item => 
+		item.churchName?.toLowerCase().includes(query) ||
+		item.churchAddress?.toLowerCase().includes(query)
+	)
+})
+
+// Fetch barangay ID from database
+const fetchBarangayId = async () => {
+	if (!barangayName.value) return
+	
+	try {
+		const { data, error } = await supabase
+			.from('Barangays')
+			.select('id')
+			.ilike('brgyname', barangayName.value.replace(/-/g, ' '))
+			.single()
+		
+		if (error) throw error
+		
+		if (data) {
+			barangayId.value = data.id
+			console.log('Barangay ID:', barangayId.value)
+			await fetchChurches()
+		}
+	} catch (error) {
+		console.error('Error fetching barangay ID:', error)
+	}
+}
+
+// Fetch churches from Supabase
+const fetchChurches = async () => {
+	if (!barangayName.value) return
+	
+	loading.value = true
+	try {
+		const { data, error } = await supabase
+			.from('Church')
+			.select('*')
+			.eq('brgy_id', barangayId.value)
+		
+		if (error) throw error
+		
+		items.value = data || []
+	} catch (error) {
+		console.error('Error fetching churches:', error)
+		items.value = []
+	} finally {
+		loading.value = false
+	}
+}
 
 watch(
-	() => communityInfo.value,
-	(info) => {
-		items.value = info?.churches ? [...info.churches] : []
-		editingIndex.value = null
+	() => barangayName.value,
+	() => {
+		fetchBarangayId()
+		editingId.value = null
 		editingName.value = ''
 		newName.value = ''
+		newAddress.value = ''
 	},
 	{ immediate: true }
 )
 
+onMounted(() => {
+	fetchBarangayId()
+})
+
 const goBack = () => {
-	if (barangayId.value) {
-		router.push({ name: 'CommunityView', params: { barangayId: barangayId.value } })
+	if (barangayName.value) {
+		router.push({ name: 'CommunityView', params: { barangayName: barangayName.value } })
 		return
 	}
 	router.push({ name: 'dashboard' })
 }
 
-const addItem = () => {
+const addItem = async () => {
 	const name = newName.value.trim()
+	const address = newAddress.value.trim()
 	if (!name) {
+		alert('Please enter a church name')
 		return
 	}
-	items.value.push(name)
-	newName.value = ''
+	if (!barangayId.value) {
+		alert('Barangay not found')
+		return
+	}
+	
+	loading.value = true
+	try {
+		const { data, error } = await supabase
+			.from('Church')
+			.insert([
+				{ churchName: name, churchAddress: address, brgy_id: barangayId.value }
+			])
+			.select()
+		
+		if (error) throw error
+		
+		if (data && data.length > 0) {
+			items.value.push(data[0])
+		}
+		newName.value = ''
+		newAddress.value = ''
+		showAddForm.value = false
+	} catch (error) {
+		console.error('Error adding church:', error)
+		alert('Failed to add church. Please try again.')
+	} finally {
+		loading.value = false
+	}
 }
 
-const startEdit = (index) => {
-	editingIndex.value = index
-	editingName.value = items.value[index]
+const startEdit = (id) => {
+	const item = items.value.find(i => i.id === id)
+	if (item) {
+		editingId.value = id
+		editingName.value = item.churchName
+	}
 }
 
-const saveEdit = () => {
-	if (editingIndex.value === null) {
+const saveEdit = async () => {
+	if (editingId.value === null) {
 		return
 	}
 	const name = editingName.value.trim()
 	if (!name) {
 		return
 	}
-	items.value.splice(editingIndex.value, 1, name)
-	editingIndex.value = null
-	editingName.value = ''
-}
-
-const cancelEdit = () => {
-	editingIndex.value = null
-	editingName.value = ''
-}
-
-const deleteItem = (index) => {
-	items.value.splice(index, 1)
-	if (editingIndex.value !== null) {
-		editingIndex.value = null
+	
+	loading.value = true
+	try {
+		const { error } = await supabase
+			.from('Church')
+			.update({ churchName: name })
+			.eq('id', editingId.value)
+		
+		if (error) throw error
+		
+		const item = items.value.find(i => i.id === editingId.value)
+		if (item) {
+			item.churchName = name
+		}
+		editingId.value = null
 		editingName.value = ''
+	} catch (error) {
+		console.error('Error updating church:', error)
+		alert('Failed to update church. Please try again.')
+	} finally {
+		loading.value = false
 	}
 }
 
-const openDelete = (index) => {
-	deleteIndex.value = index
-	deleteName.value = items.value[index]
-	showDeleteConfirm.value = true
+const cancelEdit = () => {
+	editingId.value = null
+	editingName.value = ''
+}
+
+const deleteItem = async (id) => {
+	loading.value = true
+	try {
+		const { error } = await supabase
+			.from('Church')
+			.delete()
+			.eq('id', id)
+		
+		if (error) throw error
+		
+		const index = items.value.findIndex(i => i.id === id)
+		if (index !== -1) {
+			items.value.splice(index, 1)
+		}
+		if (editingId.value !== null) {
+			editingId.value = null
+			editingName.value = ''
+		}
+	} catch (error) {
+		console.error('Error deleting church:', error)
+		alert('Failed to delete church. Please try again.')
+	} finally {
+		loading.value = false
+	}
+}
+
+const openDelete = (id) => {
+	const item = items.value.find(i => i.id === id)
+	if (item) {
+		deleteId.value = id
+		deleteName.value = item.churchName
+		showDeleteConfirm.value = true
+	}
 }
 
 const closeDelete = () => {
 	showDeleteConfirm.value = false
-	deleteIndex.value = null
+	deleteId.value = null
 	deleteName.value = ''
 }
 
 const confirmDelete = () => {
-	if (deleteIndex.value === null) {
+	if (deleteId.value === null) {
 		return
 	}
-	deleteItem(deleteIndex.value)
+	deleteItem(deleteId.value)
 	closeDelete()
 }
 </script>

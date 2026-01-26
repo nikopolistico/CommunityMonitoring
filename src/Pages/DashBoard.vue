@@ -179,9 +179,12 @@
                   id="barangay-select"
                   v-model="selectedBarangay"
                   required
-                  class="px-4 py-3 rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white font-semibold focus:outline-none focus:ring-2 focus:ring-white focus:bg-white/20 transition-all duration-300 cursor-pointer hover:bg-white/15"
+                  :disabled="loading"
+                  class="px-4 py-3 rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white font-semibold focus:outline-none focus:ring-2 focus:ring-white focus:bg-white/20 transition-all duration-300 cursor-pointer hover:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <option disabled value="">Select a barangay</option>
+                  <option disabled value="">
+                    {{ loading ? 'Loading barangays...' : 'Select a barangay' }}
+                  </option>
                   <option
                     v-for="option in barangayOptions"
                     :key="option.value"
@@ -290,48 +293,57 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { GoogleMap, Marker, InfoWindow } from 'vue3-google-map'
 import headbk from '@/assets/landing.jpg'
+import { supabase } from '@/lib/supabase'
 
 const router = useRouter()
 const googleApiKey = 'AIzaSyDqcnq11WukBkYCzu13zloxQi_YjUpsA14'
 const defaultCenter = { lat: 8.9475, lng: 125.5279 }
 const sidebarOpen = ref(false)
 
-const barangayOptions = [
-  { value: 'agao', label: 'Agao' },
-  { value: 'baan-km-3', label: 'Baan KM 3' },
-  { value: 'bansa', label: 'Bansa' },
-  { value: 'bit-os', label: 'Bit-os' },
-  { value: 'buhangin', label: 'Buhangin' },
-  { value: 'dagohoy', label: 'Dagohoy' },
-  { value: 'silongan', label: 'Silongan' },
-  { value: 'diego-silang', label: 'Diego Silang' },
-  { value: 'golden-ribbon', label: 'Golden Ribbon' },
-  { value: 'imadejas', label: 'Imadejas' },
-  { value: 'jp-rizal', label: 'JP Rizal' },
-  { value: 'lapu-lapu', label: 'Lapu-Lapu' },
-  { value: 'leon-kilat', label: 'Leon Kilat' },
-  { value: 'mahay', label: 'Mahay' },
-  { value: 'mahogany', label: 'Mahogany' },
-  { value: 'maon', label: 'Maon' },
-  { value: 'maug', label: 'Maug' },
-  { value: 'new-society-village', label: 'New Society Village' },
-  { value: 'pangabugan', label: 'Pangabugan' },
-  { value: 'raja-humabon', label: 'Raja Humabon' },
-  { value: 'raja-soliman', label: 'Raja Soliman' },
-  { value: 'river-side', label: 'River Side' },
-  { value: 'san-ignacio', label: 'San Ignacio' },
-  { value: 'san-vicente', label: 'San Vicente' },
-  { value: 'sikatuna', label: 'Sikatuna' },
-  { value: 'tandang-sora', label: 'Tandang Sora' },
-  { value: 'urduja', label: 'Urduja' },
-  { value: 'villa-kanangga', label: 'Villa Kanangga' },
-]
-
+const barangayOptions = ref([])
+const loading = ref(false)
 const selectedBarangay = ref('')
+
+// Fetch barangays from Supabase
+const fetchBarangays = async () => {
+  loading.value = true
+  try {
+    const { data, error } = await supabase
+      .from('Barangays')
+      .select('brgyname')
+      .order('brgyname', { ascending: true })
+    
+    if (error) throw error
+    
+    if (data) {
+      barangayOptions.value = data.map(item => {
+        // Convert brgyname to kebab-case for value
+        const value = item.brgyname
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^\w-]/g, '')
+        
+        return {
+          value: value,
+          label: item.brgyname
+        }
+      })
+    }
+  } catch (error) {
+    console.error('Error fetching barangays:', error)
+    alert('Failed to load barangays. Please refresh the page.')
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  fetchBarangays()
+})
 
 const viewCommunity = (location) => {
   if (!selectedBarangay.value) {
@@ -340,7 +352,7 @@ const viewCommunity = (location) => {
 
   router.push({
     name: 'CommunityView',
-    params: { barangayId: selectedBarangay.value },
+    params: { barangayName: selectedBarangay.value },
     query: {
       location: location.name,
       type: 'barangay',
@@ -348,50 +360,52 @@ const viewCommunity = (location) => {
   })
 }
 
-const barangayData = barangayOptions.reduce((acc, option, index) => {
-  const row = Math.floor(index / 7)
-  const col = index % 7
-  const latOffset = (row - 2) * 0.01
-  const lngOffset = (col - 3) * 0.01
-  const center = {
-    lat: Number((defaultCenter.lat + latOffset).toFixed(6)),
-    lng: Number((defaultCenter.lng + lngOffset).toFixed(6)),
-  }
+const barangayData = computed(() => {
+  return barangayOptions.value.reduce((acc, option, index) => {
+    const row = Math.floor(index / 7)
+    const col = index % 7
+    const latOffset = (row - 2) * 0.01
+    const lngOffset = (col - 3) * 0.01
+    const center = {
+      lat: Number((defaultCenter.lat + latOffset).toFixed(6)),
+      lng: Number((defaultCenter.lng + lngOffset).toFixed(6)),
+    }
 
-  // Replace generated coordinates with precise barangay locations when available.
-  acc[option.value] = {
-    name: option.label,
-    center,
-    features: [
-      {
-        name: `${option.label} Highlight`,
-        coordinates: center,
-      },
-    ],
-  }
+    // Replace generated coordinates with precise barangay locations when available.
+    acc[option.value] = {
+      name: option.label,
+      center,
+      features: [
+        {
+          name: `${option.label} Highlight`,
+          coordinates: center,
+        },
+      ],
+    }
 
-  return acc
-}, {})
+    return acc
+  }, {})
+})
 
 const filteredLocations = computed(() => {
   if (!selectedBarangay.value) {
     return []
   }
-  return barangayData[selectedBarangay.value]?.features ?? []
+  return barangayData.value[selectedBarangay.value]?.features ?? []
 })
 
 const currentCenter = computed(() => {
   if (!selectedBarangay.value) {
     return defaultCenter
   }
-  return barangayData[selectedBarangay.value]?.center ?? defaultCenter
+  return barangayData.value[selectedBarangay.value]?.center ?? defaultCenter
 })
 
 const currentBarangayLabel = computed(() => {
   if (!selectedBarangay.value) {
     return 'Select barangay'
   }
-  return barangayData[selectedBarangay.value]?.name ?? selectedBarangay.value
+  return barangayData.value[selectedBarangay.value]?.name ?? selectedBarangay.value
 })
 </script>
 
