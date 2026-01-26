@@ -62,6 +62,19 @@
 									:disabled="loading"
 								/>
 							</label>
+							<label class="block space-y-2">
+								<span class="text-sm font-semibold text-[#002147]">Establishment Image</span>
+								<input
+									type="file"
+									accept="image/*"
+									@change="handleImageChange"
+									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+									:disabled="loading"
+								/>
+							</label>
+							<div v-if="imagePreview" class="mt-2">
+								<img :src="imagePreview" alt="Preview" class="w-full h-48 object-cover rounded-lg border-2 border-gray-300" />
+							</div>
 							<div class="flex gap-2">
 								<button
 									type="button"
@@ -97,18 +110,24 @@
 					<article
 						v-for="(item, index) in filteredItems"
 						:key="item.id || index"
-						class="rounded-xl bg-white border-2 border-[#002147]/15 p-5 shadow-md hover:shadow-lg transition-all duration-300"
-					>
-						<div class="flex items-start gap-3">
-							<div class="p-3 bg-[#002147] text-white rounded-xl shadow">
-								<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-									<path
-										fill-rule="evenodd"
-										d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z"
-										clip-rule="evenodd"
-									/>
-								</svg>
-						</div>
+					class="rounded-xl bg-white border-2 border-[#002147]/15 shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
+				>
+					<!-- Establishment Image -->
+					<div v-if="item.establishmentImages" class="w-full h-48 overflow-hidden">
+						<img :src="item.establishmentImages" :alt="item.establishmentName" class="w-full h-full object-cover" />
+					</div>
+					<div v-else class="w-full h-48 bg-gradient-to-br from-[#002147] to-[#00162f] flex items-center justify-center">
+						<svg class="w-20 h-20 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+							<path
+								fill-rule="evenodd"
+								d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z"
+								clip-rule="evenodd"
+							/>
+						</svg>
+					</div>
+
+					<div class="p-5">
+					<div class="flex items-start gap-3">
 						<div class="flex-1 space-y-2">
 							<div v-if="editingId === item.id" class="space-y-2">
 								<input
@@ -136,25 +155,32 @@
 
 							<div v-else class="space-y-1">
 							<h2 class="text-xl font-bold text-[#002147]">{{ item.establishmentName }}</h2>
-								<p class="text-sm text-gray-600">Part of {{ communityInfo.name }}'s economy.</p>
+								<p class="text-sm text-gray-600">{{ item.establishmentAddress || 'Part of ' + communityInfo.name + "'s economy." }}</p>
 							</div>
 						</div>
 					</div>
-					<div class="mt-4 flex flex-wrap justify-center gap-2">
+					<div class="mt-4 flex flex-wrap justify-end gap-2">
 						<button
 							type="button"
-							class="inline-flex items-center gap-1 rounded-lg bg-white px-3 py-2 text-xs font-bold text-[#002147] border-2 border-[#002147] hover:bg-[#002147]/10 transition"
+							class="inline-flex items-center justify-center rounded-lg bg-white p-2 text-[#002147] border-2 border-[#002147] hover:bg-[#002147]/10 transition"
 							@click="startEdit(item.id)"
+							title="Edit establishment"
 						>
-							Edit
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+							</svg>
 						</button>
 						<button
 							type="button"
-							class="inline-flex items-center gap-1 rounded-lg bg-red-50 px-3 py-2 text-xs font-bold text-red-600 border-2 border-red-200 hover:bg-red-100 transition"
+							class="inline-flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 border-2 border-red-200 hover:bg-red-100 transition"
 							@click="openDelete(item.id)"
+							title="Delete establishment"
 						>
-							Delete
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+							</svg>
 						</button>
+					</div>
 					</div>
 				</article>
 			</div>
@@ -243,6 +269,8 @@ const communityInfo = computed(() => {
 const items = ref([])
 const newName = ref('')
 const newAddress = ref('')
+const newImage = ref(null)
+const imagePreview = ref('')
 const editingId = ref(null)
 const editingName = ref('')
 const showDeleteConfirm = ref(false)
@@ -293,7 +321,7 @@ const fetchEstablishments = async () => {
 	loading.value = true
 	try {
 		const { data, error } = await supabase
-			.from('Establishment')
+			.from('Establishments')
 			.select('*')
 			.eq('brgy_id', barangayId.value)
 		
@@ -316,6 +344,8 @@ watch(
 		editingName.value = ''
 		newName.value = ''
 		newAddress.value = ''
+		newImage.value = null
+		imagePreview.value = ''
 	},
 	{ immediate: true }
 )
@@ -323,6 +353,18 @@ watch(
 onMounted(() => {
 	fetchBarangayId()
 })
+
+const handleImageChange = (event) => {
+	const file = event.target.files[0]
+	if (file) {
+		newImage.value = file
+		const reader = new FileReader()
+		reader.onload = (e) => {
+			imagePreview.value = e.target.result
+		}
+		reader.readAsDataURL(file)
+	}
+}
 
 const goBack = () => {
 	if (barangayName.value) {
@@ -346,10 +388,33 @@ const addItem = async () => {
 	
 	loading.value = true
 	try {
+		let imageUrl = null
+		
+		// Upload image if provided
+		if (newImage.value) {
+			const fileExt = newImage.value.name.split('.').pop()
+			const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`
+			const filePath = fileName
+			
+			const { error: uploadError } = await supabase.storage
+				.from('EstablishmentsImages')
+				.upload(filePath, newImage.value)
+			
+			if (uploadError) throw uploadError
+			
+			// Construct public URL
+			imageUrl = `https://czwunysqbslfczktzjld.supabase.co/storage/v1/object/public/EstablishmentsImages/${fileName}`
+		}
+		
 		const { data, error } = await supabase
-			.from('Establishment')
+			.from('Establishments')
 			.insert([
-				{ establishmentName: name, establishmentAddress: address, brgy_id: barangayId.value }
+				{ 
+					establishmentName: name, 
+					establishmentAddress: address,
+					establishmentImages: imageUrl,
+					brgy_id: barangayId.value 
+				}
 			])
 			.select()
 		
@@ -360,6 +425,8 @@ const addItem = async () => {
 		}
 		newName.value = ''
 		newAddress.value = ''
+		newImage.value = null
+		imagePreview.value = ''
 		showAddForm.value = false
 	} catch (error) {
 		console.error('Error adding establishment:', error)
@@ -389,7 +456,7 @@ const saveEdit = async () => {
 	loading.value = true
 	try {
 		const { error } = await supabase
-			.from('Establishment')
+			.from('Establishments')
 			.update({ establishmentName: name })
 			.eq('id', editingId.value)
 		
@@ -418,7 +485,7 @@ const deleteItem = async (id) => {
 	loading.value = true
 	try {
 		const { error } = await supabase
-			.from('Establishment')
+			.from('Establishments')
 			.delete()
 			.eq('id', id)
 		

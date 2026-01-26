@@ -37,15 +37,15 @@
                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
               </svg>
-              Email / Badge ID
+              Email
             </span>
           </label>
           <input
             v-model="email"
             id="email"
-            type="text"
+            type="email"
             required
-            placeholder="Enter your email or badge ID"
+            placeholder="Enter your email"
             class="w-full px-3 py-2 border border-white/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent bg-white/20 text-white placeholder-white/70 text-sm"
           />
         </div>
@@ -117,9 +117,10 @@
         <!-- Login Button -->
         <button
           type="submit"
-          class="w-full bg-[#004595] text-white border-2 border-white py-2.5 rounded-full hover:bg-white hover:text-[#004595] hover:border-[#004595] transition-all duration-300 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm tracking-widest"
+          :disabled="isLoading"
+          class="w-full bg-[#004595] text-white border-2 border-white py-2.5 rounded-full hover:bg-white hover:text-[#004595] hover:border-[#004595] transition-all duration-300 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm tracking-widest disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Login to Dashboard
+          {{ isLoading ? 'Logging in...' : 'Login to Dashboard' }}
         </button>
       </form>
 
@@ -137,6 +138,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { supabase } from '@/lib/supabase'
 import landingBg from '@/assets/landing.jpg'
 import logo from '@/assets/BCPO 1 LOGO.png'
 
@@ -144,13 +146,28 @@ const router = useRouter()
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
+const isLoading = ref(false)
 
-function handleLogin() {
+async function handleLogin() {
   if (!email.value || !password.value) return alert('Please fill in all fields.')
-  console.log(`Badge ID/Email: ${email.value}`)
-  console.log('Attempting login to Barangay Monitoring System...')
-  alert(`Welcome Officer!\nAccessing 28 Barangays Monitoring Dashboard...`)
-  router.push({ name: 'dashboard' })
+  
+  isLoading.value = true
+  
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email.value,
+      password: password.value,
+    })
+    
+    console.log('Login successful:', data)
+    alert(`Welcome Officer ${data.name || data.email}!\nAccessing 28 Barangays Monitoring Dashboard...`)
+    router.push({ name: 'dashboard' })
+  } catch (err) {
+    console.error('Login error:', err)
+    alert('An error occurred during login. Please try again.')
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>
 

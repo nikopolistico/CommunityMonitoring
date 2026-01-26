@@ -3,9 +3,13 @@ import LoginPage from '@/Authentication/LoginPage.vue'
 import Dashboard from '@/Pages/DashBoard.vue'
 import CommunityView from '@/Pages/CommunityView.vue'
 import LandingPage from '@/Pages/LandingPage.vue'
+import Calendar from '@/Pages/CalendarView.vue'
+
+
 import Schools from '@/Components/Schools.vue'
 import Churches from '@/Components/Churches.vue'
 import Establishments from '@/Components/Establishments.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,7 +24,8 @@ const router = createRouter({
       path: '/community/:barangayName/establishments',
       component: Establishments,
     },
-    { name: 'landing', path: '/', component: LandingPage}
+    { name: 'landing', path: '/', component: LandingPage },
+    { name: 'calendar', path: '/calendar', component: Calendar},
   ],
 })
 
