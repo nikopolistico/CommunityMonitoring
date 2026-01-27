@@ -152,6 +152,7 @@
       <!-- Logout Button -->
       <div class="p-4 border-t border-white/10">
         <button
+          @click="showLogoutModal = true"
           class="w-full flex items-center justify-center p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#002147] text-white border-2 border-white/30 hover:border-white transition-all duration-300 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
         >
           <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -524,6 +525,90 @@
         </div>
       </div>
     </div>
+
+    <!-- Logout Confirmation Modal -->
+    <Transition name="modal-fade">
+      <div
+        v-if="showLogoutModal"
+        @click.self="showLogoutModal = false"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+      >
+        <Transition name="modal-scale">
+          <div
+            v-if="showLogoutModal"
+            class="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden relative"
+          >
+            <!-- Modal Header with Icon -->
+            <div class="bg-gradient-to-br from-[#002147] to-[#004595] p-6 text-center relative">
+              <!-- Decorative circles -->
+              <div class="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full -mr-10 -mt-10"></div>
+              <div class="absolute bottom-0 left-0 w-16 h-16 bg-white/5 rounded-full -ml-8 -mb-8"></div>
+              
+              <div class="relative">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full mb-3 animate-pulse">
+                  <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fill-rule="evenodd"
+                      d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <h2 class="text-xl font-bold text-white mb-1">Logout Confirmation</h2>
+                <p class="text-white/80 text-sm">End your session?</p>
+              </div>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6">
+              <!-- Loading State Overlay -->
+              <div
+                v-if="isLoggingOut"
+                class="absolute inset-0 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center z-10 rounded-2xl"
+              >
+                <div class="text-center">
+                  <!-- Animated Spinner -->
+                  <div class="relative w-16 h-16 mx-auto mb-4">
+                    <div class="absolute inset-0 border-4 border-[#f3f1ee] rounded-full"></div>
+                    <div class="absolute inset-0 border-4 border-[#004595] rounded-full border-t-transparent animate-spin"></div>
+                  </div>
+                  
+                  <!-- Loading Text with Animation -->
+                  <p class="text-[#002147] font-semibold text-lg mb-1 animate-pulse">
+                    Logging out
+                  </p>
+                  <p class="text-gray-500 text-sm">
+                    Please wait...
+                  </p>
+                </div>
+              </div>
+
+              <p class="text-center text-gray-600 text-sm mb-6">
+                You're about to logout from your account. You'll need to sign in again to access the dashboard.
+              </p>
+
+              <!-- Action Buttons -->
+              <div class="flex gap-3">
+                <button
+                  @click="showLogoutModal = false"
+                  :disabled="isLoggingOut"
+                  class="flex-1 px-4 py-2.5 rounded-lg border-2 border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                >
+                  Cancel
+                </button>
+                <button
+                  @click="handleLogout"
+                  :disabled="isLoggingOut"
+                  class="flex-1 px-4 py-2.5 rounded-lg bg-gradient-to-r from-[#002147] to-[#004595] text-white font-semibold hover:from-[#00397a] hover:to-[#002147] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 disabled:opacity-90 disabled:cursor-not-allowed disabled:transform-none"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        </Transition>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -540,6 +625,8 @@ const defaultCenter = { lat: 8.9475, lng: 125.5279 }
 const sidebarOpen = ref(false)
 const settingsOpen = ref(false)
 const activeTab = ref('faqs')
+const showLogoutModal = ref(false)
+const isLoggingOut = ref(false)
 
 const barangayOptions = ref([])
 const loading = ref(false)
@@ -581,6 +668,32 @@ const fetchBarangays = async () => {
 onMounted(() => {
   fetchBarangays()
 })
+
+const handleLogout = async () => {
+  isLoggingOut.value = true
+  
+  try {
+    // Add a small delay for better UX (showing loading state)
+    await new Promise(resolve => setTimeout(resolve, 800))
+    
+    // Sign out from Supabase
+    const { error } = await supabase.auth.signOut()
+    
+    if (error) {
+      console.error('Error logging out:', error)
+      alert('An error occurred while logging out. Please try again.')
+      isLoggingOut.value = false
+      return
+    }
+    
+    // Redirect to login page
+    router.push({ name: 'login' })
+  } catch (error) {
+    console.error('Unexpected error during logout:', error)
+    alert('An unexpected error occurred. Please try again.')
+    isLoggingOut.value = false
+  }
+}
 
 const viewCommunity = (location) => {
   if (!selectedBarangay.value) {
@@ -661,5 +774,35 @@ select option:hover {
 select option:checked {
   background-color: #004595;
   font-weight: bold;
+}
+
+/* Modal Fade Transition */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
+/* Modal Scale Transition */
+.modal-scale-enter-active {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-scale-leave-active {
+  transition: all 0.2s ease-in;
+}
+
+.modal-scale-enter-from {
+  opacity: 0;
+  transform: scale(0.8) translateY(-20px);
+}
+
+.modal-scale-leave-to {
+  opacity: 0;
+  transform: scale(0.9) translateY(10px);
 }
 </style>
