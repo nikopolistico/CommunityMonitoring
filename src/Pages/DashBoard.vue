@@ -61,12 +61,22 @@
       <nav class="flex-1 p-4">
         <ul class="space-y-2">
           <li>
-            <a
-              href="#"
-              class="group flex items-center p-3 rounded-xl bg-white/10 hover:bg-white/20 transition-all duration-300 transform hover:translate-x-1 border-l-4 border-[#004595]"
+            <button
+              @click="settingsOpen = false"
+              :class="[
+                'w-full group flex items-center p-3 rounded-xl transform hover:translate-x-1',
+                !settingsOpen 
+                  ? 'bg-white/10 hover:bg-white/20 border-l-4 border-[#004595] transition-all duration-300' 
+                  : 'transition-none'
+              ]"
             >
               <div
-                class="p-2 bg-white/10 rounded-lg mr-3 group-hover:bg-white/20 transition-colors"
+                :class="[
+                  'p-2 rounded-lg mr-3',
+                  !settingsOpen 
+                    ? 'bg-white/10 group-hover:bg-white/20 transition-colors duration-300' 
+                    : 'transition-none'
+                ]"
               >
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -75,15 +85,26 @@
                 </svg>
               </div>
               <span class="font-semibold">Dashboard</span>
-            </a>
+            </button>
           </li>
           <li>
             <router-link
               to="/calendar"
-              class="group flex items-center p-3 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:translate-x-1"
+              @click="settingsOpen = false"
+              :class="[
+                'group flex items-center p-3 rounded-xl transform hover:translate-x-1',
+                settingsOpen 
+                  ? 'transition-none' 
+                  : 'transition-all duration-300 router-link-active:bg-white/10 router-link-active:hover:bg-white/20 router-link-active:border-l-4 router-link-active:border-[#004595]'
+              ]"
             >
               <div
-                class="p-2 bg-transparent rounded-lg mr-3 group-hover:bg-white/10 transition-colors"
+                :class="[
+                  'p-2 rounded-lg mr-3',
+                  settingsOpen 
+                    ? 'transition-none' 
+                    : 'transition-colors duration-300 router-link-active:bg-white/10'
+                ]"
               >
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -97,12 +118,22 @@
             </router-link>
           </li>
           <li>
-            <a
-              href="#"
-              class="group flex items-center p-3 rounded-xl hover:bg-white/10 transition-all duration-300 transform hover:translate-x-1"
+            <button
+              @click="settingsOpen = true"
+              :class="[
+                'w-full group flex items-center p-3 rounded-xl transform hover:translate-x-1',
+                settingsOpen 
+                  ? 'bg-white/10 hover:bg-white/20 border-l-4 border-[#004595] transition-all duration-300' 
+                  : 'transition-none'
+              ]"
             >
               <div
-                class="p-2 bg-transparent rounded-lg mr-3 group-hover:bg-white/10 transition-colors"
+                :class="[
+                  'p-2 rounded-lg mr-3',
+                  settingsOpen 
+                    ? 'bg-white/10 group-hover:bg-white/20 transition-colors duration-300' 
+                    : 'transition-none'
+                ]"
               >
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -113,7 +144,7 @@
                 </svg>
               </div>
               <span class="font-semibold">Settings</span>
-            </a>
+            </button>
           </li>
         </ul>
       </nav>
@@ -289,6 +320,210 @@
         </div>
       </div>
     </main>
+
+    <!-- Settings Modal -->kua
+    <div
+      v-if="settingsOpen"
+      @click.self="settingsOpen = false"
+      class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
+    >
+      <div
+        class="bg-white rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col"
+      >
+        <!-- Modal Header -->
+        <div class="bg-gradient-to-r from-[#002147] to-[#004595] p-6 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="p-2 bg-white/20 backdrop-blur-sm rounded-lg">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-white">Settings</h2>
+          </div>
+          <button
+            @click="settingsOpen = false"
+            class="p-2 hover:bg-white/20 rounded-lg transition-colors"
+          >
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Modal Content -->
+        <div class="flex-1 overflow-y-auto p-6">
+          <!-- Tabs -->
+          <div class="flex gap-2 mb-6 border-b-2 border-gray-200">
+            <button
+              @click="activeTab = 'faqs'"
+              :class="[
+                'px-6 py-3 font-semibold rounded-t-lg transition-all',
+                activeTab === 'faqs'
+                  ? 'bg-[#004595] text-white'
+                  : 'text-gray-600 hover:bg-gray-100'
+              ]"
+            >
+              FAQs
+            </button>
+            <button
+              @click="activeTab = 'terms'"
+              :class="[
+                'px-6 py-3 font-semibold rounded-t-lg transition-all',
+                activeTab === 'terms'
+                  ? 'bg-[#004595] text-white'
+                  : 'text-gray-600 hover:bg-gray-100'
+              ]"
+            >
+              Terms & Conditions
+            </button>
+          </div>
+
+          <!-- FAQs Tab -->
+          <div v-if="activeTab === 'faqs'" class="space-y-4">
+            <h3 class="text-xl font-bold text-[#002147] mb-4">Frequently Asked Questions</h3>
+            
+            <div class="space-y-3">
+              <div class="bg-[#f3f1ee] rounded-lg p-4">
+                <h4 class="font-bold text-[#004595] mb-2">What is the Community Monitoring System?</h4>
+                <p class="text-gray-700">
+                  The Community Monitoring System is a comprehensive platform designed to help officers track and monitor community establishments, schools, churches, and other important locations across the 28 barangays of Butuan City.
+                </p>
+              </div>
+
+              <div class="bg-[#f3f1ee] rounded-lg p-4">
+                <h4 class="font-bold text-[#004595] mb-2">How do I select a barangay?</h4>
+                <p class="text-gray-700">
+                  Use the dropdown menu in the header section to select a barangay. Once selected, the map will display all monitored locations within that barangay.
+                </p>
+              </div>
+
+              <div class="bg-[#f3f1ee] rounded-lg p-4">
+                <h4 class="font-bold text-[#004595] mb-2">How do I view community information?</h4>
+                <p class="text-gray-700">
+                  Click on any marker on the map to see a preview. Then click the "View Community Info" button to see detailed information about that location including establishments, schools, and churches.
+                </p>
+              </div>
+
+              <div class="bg-[#f3f1ee] rounded-lg p-4">
+                <h4 class="font-bold text-[#004595] mb-2">Can I access the calendar view?</h4>
+                <p class="text-gray-700">
+                  Yes! Click on the "Calendar" option in the sidebar to view scheduled events and activities for community monitoring.
+                </p>
+              </div>
+
+              <div class="bg-[#f3f1ee] rounded-lg p-4">
+                <h4 class="font-bold text-[#004595] mb-2">Is my data secure?</h4>
+                <p class="text-gray-700">
+                  Yes, all data is securely stored and protected. Only authorized officers with valid credentials can access the system.
+                </p>
+              </div>
+
+              <div class="bg-[#f3f1ee] rounded-lg p-4">
+                <h4 class="font-bold text-[#004595] mb-2">What browsers are supported?</h4>
+                <p class="text-gray-700">
+                  The system works best on modern browsers including Google Chrome, Mozilla Firefox, Microsoft Edge, and Safari. Please ensure your browser is up to date.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Terms Tab -->
+          <div v-if="activeTab === 'terms'" class="space-y-4">
+            <h3 class="text-xl font-bold text-[#002147] mb-4">Terms and Conditions</h3>
+            
+            <div class="space-y-4 text-gray-700">
+              <div>
+                <h4 class="font-bold text-[#004595] mb-2">1. Acceptance of Terms</h4>
+                <p>
+                  By accessing and using the Butuan City Community Monitoring System, you acknowledge that you have read, understood, and agree to be bound by these terms and conditions.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-[#004595] mb-2">2. User Responsibilities</h4>
+                <p>
+                  Users are responsible for maintaining the confidentiality of their login credentials. Officers must ensure that all information entered into the system is accurate and up-to-date. Unauthorized access or misuse of the system is strictly prohibited.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-[#004595] mb-2">3. Data Privacy</h4>
+                <p>
+                  We are committed to protecting your privacy. All personal and community data collected through this system will be handled in accordance with the Data Privacy Act of 2012 (Republic Act No. 10173). Information will only be used for official monitoring and reporting purposes.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-[#004595] mb-2">4. Authorized Use</h4>
+                <p>
+                  This system is exclusively for authorized officers of Butuan City. Access is granted solely for official community monitoring purposes. Any attempt to use the system for personal gain or unauthorized purposes will result in immediate account suspension and possible legal action.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-[#004595] mb-2">5. Data Accuracy</h4>
+                <p>
+                  While we strive to maintain accurate and current information, the system administrators do not guarantee the absolute accuracy of all data. Officers should verify critical information through official channels when necessary.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-[#004595] mb-2">6. System Availability</h4>
+                <p>
+                  We aim to provide continuous access to the system. However, we reserve the right to suspend or terminate access for maintenance, updates, or security reasons. Users will be notified of scheduled maintenance when possible.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-[#004595] mb-2">7. Prohibited Activities</h4>
+                <p>
+                  Users must not: (a) attempt to gain unauthorized access to the system, (b) interfere with the proper functioning of the system, (c) share login credentials with unauthorized individuals, (d) use the system for any illegal purpose, or (e) extract or copy data for unauthorized distribution.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-[#004595] mb-2">8. Modifications to Terms</h4>
+                <p>
+                  These terms and conditions may be updated from time to time. Users will be notified of any significant changes. Continued use of the system after modifications constitutes acceptance of the updated terms.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-[#004595] mb-2">9. Limitation of Liability</h4>
+                <p>
+                  The Butuan City government and system administrators shall not be held liable for any direct or indirect damages resulting from the use or inability to use this system, including but not limited to data loss, system errors, or service interruptions.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-[#004595] mb-2">10. Contact Information</h4>
+                <p>
+                  For questions, concerns, or technical support regarding these terms or the system, please contact the Butuan City Community Monitoring Office through official channels.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="border-t border-gray-200 p-6 bg-gray-50">
+          <button
+            @click="settingsOpen = false"
+            class="w-full bg-[#004595] hover:bg-[#00397a] text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -303,6 +538,8 @@ const router = useRouter()
 const googleApiKey = 'AIzaSyDqcnq11WukBkYCzu13zloxQi_YjUpsA14'
 const defaultCenter = { lat: 8.9475, lng: 125.5279 }
 const sidebarOpen = ref(false)
+const settingsOpen = ref(false)
+const activeTab = ref('faqs')
 
 const barangayOptions = ref([])
 const loading = ref(false)
