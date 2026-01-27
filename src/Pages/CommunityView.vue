@@ -40,7 +40,7 @@
 
         <!-- Barangay Captain Profile Card -->
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden border-2 border-white/50">
-          <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4">
+          <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4 flex items-center justify-between gap-4">
             <h2 class="text-2xl font-bold text-white flex items-center gap-2">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                 <path
@@ -51,6 +51,18 @@
               </svg>
               Barangay Captain
             </h2>
+            <button
+              type="button"
+              class="inline-flex items-center gap-2 rounded-full border-2 border-white/60 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white hover:text-[#004595] focus:outline-none focus:ring-2 focus:ring-white/70 disabled:cursor-not-allowed disabled:opacity-50"
+              @click="openEditModal"
+              :disabled="loadingCaptain || !captainId"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a1 1 0 001 1h11a2 2 0 002-2v-5" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+              </svg>
+              Edit Captain
+            </button>
           </div>
 
           <div class="p-6">
@@ -328,6 +340,115 @@
             available.
           </p>
         </div>
+
+        <!-- Edit Captain Modal -->
+        <div
+          v-if="isEditOpen"
+          class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div class="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl">
+            <button
+              type="button"
+              class="absolute right-3 top-3 rounded-full p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#004595]/50"
+              @click="closeEditModal"
+              :disabled="savingCaptain"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <h3 class="text-xl font-bold text-[#002147] mb-1">Edit Barangay Captain</h3>
+            <p class="text-sm text-gray-600 mb-4">Changes will be saved to Supabase for this barangay.</p>
+
+            <form class="space-y-4" @submit.prevent="saveCaptain">
+              <div class="space-y-1">
+                <label class="text-sm font-semibold text-gray-700" for="captain-name">Full Name</label>
+                <input
+                  id="captain-name"
+                  v-model="editForm.name"
+                  type="text"
+                  class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm shadow-inner focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/30"
+                  placeholder="Juan Dela Cruz"
+                  required
+                />
+              </div>
+
+              <div class="grid gap-4 md:grid-cols-2">
+                <div class="space-y-1">
+                  <label class="text-sm font-semibold text-gray-700" for="captain-phone">Phone</label>
+                  <input
+                    id="captain-phone"
+                    v-model="editForm.phone"
+                    type="text"
+                    class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm shadow-inner focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/30"
+                    placeholder="+63 912 345 6789"
+                  />
+                </div>
+                <div class="space-y-1">
+                  <label class="text-sm font-semibold text-gray-700" for="captain-email">Email</label>
+                  <input
+                    id="captain-email"
+                    v-model="editForm.email"
+                    type="email"
+                    class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm shadow-inner focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/30"
+                    placeholder="captain@barangay.gov.ph"
+                  />
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-sm font-semibold text-gray-700" for="captain-hours">Office Hours</label>
+                <input
+                  id="captain-hours"
+                  v-model="editForm.officeHours"
+                  type="text"
+                  class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm shadow-inner focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/30"
+                  placeholder="Mon-Fri, 8AM-5PM"
+                />
+              </div>
+
+              <p v-if="saveError" class="rounded-lg bg-red-50 px-3 py-2 text-sm font-semibold text-red-600">
+                {{ saveError }}
+              </p>
+
+              <div class="flex items-center justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  class="rounded-full px-4 py-2 text-sm font-semibold text-gray-600 transition hover:bg-gray-100"
+                  @click="closeEditModal"
+                  :disabled="savingCaptain"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="inline-flex items-center gap-2 rounded-full bg-[#004595] px-5 py-2 text-sm font-semibold text-white shadow-lg transition hover:bg-[#00397a] focus:outline-none focus:ring-2 focus:ring-[#004595]/70 disabled:cursor-not-allowed disabled:opacity-60"
+                  :disabled="savingCaptain"
+                >
+                  <svg
+                    v-if="savingCaptain"
+                    class="h-4 w-4 animate-spin"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      class="opacity-25"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 4v4m0 8v4m8-8h-4M8 12H4m12.364-5.364l-2.828 2.828M9.464 14.536l-2.828 2.828m0-11.313l2.828 2.828m8.486 8.486l-2.828-2.828"
+                    />
+                  </svg>
+                  <span>{{ savingCaptain ? 'Saving...' : 'Save Changes' }}</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </section>
 
       <section
@@ -382,6 +503,16 @@ const captainInfo = ref({
   officeHours: 'Loading...',
 })
 const loadingCaptain = ref(false)
+const captainId = ref(null)
+const isEditOpen = ref(false)
+const editForm = ref({
+  name: '',
+  phone: '',
+  email: '',
+  officeHours: '',
+})
+const savingCaptain = ref(false)
+const saveError = ref('')
 
 // Fetch Barangay Captain information
 const fetchCaptainInfo = async () => {
@@ -397,6 +528,7 @@ const fetchCaptainInfo = async () => {
       .single()
 
     if (barangayError) throw barangayError
+    captainId.value = barangayData?.cpt_id ?? null
     
     if (barangayData && barangayData.cpt_id) {
       // Then fetch the captain details using cpt_id
@@ -420,6 +552,7 @@ const fetchCaptainInfo = async () => {
     }
   } catch (error) {
     console.error('Error fetching captain info:', error)
+    captainId.value = null
     // Keep default values on error
     captainInfo.value = {
       name: 'Hon. Juan Dela Cruz',
@@ -429,6 +562,62 @@ const fetchCaptainInfo = async () => {
     }
   } finally {
     loadingCaptain.value = false
+  }
+}
+
+const openEditModal = () => {
+  if (loadingCaptain.value) return
+  saveError.value = ''
+  editForm.value = { ...captainInfo.value }
+  isEditOpen.value = true
+}
+
+const closeEditModal = () => {
+  if (savingCaptain.value) return
+  isEditOpen.value = false
+}
+
+const saveCaptain = async () => {
+  if (!captainId.value) {
+    saveError.value = 'No captain record found for this barangay.'
+    return
+  }
+
+  savingCaptain.value = true
+  saveError.value = ''
+
+  try {
+    const updates = {
+      fullname: editForm.value.name?.trim(),
+      phone: editForm.value.phone?.trim(),
+      email: editForm.value.email?.trim(),
+      office_hours: editForm.value.officeHours?.trim(),
+    }
+
+    const { data, error } = await supabase
+      .from('BrgyCaptain')
+      .update(updates)
+      .eq('id', captainId.value)
+      .select('*')
+      .single()
+
+    if (error) throw error
+
+    if (data) {
+      captainInfo.value = {
+        name: data.fullname || captainInfo.value.name,
+        phone: data.phone || captainInfo.value.phone,
+        email: data.email || captainInfo.value.email,
+        officeHours: data.office_hours || captainInfo.value.officeHours,
+      }
+    }
+
+    isEditOpen.value = false
+  } catch (error) {
+    console.error('Error updating captain info:', error)
+    saveError.value = 'Failed to save changes. Please try again.'
+  } finally {
+    savingCaptain.value = false
   }
 }
 
