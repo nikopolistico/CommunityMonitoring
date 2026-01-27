@@ -102,7 +102,7 @@
 								</button>
 							</div>
 						</div>
-						<p class="text-xs text-gray-500">Changes are saved to Supabase database.</p>
+						<p class="text-xs text-gray-500">Changes are saved to Supabase database.</p> 
 					</div>
 
 				<div class="grid gap-5 md:grid-cols-2">
@@ -166,6 +166,17 @@
 						</div>
 					</div>
 					<div class="mt-4 flex flex-wrap justify-end gap-2">
+						<button
+							type="button"
+							class="inline-flex items-center justify-center rounded-lg bg-white p-2 text-[#004595] border-2 border-[#004595] hover:bg-[#004595]/10 transition"
+							@click="openDetails(item)"
+							title="View details"
+						>
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+							</svg>
+						</button>
 							<button
 								type="button"
 								class="inline-flex items-center justify-center rounded-lg bg-white p-2 text-[#004595] border-2 border-[#004595] hover:bg-[#004595]/10 transition"
@@ -231,6 +242,49 @@
 						</div>
 					</div>
 				</div>
+
+				<div
+					v-if="showDetails"
+					class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
+					role="dialog"
+					aria-modal="true"
+				>
+					<div class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl space-y-4">
+						<div class="flex items-start gap-4">
+							<div class="p-2 bg-blue-100 text-[#004595] rounded-lg">
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+								</svg>
+							</div>
+							<div class="flex-1 space-y-1">
+								<h3 class="text-lg font-bold text-[#004595]">{{ detailsItem?.schoolName }}</h3>
+								<p class="text-sm text-gray-700">{{ detailsItem?.schoolAddress || 'No address provided.' }}</p>
+							</div>
+						</div>
+						<div class="grid gap-3 text-sm text-gray-700">
+							<div>
+								<span class="font-semibold text-[#004595]">Principal:</span>
+								<span>{{ detailsItem?.principal || 'Not provided.' }}</span>
+							</div>
+							<div>
+								<span class="font-semibold text-[#004595]">Teachers:</span>
+								<span>
+									{{ Array.isArray(detailsItem?.teachers) ? detailsItem?.teachers.join(', ') : (detailsItem?.teachers || 'Not provided.') }}
+								</span>
+							</div>
+						</div>
+						<div class="flex justify-end">
+							<button
+								type="button"
+								class="inline-flex items-center gap-1 rounded-lg bg-[#004595] px-4 py-2 text-sm font-bold text-white hover:bg-[#00326b] border-2 border-[#004595] transition"
+								@click="closeDetails"
+							>
+								Close
+							</button>
+						</div>
+					</div>
+				</div>
 			</section>
 
 			<section
@@ -283,6 +337,8 @@ const editingName = ref('')
 const showDeleteConfirm = ref(false)
 const deleteId = ref(null)
 const deleteName = ref('')
+const showDetails = ref(false)
+const detailsItem = ref(null)
 const loading = ref(false)
 const showAddForm = ref(false)
 const searchQuery = ref('')
@@ -537,5 +593,15 @@ const confirmDelete = () => {
 	}
 	deleteItem(deleteId.value)
 	closeDelete()
+}
+
+const openDetails = (item) => {
+	detailsItem.value = item
+	showDetails.value = true
+}
+
+const closeDetails = () => {
+	showDetails.value = false
+	detailsItem.value = null
 }
 </script>

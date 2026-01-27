@@ -62,6 +62,59 @@
 									:disabled="loading"
 								/>
 							</label>
+							<div class="grid gap-3 md:grid-cols-2">
+			
+								<label class="block space-y-2">
+									<span class="text-sm font-semibold text-[#002147]">Manager Name</span>
+									<input
+										v-model="newManagerName"
+										type="text"
+										placeholder="Enter manager name"
+										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+										:disabled="loading"
+									/>
+								</label>
+								<label class="block space-y-2">
+									<span class="text-sm font-semibold text-[#002147]">Owner Contact Number</span>
+									<input
+										v-model="newOwnerContact"
+										type="text"
+										placeholder="Enter owner contact"
+										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+										:disabled="loading"
+									/>
+								</label>
+								<label class="block space-y-2">
+									<span class="text-sm font-semibold text-[#002147]">Manager Contact Number</span>
+									<input
+										v-model="newManagerContact"
+										type="text"
+										placeholder="Enter manager contact"
+										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+										:disabled="loading"
+									/>
+								</label>
+								<label class="block space-y-2">
+									<span class="text-sm font-semibold text-[#002147]">Owner Email</span>
+									<input
+										v-model="newOwnerEmail"
+										type="email"
+										placeholder="Enter owner email"
+										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+										:disabled="loading"
+									/>
+								</label>
+								<label class="block space-y-2">
+									<span class="text-sm font-semibold text-[#002147]">Manager Email</span>
+									<input
+										v-model="newManagerEmail"
+										type="email"
+										placeholder="Enter manager email"
+										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+										:disabled="loading"
+									/>
+								</label>
+							</div>
 							<label class="block space-y-2">
 								<span class="text-sm font-semibold text-[#002147]">Establishment Image</span>
 								<input
@@ -163,6 +216,17 @@
 						<button
 							type="button"
 							class="inline-flex items-center justify-center rounded-lg bg-white p-2 text-[#002147] border-2 border-[#002147] hover:bg-[#002147]/10 transition"
+							@click="openDetails(item)"
+							title="View details"
+						>
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+							</svg>
+						</button>
+						<button
+							type="button"
+							class="inline-flex items-center justify-center rounded-lg bg-white p-2 text-[#002147] border-2 border-[#002147] hover:bg-[#002147]/10 transition"
 							@click="startEdit(item.id)"
 							title="Edit establishment"
 						>
@@ -225,6 +289,68 @@
 					</div>
 				</div>
 			</div>
+
+			<div
+				v-if="showDetails"
+				class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
+				role="dialog"
+				aria-modal="true"
+			>
+				<div class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl space-y-4">
+					<div class="flex items-start gap-4">
+						<div class="p-2 bg-blue-100 text-[#002147] rounded-lg">
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+							</svg>
+						</div>
+						<div class="flex-1 space-y-3">
+							<div>
+								<h3 class="text-lg font-bold text-[#002147]">{{ detailsItem?.establishmentName }}</h3>
+								<p class="text-sm text-gray-700">{{ detailsItem?.establishmentAddress || 'No address provided.' }}</p>
+							</div>
+							<div class="grid gap-2 text-sm text-gray-700">
+		
+								<div>
+									<span class="font-semibold text-[#002147]">Owner Contact:</span>
+									<span>{{ detailsItem?.ownerContact || 'Not provided.' }}</span>
+								</div>
+								<div>
+									<span class="font-semibold text-[#002147]">Owner Email:</span>
+									<span>{{ detailsItem?.ownerEmail || 'Not provided.' }}</span>
+								</div>
+								<div>
+									<span class="font-semibold text-[#002147]">Manager:</span>
+									<span>{{ detailsItem?.managerName || 'Not provided.' }}</span>
+								</div>
+								<div>
+									<span class="font-semibold text-[#002147]">Manager Contact:</span>
+									<span>{{ detailsItem?.managerContact || 'Not provided.' }}</span>
+								</div>
+								<div>
+									<span class="font-semibold text-[#002147]">Manager Email:</span>
+									<span>{{ detailsItem?.managerEmail || 'Not provided.' }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div v-if="detailsItem?.establishmentImages" class="rounded-xl overflow-hidden border border-gray-200">
+						<img :src="detailsItem.establishmentImages" :alt="detailsItem.establishmentName" class="w-full h-56 object-cover" />
+					</div>
+					<div v-else class="rounded-xl bg-gray-100 p-4 text-center text-sm text-gray-600 border border-dashed border-gray-300">
+						No image available.
+					</div>
+					<div class="flex justify-end">
+						<button
+							type="button"
+							class="inline-flex items-center gap-1 rounded-lg bg-[#002147] px-4 py-2 text-sm font-bold text-white hover:bg-[#00162f] border-2 border-[#002147] transition"
+							@click="closeDetails"
+						>
+							Close
+						</button>
+					</div>
+				</div>
+			</div>
 		</section>
 
 		<section
@@ -269,6 +395,11 @@ const communityInfo = computed(() => {
 const items = ref([])
 const newName = ref('')
 const newAddress = ref('')
+const newManagerName = ref('')
+const newOwnerContact = ref('')
+const newManagerContact = ref('')
+const newOwnerEmail = ref('')
+const newManagerEmail = ref('')
 const newImage = ref(null)
 const imagePreview = ref('')
 const editingId = ref(null)
@@ -276,6 +407,8 @@ const editingName = ref('')
 const showDeleteConfirm = ref(false)
 const deleteId = ref(null)
 const deleteName = ref('')
+const showDetails = ref(false)
+const detailsItem = ref(null)
 const loading = ref(false)
 const showAddForm = ref(false)
 const searchQuery = ref('')
@@ -344,6 +477,11 @@ watch(
 		editingName.value = ''
 		newName.value = ''
 		newAddress.value = ''
+		newManagerName.value = ''
+		newOwnerContact.value = ''
+		newManagerContact.value = ''
+		newOwnerEmail.value = ''
+		newManagerEmail.value = ''
 		newImage.value = null
 		imagePreview.value = ''
 	},
@@ -412,6 +550,11 @@ const addItem = async () => {
 				{ 
 					establishmentName: name, 
 					establishmentAddress: address,
+					managerName: newManagerName.value.trim() || null,
+					ownerContact: newOwnerContact.value.trim() || null,
+					managerContact: newManagerContact.value.trim() || null,
+					ownerEmail: newOwnerEmail.value.trim() || null,
+					managerEmail: newManagerEmail.value.trim() || null,
 					establishmentImages: imageUrl,
 					brgy_id: barangayId.value 
 				}
@@ -425,12 +568,17 @@ const addItem = async () => {
 		}
 		newName.value = ''
 		newAddress.value = ''
+		newManagerName.value = ''
+		newOwnerContact.value = ''
+		newManagerContact.value = ''
+		newOwnerEmail.value = ''
+		newManagerEmail.value = ''
 		newImage.value = null
 		imagePreview.value = ''
 		showAddForm.value = false
 	} catch (error) {
 		console.error('Error adding establishment:', error)
-		alert('Failed to add establishment. Please try again.')
+		alert(`Failed to add establishment: ${error?.message || 'Please try again.'}`)
 	} finally {
 		loading.value = false
 	}
@@ -528,5 +676,15 @@ const confirmDelete = () => {
 	}
 	deleteItem(deleteId.value)
 	closeDelete()
+}
+
+const openDetails = (item) => {
+	detailsItem.value = item
+	showDetails.value = true
+}
+
+const closeDetails = () => {
+	showDetails.value = false
+	detailsItem.value = null
 }
 </script>
