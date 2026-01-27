@@ -61,22 +61,13 @@
       <nav class="flex-1 p-4">
         <ul class="space-y-2">
           <li>
-            <button
+            <router-link
+              to="/dashboard"
               @click="settingsOpen = false"
-              :class="[
-                'w-full group flex items-center p-3 rounded-xl transform hover:translate-x-1',
-                !settingsOpen 
-                  ? 'bg-white/10 hover:bg-white/20 border-l-4 border-[#004595] transition-all duration-300' 
-                  : 'transition-none'
-              ]"
+              class="group flex items-center p-3 rounded-xl transition-all duration-300 transform hover:translate-x-1 border-l-4 border-transparent hover:bg-white/10"
             >
               <div
-                :class="[
-                  'p-2 rounded-lg mr-3',
-                  !settingsOpen 
-                    ? 'bg-white/10 group-hover:bg-white/20 transition-colors duration-300' 
-                    : 'transition-none'
-                ]"
+                class="p-2 bg-transparent rounded-lg mr-3 group-hover:bg-white/10 transition-colors duration-300"
               >
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -85,25 +76,24 @@
                 </svg>
               </div>
               <span class="font-semibold">Dashboard</span>
-            </button>
+            </router-link>
           </li>
           <li>
-            <router-link
-              to="/calendar"
+            <button
               @click="settingsOpen = false"
+              class="w-full group flex items-center p-3 rounded-xl transform hover:translate-x-1 transition-all duration-300 border-l-4"
               :class="[
-                'group flex items-center p-3 rounded-xl transform hover:translate-x-1',
-                settingsOpen 
-                  ? 'transition-none' 
-                  : 'transition-all duration-300 router-link-active:bg-white/10 router-link-active:hover:bg-white/20 router-link-active:border-l-4 router-link-active:border-[#004595]'
+                !settingsOpen 
+                  ? 'bg-white/10 hover:bg-white/20 border-[#004595]' 
+                  : 'bg-transparent hover:bg-white/10 border-transparent'
               ]"
             >
               <div
+                class="p-2 rounded-lg mr-3 transition-colors duration-300"
                 :class="[
-                  'p-2 rounded-lg mr-3',
-                  settingsOpen 
-                    ? 'transition-none' 
-                    : 'transition-colors duration-300 router-link-active:bg-white/10'
+                  !settingsOpen 
+                    ? 'bg-white/10 group-hover:bg-white/20' 
+                    : 'bg-transparent group-hover:bg-white/10'
                 ]"
               >
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -115,24 +105,25 @@
                 </svg>
               </div>
               <span class="font-semibold">Calendar</span>
-            </router-link>
+            </button>
           </li>
+
           <li>
             <button
               @click="settingsOpen = true"
+              class="w-full group flex items-center p-3 rounded-xl transform hover:translate-x-1 transition-all duration-300 border-l-4"
               :class="[
-                'w-full group flex items-center p-3 rounded-xl transform hover:translate-x-1',
                 settingsOpen 
-                  ? 'bg-white/10 hover:bg-white/20 border-l-4 border-[#004595] transition-all duration-300' 
-                  : 'transition-none'
+                  ? 'bg-white/10 hover:bg-white/20 border-[#004595]' 
+                  : 'bg-transparent hover:bg-white/10 border-transparent'
               ]"
             >
               <div
+                class="p-2 rounded-lg mr-3 transition-colors duration-300"
                 :class="[
-                  'p-2 rounded-lg mr-3',
                   settingsOpen 
-                    ? 'bg-white/10 group-hover:bg-white/20 transition-colors duration-300' 
-                    : 'transition-none'
+                    ? 'bg-white/10 group-hover:bg-white/20' 
+                    : 'bg-transparent group-hover:bg-white/10'
                 ]"
               >
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -152,7 +143,6 @@
       <!-- Logout Button -->
       <div class="p-4 border-t border-white/10">
         <button
-          @click="showLogoutModal = true"
           class="w-full flex items-center justify-center p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#002147] text-white border-2 border-white/30 hover:border-white transition-all duration-300 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
         >
           <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -170,14 +160,14 @@
     <!-- Main Content -->
     <main class="flex-1 flex flex-col">
       <!-- Top Header -->
-      <header class="relative shadow-2xl overflow-hidden h-48">
+      <header class="relative shadow-2xl overflow-hidden h-32 lg:sticky lg:top-0 lg:z-20">
         <div
           class="absolute inset-0 bg-cover bg-center"
           :style="{ backgroundImage: `url(${headbk})` }"
         ></div>
-        <div class="absolute inset-0 bg-linear-to-r from-[#002147]/80 to-[#004595]/70"></div>
+        <div class="absolute inset-0 bg-linear-to-r from-[#002147]/60 to-[#004595]/50"></div>
 
-        <div class="relative z-10 p-4 lg:pl-4 pl-16">
+        <div class="relative z-10 p-3 lg:p-5">
           <div class="max-w-6xl mx-auto">
             <div class="flex items-center gap-2 lg:gap-3 mb-2 lg:mb-3">
               <div class="p-1.5 lg:p-2 bg-white/20 backdrop-blur-sm rounded-lg shrink-0">
@@ -194,127 +184,320 @@
               <h1
                 class="text-lg sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight drop-shadow-lg"
               >
-                Butuan City Monitoring Dashboard
+                Community Events Calendar
               </h1>
             </div>
 
             <p class="text-xs sm:text-sm text-[#e0e7ff] mb-2 lg:mb-3 lg:ml-14 font-medium">
-              Community monitoring across 28 barangays
+              Click on any date to view events across all barangays
             </p>
-
-            <div class="flex justify-start lg:justify-end lg:ml-14">
-              <div class="flex flex-col gap-2 w-full sm:w-80">
-                <label class="text-sm font-bold text-white tracking-wide" for="barangay-select"
-                  >📍 Select Barangay</label
-                >
-                <select
-                  id="barangay-select"
-                  v-model="selectedBarangay"
-                  required
-                  :disabled="loading"
-                  class="px-4 py-3 rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white font-semibold focus:outline-none focus:ring-2 focus:ring-white focus:bg-white/20 transition-all duration-300 cursor-pointer hover:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <option disabled value="">
-                    {{ loading ? 'Loading barangays...' : 'Select a barangay' }}
-                  </option>
-                  <option
-                    v-for="option in barangayOptions"
-                    :key="option.value"
-                    :value="option.value"
-                  >
-                    {{ option.label }}
-                  </option>
-                </select>
-              </div>
-            </div>
           </div>
         </div>
       </header>
 
-      <!-- Map Container -->
-      <div class="flex-1 p-2 sm:p-4 lg:p-6">
-        <div
-          class="bg-white rounded-xl lg:rounded-2xl shadow-2xl h-full overflow-hidden relative border-2 lg:border-4 border-white/50"
-        >
-          <!-- Map -->
-          <GoogleMap
-            v-if="googleApiKey"
-            class="w-full h-full"
-            :api-key="googleApiKey"
-            :center="currentCenter"
-            :zoom="16"
-            map-type-id="satellite"
-          >
-            <Marker
-              v-for="location in filteredLocations"
-              :key="location.name"
-              :options="{
-                position: location.coordinates,
-                title: location.name,
-              }"
-            >
-              <InfoWindow>
-                <div class="p-3 min-w-50">
-                  <p class="font-bold text-base text-[#002147] mb-1">{{ location.name }}</p>
-                  <p class="text-xs text-gray-600 mb-3 flex items-center gap-1">
-                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        fill-rule="evenodd"
-                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    {{ currentBarangayLabel }}
-                  </p>
-                  <button
-                    type="button"
-                    class="w-full rounded-lg bg-[#004595] px-4 py-2 text-sm font-bold text-white hover:bg-[#00397a] transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-                    @click.stop="viewCommunity(location)"
-                  >
-                    🔍 View Community Info
-                  </button>
-                </div>
-              </InfoWindow>
-            </Marker>
-          </GoogleMap>
+      <!-- Calendar Container -->
+      <div class="flex-1 p-2 sm:p-4 lg:p-6 overflow-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
+          <!-- Left Side: Calendar -->
           <div
-            v-else
-            class="absolute inset-0 flex flex-col items-center justify-center bg-white/90 text-center p-4"
+            class="bg-white rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden relative border-2 lg:border-4 border-white/50"
           >
-            <p class="font-semibold text-gray-700">Google Maps API key missing</p>
-            <p class="text-sm text-gray-500">
-              Set VITE_GOOGLE_MAPS_API_KEY in your environment to load the map.
-            </p>
+            <!-- Custom Calendar -->
+            <div class="p-6 flex flex-col max-h-[600px]">
+              <!-- Calendar Header -->
+              <div class="flex items-center justify-between mb-6 flex-shrink-0">
+                <button
+                  @click="prevMonth"
+                  class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    ></path>
+                  </svg>
+                </button>
+                <h2 class="text-2xl font-bold text-[#002147]">
+                  {{ monthNames[currentDate.getMonth()] }} {{ currentDate.getFullYear() }}
+                </h2>
+                <button
+                  @click="nextMonth"
+                  class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Calendar Grid -->
+              <div class="flex-1 overflow-y-auto">
+                <div class="grid grid-cols-7 gap-1 min-h-[400px]">
+                  <!-- Day Headers -->
+                  <div
+                    v-for="day in ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']"
+                    :key="day"
+                    class="p-3 text-center font-semibold text-gray-600 border-b"
+                  >
+                    {{ day }}
+                  </div>
+
+                  <!-- Calendar Days -->
+                  <div
+                    v-for="day in calendarDays"
+                    :key="day.dateStr"
+                    :class="[
+                      'min-h-24 p-2 border cursor-pointer transition-colors relative',
+                      day.isCurrentMonth ? 'bg-white' : 'bg-gray-50 text-gray-400',
+                      day.isToday ? 'bg-blue-50 border-blue-200' : 'border-gray-200',
+                      day.hasEvents ? 'hover:bg-blue-50' : 'hover:bg-gray-50',
+                    ]"
+                    @click="selectDate(day)"
+                  >
+                    <div class="text-sm font-medium mb-1">
+                      {{ day.date.getDate() }}
+                    </div>
+
+                    <div class="space-y-1">
+                      <div
+                        v-for="event in day.events.slice(0, 2)"
+                        :key="event.id"
+                        class="text-xs bg-[#004595] text-white px-1 py-0.5 rounded truncate"
+                        :title="event.title"
+                      >
+                        {{ event.title }}
+                      </div>
+
+                      <div v-if="day.events.length > 2" class="text-xs text-gray-500">
+                        +{{ day.events.length - 2 }} more
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <!-- Quick Stats Overlay -->
+          <!-- Right Side: Barangay Events List -->
           <div
-            class="absolute top-4 right-4 lg:top-6 lg:right-6 bg-linear-to-br from-white/95 to-white/90 backdrop-blur-lg p-3 lg:p-6 rounded-xl lg:rounded-2xl shadow-2xl border-2 border-white/50 min-w- lg:min-w-70"
+            class="bg-white rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden relative border-2 lg:border-4 border-white/50"
           >
-            <div class="flex items-center gap-2 mb-4 pb-3 border-b-2 border-[#004595]/20">
-              <div class="p-2 bg-linear-to-br from-[#004595] to-[#00397a] rounded-lg">
-                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fill-rule="evenodd"
-                    d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
+            <div class="p-6 flex flex-col max-h-[600px]">
+              <!-- Events Header -->
+              <div class="mb-6 flex-shrink-0">
+                <h3 class="text-xl font-bold text-[#002147] mb-2">
+                  {{
+                    selectedDate
+                      ? `Events on ${selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`
+                      : 'Select a Date'
+                  }}
+                </h3>
+                <p class="text-sm text-gray-600">
+                  {{
+                    selectedDate
+                      ? 'Events organized by barangay:'
+                      : 'Click on a date in the calendar to view events'
+                  }}
+                </p>
               </div>
-              <h3 class="font-extrabold text-[#002147] text-lg">Quick Stats</h3>
+
+              <!-- Events List -->
+              <div class="flex-1 overflow-y-auto">
+                <div v-if="!selectedDate" class="text-center py-12">
+                  <div
+                    class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                  >
+                    <svg
+                      class="w-8 h-8 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <p class="text-gray-500 text-lg font-medium">No Date Selected</p>
+                  <p class="text-gray-400 text-sm mt-1">
+                    Choose a date from the calendar to view events
+                  </p>
+                </div>
+
+                <div v-else-if="selectedDateEvents.length === 0" class="text-center py-12">
+                  <div
+                    class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                  >
+                    <svg
+                      class="w-8 h-8 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <p class="text-gray-500 text-lg font-medium">No Events</p>
+                  <p class="text-gray-400 text-sm mt-1">No events scheduled for this date</p>
+                </div>
+
+                <div v-else class="space-y-4">
+                  <!-- Group events by barangay -->
+                  <div
+                    v-for="barangay in getUniqueBarangays(selectedDateEvents)"
+                    :key="barangay"
+                    class="border border-gray-200 rounded-lg p-4"
+                  >
+                    <div class="flex items-center gap-2 mb-3">
+                      <div class="w-3 h-3 bg-[#004595] rounded-full"></div>
+                      <h4 class="font-semibold text-[#002147] text-lg">
+                        {{ barangay.replace('-', ' ').replace(/\b\w/g, (l) => l.toUpperCase()) }}
+                      </h4>
+                      <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                        {{ getBarangayEventCount(barangay) }} event{{
+                          getBarangayEventCount(barangay) > 1 ? 's' : ''
+                        }}
+                      </span>
+                    </div>
+
+                    <div class="space-y-2">
+                      <div
+                        v-for="event in getEventsByBarangay(barangay)"
+                        :key="event.id"
+                        class="bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors cursor-pointer"
+                        @click="showEventDetails(event)"
+                      >
+                        <div class="flex items-start justify-between">
+                          <div class="flex-1">
+                            <h5 class="font-medium text-[#002147] text-sm">{{ event.title }}</h5>
+                            <p class="text-xs text-gray-600 mt-1 line-clamp-2">
+                              {{ event.description }}
+                            </p>
+                          </div>
+                          <button
+                            class="ml-2 text-[#004595] hover:text-[#00397a] transition-colors"
+                          >
+                            <svg
+                              class="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                              ></path>
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="space-y-3 text-sm">
-              <div
-                class="flex items-center justify-between p-2 rounded-lg hover:bg-[#f3f1ee] transition-colors"
+          </div>
+        </div>
+      </div>
+
+      <!-- Events Modal -->
+      <div
+        v-if="showEventsModal"
+        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+        @click="closeModal"
+      >
+        <div
+          class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+          @click.stop
+        >
+          <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-bold text-[#002147]">
+                Events on
+                {{
+                  selectedDate
+                    ? selectedDate.toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })
+                    : ''
+                }}
+              </h3>
+              <button
+                @click="closeModal"
+                class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
               >
-                <span class="text-gray-600 font-medium">📍 Barangay:</span>
-                <span class="font-bold text-[#004595]">{{ currentBarangayLabel }}</span>
-              </div>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div v-if="selectedDateEvents.length === 0" class="text-center py-8">
+              <p class="text-gray-500 text-lg">No events scheduled for this date</p>
+            </div>
+            <div v-else class="space-y-4">
               <div
-                class="flex items-center justify-between p-2 rounded-lg hover:bg-[#f3f1ee] transition-colors"
+                v-for="event in selectedDateEvents"
+                :key="event.id"
+                class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors"
               >
-                <span class="text-gray-600 font-medium">📊 Locations:</span>
-                <span class="font-bold text-[#00397a] text-lg">{{ filteredLocations.length }}</span>
+                <div class="flex items-start justify-between">
+                  <div class="flex-1">
+                    <h4 class="font-semibold text-[#002147] text-lg">{{ event.title }}</h4>
+                    <p class="text-sm text-gray-600 mt-1">{{ event.description }}</p>
+                    <div class="flex items-center gap-2 mt-2">
+                      <span
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#004595] text-white"
+                      >
+                        📍
+                        {{
+                          event.barangay.replace('-', ' ').replace(/\b\w/g, (l) => l.toUpperCase())
+                        }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="ml-4">
+                    <button
+                      @click="showEventDetails(event)"
+                      class="px-3 py-1 bg-[#004595] text-white text-sm rounded-lg hover:bg-[#00397a] transition-colors"
+                    >
+                      View Details
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -322,7 +505,7 @@
       </div>
     </main>
 
-    <!-- Settings Modal -->kua
+    <!-- Settings Modal -->
     <div
       v-if="settingsOpen"
       @click.self="settingsOpen = false"
@@ -525,237 +708,149 @@
         </div>
       </div>
     </div>
-
-    <!-- Logout Confirmation Modal -->
-    <Transition name="modal-fade">
-      <div
-        v-if="showLogoutModal"
-        @click.self="showLogoutModal = false"
-        class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
-      >
-        <Transition name="modal-scale">
-          <div
-            v-if="showLogoutModal"
-            class="bg-white rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden relative"
-          >
-            <!-- Modal Header with Icon -->
-            <div class="bg-gradient-to-br from-[#002147] to-[#004595] p-6 text-center relative">
-              <!-- Decorative circles -->
-              <div class="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full -mr-10 -mt-10"></div>
-              <div class="absolute bottom-0 left-0 w-16 h-16 bg-white/5 rounded-full -ml-8 -mb-8"></div>
-              
-              <div class="relative">
-                <div class="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full mb-3 animate-pulse">
-                  <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      fill-rule="evenodd"
-                      d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <h2 class="text-xl font-bold text-white mb-1">Logout Confirmation</h2>
-                <p class="text-white/80 text-sm">End your session?</p>
-              </div>
-            </div>
-
-            <!-- Modal Content -->
-            <div class="p-6">
-              <!-- Loading State Overlay -->
-              <div
-                v-if="isLoggingOut"
-                class="absolute inset-0 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center z-10 rounded-2xl"
-              >
-                <div class="text-center">
-                  <!-- Animated Spinner -->
-                  <div class="relative w-16 h-16 mx-auto mb-4">
-                    <div class="absolute inset-0 border-4 border-[#f3f1ee] rounded-full"></div>
-                    <div class="absolute inset-0 border-4 border-[#004595] rounded-full border-t-transparent animate-spin"></div>
-                  </div>
-                  
-                  <!-- Loading Text with Animation -->
-                  <p class="text-[#002147] font-semibold text-lg mb-1 animate-pulse">
-                    Logging out
-                  </p>
-                  <p class="text-gray-500 text-sm">
-                    Please wait...
-                  </p>
-                </div>
-              </div>
-
-              <p class="text-center text-gray-600 text-sm mb-6">
-                You're about to logout from your account. You'll need to sign in again to access the dashboard.
-              </p>
-
-              <!-- Action Buttons -->
-              <div class="flex gap-3">
-                <button
-                  @click="showLogoutModal = false"
-                  :disabled="isLoggingOut"
-                  class="flex-1 px-4 py-2.5 rounded-lg border-2 border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                >
-                  Cancel
-                </button>
-                <button
-                  @click="handleLogout"
-                  :disabled="isLoggingOut"
-                  class="flex-1 px-4 py-2.5 rounded-lg bg-gradient-to-r from-[#002147] to-[#004595] text-white font-semibold hover:from-[#00397a] hover:to-[#002147] transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 disabled:opacity-90 disabled:cursor-not-allowed disabled:transform-none"
-                >
-                  Logout
-                </button>
-              </div>
-            </div>
-          </div>
-        </Transition>
-      </div>
-    </Transition>
   </div>
 </template>
 
 <script setup>
 import { computed, ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { GoogleMap, Marker, InfoWindow } from 'vue3-google-map'
-import headbk from '@/assets/landing.jpg'
 import { supabase } from '@/lib/supabase'
+import headbk from '@/assets/landing.jpg'
 
-const router = useRouter()
-const googleApiKey = 'AIzaSyDqcnq11WukBkYCzu13zloxQi_YjUpsA14'
-const defaultCenter = { lat: 8.9475, lng: 125.5279 }
 const sidebarOpen = ref(false)
 const settingsOpen = ref(false)
 const activeTab = ref('faqs')
-const showLogoutModal = ref(false)
-const isLoggingOut = ref(false)
+const selectedDate = ref(null)
+const showEventsModal = ref(false)
+const currentDate = ref(new Date())
+const eventsData = ref([])
+const loading = ref(true)
+const error = ref(null)
 
-const barangayOptions = ref([])
-const loading = ref(false)
-const selectedBarangay = ref('')
-
-// Fetch barangays from Supabase
-const fetchBarangays = async () => {
-  loading.value = true
+// Fetch events from Supabase
+const fetchEvents = async () => {
   try {
-    const { data, error } = await supabase
-      .from('Barangays')
-      .select('brgyname')
-      .order('brgyname', { ascending: true })
-    
-    if (error) throw error
-    
-    if (data) {
-      barangayOptions.value = data.map(item => {
-        // Convert brgyname to kebab-case for value
-        const value = item.brgyname
-          .toLowerCase()
-          .replace(/\s+/g, '-')
-          .replace(/[^\w-]/g, '')
-        
-        return {
-          value: value,
-          label: item.brgyname
-        }
-      })
-    }
-  } catch (error) {
-    console.error('Error fetching barangays:', error)
-    alert('Failed to load barangays. Please refresh the page.')
+    loading.value = true
+    error.value = null
+    const { data, error: fetchError } = await supabase
+      .from('events')
+      .select('*')
+      .order('start', { ascending: true })
+
+    if (fetchError) throw fetchError
+    eventsData.value = data || []
+  } catch (err) {
+    console.error('Error fetching events:', err)
+    error.value = err.message
   } finally {
     loading.value = false
   }
 }
 
-onMounted(() => {
-  fetchBarangays()
+const selectedDateEvents = computed(() => {
+  if (!selectedDate.value) return []
+  const dateStr = selectedDate.value.toISOString().split('T')[0]
+  return eventsData.value.filter((event) => event.start === dateStr)
 })
 
-const handleLogout = async () => {
-  isLoggingOut.value = true
-  
-  try {
-    // Add a small delay for better UX (showing loading state)
-    await new Promise(resolve => setTimeout(resolve, 800))
-    
-    // Sign out from Supabase
-    const { error } = await supabase.auth.signOut()
-    
-    if (error) {
-      console.error('Error logging out:', error)
-      alert('An error occurred while logging out. Please try again.')
-      isLoggingOut.value = false
-      return
-    }
-    
-    // Redirect to login page
-    router.push({ name: 'login' })
-  } catch (error) {
-    console.error('Unexpected error during logout:', error)
-    alert('An unexpected error occurred. Please try again.')
-    isLoggingOut.value = false
-  }
+const getUniqueBarangays = (events) => {
+  const barangays = events.map((event) => event.barangay)
+  return [...new Set(barangays)]
 }
 
-const viewCommunity = (location) => {
-  if (!selectedBarangay.value) {
-    return
-  }
+const getBarangayEventCount = (barangay) => {
+  return selectedDateEvents.value.filter((event) => event.barangay === barangay).length
+}
 
-  router.push({
-    name: 'CommunityView',
-    params: { barangayName: selectedBarangay.value },
-    query: {
-      location: location.name,
-      type: 'barangay',
-    },
+const getEventsByBarangay = (barangay) => {
+  return selectedDateEvents.value.filter((event) => event.barangay === barangay)
+}
+
+const eventsByDate = computed(() => {
+  const eventsMap = {}
+  eventsData.value.forEach((event) => {
+    if (!eventsMap[event.start]) {
+      eventsMap[event.start] = []
+    }
+    eventsMap[event.start].push(event)
   })
+  return eventsMap
+})
+
+const calendarDays = computed(() => {
+  const year = currentDate.value.getFullYear()
+  const month = currentDate.value.getMonth()
+
+  const firstDay = new Date(year, month, 1)
+  const lastDay = new Date(year, month + 1, 0)
+  const startDate = new Date(firstDay)
+  startDate.setDate(startDate.getDate() - firstDay.getDay())
+
+  const days = []
+  const current = new Date(startDate)
+
+  for (let i = 0; i < 42; i++) {
+    const dateStr = current.toISOString().split('T')[0]
+    const isCurrentMonth = current.getMonth() === month
+    const isToday = current.toDateString() === new Date().toDateString()
+    const dayEvents = eventsByDate.value[dateStr] || []
+
+    days.push({
+      date: new Date(current),
+      dateStr,
+      isCurrentMonth,
+      isToday,
+      events: dayEvents,
+      hasEvents: dayEvents.length > 0,
+    })
+
+    current.setDate(current.getDate() + 1)
+  }
+
+  return days
+})
+
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+]
+
+const prevMonth = () => {
+  currentDate.value = new Date(currentDate.value.getFullYear(), currentDate.value.getMonth() - 1, 1)
 }
 
-const barangayData = computed(() => {
-  return barangayOptions.value.reduce((acc, option, index) => {
-    const row = Math.floor(index / 7)
-    const col = index % 7
-    const latOffset = (row - 2) * 0.01
-    const lngOffset = (col - 3) * 0.01
-    const center = {
-      lat: Number((defaultCenter.lat + latOffset).toFixed(6)),
-      lng: Number((defaultCenter.lng + lngOffset).toFixed(6)),
-    }
+const nextMonth = () => {
+  currentDate.value = new Date(currentDate.value.getFullYear(), currentDate.value.getMonth() + 1, 1)
+}
 
-    // Replace generated coordinates with precise barangay locations when available.
-    acc[option.value] = {
-      name: option.label,
-      center,
-      features: [
-        {
-          name: `${option.label} Highlight`,
-          coordinates: center,
-        },
-      ],
-    }
+const selectDate = (day) => {
+  selectedDate.value = day.date
+  // Events are now shown in the right panel instead of modal
+}
 
-    return acc
-  }, {})
-})
+const closeModal = () => {
+  showEventsModal.value = false
+  selectedDate.value = null
+}
 
-const filteredLocations = computed(() => {
-  if (!selectedBarangay.value) {
-    return []
-  }
-  return barangayData.value[selectedBarangay.value]?.features ?? []
-})
+const showEventDetails = (event) => {
+  alert(
+    `Event: ${event.title}\nBarangay: ${event.barangay.replace('-', ' ').replace(/\b\w/g, (l) => l.toUpperCase())}\nDescription: ${event.description}`,
+  )
+}
 
-const currentCenter = computed(() => {
-  if (!selectedBarangay.value) {
-    return defaultCenter
-  }
-  return barangayData.value[selectedBarangay.value]?.center ?? defaultCenter
-})
-
-const currentBarangayLabel = computed(() => {
-  if (!selectedBarangay.value) {
-    return 'Select barangay'
-  }
-  return barangayData.value[selectedBarangay.value]?.name ?? selectedBarangay.value
+// Load events on component mount
+onMounted(() => {
+  fetchEvents()
 })
 </script>
 
@@ -774,35 +869,5 @@ select option:hover {
 select option:checked {
   background-color: #004595;
   font-weight: bold;
-}
-
-/* Modal Fade Transition */
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.modal-fade-enter-from,
-.modal-fade-leave-to {
-  opacity: 0;
-}
-
-/* Modal Scale Transition */
-.modal-scale-enter-active {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.modal-scale-leave-active {
-  transition: all 0.2s ease-in;
-}
-
-.modal-scale-enter-from {
-  opacity: 0;
-  transform: scale(0.8) translateY(-20px);
-}
-
-.modal-scale-leave-to {
-  opacity: 0;
-  transform: scale(0.9) translateY(10px);
 }
 </style>
