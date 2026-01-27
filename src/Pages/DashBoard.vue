@@ -207,10 +207,11 @@
           <!-- Map -->
           <GoogleMap
             v-if="googleApiKey"
+            ref="mapRef"
             class="w-full h-full"
             :api-key="googleApiKey"
-            :center="currentCenter"
-            :zoom="16"
+            :center="mapCenter"
+            :zoom="mapZoom"
             map-type-id="satellite"
           >
             <Marker
@@ -245,6 +246,7 @@
               </InfoWindow>
             </Marker>
           </GoogleMap>
+
           <div
             v-else
             class="absolute inset-0 flex flex-col items-center justify-center bg-white/90 text-center p-4"
@@ -257,7 +259,7 @@
 
           <!-- Quick Stats Overlay -->
           <div
-            class="absolute top-4 right-4 lg:top-6 lg:right-6 bg-linear-to-br from-white/95 to-white/90 backdrop-blur-lg p-3 lg:p-6 rounded-xl lg:rounded-2xl shadow-2xl border-2 border-white/50 min-w- lg:min-w-70"
+            class="absolute top-4 right-4 lg:top-6 lg:right-6 bg-linear-to-br from-white/95 to-white/90 backdrop-blur-lg p-3 lg:p-6 rounded-xl lg:rounded-2xl shadow-2xl border-2 border-white/50 min-w-64 lg:min-w-70"
           >
             <div class="flex items-center gap-2 mb-4 pb-3 border-b-2 border-[#004595]/20">
               <div class="p-2 bg-linear-to-br from-[#004595] to-[#00397a] rounded-lg">
@@ -271,18 +273,33 @@
               </div>
               <h3 class="font-extrabold text-[#002147] text-lg">Quick Stats</h3>
             </div>
+
             <div class="space-y-3 text-sm">
+              <!-- Barangay -->
               <div
                 class="flex items-center justify-between p-2 rounded-lg hover:bg-[#f3f1ee] transition-colors"
               >
                 <span class="text-gray-600 font-medium">📍 Barangay:</span>
                 <span class="font-bold text-[#004595]">{{ currentBarangayLabel }}</span>
               </div>
+
+              <!-- Locations -->
               <div
                 class="flex items-center justify-between p-2 rounded-lg hover:bg-[#f3f1ee] transition-colors"
               >
                 <span class="text-gray-600 font-medium">📊 Locations:</span>
                 <span class="font-bold text-[#00397a] text-lg">{{ filteredLocations.length }}</span>
+              </div>
+
+              <!-- Weather -->
+              <div
+                class="flex items-center justify-between p-2 rounded-lg hover:bg-[#f3f1ee] transition-colors"
+              >
+                <span class="text-gray-600 font-medium">🌤 Weather:</span>
+                <span v-if="weather" class="font-bold text-[#004595]">
+                  {{ weather.main.temp }}°C, {{ weather.weather[0].description }}
+                </span>
+                <span v-else class="text-gray-400 italic">Loading...</span>
               </div>
             </div>
           </div>
@@ -293,9 +310,9 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { GoogleMap, Marker, InfoWindow } from 'vue3-google-map'
+import { GoogleMap, Marker, InfoWindow, Polygon } from 'vue3-google-map'
 import headbk from '@/assets/landing.jpg'
 import { supabase } from '@/lib/supabase'
 
@@ -303,33 +320,42 @@ const router = useRouter()
 const googleApiKey = 'AIzaSyDqcnq11WukBkYCzu13zloxQi_YjUpsA14'
 const defaultCenter = { lat: 8.9475, lng: 125.5279 }
 const sidebarOpen = ref(false)
+const initialZoom = 13
+
+const mapCenter = ref(defaultCenter)
+const mapZoom = ref(initialZoom)
 
 const barangayOptions = ref([])
 const loading = ref(false)
 const selectedBarangay = ref('')
+const mapRef = ref(null)
 
-// Fetch barangays from Supabase
+// Weather state
+const weather = ref(null)
+
+// Fetch barangays from Supabase (with lat/lon)
 const fetchBarangays = async () => {
   loading.value = true
   try {
     const { data, error } = await supabase
       .from('Barangays')
-      .select('brgyname')
+      .select('brgyname, latitude, longitude')
       .order('brgyname', { ascending: true })
-    
+
     if (error) throw error
-    
+
     if (data) {
       barangayOptions.value = data.map(item => {
-        // Convert brgyname to kebab-case for value
         const value = item.brgyname
           .toLowerCase()
           .replace(/\s+/g, '-')
           .replace(/[^\w-]/g, '')
-        
+
         return {
-          value: value,
-          label: item.brgyname
+          value,
+          label: item.brgyname,
+          lat: item.latitude,
+          lng: item.longitude,
         }
       })
     }
@@ -341,14 +367,90 @@ const fetchBarangays = async () => {
   }
 }
 
+// Fetch weather by coordinates
+async function fetchWeatherByCoords(lat, lon) {
+  try {
+    const apiKey = '6baa34e0dcf3549d1a5022e74c8cf333'
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
+    )
+    const data = await response.json()
+    if (data.cod === 200) {
+      weather.value = data
+    } else {
+      weather.value = null
+      console.warn('Weather not found for coords:', lat, lon)
+    }
+  } catch (error) {
+    console.error('Error fetching weather:', error)
+  }
+}
+
+let zoomTimer = null
+let centerTimer = null
+
+function smoothPanAndZoomReactive(position, targetZoom, duration = 700) {
+  if (centerTimer) {
+    window.cancelAnimationFrame(centerTimer)
+    centerTimer = null
+  }
+
+  const startCenter = mapCenter.value
+  const startTime = performance.now()
+
+  const animateCenter = (now) => {
+    const t = Math.min(1, (now - startTime) / duration)
+    mapCenter.value = {
+      lat: startCenter.lat + (position.lat - startCenter.lat) * t,
+      lng: startCenter.lng + (position.lng - startCenter.lng) * t,
+    }
+    if (t < 1) {
+      centerTimer = window.requestAnimationFrame(animateCenter)
+    }
+  }
+  centerTimer = window.requestAnimationFrame(animateCenter)
+
+  const startZoom = mapZoom.value
+  if (zoomTimer) {
+    window.clearInterval(zoomTimer)
+    zoomTimer = null
+  }
+  if (startZoom === targetZoom) return
+
+  const stepMs = 60
+  const steps = Math.max(1, Math.round(duration / stepMs))
+  const zoomStep = (targetZoom - startZoom) / steps
+  let current = startZoom
+  let count = 0
+
+  zoomTimer = window.setInterval(() => {
+    count += 1
+    current += zoomStep
+    mapZoom.value = Math.round(current)
+    if (count >= steps) {
+      mapZoom.value = targetZoom
+      window.clearInterval(zoomTimer)
+      zoomTimer = null
+    }
+  }, stepMs)
+}
+
+// Watch barangay selection → update weather + animate map
+watch(selectedBarangay, (newBarangay) => {
+  const brgy = barangayOptions.value.find(opt => opt.value === newBarangay)
+  if (brgy && brgy.lat && brgy.lng) {
+    fetchWeatherByCoords(brgy.lat, brgy.lng)
+    smoothPanAndZoomReactive({ lat: brgy.lat, lng: brgy.lng }, 16, 800)
+  }
+})
+
 onMounted(() => {
   fetchBarangays()
+  fetchWeatherByCoords(defaultCenter.lat, defaultCenter.lng)
 })
 
 const viewCommunity = (location) => {
-  if (!selectedBarangay.value) {
-    return
-  }
+  if (!selectedBarangay.value) return
 
   router.push({
     name: 'CommunityView',
@@ -361,17 +463,12 @@ const viewCommunity = (location) => {
 }
 
 const barangayData = computed(() => {
-  return barangayOptions.value.reduce((acc, option, index) => {
-    const row = Math.floor(index / 7)
-    const col = index % 7
-    const latOffset = (row - 2) * 0.01
-    const lngOffset = (col - 3) * 0.01
+  return barangayOptions.value.reduce((acc, option) => {
     const center = {
-      lat: Number((defaultCenter.lat + latOffset).toFixed(6)),
-      lng: Number((defaultCenter.lng + lngOffset).toFixed(6)),
+      lat: option.lat ?? defaultCenter.lat,
+      lng: option.lng ?? defaultCenter.lng,
     }
 
-    // Replace generated coordinates with precise barangay locations when available.
     acc[option.value] = {
       name: option.label,
       center,
@@ -388,39 +485,25 @@ const barangayData = computed(() => {
 })
 
 const filteredLocations = computed(() => {
-  if (!selectedBarangay.value) {
-    return []
-  }
+  if (!selectedBarangay.value) return []
   return barangayData.value[selectedBarangay.value]?.features ?? []
 })
 
-const currentCenter = computed(() => {
-  if (!selectedBarangay.value) {
-    return defaultCenter
-  }
-  return barangayData.value[selectedBarangay.value]?.center ?? defaultCenter
-})
-
 const currentBarangayLabel = computed(() => {
-  if (!selectedBarangay.value) {
-    return 'Select barangay'
-  }
+  if (!selectedBarangay.value) return 'Select barangay'
   return barangayData.value[selectedBarangay.value]?.name ?? selectedBarangay.value
 })
 </script>
 
 <style scoped>
-/* Ensure dropdown options are visible with proper styling */
 select option {
   background-color: #002147;
   color: white;
   padding: 8px;
 }
-
 select option:hover {
   background-color: #004595;
 }
-
 select option:checked {
   background-color: #004595;
   font-weight: bold;
