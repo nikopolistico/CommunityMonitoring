@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginPage from '@/Authentication/LoginPage.vue'
 import Dashboard from '@/Pages/DashBoard.vue'
 import CommunityView from '@/Pages/CommunityView.vue'
-import LandingPage from '@/Pages/LandingPage.vue'
+import LandingPage from '@/Authentication/LandingPage.vue'
 import Calendar from '@/Pages/CalendarView.vue'
 import Intropage from '@/Authentication/Intropage.vue'
 

@@ -374,7 +374,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { supabase } from '@/lib/supabase'
 import bcpoLogo from '@/assets/BCPO 1 LOGO.png'
-import bxuLogo from '@/assets/bxulogo.png'
+import bxuLogo from '@/assets/butuanlogo.png'
 
 const router = useRouter()
 const email = ref('')
