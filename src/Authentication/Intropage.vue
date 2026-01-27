@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen flex justify-center items-center bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] text-white relative overflow-hidden">
+  <div class="w-screen h-screen flex justify-center items-center bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] text-white relative overflow-hidden font-['Poppins',sans-serif]">
     <!-- Animated Background Elements -->
     <div class="absolute inset-0 opacity-10">
       <div class="absolute top-20 left-20 w-72 h-72 bg-white rounded-full blur-3xl animate-pulse"></div>
@@ -36,15 +36,15 @@
 
       <!-- Enhanced Progress Bar -->
       <div class="w-full max-w-md mx-auto">
-        <div class="relative w-full h-2 bg-white/10 rounded-full overflow-hidden mb-3 shadow-inner backdrop-blur-sm border border-white/20">
+        <div class="relative w-full h-2 bg-white/20 rounded-full overflow-hidden mb-3 shadow-inner backdrop-blur-sm border border-white/30">
           <!-- Shimmer Effect -->
-          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
+          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
           <!-- Progress Fill -->
           <div 
-            class="h-full bg-gradient-to-r from-[#004595] via-blue-400 to-[#00397a] rounded-full transition-all duration-300 ease-out relative shadow-lg" 
+            class="h-full bg-white rounded-full transition-all duration-300 ease-out relative shadow-lg" 
             :style="{ width: progress + '%' }"
           >
-            <div class="absolute inset-0 bg-white/30 animate-pulse"></div>
+            <div class="absolute inset-0 bg-white/40 animate-pulse"></div>
           </div>
         </div>
         <p class="text-sm text-slate-100 font-semibold tracking-wide">
@@ -83,6 +83,9 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* Import Poppins font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
 @keyframes shimmer {
   0% {
     transform: translateX(-100%);
