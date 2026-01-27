@@ -4,12 +4,11 @@ import Dashboard from '@/Pages/DashBoard.vue'
 import CommunityView from '@/Pages/CommunityView.vue'
 import LandingPage from '@/Pages/LandingPage.vue'
 import Calendar from '@/Pages/CalendarView.vue'
-
+import Intropage from '@/Authentication/Intropage.vue'
 
 import Schools from '@/Components/Schools.vue'
 import Churches from '@/Components/Churches.vue'
 import Establishments from '@/Components/Establishments.vue'
-
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,12 +19,13 @@ const router = createRouter({
     { name: 'schools', path: '/community/:barangayName/schools', component: Schools },
     { name: 'churches', path: '/community/:barangayName/churches', component: Churches },
     {
-      name: 'establishments', 
+      name: 'establishments',
       path: '/community/:barangayName/establishments',
       component: Establishments,
     },
-    { name: 'landing', path: '/', component: LandingPage },
-    { name: 'calendar', path: '/calendar', component: Calendar},
+    { name: 'landing', path: '/landing', component: LandingPage },
+    { name: 'intropage', path: '/', component: Intropage },
+    { name: 'calendar', path: '/calendar', component: Calendar },
   ],
 })
 
