@@ -43,7 +43,7 @@
           <!-- Left Side Stats (2x2 Grid) -->
           <div class="lg:col-span-2 grid grid-cols-2 gap-4">
             <!-- Total Barangays Card -->
-            <div class="bg-white rounded-xl shadow-lg p-6 border-2 border-gray-100 hover:border-[#004595] transition-all duration-300">
+            <div class="dashboard-card bg-white rounded-xl shadow-lg p-6 border-2 border-gray-100 hover:border-[#004595] transition-all duration-300">
               <div class="flex items-start justify-between">
                 <div>
                   <h3 class="text-4xl font-bold text-[#004595] mb-2">{{ totalBarangays }}</h3>
@@ -58,7 +58,7 @@
             </div>
 
             <!-- Total Schools Card -->
-            <div class="bg-white rounded-xl shadow-lg p-6 border-2 border-gray-100 hover:border-blue-500 transition-all duration-300">
+            <div class="dashboard-card bg-white rounded-xl shadow-lg p-6 border-2 border-gray-100 hover:border-blue-500 transition-all duration-300">
               <div class="flex items-start justify-between">
                 <div>
                   <h3 class="text-4xl font-bold text-blue-600 mb-2">{{ totalSchools }}</h3>
@@ -73,7 +73,7 @@
             </div>
 
             <!-- Total Church Card -->
-            <div class="bg-white rounded-xl shadow-lg p-6 border-2 border-gray-100 hover:border-red-500 transition-all duration-300">
+            <div class="dashboard-card bg-white rounded-xl shadow-lg p-6 border-2 border-gray-100 hover:border-red-500 transition-all duration-300">
               <div class="flex items-start justify-between">
                 <div>
                   <h3 class="text-4xl font-bold text-red-600 mb-2">{{ totalChurches }}</h3>
@@ -88,7 +88,7 @@
             </div>
 
             <!-- Total Establishment Card -->
-            <div class="bg-white rounded-xl shadow-lg p-6 border-2 border-gray-100 hover:border-green-500 transition-all duration-300">
+            <div class="dashboard-card bg-white rounded-xl shadow-lg p-6 border-2 border-gray-100 hover:border-green-500 transition-all duration-300">
               <div class="flex items-start justify-between">
                 <div>
                   <h3 class="text-4xl font-bold text-green-600 mb-2">{{ totalEstablishments }}</h3>
@@ -104,7 +104,7 @@
           </div>
 
           <!-- Right Side Weather Card -->
-          <div class="bg-white rounded-xl shadow-lg p-6 border-2 border-gray-100 flex flex-col items-center justify-center hover:border-rose-500 transition-all duration-300">
+          <div class="dashboard-card bg-white rounded-xl shadow-lg p-6 border-2 border-gray-100 flex flex-col items-center justify-center hover:border-rose-500 transition-all duration-300">
             <h2 class="text-3xl font-bold text-gray-800 mb-4">Weather</h2>
             <div class="flex items-center justify-center mb-4">
               <!-- Sunny -->
@@ -144,7 +144,7 @@
         </div>
 
         <!-- Barangay List -->
-        <div class="bg-white rounded-xl shadow-lg p-6">
+        <div class="dashboard-card bg-white rounded-xl shadow-lg p-6">
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
             <div class="flex items-center gap-3">
               <div class="p-2 bg-linear-to-br from-[#004595] to-[#00397a] rounded-lg">
@@ -354,5 +354,58 @@ select option:hover {
 select option:checked {
   background-color: #004595;
   font-weight: bold;
+}
+
+.dashboard-card {
+  position: relative;
+  overflow: hidden;
+  animation: card-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.dashboard-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(1200px circle at -10% -20%, rgba(0, 69, 149, 0.08), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 24px 40px -20px rgba(0, 0, 0, 0.35);
+}
+
+.dashboard-card:hover::after {
+  opacity: 1;
+}
+
+.dashboard-card:nth-of-type(1) { animation-delay: 0.05s; }
+.dashboard-card:nth-of-type(2) { animation-delay: 0.1s; }
+.dashboard-card:nth-of-type(3) { animation-delay: 0.15s; }
+.dashboard-card:nth-of-type(4) { animation-delay: 0.2s; }
+.dashboard-card:nth-of-type(5) { animation-delay: 0.25s; }
+.dashboard-card:nth-of-type(6) { animation-delay: 0.3s; }
+
+@keyframes card-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-card {
+    animation: none;
+  }
+
+  .dashboard-card:hover {
+    transform: none;
+  }
 }
 </style>

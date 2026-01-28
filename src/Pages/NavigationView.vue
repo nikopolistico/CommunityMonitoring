@@ -111,7 +111,6 @@
       <!-- Logout Button -->
       <div class="p-4 border-t border-white/10">
         <button
-          @click="handleLogout"
           class="w-full flex items-center justify-center p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#002147] text-white border-2 border-white/30 hover:border-white transition-all duration-300 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
         >
           <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -170,23 +169,15 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { supabase } from '@/lib/supabase'
 import DashBoard from './DashBoard.vue'
 import CalendarView from './CalendarView.vue'
 import SettingsView from './SettingsView.vue'
 
-const router = useRouter()
 const sidebarOpen = ref(false)
 const activeView = ref('dashboard')
 
 const setActiveView = (view) => {
   activeView.value = view
   sidebarOpen.value = false // Close sidebar on mobile after selection
-}
-
-const handleLogout = async () => {
-  await supabase.auth.signOut()
-  router.replace({ name: 'login' })
 }
 </script>
