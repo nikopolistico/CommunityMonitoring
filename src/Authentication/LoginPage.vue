@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
   <div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[#002147] to-[#00397a]">
+=======
+  <div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-linear-to-br from-[#002147] to-[#00397a]">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
     <!-- Success Modal -->
     <Transition name="modal-fade">
       <div v-if="showSuccessModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
@@ -29,7 +33,11 @@
             <!-- Loading Bar -->
             <div class="pt-4">
               <div class="relative w-full h-2 bg-[#f3f1ee] rounded-full overflow-hidden">
+<<<<<<< HEAD
                 <div class="loading-bar absolute top-0 left-0 h-full bg-gradient-to-r from-[#004595] via-[#00397a] to-[#004595] rounded-full"></div>
+=======
+                <div class="loading-bar absolute top-0 left-0 h-full bg-linear-to-r from-[#004595] via-[#00397a] to-[#004595] rounded-full"></div>
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
               </div>
               <p class="text-[#00397a]/60 text-xs mt-2 font-medium">Accessing 28 Barangays Monitoring Dashboard...</p>
             </div>
@@ -66,7 +74,11 @@
             <!-- Close Button -->
             <button
               @click="closeErrorModal"
+<<<<<<< HEAD
               class="mt-6 w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
+=======
+              class="mt-6 w-full bg-linear-to-r from-red-500 to-red-600 text-white py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
             >
               Try Again
             </button>
@@ -77,14 +89,23 @@
 
     <!-- Large Static Police Badge Star Background - BOTTOM POSITIONED -->
     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/3 opacity-[0.08] pointer-events-none">
+<<<<<<< HEAD
       <svg class="w-[1400px] h-[1400px]" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="0.5">
+=======
+      <svg class="w-350 h-350" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="0.5">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
         <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
       </svg>
     </div>
 
     <!-- Police Siren Light Animation -->
+<<<<<<< HEAD
     <div class="absolute top-[20%] right-[10%] w-[100px] h-[100px] rounded-full blur-[40px] opacity-0 animate-siren-red"></div>
     <div class="absolute bottom-[25%] left-[12%] w-[100px] h-[100px] rounded-full blur-[40px] opacity-0 animate-siren-blue"></div>
+=======
+    <div class="absolute top-[20%] right-[10%] w-25 h-25 rounded-full blur-2xl opacity-0 animate-siren-red"></div>
+    <div class="absolute bottom-[25%] left-[12%] w-25 h-25 rounded-full blur-2xl opacity-0 animate-siren-blue"></div>
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
 
     <!-- Animated Grid Pattern -->
     <div class="absolute inset-0 opacity-5">
@@ -100,13 +121,18 @@
           <!-- Dual Logo with Animation -->
           <div class="flex items-center justify-start gap-5 mb-4">
             <div class="relative inline-block">
+<<<<<<< HEAD
               <div class="relative p-4 rounded-full bg-gradient-to-br from-white/15 to-white/5 shadow-[0_0_40px_rgba(255,255,255,0.2),0_0_70px_rgba(255,255,255,0.1)] animate-glow-pulse">
+=======
+              <div class="relative p-4 rounded-full bg-linear-to-br from-white/15 to-white/5 shadow-[0_0_40px_rgba(255,255,255,0.2),0_0_70px_rgba(255,255,255,0.1)] animate-glow-pulse">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
                 <img :src="bcpoLogo" alt="BCPO Logo" class="w-36 h-36 object-contain animate-float" />
               </div>
             </div>
             
             <!-- Divider with animated pulse -->
             <div class="flex flex-col items-center gap-1.5">
+<<<<<<< HEAD
               <div class="w-px h-16 bg-gradient-to-b from-transparent via-white/50 to-transparent animate-pulse"></div>
               <div class="w-2 h-2 rounded-full bg-white/70 animate-ping"></div>
               <div class="w-px h-16 bg-gradient-to-b from-transparent via-white/50 to-transparent animate-pulse"></div>
@@ -114,6 +140,15 @@
             
             <div class="relative inline-block">
               <div class="relative p-4 rounded-full bg-gradient-to-br from-white/15 to-white/5 shadow-[0_0_40px_rgba(255,255,255,0.2),0_0_70px_rgba(255,255,255,0.1)] animate-glow-pulse">
+=======
+              <div class="w-px h-16 bg-linear-to-b from-transparent via-white/50 to-transparent animate-pulse"></div>
+              <div class="w-2 h-2 rounded-full bg-white/70 animate-ping"></div>
+              <div class="w-px h-16 bg-linear-to-b from-transparent via-white/50 to-transparent animate-pulse"></div>
+            </div>
+            
+            <div class="relative inline-block">
+              <div class="relative p-4 rounded-full bg-linear-to-br from-white/15 to-white/5 shadow-[0_0_40px_rgba(255,255,255,0.2),0_0_70px_rgba(255,255,255,0.1)] animate-glow-pulse">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
                 <img :src="bxuLogo" alt="BXU Logo" class="w-36 h-36 object-contain animate-float-delayed" />
               </div>
             </div>
@@ -125,12 +160,20 @@
               <p class="text-[#f3f1ee]/90 text-sm font-semibold tracking-wider uppercase">Welcome to</p>
               <h1 class="text-4xl font-extrabold text-white leading-tight tracking-tight">
                 Community
+<<<<<<< HEAD
                 <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#f3f1ee] via-white to-[#f3f1ee] animate-gradient">
+=======
+                <span class="block text-transparent bg-clip-text bg-linear-to-r from-[#f3f1ee] via-white to-[#f3f1ee] animate-gradient">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
                   Monitoring System
                 </span>
               </h1>
             </div>
+<<<<<<< HEAD
             <div class="w-16 h-1 bg-gradient-to-r from-[#f3f1ee] to-transparent rounded-full"></div>
+=======
+            <div class="w-16 h-1 bg-linear-to-r from-[#f3f1ee] to-transparent rounded-full"></div>
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
             <p class="text-base text-[#f3f1ee]/80 leading-relaxed font-light">
               Secure access to the <span class="font-semibold text-white">28 Barangays</span> monitoring dashboard. Track, manage, and protect your community.
             </p>
@@ -165,6 +208,7 @@
         <div class="login-card bg-white/98 backdrop-blur-sm p-7 rounded-xl shadow-2xl border border-white/30 relative overflow-hidden">
           
           <!-- Decorative Corner Elements -->
+<<<<<<< HEAD
           <div class="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-[#004595]/10 to-transparent rounded-br-full"></div>
           <div class="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-[#00397a]/10 to-transparent rounded-tl-full"></div>
           
@@ -174,6 +218,17 @@
           <!-- Side Accent Lines -->
           <div class="absolute top-0 left-0 w-1 h-20 bg-gradient-to-b from-[#004595] to-transparent"></div>
           <div class="absolute top-0 right-0 w-1 h-20 bg-gradient-to-b from-[#004595] to-transparent"></div>
+=======
+          <div class="absolute top-0 left-0 w-24 h-24 bg-linear-to-br from-[#004595]/10 to-transparent rounded-br-full"></div>
+          <div class="absolute bottom-0 right-0 w-32 h-32 bg-linear-to-tl from-[#00397a]/10 to-transparent rounded-tl-full"></div>
+          
+          <!-- Top Accent Line -->
+          <div class="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-[#004595] to-transparent"></div>
+          
+          <!-- Side Accent Lines -->
+          <div class="absolute top-0 left-0 w-1 h-20 bg-linear-to-b from-[#004595] to-transparent"></div>
+          <div class="absolute top-0 right-0 w-1 h-20 bg-linear-to-b from-[#004595] to-transparent"></div>
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
           
           <!-- Decorative Badge Icon Background -->
           <div class="absolute top-8 right-8 opacity-[0.04] pointer-events-none">
@@ -186,19 +241,32 @@
           <div class="lg:hidden text-center mb-6 relative z-10">
             <!-- Dual Logo Display -->
             <div class="flex items-center justify-center gap-4 mb-4">
+<<<<<<< HEAD
               <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-[#004595] to-[#00397a] p-1 shadow-xl animate-glow-pulse-subtle">
+=======
+              <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-linear-to-br from-[#004595] to-[#00397a] p-1 shadow-xl animate-glow-pulse-subtle">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
                 <div class="w-full h-full bg-white rounded-full flex items-center justify-center p-1">
                   <img :src="bcpoLogo" alt="BCPO Logo" class="w-full h-full object-contain" />
                 </div>
               </div>
               
               <div class="flex flex-col items-center gap-1">
+<<<<<<< HEAD
                 <div class="w-px h-6 bg-gradient-to-b from-transparent via-[#00397a] to-transparent"></div>
                 <div class="w-1.5 h-1.5 rounded-full bg-[#004595] animate-pulse"></div>
                 <div class="w-px h-6 bg-gradient-to-b from-transparent via-[#00397a] to-transparent"></div>
               </div>
               
               <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-[#004595] to-[#00397a] p-1 shadow-xl animate-glow-pulse-subtle">
+=======
+                <div class="w-px h-6 bg-linear-to-b from-transparent via-[#00397a] to-transparent"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-[#004595] animate-pulse"></div>
+                <div class="w-px h-6 bg-linear-to-b from-transparent via-[#00397a] to-transparent"></div>
+              </div>
+              
+              <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-linear-to-br from-[#004595] to-[#00397a] p-1 shadow-xl animate-glow-pulse-subtle">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
                 <div class="w-full h-full bg-white rounded-full flex items-center justify-center p-1">
                   <img :src="bxuLogo" alt="BXU Logo" class="w-full h-full object-contain" />
                 </div>
@@ -207,7 +275,11 @@
             <div class="relative inline-block">
               <h2 class="text-2xl font-bold text-[#002147] mb-1 tracking-tight relative">
                 Officer Login
+<<<<<<< HEAD
                 <div class="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#004595] to-transparent"></div>
+=======
+                <div class="absolute -bottom-1 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-[#004595] to-transparent"></div>
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
               </h2>
             </div>
             <p class="text-[#00397a]/70 text-sm font-medium">Community Monitoring System</p>
@@ -216,14 +288,22 @@
           <!-- Desktop Header -->
           <div class="hidden lg:block mb-6 relative z-10">
             <div class="flex items-center gap-3 mb-3">
+<<<<<<< HEAD
               <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#004595] to-[#00397a] flex items-center justify-center shadow-lg">
+=======
+              <div class="w-10 h-10 rounded-lg bg-linear-to-br from-[#004595] to-[#00397a] flex items-center justify-center shadow-lg">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
                 </svg>
               </div>
               <div>
                 <h2 class="text-3xl font-bold text-[#002147] tracking-tight">Officer Login</h2>
+<<<<<<< HEAD
                 <div class="w-16 h-0.5 bg-gradient-to-r from-[#004595] to-transparent mt-1"></div>
+=======
+                <div class="w-16 h-0.5 bg-linear-to-r from-[#004595] to-transparent mt-1"></div>
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
               </div>
             </div>
             <p class="text-[#00397a]/70 font-medium pl-13">Enter your credentials to continue</p>
@@ -234,8 +314,13 @@
             
             <!-- Email Field -->
             <div class="form-group">
+<<<<<<< HEAD
               <label class="block text-[#002147] font-bold mb-2 text-xs tracking-wide uppercase flex items-center gap-2" for="email">
                 <div class="w-1 h-4 bg-gradient-to-b from-[#004595] to-[#00397a] rounded-full"></div>
+=======
+              <label class="flex items-center gap-2 text-[#002147] font-bold mb-2 text-xs tracking-wide uppercase" for="email">
+                <div class="w-1 h-4 bg-linear-to-b from-[#004595] to-[#00397a] rounded-full"></div>
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
                 Email Address
               </label>
               <div class="relative input-wrapper group">
@@ -265,8 +350,13 @@
 
             <!-- Password Field -->
             <div class="form-group">
+<<<<<<< HEAD
               <label class="block text-[#002147] font-bold mb-2 text-xs tracking-wide uppercase flex items-center gap-2" for="password">
                 <div class="w-1 h-4 bg-gradient-to-b from-[#004595] to-[#00397a] rounded-full"></div>
+=======
+              <label class="flex items-center gap-2 text-[#002147] font-bold mb-2 text-xs tracking-wide uppercase" for="password">
+                <div class="w-1 h-4 bg-linear-to-b from-[#004595] to-[#00397a] rounded-full"></div>
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
                 Password
               </label>
               <div class="relative input-wrapper group">
@@ -326,10 +416,17 @@
             <button
               type="submit"
               :disabled="isLoading"
+<<<<<<< HEAD
               class="login-button w-full bg-gradient-to-r from-[#004595] via-[#00397a] to-[#004595] text-white py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none relative overflow-hidden group tracking-wide text-sm mt-6"
             >
               <!-- Animated background gradient -->
               <div class="absolute inset-0 bg-gradient-to-r from-[#00397a] via-[#004595] to-[#00397a] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+=======
+              class="login-button w-full bg-linear-to-r from-[#004595] via-[#00397a] to-[#004595] text-white py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none relative overflow-hidden group tracking-wide text-sm mt-6"
+            >
+              <!-- Animated background gradient -->
+              <div class="absolute inset-0 bg-linear-to-r from-[#00397a] via-[#004595] to-[#00397a] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
               
               <!-- Glowing border effect -->
               <div class="absolute inset-0 rounded-lg border-2 border-white/20 group-hover:border-white/40 transition-all"></div>
@@ -353,7 +450,11 @@
 
           <!-- Footer -->
           <div class="mt-6 pt-5 border-t border-[#f3f1ee] relative z-10">
+<<<<<<< HEAD
             <div class="flex items-center justify-center gap-2 text-xs text-[#00397a]/80 font-medium bg-gradient-to-r from-transparent via-[#f3f1ee]/30 to-transparent py-2 rounded">
+=======
+            <div class="flex items-center justify-center gap-2 text-xs text-[#00397a]/80 font-medium bg-linear-to-r from-transparent via-[#f3f1ee]/30 to-transparent py-2 rounded">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
               <div class="w-1.5 h-1.5 rounded-full bg-[#004595] animate-pulse"></div>
               <svg class="w-4 h-4 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>

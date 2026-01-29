@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="w-screen h-screen flex justify-center items-center bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] text-white relative overflow-hidden font-['Poppins',sans-serif]">
     <!-- Animated Background Elements -->
     <div class="absolute inset-0 opacity-10">
@@ -50,6 +51,27 @@
         <p class="text-sm text-slate-100 font-semibold tracking-wide">
           Loading<span class="animate-pulse">...</span> {{ Math.floor(progress) }}%
         </p>
+=======
+  <div class="w-screen h-screen flex justify-center items-center bg-linear-to-br from-[#002147] to-[#00397a] text-white">
+    <div class="text-center max-w-lg px-8">
+      <div class="mb-8 flex justify-center items-center">
+        <img 
+          src="@/assets/BCPO 1 LOGO.png" 
+          alt="BCPO Logo" 
+          class="w-30 h-30 object-contain animate-pulse"
+        />
+      </div>
+      <h1 class="text-3xl font-bold text-white mb-2 tracking-wide">Community Monitoring System</h1>
+      <p class="text-base text-blue-100 mb-12 font-medium">Butuan City Police Station 1</p>
+      <div class="w-full">
+        <div class="w-full h-1.5 bg-white/20 rounded-full overflow-hidden mb-4">
+          <div 
+            class="h-full bg-linear-to-r from-[#004595] to-[#00397a] rounded-full transition-all duration-300 ease-out" 
+            :style="{ width: progress + '%' }"
+          ></div>
+        </div>
+        <p class="text-sm text-slate-100 font-medium m-0">Loading... {{ Math.floor(progress) }}%</p>
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
       </div>
     </div>
   </div>
@@ -83,6 +105,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
+<<<<<<< HEAD
 /* Import Poppins font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
 
@@ -98,4 +121,6 @@ onMounted(() => {
 .animate-shimmer {
   animation: shimmer 2s infinite;
 }
+=======
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
 </style>

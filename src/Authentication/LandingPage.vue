@@ -2,9 +2,15 @@
   <div class="relative min-h-screen bg-[#f3f1ee] text-[#002147] font-['Poppins',sans-serif] overflow-x-hidden">
     
     <!-- Navigation Header -->
+<<<<<<< HEAD
     <nav class="fixed top-0 left-0 right-0 flex justify-between items-center px-12 py-4 bg-[#002147] shadow-[0_2px_10px_rgba(0,33,71,0.1)] z-[100] animate-slideDown">
       <div class="flex items-center gap-4">
         <img src="@/assets/BCPO 1 LOGO.png" alt="BCPS 1 Logo" class="h-[50px] w-auto animate-fadeIn" />
+=======
+    <nav class="fixed top-0 left-0 right-0 flex justify-between items-center px-12 py-4 bg-[#002147] shadow-[0_2px_10px_rgba(0,33,71,0.1)] z-100 animate-slideDown">
+      <div class="flex items-center gap-4">
+        <img src="@/assets/BCPO 1 LOGO.png" alt="BCPS 1 Logo" class="h-12.5 w-auto animate-fadeIn" />
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
         <span class="text-[0.95rem] font-bold text-white tracking-[0.5px] animate-fadeIn">BUTUAN CITY POLICE STATION 1</span>
       </div>
       <router-link to="/login" class="flex items-center gap-2 px-7 py-2.5 font-semibold text-[0.95rem] no-underline bg-[#004595] text-white border-2 border-white rounded-full transition-all duration-300 cursor-pointer shadow-[0_2px_8px_rgba(0,33,71,0.10)] tracking-wider hover:bg-white hover:text-[#004595] hover:border-[#004595] hover:shadow-[0_4px_16px_rgba(0,69,149,0.18)] hover:scale-105 animate-fadeIn">
@@ -19,6 +25,7 @@
 
       <!-- Hero Section -->
       <section class="hero-container">
+<<<<<<< HEAD
         <div class="relative z-[1] text-center max-w-[1100px] mx-auto px-4 animate-fadeInUp">
           <div class="flex justify-center items-center gap-16 mb-12 max-md:gap-6 max-sm:gap-3 animate-scaleIn">
             <div class="flex items-center justify-center">
@@ -29,12 +36,28 @@
             </div>
             <div class="flex items-center justify-center">
               <img src="@/assets/butuanlogo.png" alt="BXU Logo" class="h-[150px] w-[150px] object-contain max-md:h-[100px] max-md:w-[100px] hover:scale-110 transition-transform duration-300" />
+=======
+        <div class="relative z-1 text-center max-w-275 mx-auto px-4 animate-fadeInUp">
+          <div class="flex justify-center items-center gap-16 mb-12 max-md:gap-6 max-sm:gap-3 animate-scaleIn">
+            <div class="flex items-center justify-center">
+              <img src="@/assets/BCPO 1 LOGO.png" alt="BCPS 1 Logo" class="h-30 w-30 object-contain max-md:h-20 max-md:w-20 hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/pnplogo.png" alt="PNP Logo" class="h-30 w-30 object-contain max-md:h-20 max-md:w-20 hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/butuanlogo.png" alt="BXU Logo" class="h-30 w-30 object-contain max-md:h-20 max-md:w-20 hover:scale-110 transition-transform duration-300" />
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
             </div>
           </div>
           <h1 class="text-[2.75rem] font-extrabold text-white mb-6 tracking-wider [text-shadow:2px_2px_8px_rgba(0,0,0,0.5)] max-md:text-[1.75rem] animate-fadeInUp animation-delay-200">
             COMMUNITY MONITORING SYSTEM
           </h1>
+<<<<<<< HEAD
           <p class="text-lg text-[#f3f1ee] leading-[1.7] mb-10 [text-shadow:1px_1px_6px_rgba(0,0,0,0.5)] max-md:text-base max-w-[700px] mx-auto animate-fadeInUp animation-delay-400">
+=======
+          <p class="text-lg text-[#f3f1ee] leading-[1.7] mb-10 [text-shadow:1px_1px_6px_rgba(0,0,0,0.5)] max-md:text-base max-w-175 mx-auto animate-fadeInUp animation-delay-400">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
             Real-time monitoring and coordination for schools, businesses, and community events across 28 barangays in Butuan City.
           </p>
           <router-link to="/login" class="inline-flex items-center gap-2 px-12 py-4 text-lg font-semibold bg-[#004595] text-white border-2 border-white rounded-full no-underline transition-all duration-300 cursor-pointer shadow-[0_2px_8px_rgba(0,33,71,0.10)] tracking-wider hover:bg-white hover:text-[#004595] hover:border-[#004595] hover:-translate-y-1 hover:shadow-[0_4px_16px_rgba(0,69,149,0.18)] hover:scale-105 animate-fadeInUp animation-delay-600">
@@ -48,7 +71,11 @@
 
       <!-- Info Cards -->
       <section class="info-section">
+<<<<<<< HEAD
         <div class="relative z-[1] grid grid-cols-3 gap-8 max-w-[1200px] mx-auto max-md:grid-cols-1 px-4">
+=======
+        <div class="relative z-1 grid grid-cols-3 gap-8 max-w-300 mx-auto max-md:grid-cols-1 px-4">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
           <div class="bg-white/90 backdrop-blur-[10px] p-8 text-center border-2 border-[#004595] rounded-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_30px_rgba(0,69,149,0.25)] hover:bg-white hover:border-[#002147] animate-fadeInUp animation-delay-100">
             <div class="text-5xl font-extrabold text-[#004595] mb-3 animate-countUp">28</div>
             <div class="text-sm font-semibold text-[#002147] uppercase tracking-[1px]">Barangays Covered</div>
@@ -66,12 +93,21 @@
 
       <!-- Services Section -->
       <section class="services-section">
+<<<<<<< HEAD
         <h2 class="relative z-[1] text-center text-[2.5rem] font-extrabold text-white mb-14 tracking-[1.5px] [text-shadow:2px_2px_8px_rgba(0,0,0,0.5)] max-md:text-[1.75rem] animate-fadeInUp">OUR SERVICES</h2>
         <div class="relative z-[1] grid grid-cols-2 gap-8 max-w-[1200px] mx-auto max-md:grid-cols-1 px-4">
           <div class="service-card animate-fadeInUp animation-delay-100">
             <div class="flex items-start gap-4 mb-4">
               <div class="p-3 bg-white/20 rounded-lg">
                 <svg class="w-8 h-8 text-white [stroke-width:2.5] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+=======
+        <h2 class="relative z-1 text-center text-[2.5rem] font-extrabold text-white mb-14 tracking-[1.5px] [text-shadow:2px_2px_8px_rgba(0,0,0,0.5)] max-md:text-[1.75rem] animate-fadeInUp">OUR SERVICES</h2>
+        <div class="relative z-1 grid grid-cols-2 gap-8 max-w-300 mx-auto max-md:grid-cols-1 px-4">
+          <div class="service-card animate-fadeInUp animation-delay-100">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="p-3 bg-white/20 rounded-lg">
+                <svg class="w-8 h-8 text-white stroke-[2.5] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
               </div>
@@ -84,7 +120,11 @@
           <div class="service-card animate-fadeInUp animation-delay-200">
             <div class="flex items-start gap-4 mb-4">
               <div class="p-3 bg-white/20 rounded-lg">
+<<<<<<< HEAD
                 <svg class="w-8 h-8 text-white [stroke-width:2.5] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+=======
+                <svg class="w-8 h-8 text-white stroke-[2.5] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
@@ -97,7 +137,11 @@
           <div class="service-card animate-fadeInUp animation-delay-300">
             <div class="flex items-start gap-4 mb-4">
               <div class="p-3 bg-white/20 rounded-lg">
+<<<<<<< HEAD
                 <svg class="w-8 h-8 text-white [stroke-width:2.5] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+=======
+                <svg class="w-8 h-8 text-white stroke-[2.5] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
@@ -110,7 +154,11 @@
           <div class="service-card animate-fadeInUp animation-delay-400">
             <div class="flex items-start gap-4 mb-4">
               <div class="p-3 bg-white/20 rounded-lg">
+<<<<<<< HEAD
                 <svg class="w-8 h-8 text-white [stroke-width:2.5] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+=======
+                <svg class="w-8 h-8 text-white stroke-[2.5] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
@@ -125,6 +173,7 @@
 
       <!-- Footer -->
       <footer class="px-8 py-8 bg-[#00397a] border-t-[3px] border-[#004595] animate-fadeIn">
+<<<<<<< HEAD
         <div class="max-w-[1200px] mx-auto text-center">
           <div class="flex justify-center items-center gap-10 mb-4 max-md:gap-6 max-sm:gap-4">
             <div class="flex items-center justify-center">
@@ -135,6 +184,18 @@
             </div>
             <div class="flex items-center justify-center">
               <img src="@/assets/butuanlogo.png" alt="BXU Logo" class="h-[75px] w-[75px] object-contain max-md:h-[60px] max-md:w-[60px] hover:scale-110 transition-transform duration-300" />
+=======
+        <div class="max-w-300 mx-auto text-center">
+          <div class="flex justify-center items-center gap-10 mb-4 max-md:gap-6 max-sm:gap-4">
+            <div class="flex items-center justify-center">
+              <img src="@/assets/BCPO 1 LOGO.png" alt="BCPS 1 Logo" class="h-15 w-15 object-contain max-md:h-12.5 max-md:w-12.5 hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/pnplogo.png" alt="PNP Logo" class="h-15 w-15 object-contain max-md:h-12.5 max-md:w-12.5 hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/butuanlogo.png" alt="BXU Logo" class="h-15 w-15 object-contain max-md:h-12.5 max-md:w-12.5 hover:scale-110 transition-transform duration-300" />
+>>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
             </div>
           </div>
           <p class="text-base font-semibold text-white mb-2">© {{ new Date().getFullYear() }} Butuan City Police Station 1</p>
