@@ -86,4 +86,150 @@ const getCommunityData = () => {
 
 const communityData = getCommunityData()
 
-export { defaultCenter, barangayOptions, communityData, markerIconUrls }
+const eventsData = [
+  // January 2025 events
+  {
+    id: '1',
+    title: 'Barangay Assembly - Agao',
+    start: '2025-01-25',
+    barangay: 'agao',
+    description: 'Monthly barangay assembly meeting',
+  },
+  {
+    id: '2',
+    title: 'Health Check-up - Baan KM 3',
+    start: '2025-01-26',
+    barangay: 'baan-km-3',
+    description: 'Free health check-up for residents',
+  },
+  {
+    id: '3',
+    title: 'Clean-up Drive - Bansa',
+    start: '2025-01-27',
+    barangay: 'bansa',
+    description: 'Community clean-up activity',
+  },
+  {
+    id: '4',
+    title: 'Youth Program - Bit-os',
+    start: '2025-01-28',
+    barangay: 'bit-os',
+    description: 'Youth development program',
+  },
+  {
+    id: '5',
+    title: 'Senior Citizen Meeting - Buhangin',
+    start: '2025-01-29',
+    barangay: 'buhangin',
+    description: 'Monthly senior citizen gathering',
+  },
+  {
+    id: '6',
+    title: 'Tree Planting - Dagohoy',
+    start: '2025-01-30',
+    barangay: 'dagohoy',
+    description: 'Environmental activity',
+  },
+  {
+    id: '7',
+    title: 'Sports Festival - Silongan',
+    start: '2025-01-31',
+    barangay: 'silongan',
+    description: 'Barangay sports event',
+  },
+  // February 2025 events
+  {
+    id: '8',
+    title: 'Medical Mission - Diego Silang',
+    start: '2025-02-01',
+    barangay: 'diego-silang',
+    description: 'Free medical services',
+  },
+  {
+    id: '9',
+    title: 'Cultural Show - Golden Ribbon',
+    start: '2025-02-02',
+    barangay: 'golden-ribbon',
+    description: 'Cultural presentation',
+  },
+  {
+    id: '10',
+    title: 'Livelihood Training - Imadejas',
+    start: '2025-02-03',
+    barangay: 'imadejas',
+    description: 'Skills training program',
+  },
+  {
+    id: '11',
+    title: 'Community Prayer - JP Rizal',
+    start: '2025-02-04',
+    barangay: 'jp-rizal',
+    description: 'Religious gathering',
+  },
+  {
+    id: '12',
+    title: 'Barangay Fiesta - Lapu-Lapu',
+    start: '2025-02-05',
+    barangay: 'lapu-lapu',
+    description: 'Annual barangay celebration',
+  },
+  {
+    id: '13',
+    title: 'Environmental Awareness - Leon Kilat',
+    start: '2025-02-06',
+    barangay: 'leon-kilat',
+    description: 'Environmental education program',
+  },
+  {
+    id: '14',
+    title: "Women's Health Seminar - Mahay",
+    start: '2025-02-07',
+    barangay: 'mahay',
+    description: 'Health awareness for women',
+  },
+  {
+    id: '15',
+    title: 'Youth Sports League - Mahogany',
+    start: '2025-02-08',
+    barangay: 'mahogany',
+    description: 'Youth sports competition',
+  },
+  // Multiple events on same day
+  {
+    id: '16',
+    title: 'Community Meeting - Maon',
+    start: '2025-02-10',
+    barangay: 'maon',
+    description: 'General community meeting',
+  },
+  {
+    id: '17',
+    title: 'Vaccination Drive - Maon',
+    start: '2025-02-10',
+    barangay: 'maon',
+    description: 'COVID-19 vaccination program',
+  },
+  {
+    id: '18',
+    title: 'Senior Citizen Program - Maug',
+    start: '2025-02-11',
+    barangay: 'maug',
+    description: 'Activities for senior citizens',
+  },
+  {
+    id: '19',
+    title: 'Business Forum - New Society Village',
+    start: '2025-02-12',
+    barangay: 'new-society-village',
+    description: 'Local business networking',
+  },
+  {
+    id: '20',
+    title: 'Agricultural Training - Pangabugan',
+    start: '2025-02-13',
+    barangay: 'pangabugan',
+    description: 'Farming techniques workshop',
+  },
+]
+
+export { defaultCenter, barangayOptions, communityData, markerIconUrls, eventsData }
