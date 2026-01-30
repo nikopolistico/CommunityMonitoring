@@ -65,7 +65,6 @@ const router = createRouter({
       component: Establishments,
       meta: { requiresAuth: true },
     },
-<<<<<<< HEAD
   ],
 })
 
@@ -80,11 +79,4 @@ router.beforeEach(async (to) => {
   return true
 })
 
-=======
-    { name: 'calendar', path: '/calendar', component: Calendar },
-    { name: 'landing', path: '/', component: LandingPage },
-  ],
-})
-
->>>>>>> 67db0329c2d7b6e6fc7c4d8cafcafd81e78b2f29
 export default router
