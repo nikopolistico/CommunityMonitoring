@@ -87,20 +87,41 @@
                   :class="[
                     'min-h-24 p-2 border cursor-pointer transition-colors relative',
                     day.isCurrentMonth ? 'bg-white' : 'bg-gray-50 text-gray-400',
-                    day.isToday ? 'bg-blue-50 border-blue-200' : 'border-gray-200',
+                    day.isToday
+                      ? 'bg-amber-100 border-amber-300 ring-2 ring-amber-200 shadow-lg'
+                      : 'border-gray-200',
                     day.hasEvents ? 'hover:bg-blue-50' : 'hover:bg-gray-50',
                   ]"
                   @click="selectDate(day)"
                 >
                   <div class="text-sm font-medium mb-1">
-                    {{ day.date.getDate() }}
+                    <span
+                      :class="[
+                        'inline-flex items-center justify-center rounded-full',
+                        day.isToday
+                          ? 'w-9 h-9 bg-amber-500 text-white font-extrabold today-pulse ring-4 ring-amber-300'
+                          : 'w-7 h-7',
+                      ]"
+                    >
+                      {{ day.date.getDate() }}
+                    </span>
+                  </div>
+
+                  <div
+                    v-if="day.isToday"
+                    class="absolute -top-3 right-2 text-sm bg-amber-600 text-white px-3 py-1 rounded-full font-semibold today-pulse shadow-lg"
+                  >
+                    Today
                   </div>
 
                   <div class="space-y-1">
                     <div
                       v-for="event in day.events.slice(0, 2)"
                       :key="event.id"
-                      class="text-xs bg-[#004595] text-white px-1 py-0.5 rounded truncate"
+                      :class="[
+                        'text-xs px-1 py-0.5 rounded truncate',
+                        event.isFiesta ? 'bg-amber-400 text-white' : 'bg-[#004595] text-white',
+                      ]"
                       :title="event.title"
                     >
                       {{ event.title }}
@@ -132,6 +153,13 @@
                       ? `Events on ${selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`
                       : 'Select a Date'
                   }}
+                  <span
+                    v-if="
+                      selectedDate && formatLocalDate(selectedDate) === formatLocalDate(new Date())
+                    "
+                    class="ml-3 inline-block text-sm bg-amber-200 text-amber-900 px-3 py-1 rounded-full font-semibold today-pulse shadow-sm"
+                    >Today</span
+                  >
                 </h3>
                 <p class="text-sm text-gray-600">
                   {{
@@ -141,17 +169,59 @@
                   }}
                 </p>
               </div>
-              <button
-                @click="openAddModal"
-                :disabled="!selectedDate"
-                class="px-4 py-2 rounded-lg bg-[#004595] text-white font-semibold hover:bg-[#00397a] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                Add Event
-              </button>
+
+              <div class="flex flex-col items-end gap-3">
+                <div class="relative w-full sm:w-64">
+                  <div class="relative">
+                    <input
+                      v-model="searchTerm"
+                      @focus="searchFocused = true"
+                      @blur="() => setTimeout(() => (searchFocused = false), 150)"
+                      type="text"
+                      placeholder="Search barangay"
+                      class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-[#004595] focus:outline-none text-sm pl-10"
+                    />
+                    <svg
+                      class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l3.817 3.817a1 1 0 01-1.414 1.414l-3.817-3.817A6 6 0 012 8z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+
+                  <div
+                    v-if="searchFocused && filteredBarangayOptions.length"
+                    class="absolute z-10 mt-1 w-full bg-white border rounded-lg shadow-lg max-h-48 overflow-y-auto"
+                  >
+                    <div
+                      v-for="opt in filteredBarangayOptions"
+                      :key="opt.id"
+                      class="px-3 py-2 cursor-pointer hover:bg-gray-100"
+                      @mousedown.prevent="selectBarangay(opt.id)"
+                    >
+                      {{ opt.label }}
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  v-if="selectedBarangay !== 'all'"
+                  @click="openAddModal"
+                  :disabled="!selectedDate"
+                  class="px-4 py-2 rounded-lg bg-[#004595] text-white font-semibold hover:bg-[#00397a] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  Add Event
+                </button>
+              </div>
             </div>
 
             <!-- Events List -->
-            <div class="flex-1 overflow-y-auto">
+            <div class="flex-1 overflow-y-auto events-scroll max-h-[60vh]">
               <div v-if="!selectedDate" class="text-center py-12">
                 <div
                   class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
@@ -221,16 +291,28 @@
                     <div
                       v-for="event in getEventsByBarangay(barangay)"
                       :key="event.id"
-                      class="event-card bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors"
+                      :class="[
+                        'event-card rounded-lg p-3 transition-colors',
+                        isTodaySelected
+                          ? 'bg-amber-50 border-2 border-amber-300 shadow-md'
+                          : 'bg-gray-50 hover:bg-gray-100',
+                      ]"
                     >
                       <div class="flex items-start justify-between">
                         <div class="flex-1">
-                          <h5 class="font-medium text-[#002147] text-sm">{{ event.title }}</h5>
+                          <div class="flex items-center gap-2">
+                            <h5 class="font-medium text-[#002147] text-sm">{{ event.title }}</h5>
+                            <span
+                              v-if="event.isFiesta"
+                              class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full"
+                              >Fiesta</span
+                            >
+                          </div>
                           <p class="text-xs text-gray-600 mt-1 line-clamp-2">
                             {{ event.description }}
                           </p>
                         </div>
-                        <div class="ml-3 flex items-center gap-2">
+                        <div v-if="selectedBarangay !== 'all'" class="ml-3 flex items-center gap-2">
                           <button
                             @click="startEdit(event)"
                             class="icon-btn text-amber-600"
@@ -466,30 +548,26 @@ import { computed, ref, onMounted } from 'vue'
 import { supabase } from '@/lib/supabase'
 import headbk from '@/assets/landing.jpg'
 
+// UI State
 const selectedDate = ref(null)
 const showAddModal = ref(false)
 const currentDate = ref(new Date())
 const eventsData = ref([])
+const fiestasData = ref([])
 const loading = ref(true)
 const error = ref(null)
 const barangayOptions = ref([])
+const selectedBarangay = ref('all')
+const searchTerm = ref('All Barangay')
+const searchFocused = ref(false)
 const isSavingEvent = ref(false)
 const isUpdatingEvent = ref(false)
 const isDeletingEvent = ref(false)
 const editingEventId = ref(null)
-const newEvent = ref({
-  brgyId: '',
-  title: '',
-  description: '',
-})
-const editDraft = ref({
-  id: null,
-  brgyId: '',
-  title: '',
-  description: '',
-})
+const newEvent = ref({ brgyId: '', title: '', description: '' })
+const editDraft = ref({ id: null, brgyId: '', title: '', description: '' })
 
-// Fetch events from Supabase
+// --- Fetching Data ---
 const fetchEvents = async () => {
   try {
     loading.value = true
@@ -509,30 +587,21 @@ const fetchEvents = async () => {
   }
 }
 
-const selectedDateEvents = computed(() => {
-  if (!selectedDate.value) return []
-  const dateStr = formatLocalDate(selectedDate.value)
-  return eventsData.value.filter((event) => getEventDateStr(event) === dateStr)
-})
+const fetchFiestas = async () => {
+  try {
+    const { data, error: fiestaError } = await supabase
+      .from('BrgyFiesta')
+      .select('id, patron, date, brgy_id, recurring, active, month_day_start, month_day_end')
+      .eq('active', true)
 
-const getUniqueBarangays = (events) => {
-  const barangays = events.map((event) => event.brgy_id)
-  return [...new Set(barangays)]
+    if (fiestaError) throw fiestaError
+    fiestasData.value = data || []
+  } catch (err) {
+    console.error('Error fetching fiestas:', err)
+  }
 }
 
-const getBarangayEventCount = (barangay) => {
-  return selectedDateEvents.value.filter((event) => event.brgy_id === barangay).length
-}
-
-const getEventsByBarangay = (barangay) => {
-  return selectedDateEvents.value.filter((event) => event.brgy_id === barangay)
-}
-
-const getBarangayLabel = (brgyId) => {
-  const match = barangayOptions.value.find((item) => item.id === brgyId)
-  return match ? match.label : 'Unknown Barangay'
-}
-
+// --- Helpers for dates & fiestas ---
 const normalizeDateStr = (value) => {
   if (!value) return ''
   if (typeof value === 'string') return value.split('T')[0]
@@ -555,16 +624,83 @@ const getEventDateStr = (event) => {
   return normalizeDateStr(event.event_date || event.start)
 }
 
+const monthDayToNumber = (month, day) => Number(month) * 100 + Number(day)
+
+const monthDayStringToNumber = (str) => {
+  if (!str) return null
+  const parts = str.split(/[-/]/).map((s) => Number(s))
+  if (parts.length < 2) return null
+  return monthDayToNumber(parts[0], parts[1])
+}
+
+const fiestaMatchesDate = (fiesta, date) => {
+  if (!fiesta || !date) return false
+
+  const normalized = normalizeDateStr(fiesta.date)
+  const dateStr = formatLocalDate(date)
+
+  // Direct one-off date match (supports full YYYY-MM-DD)
+  if (normalized) {
+    if (normalized === dateStr) return true
+    // allow matching by MM-DD if stored without year
+    if (normalized.length === 5) {
+      return normalized === dateStr.slice(5)
+    }
+  }
+
+  // Recurring range match using month_day_start / month_day_end
+  const startNum = monthDayStringToNumber(fiesta.month_day_start)
+  const endNum = monthDayStringToNumber(fiesta.month_day_end)
+  if (startNum == null || endNum == null) return false
+
+  const dMonth = date.getMonth() + 1
+  const dDay = date.getDate()
+  const curNum = monthDayToNumber(dMonth, dDay)
+
+  if (startNum <= endNum) {
+    return curNum >= startNum && curNum <= endNum
+  }
+
+  // wrap-around (e.g., Dec -> Jan)
+  return curNum >= startNum || curNum <= endNum
+}
+
+// --- Derived data ---
 const eventsByDate = computed(() => {
   const eventsMap = {}
   eventsData.value.forEach((event) => {
     const dateKey = getEventDateStr(event)
-    if (!eventsMap[dateKey]) {
-      eventsMap[dateKey] = []
-    }
+    if (!eventsMap[dateKey]) eventsMap[dateKey] = []
     eventsMap[dateKey].push(event)
   })
   return eventsMap
+})
+
+const selectedDateEvents = computed(() => {
+  if (!selectedDate.value) return []
+  const dateStr = formatLocalDate(selectedDate.value)
+
+  const events = (eventsByDate.value[dateStr] || []).map((e) => ({ ...e }))
+
+  // include matching fiestas as synthetic events
+  fiestasData.value.forEach((f) => {
+    if (fiestaMatchesDate(f, selectedDate.value)) {
+      events.push({
+        id: `fiesta-${f.id}`,
+        brgy_id: f.brgy_id,
+        title: f.patron || `${getBarangayLabel(f.brgy_id)} Fiesta`,
+        description: '',
+        isFiesta: true,
+      })
+    }
+  })
+
+  // filter by selected barangay if specific
+  if (selectedBarangay.value !== 'all') {
+    return events.filter((e) => String(e.brgy_id) === String(selectedBarangay.value))
+  }
+
+  return events
 })
 
 const calendarDays = computed(() => {
@@ -572,7 +708,6 @@ const calendarDays = computed(() => {
   const month = currentDate.value.getMonth()
 
   const firstDay = new Date(year, month, 1)
-  const lastDay = new Date(year, month + 1, 0)
   const startDate = new Date(firstDay)
   startDate.setDate(startDate.getDate() - firstDay.getDay())
 
@@ -583,7 +718,27 @@ const calendarDays = computed(() => {
     const dateStr = formatLocalDate(current)
     const isCurrentMonth = current.getMonth() === month
     const isToday = current.toDateString() === new Date().toDateString()
-    const dayEvents = eventsByDate.value[dateStr] || []
+
+    // base events for the day
+    let dayEvents = (eventsByDate.value[dateStr] || []).map((e) => ({ ...e }))
+
+    // add fiestas that occur on this date
+    fiestasData.value.forEach((f) => {
+      if (fiestaMatchesDate(f, current)) {
+        dayEvents.push({
+          id: `fiesta-${f.id}`,
+          brgy_id: f.brgy_id,
+          title: f.patron || `${getBarangayLabel(f.brgy_id)} Fiesta`,
+          description: '',
+          isFiesta: true,
+        })
+      }
+    })
+
+    // if a specific barangay is selected, only show its events in calendar marks
+    if (selectedBarangay.value !== 'all') {
+      dayEvents = dayEvents.filter((e) => String(e.brgy_id) === String(selectedBarangay.value))
+    }
 
     days.push({
       date: new Date(current),
@@ -639,6 +794,9 @@ const openAddModal = () => {
     alert('Please select a date first')
     return
   }
+
+  // prefill barangay when a specific one is selected
+  newEvent.value.brgyId = selectedBarangay.value !== 'all' ? selectedBarangay.value : ''
   showAddModal.value = true
 }
 
@@ -717,10 +875,7 @@ const fetchBarangays = async () => {
 
     if (brgyError) throw brgyError
 
-    barangayOptions.value = (data || []).map((item) => ({
-      id: item.id,
-      label: item.brgyname,
-    }))
+    barangayOptions.value = (data || []).map((item) => ({ id: item.id, label: item.brgyname }))
   } catch (err) {
     console.error('Error fetching barangays:', err)
   }
@@ -760,10 +915,50 @@ const saveEvent = async () => {
   }
 }
 
-// Load events on component mount
+// --- Search / selection helpers ---
+const filteredBarangayOptions = computed(() => {
+  const all = [{ id: 'all', label: 'All Barangay' }, ...barangayOptions.value]
+  const q = (searchTerm.value || '').toLowerCase().trim()
+  if (!q) return all
+  return all.filter((b) => b.label.toLowerCase().includes(q))
+})
+
+const selectBarangay = (id) => {
+  selectedBarangay.value = id
+  const found =
+    id === 'all' ? { label: 'All Barangay' } : barangayOptions.value.find((b) => b.id === id)
+  searchTerm.value = found ? found.label : ''
+  searchFocused.value = false
+}
+
+// --- Utility & view helpers ---
+const getUniqueBarangays = (events) => {
+  const barangays = events.map((event) => event.brgy_id)
+  return [...new Set(barangays)]
+}
+
+const getBarangayEventCount = (barangay) => {
+  return selectedDateEvents.value.filter((event) => event.brgy_id === barangay).length
+}
+
+const getEventsByBarangay = (barangay) => {
+  return selectedDateEvents.value.filter((event) => event.brgy_id === barangay)
+}
+
+const getBarangayLabel = (brgyId) => {
+  const match = barangayOptions.value.find((item) => item.id === brgyId)
+  return match ? match.label : 'Unknown Barangay'
+}
+
+const isTodaySelected = computed(() => {
+  return selectedDate.value && formatLocalDate(selectedDate.value) === formatLocalDate(new Date())
+})
+
+// Load data on mount
 onMounted(() => {
   fetchEvents()
   fetchBarangays()
+  fetchFiestas()
 })
 </script>
 
@@ -827,6 +1022,42 @@ select option:checked {
 
 .event-edit {
   animation: edit-slide 0.25s ease-out;
+}
+
+/* Scroll styling for events list */
+.events-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+}
+.events-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.events-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.events-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+
+/* Today highlight pulse */
+.today-pulse {
+  animation: today-pulse 1.6s ease-in-out infinite;
+}
+@keyframes today-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 12px 6px rgba(245, 158, 11, 0.08);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
 }
 
 @keyframes event-fade-in {
