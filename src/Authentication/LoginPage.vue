@@ -3,16 +3,16 @@
     class="min-h-screen flex items-center justify-center relative overflow-hidden bg-linear-to-br from-[#002147] to-[#00397a]"
   >
     <!-- Success Modal -->
-    <Transition name="modal-fade">
+    <transition name="modal-fade">
       <div
         v-if="showSuccessModal"
         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
       >
         <div
-          class="success-modal bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform animate-modal-slide"
+          class="success-modal bg-gradient-to-br from-[#f3f1ee] to-white rounded-2xl shadow-2xl max-w-lg w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20"
         >
           <!-- Success Icon -->
-          <div class="flex justify-center mb-6">
+          <div class="flex justify-center mb-8">
             <div class="success-checkmark">
               <div class="check-icon">
                 <span class="icon-line line-tip"></span>
@@ -24,84 +24,115 @@
           </div>
 
           <!-- Success Message -->
-          <div class="text-center space-y-4">
-            <h3 class="text-3xl font-bold text-[#002147]">Welcome Back!</h3>
-            <p class="text-[#00397a]/80 text-lg">
-              <span class="font-semibold">Officer</span>
-            </p>
-            <p class="text-[#00397a]/60 text-sm">
-              Email: <span class="font-medium">{{ userEmail }}</span>
-            </p>
+          <div class="text-center space-y-5">
+            <div class="space-y-2">
+              <h3 class="text-3xl font-extrabold text-[#002147] tracking-tight">Welcome Back!</h3>
+              <div
+                class="w-24 h-1 bg-gradient-to-r from-transparent via-[#004595] to-transparent rounded-full mx-auto"
+              ></div>
+            </div>
+
+            <div
+              class="bg-white/70 backdrop-blur-sm rounded-xl p-5 border border-[#004595]/10 shadow-sm"
+            >
+              <p class="text-[#00397a] text-lg font-semibold mb-2">Police Officer Authentication</p>
+              <div class="flex items-center justify-center gap-2 text-[#00397a]/70 text-sm">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+                  />
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
+                <span class="font-medium">{{ userEmail }}</span>
+              </div>
+            </div>
 
             <!-- Loading Bar -->
-            <div class="pt-4">
-              <div class="relative w-full h-2 bg-[#f3f1ee] rounded-full overflow-hidden">
+            <div class="pt-2">
+              <div
+                class="relative w-full h-2.5 bg-[#002147]/10 rounded-full overflow-hidden shadow-inner"
+              >
                 <div
-                  class="loading-bar absolute top-0 left-0 h-full bg-linear-to-r from-[#004595] via-[#00397a] to-[#004595] rounded-full"
+                  class="loading-bar absolute top-0 left-0 h-full bg-gradient-to-r from-[#004595] via-[#00397a] to-[#004595] rounded-full shadow-lg"
                 ></div>
               </div>
-              <p class="text-[#00397a]/60 text-xs mt-2 font-medium">
+              <p class="text-[#00397a]/70 text-xs mt-3 font-semibold tracking-wide">
                 Accessing 28 Barangays Monitoring Dashboard...
               </p>
             </div>
           </div>
-
-          <!-- Police Badge Background -->
-          <div class="absolute top-8 right-8 opacity-5 pointer-events-none">
-            <svg class="w-24 h-24" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-              />
-            </svg>
-          </div>
         </div>
       </div>
-    </Transition>
+    </transition>
 
     <!-- Error Modal -->
-    <Transition name="modal-fade">
+    <transition name="modal-fade">
       <div
         v-if="showErrorModal"
         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
       >
         <div
-          class="error-modal bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform animate-modal-slide"
+          class="error-modal bg-gradient-to-br from-[#f3f1ee] to-white rounded-2xl shadow-2xl max-w-lg w-full p-10 transform animate-modal-slide border-2 border-red-500/20"
         >
           <!-- Error Icon -->
-          <div class="flex justify-center mb-6">
-            <div class="error-icon">
-              <svg
-                class="w-20 h-20 text-red-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+          <div class="flex justify-center mb-8">
+            <div class="error-icon-wrapper">
+              <div class="relative">
+                <div
+                  class="w-24 h-24 rounded-full bg-red-50 flex items-center justify-center border-4 border-red-500 shadow-lg"
+                >
+                  <svg
+                    class="w-12 h-12 text-red-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="3"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
 
           <!-- Error Message -->
-          <div class="text-center space-y-4">
-            <h3 class="text-2xl font-bold text-red-600">Login Failed</h3>
-            <p class="text-gray-700">{{ errorMessage }}</p>
+          <div class="text-center space-y-5">
+            <div class="space-y-2">
+              <h3 class="text-3xl font-extrabold text-red-600 tracking-tight">Access Denied</h3>
+              <div
+                class="w-24 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full mx-auto"
+              ></div>
+            </div>
+
+            <div
+              class="bg-white/70 backdrop-blur-sm rounded-xl p-5 border border-red-500/10 shadow-sm"
+            >
+              <p class="text-[#002147] font-medium leading-relaxed">{{ errorMessage }}</p>
+            </div>
 
             <!-- Close Button -->
             <button
               @click="closeErrorModal"
-              class="mt-6 w-full bg-linear-to-r from-red-500 to-red-600 text-white py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
+              class="mt-4 w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3.5 px-6 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 tracking-wide"
             >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
+              </svg>
               Try Again
             </button>
           </div>
         </div>
       </div>
-    </Transition>
+    </transition>
 
     <!-- Large Static Police Badge Star Background - BOTTOM POSITIONED -->
     <div
@@ -134,41 +165,18 @@
       <!-- Left Side - Branding Section -->
       <div class="hidden lg:flex flex-col flex-1 max-w-md animate-fade-in-left">
         <div class="space-y-6">
-          <!-- Dual Logo with Animation -->
-          <div class="flex items-center justify-start gap-5 mb-4">
+          <!-- Triple Logo Display -->
+          <div class="flex items-center justify-start gap-10 mb-4">
             <div class="relative inline-block">
-              <div
-                class="relative p-4 rounded-full bg-linear-to-br from-white/15 to-white/5 shadow-[0_0_40px_rgba(255,255,255,0.2),0_0_70px_rgba(255,255,255,0.1)] animate-glow-pulse"
-              >
-                <img
-                  :src="bcpoLogo"
-                  alt="BCPO Logo"
-                  class="w-36 h-36 object-contain animate-float"
-                />
-              </div>
-            </div>
-
-            <!-- Divider with animated pulse -->
-            <div class="flex flex-col items-center gap-1.5">
-              <div
-                class="w-px h-16 bg-linear-to-b from-transparent via-white/50 to-transparent animate-pulse"
-              ></div>
-              <div class="w-2 h-2 rounded-full bg-white/70 animate-ping"></div>
-              <div
-                class="w-px h-16 bg-linear-to-b from-transparent via-white/50 to-transparent animate-pulse"
-              ></div>
+              <img :src="bcpoLogo" alt="BCPO Logo" class="w-40 h-40 object-contain" />
             </div>
 
             <div class="relative inline-block">
-              <div
-                class="relative p-4 rounded-full bg-linear-to-br from-white/15 to-white/5 shadow-[0_0_40px_rgba(255,255,255,0.2),0_0_70px_rgba(255,255,255,0.1)] animate-glow-pulse"
-              >
-                <img
-                  :src="bxuLogo"
-                  alt="BXU Logo"
-                  class="w-36 h-36 object-contain animate-float-delayed"
-                />
-              </div>
+              <img :src="pnpLogo" alt="PNP Logo" class="w-40 h-40 object-contain" />
+            </div>
+
+            <div class="relative inline-block">
+              <img :src="pnpbutuanLogo" alt="PNP Butuan Logo" class="w-48 h-48 object-contain" />
             </div>
           </div>
 
@@ -232,88 +240,71 @@
       <!-- Right Side - Login Card -->
       <div class="w-full max-w-md animate-fade-in-right">
         <div
-          class="login-card bg-white/98 backdrop-blur-sm p-7 rounded-xl shadow-2xl border border-white/30 relative overflow-hidden"
+          class="login-card bg-white/95 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-gray-200/60 relative overflow-hidden"
         >
-          <!-- Decorative Corner Elements -->
+          <!-- Elegant Top Border Accent -->
           <div
-            class="absolute top-0 left-0 w-24 h-24 bg-linear-to-br from-[#004595]/10 to-transparent rounded-br-full"
-          ></div>
-          <div
-            class="absolute bottom-0 right-0 w-32 h-32 bg-linear-to-tl from-[#00397a]/10 to-transparent rounded-tl-full"
+            class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#004595]/40 via-[#00397a]/30 to-[#004595]/40"
           ></div>
 
-          <!-- Top Accent Line -->
+          <!-- Subtle Corner Decorations -->
           <div
-            class="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-[#004595] to-transparent"
-          ></div>
-
-          <!-- Side Accent Lines -->
-          <div
-            class="absolute top-0 left-0 w-1 h-20 bg-linear-to-b from-[#004595] to-transparent"
+            class="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-gray-100/80 to-transparent rounded-br-3xl"
           ></div>
           <div
-            class="absolute top-0 right-0 w-1 h-20 bg-linear-to-b from-[#004595] to-transparent"
+            class="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-gray-100/60 to-transparent rounded-tl-3xl"
           ></div>
-
-          <!-- Decorative Badge Icon Background -->
-          <div class="absolute top-8 right-8 opacity-[0.04] pointer-events-none">
-            <svg class="w-32 h-32" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-              />
-            </svg>
-          </div>
 
           <!-- Mobile Logo -->
-          <div class="lg:hidden text-center mb-6 relative z-10">
-            <!-- Dual Logo Display -->
-            <div class="flex items-center justify-center gap-4 mb-4">
-              <div
-                class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-linear-to-br from-[#004595] to-[#00397a] p-1 shadow-xl animate-glow-pulse-subtle"
-              >
-                <div
-                  class="w-full h-full bg-white rounded-full flex items-center justify-center p-1"
-                >
-                  <img :src="bcpoLogo" alt="BCPO Logo" class="w-full h-full object-contain" />
-                </div>
-              </div>
-
-              <div class="flex flex-col items-center gap-1">
-                <div
-                  class="w-px h-6 bg-linear-to-b from-transparent via-[#00397a] to-transparent"
-                ></div>
-                <div class="w-1.5 h-1.5 rounded-full bg-[#004595] animate-pulse"></div>
-                <div
-                  class="w-px h-6 bg-linear-to-b from-transparent via-[#00397a] to-transparent"
-                ></div>
+          <div class="lg:hidden text-center mb-5 relative z-10">
+            <div class="flex items-center justify-center gap-5 mb-4">
+              <div class="transform hover:scale-110 transition-transform duration-300">
+                <img
+                  :src="bcpoLogo"
+                  alt="BCPO Logo"
+                  class="w-24 h-24 object-contain drop-shadow-lg"
+                />
               </div>
 
               <div
-                class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-linear-to-br from-[#004595] to-[#00397a] p-1 shadow-xl animate-glow-pulse-subtle"
-              >
-                <div
-                  class="w-full h-full bg-white rounded-full flex items-center justify-center p-1"
-                >
-                  <img :src="bxuLogo" alt="BXU Logo" class="w-full h-full object-contain" />
-                </div>
+                class="w-px h-20 bg-gradient-to-b from-transparent via-gray-300 to-transparent"
+              ></div>
+
+              <div class="transform hover:scale-110 transition-transform duration-300">
+                <img
+                  :src="pnpLogo"
+                  alt="PNP Logo"
+                  class="w-24 h-24 object-contain drop-shadow-lg"
+                />
+              </div>
+
+              <div
+                class="w-px h-20 bg-gradient-to-b from-transparent via-gray-300 to-transparent"
+              ></div>
+
+              <div class="transform hover:scale-110 transition-transform duration-300">
+                <img
+                  :src="pnpbutuanLogo"
+                  alt="PNP Butuan Logo"
+                  class="w-32 h-32 object-contain drop-shadow-lg"
+                />
               </div>
             </div>
-            <div class="relative inline-block">
-              <h2 class="text-2xl font-bold text-[#002147] mb-1 tracking-tight relative">
-                Officer Login
-                <div
-                  class="absolute -bottom-1 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-[#004595] to-transparent"
-                ></div>
-              </h2>
+
+            <div class="space-y-1.5">
+              <h2 class="text-xl font-bold text-gray-800 tracking-tight">Officer Login</h2>
+              <div
+                class="w-12 h-0.5 bg-gradient-to-r from-transparent via-gray-400 to-transparent rounded-full mx-auto"
+              ></div>
+              <p class="text-gray-600 text-xs font-medium">Community Monitoring System</p>
             </div>
-            <p class="text-[#00397a]/70 text-sm font-medium">Community Monitoring System</p>
           </div>
 
           <!-- Desktop Header -->
-          <div class="hidden lg:block mb-6 relative z-10">
-            <div class="flex items-center gap-3 mb-3">
+          <div class="hidden lg:block mb-5 relative z-10">
+            <div class="flex items-center gap-3 mb-2">
               <div
-                class="w-10 h-10 rounded-lg bg-linear-to-br from-[#004595] to-[#00397a] flex items-center justify-center shadow-lg"
+                class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#002147] to-[#003875] flex items-center justify-center shadow-md transform hover:scale-105 transition-transform duration-300"
               >
                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path
@@ -324,11 +315,15 @@
                 </svg>
               </div>
               <div>
-                <h2 class="text-3xl font-bold text-[#002147] tracking-tight">Officer Login</h2>
-                <div class="w-16 h-0.5 bg-linear-to-r from-[#004595] to-transparent mt-1"></div>
+                <h2 class="text-2xl font-bold text-gray-800 tracking-tight">Officer Login</h2>
+                <div
+                  class="w-16 h-0.5 bg-gradient-to-r from-[#004595]/60 via-gray-400 to-transparent rounded-full"
+                ></div>
               </div>
             </div>
-            <p class="text-[#00397a]/70 font-medium pl-13">Enter your credentials to continue</p>
+            <p class="text-gray-600 font-medium text-xs">
+              Enter your credentials to access the dashboard
+            </p>
           </div>
 
           <!-- Login Form -->
@@ -336,45 +331,28 @@
             <!-- Email Field -->
             <div class="form-group">
               <label
-                class="flex items-center gap-2 text-[#002147] font-bold mb-2 text-xs tracking-wide uppercase"
+                class="block text-gray-700 font-semibold mb-1.5 text-xs tracking-wide flex items-center gap-1.5"
                 for="email"
               >
-                <div class="w-1 h-4 bg-linear-to-b from-[#004595] to-[#00397a] rounded-full"></div>
+                <svg class="w-3.5 h-3.5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+                  />
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
                 Email Address
               </label>
               <div class="relative input-wrapper group">
-                <div
-                  class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10"
-                >
-                  <div class="relative">
-                    <svg
-                      class="w-5 h-5 text-[#00397a]/50 group-focus-within:text-[#004595] transition-colors"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
-                      />
-                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                    </svg>
-                    <div
-                      class="absolute -top-1 -right-1 w-2 h-2 bg-[#004595] rounded-full opacity-0 group-focus-within:opacity-100 group-focus-within:animate-ping"
-                    ></div>
-                  </div>
-                </div>
                 <input
                   v-model="email"
                   id="email"
                   type="email"
                   required
                   placeholder="officer@bcpo.gov.ph"
-                  class="input-field w-full pl-11 pr-4 py-2.5 border-2 border-[#f3f1ee] rounded-lg focus:outline-none focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/20 bg-white text-[#002147] placeholder-[#00397a]/40 transition-all duration-300 text-sm relative z-10 shadow-sm hover:shadow-md"
+                  class="input-field w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-[#004595]/60 focus:ring-2 focus:ring-[#004595]/10 bg-white text-gray-800 placeholder-gray-400 transition-all duration-300 text-sm font-medium hover:border-gray-400"
                 />
-                <!-- Decorative corner accent -->
-                <div class="input-corner-accent"></div>
-                <!-- Animated border on focus -->
                 <div
-                  class="absolute inset-0 rounded-lg border-2 border-[#004595] opacity-0 group-focus-within:opacity-20 transition-opacity pointer-events-none animate-pulse-border"
+                  class="absolute inset-0 rounded-lg bg-gradient-to-r from-[#004595]/3 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none"
                 ></div>
               </div>
             </div>
@@ -382,49 +360,35 @@
             <!-- Password Field -->
             <div class="form-group">
               <label
-                class="flex items-center gap-2 text-[#002147] font-bold mb-2 text-xs tracking-wide uppercase"
+                class="block text-gray-700 font-semibold mb-1.5 text-xs tracking-wide flex items-center gap-1.5"
                 for="password"
               >
-                <div class="w-1 h-4 bg-linear-to-b from-[#004595] to-[#00397a] rounded-full"></div>
+                <svg class="w-3.5 h-3.5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
                 Password
               </label>
               <div class="relative input-wrapper group">
-                <div
-                  class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10"
-                >
-                  <div class="relative">
-                    <svg
-                      class="w-5 h-5 text-[#00397a]/50 group-focus-within:text-[#004595] transition-colors"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    <div
-                      class="absolute -top-1 -right-1 w-2 h-2 bg-[#004595] rounded-full opacity-0 group-focus-within:opacity-100 group-focus-within:animate-ping"
-                    ></div>
-                  </div>
-                </div>
                 <input
                   v-model="password"
                   :type="showPassword ? 'text' : 'password'"
                   id="password"
                   required
-                  placeholder="••••••••••••"
-                  class="input-field w-full pl-11 pr-11 py-2.5 border-2 border-[#f3f1ee] rounded-lg focus:outline-none focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/20 bg-white text-[#002147] placeholder-[#00397a]/40 transition-all duration-300 text-sm relative z-10 shadow-sm hover:shadow-md"
+                  placeholder="Enter your password"
+                  class="input-field w-full px-3.5 py-2.5 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:border-[#004595]/60 focus:ring-2 focus:ring-[#004595]/10 bg-white text-gray-800 placeholder-gray-400 transition-all duration-300 text-sm font-medium hover:border-gray-400"
                 />
                 <button
                   type="button"
                   @click="showPassword = !showPassword"
-                  class="absolute right-3 top-1/2 -translate-y-1/2 text-[#00397a]/50 hover:text-[#004595] transition-all z-10 hover:scale-110"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#004595]/70 transition-all z-10 hover:scale-110 p-0.5 rounded-lg hover:bg-gray-100"
                 >
                   <svg
                     v-if="showPassword"
-                    class="w-5 h-5"
+                    class="w-4 h-4"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -442,7 +406,7 @@
                       d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                     />
                   </svg>
-                  <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -451,64 +415,45 @@
                     />
                   </svg>
                 </button>
-                <!-- Decorative corner accent -->
-                <div class="input-corner-accent"></div>
-                <!-- Animated border on focus -->
                 <div
-                  class="absolute inset-0 rounded-lg border-2 border-[#004595] opacity-0 group-focus-within:opacity-20 transition-opacity pointer-events-none animate-pulse-border"
+                  class="absolute inset-0 rounded-lg bg-gradient-to-r from-[#004595]/3 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none"
                 ></div>
               </div>
             </div>
 
-            <!-- Remember Me -->
-            <div class="flex items-center justify-start text-xs pt-1">
+            <!-- Remember Me & Forgot Password -->
+            <div class="flex items-center justify-between text-xs">
               <label class="flex items-center cursor-pointer group">
-                <div class="relative">
-                  <input
-                    type="checkbox"
-                    class="w-3.5 h-3.5 rounded border-2 border-[#00397a]/30 text-[#004595] focus:ring-2 focus:ring-[#004595]/20 cursor-pointer"
-                  />
-                  <div
-                    class="absolute inset-0 rounded border-2 border-[#004595] opacity-0 group-hover:opacity-30 transition-opacity pointer-events-none"
-                  ></div>
-                </div>
+                <input
+                  type="checkbox"
+                  class="w-3.5 h-3.5 rounded border border-gray-300 text-[#004595]/70 focus:ring-2 focus:ring-[#004595]/15 cursor-pointer transition-all"
+                />
                 <span
-                  class="ml-2 text-[#00397a]/80 group-hover:text-[#004595] transition-colors font-medium flex items-center gap-1"
+                  class="ml-2 text-gray-600 group-hover:text-gray-800 transition-colors font-medium"
                 >
                   Remember me
-                  <svg
-                    class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
                 </span>
               </label>
+              <a
+                href="#"
+                class="text-[#004595]/80 hover:text-[#004595] font-semibold transition-colors hover:underline"
+              >
+                Forgot password?
+              </a>
             </div>
 
             <!-- Login Button -->
             <button
               type="submit"
               :disabled="isLoading"
-              class="login-button w-full bg-linear-to-r from-[#004595] via-[#00397a] to-[#004595] text-white py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none relative overflow-hidden group tracking-wide text-sm mt-6"
+              class="login-button w-full bg-gradient-to-r from-[#002147] via-[#003875] to-[#002147] text-white py-3 rounded-lg font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none relative overflow-hidden group tracking-wide text-sm mt-1"
             >
-              <!-- Animated background gradient -->
               <div
-                class="absolute inset-0 bg-linear-to-r from-[#00397a] via-[#004595] to-[#00397a] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
-
-              <!-- Glowing border effect -->
-              <div
-                class="absolute inset-0 rounded-lg border-2 border-white/20 group-hover:border-white/40 transition-all"
+                class="absolute inset-0 bg-gradient-to-r from-[#003875] via-[#002147] to-[#003875] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               ></div>
 
               <span class="relative z-10 flex items-center justify-center gap-2">
-                <svg v-if="isLoading" class="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                <svg v-if="isLoading" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
                   <circle
                     class="opacity-25"
                     cx="12"
@@ -523,17 +468,19 @@
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                   ></path>
                 </svg>
-                <svg v-if="!isLoading" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <svg v-if="!isLoading" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fill-rule="evenodd"
                     d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
                     clip-rule="evenodd"
                   />
                 </svg>
-                {{ isLoading ? 'Logging in...' : 'Login to Dashboard' }}
+                <span class="font-bold">{{
+                  isLoading ? 'Logging in...' : 'Access Dashboard'
+                }}</span>
                 <svg
                   v-if="!isLoading"
-                  class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                  class="w-4 h-4 group-hover:translate-x-1 transition-transform"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -541,7 +488,7 @@
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    stroke-width="2.5"
                     d="M13 7l5 5m0 0l-5 5m5-5H6"
                   />
                 </svg>
@@ -551,23 +498,21 @@
           </form>
 
           <!-- Footer -->
-          <div class="mt-6 pt-5 border-t border-[#f3f1ee] relative z-10">
+          <div class="mt-5 pt-4 border-t border-gray-200 relative z-10">
             <div
-              class="flex items-center justify-center gap-2 text-xs text-[#00397a]/80 font-medium bg-linear-to-r from-transparent via-[#f3f1ee]/30 to-transparent py-2 rounded"
+              class="flex items-center justify-center gap-2 text-[10px] text-gray-600 font-semibold bg-gray-50 py-2 rounded-lg border border-gray-200"
             >
-              <div class="w-1.5 h-1.5 rounded-full bg-[#004595] animate-pulse"></div>
-              <svg class="w-4 h-4 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+              <svg class="w-3.5 h-3.5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fill-rule="evenodd"
-                  d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                  d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                   clip-rule="evenodd"
                 />
               </svg>
-              <span>Secure Police Officer Access Only</span>
-              <div class="w-1.5 h-1.5 rounded-full bg-[#004595] animate-pulse"></div>
+              <span>Secure Police Officer Access</span>
             </div>
-            <p class="text-center text-[10px] text-[#00397a]/50 mt-2 font-medium">
-              BCPO & BXU Community Monitoring System
+            <p class="text-center text-[9px] text-gray-500 mt-2 font-medium tracking-wide">
+              BCPO Community Monitoring System © {{ new Date().getFullYear() }}
             </p>
           </div>
         </div>
@@ -581,7 +526,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { supabase } from '@/lib/supabase'
 import bcpoLogo from '@/assets/BCPO 1 LOGO.png'
-import bxuLogo from '@/assets/butuanlogo.png'
+import pnpLogo from '@/assets/pnplogo.png'
+import pnpbutuanLogo from '@/assets/pnpbutuan.png'
 
 const router = useRouter()
 const email = ref('')
@@ -1066,6 +1012,7 @@ async function handleLogin() {
   border-radius: 50%;
   box-sizing: content-box;
   border: 4px solid #4ade80;
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
 }
 
 .success-checkmark .check-icon::before {
@@ -1090,7 +1037,7 @@ async function handleLogin() {
   content: '';
   height: 100px;
   position: absolute;
-  background: #fff;
+  background: linear-gradient(135deg, #f3f1ee 0%, #ffffff 100%);
   transform: rotate(-45deg);
 }
 
@@ -1139,7 +1086,7 @@ async function handleLogin() {
   height: 85px;
   position: absolute;
   transform: rotate(-45deg);
-  background-color: #fff;
+  background: linear-gradient(135deg, #f3f1ee 0%, #ffffff 100%);
 }
 
 @keyframes rotate-circle {
@@ -1223,17 +1170,20 @@ async function handleLogin() {
 }
 
 /* Error Icon Animation */
-.error-icon {
-  animation: error-pulse 0.5s ease-in-out;
+.error-icon-wrapper {
+  animation: error-shake 0.5s ease-in-out;
 }
 
-@keyframes error-pulse {
+@keyframes error-shake {
   0%,
   100% {
-    transform: scale(1);
+    transform: translateX(0);
   }
-  50% {
-    transform: scale(1.1);
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
   }
 }
 </style>
