@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div class="min-h-screen bg-[#f3f1ee]">
     <div class="mx-auto max-w-7xl px-4 py-10">
       <button
@@ -40,31 +40,6 @@
 
         <!-- Barangay Captain Profile Card -->
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden border-2 border-white/50">
-<<<<<<< HEAD
-          <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4 flex items-center justify-between gap-4">
-            <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fill-rule="evenodd"
-                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              Barangay Captain
-            </h2>
-            <button
-              type="button"
-              class="inline-flex items-center gap-2 rounded-full border-2 border-white/60 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white hover:text-[#004595] focus:outline-none focus:ring-2 focus:ring-white/70 disabled:cursor-not-allowed disabled:opacity-50"
-              @click="openEditModal"
-              :disabled="loadingCaptain || !captainId"
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a1 1 0 001 1h11a2 2 0 002-2v-5" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
-              </svg>
-              Edit Details
-            </button>
-=======
           <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4">
             <div class="flex items-center justify-between">
               <h2 class="text-2xl font-bold text-white flex items-center gap-2">
@@ -83,7 +58,9 @@
                 class="flex items-center gap-2 px-4 py-2 bg-white text-[#004595] rounded-lg hover:bg-gray-100 transition-all duration-300 font-semibold text-sm"
               >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                  <path
+                    d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+                  />
                 </svg>
                 Edit
               </button>
@@ -94,7 +71,11 @@
                   class="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300 font-semibold text-sm disabled:opacity-50"
                 >
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
                   </svg>
                   {{ saving ? 'Saving...' : 'Save' }}
                 </button>
@@ -104,13 +85,16 @@
                   class="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 font-semibold text-sm disabled:opacity-50"
                 >
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    />
                   </svg>
                   Cancel
                 </button>
               </div>
             </div>
->>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
           </div>
 
           <div class="p-6">
@@ -127,7 +111,12 @@
                       alt="Captain Profile"
                       class="w-full h-full object-cover"
                     />
-                    <svg v-else class="w-20 h-20 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <svg
+                      v-else
+                      class="w-20 h-20 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
                       <path
                         fill-rule="evenodd"
                         d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
@@ -140,8 +129,18 @@
                     @click="triggerFileUpload"
                     class="absolute inset-0 bg-black/50 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
                   >
-                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <svg
+                      class="w-10 h-10 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
                     </svg>
                   </button>
                   <input
@@ -159,7 +158,7 @@
                 <div>
                   <div v-if="!isEditing">
                     <h3 class="text-2xl font-bold text-[#002147]">
-                      {{ loadingCaptain ? 'Loading...' : (captainInfo.name || 'No name available') }}
+                      {{ loadingCaptain ? 'Loading...' : captainInfo.name || 'No name available' }}
                     </h3>
                   </div>
                   <div v-else>
@@ -186,7 +185,9 @@
                       </div>
                       <div class="flex-1">
                         <p class="text-xs text-gray-600 font-medium">Phone</p>
-                        <p v-if="!isEditing" class="text-sm font-bold text-[#002147]">{{ captainInfo.phone || 'No phone available' }}</p>
+                        <p v-if="!isEditing" class="text-sm font-bold text-[#002147]">
+                          {{ captainInfo.phone || 'No phone available' }}
+                        </p>
                         <input
                           v-else
                           v-model="editForm.phone"
@@ -235,7 +236,9 @@
                       </div>
                       <div>
                         <p class="text-xs text-gray-600 font-medium">Office Hours</p>
-                        <p class="text-sm font-bold text-[#002147]">{{ captainInfo.officeHours }}</p>
+                        <p class="text-sm font-bold text-[#002147]">
+                          {{ captainInfo.officeHours }}
+                        </p>
                       </div>
                     </div>
 
@@ -268,7 +271,9 @@
           <div class="flex items-center justify-between mb-6">
             <h2 class="text-2xl font-bold text-[#002147] flex items-center gap-2">
               <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                <path
+                  d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
+                />
               </svg>
               Barangay Personnel
             </h2>
@@ -277,15 +282,25 @@
               class="flex items-center gap-2 px-4 py-2 bg-[#004595] text-white rounded-lg hover:bg-[#00397a] transition-all duration-300 font-semibold text-sm"
             >
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                <path
+                  fill-rule="evenodd"
+                  d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                  clip-rule="evenodd"
+                />
               </svg>
               Add Personnel
             </button>
           </div>
 
           <div v-if="allPersonnel.length === 0" class="text-center py-8 text-gray-500">
-            <svg class="w-12 h-12 mx-auto mb-3 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+            <svg
+              class="w-12 h-12 mx-auto mb-3 text-gray-300"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
+              />
             </svg>
             <p class="font-medium">No personnel added yet</p>
             <p class="text-sm">Click "Add Personnel" to add barangay officers or purok leaders</p>
@@ -297,28 +312,36 @@
               :key="person.id"
               :class="[
                 'p-4 bg-linear-to-br from-[#f3f1ee] to-gray-100 rounded-lg border-2 transition-all duration-200',
-                person.type === 'Officer' ? 'border-[#004595]/20 hover:border-[#004595]' : 'border-[#00397a]/20 hover:border-[#00397a]'
+                person.type === 'Officer'
+                  ? 'border-[#004595]/20 hover:border-[#004595]'
+                  : 'border-[#00397a]/20 hover:border-[#00397a]',
               ]"
             >
               <div class="flex items-start gap-3">
-                <div 
+                <div
                   :class="[
                     'w-12 h-12 rounded-lg flex items-center justify-center shrink-0',
-                    person.type === 'Officer' ? 'bg-[#004595]' : 'bg-[#00397a]'
+                    person.type === 'Officer' ? 'bg-[#004595]' : 'bg-[#00397a]',
                   ]"
                 >
                   <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                      clip-rule="evenodd"
+                    />
                   </svg>
                 </div>
                 <div class="flex-1">
                   <h4 class="font-bold text-[#002147]">{{ person.name }}</h4>
                   <p class="text-sm text-gray-600">{{ person.position }}</p>
                   <p class="text-xs text-gray-500 mt-1">{{ person.phone }}</p>
-                  <span 
+                  <span
                     :class="[
                       'inline-block mt-2 px-2 py-1 text-xs font-semibold rounded',
-                      person.type === 'Officer' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
+                      person.type === 'Officer'
+                        ? 'bg-blue-100 text-blue-800'
+                        : 'bg-green-100 text-green-800',
                     ]"
                   >
                     {{ person.type }}
@@ -331,7 +354,9 @@
                     title="Edit"
                   >
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                      <path
+                        d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+                      />
                     </svg>
                   </button>
                   <button
@@ -340,7 +365,11 @@
                     title="Delete"
                   >
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                      <path
+                        fill-rule="evenodd"
+                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                        clip-rule="evenodd"
+                      />
                     </svg>
                   </button>
                 </div>
@@ -370,11 +399,28 @@
               @keyup.space="goToSchools"
             >
               <!-- View More Overlay -->
-              <div class="absolute inset-0 bg-[#004595]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+              <div
+                class="absolute inset-0 bg-[#004595]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+              >
                 <div class="text-center">
-                  <svg class="w-6 h-6 text-white mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  <svg
+                    class="w-6 h-6 text-white mx-auto mb-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
                   </svg>
                   <p class="text-white font-semibold text-sm">View More</p>
                 </div>
@@ -417,11 +463,28 @@
               @keyup.space="goToChurches"
             >
               <!-- View More Overlay -->
-              <div class="absolute inset-0 bg-[#00397a]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+              <div
+                class="absolute inset-0 bg-[#00397a]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+              >
                 <div class="text-center">
-                  <svg class="w-6 h-6 text-white mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  <svg
+                    class="w-6 h-6 text-white mx-auto mb-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
                   </svg>
                   <p class="text-white font-semibold text-sm">View More</p>
                 </div>
@@ -466,11 +529,28 @@
               @keyup.space="goToEstablishments"
             >
               <!-- View More Overlay -->
-              <div class="absolute inset-0 bg-[#002147]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+              <div
+                class="absolute inset-0 bg-[#002147]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+              >
                 <div class="text-center">
-                  <svg class="w-6 h-6 text-white mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  <svg
+                    class="w-6 h-6 text-white mx-auto mb-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
                   </svg>
                   <p class="text-white font-semibold text-sm">View More</p>
                 </div>
@@ -538,16 +618,25 @@
               :disabled="savingCaptain"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
 
             <h3 class="text-xl font-bold text-[#002147] mb-1">Edit Barangay Captain</h3>
-            <p class="text-sm text-gray-600 mb-4">Changes will be saved to Supabase for this barangay.</p>
+            <p class="text-sm text-gray-600 mb-4">
+              Changes will be saved to Supabase for this barangay.
+            </p>
 
             <form class="space-y-4" @submit.prevent="saveCaptain">
               <div class="space-y-1">
-                <label class="text-sm font-semibold text-gray-700" for="captain-name">Full Name</label>
+                <label class="text-sm font-semibold text-gray-700" for="captain-name"
+                  >Full Name</label
+                >
                 <input
                   id="captain-name"
                   v-model="editForm.name"
@@ -560,7 +649,9 @@
 
               <div class="grid gap-4 md:grid-cols-2">
                 <div class="space-y-1">
-                  <label class="text-sm font-semibold text-gray-700" for="captain-phone">Phone</label>
+                  <label class="text-sm font-semibold text-gray-700" for="captain-phone"
+                    >Phone</label
+                  >
                   <input
                     id="captain-phone"
                     v-model="editForm.phone"
@@ -570,7 +661,9 @@
                   />
                 </div>
                 <div class="space-y-1">
-                  <label class="text-sm font-semibold text-gray-700" for="captain-email">Email</label>
+                  <label class="text-sm font-semibold text-gray-700" for="captain-email"
+                    >Email</label
+                  >
                   <input
                     id="captain-email"
                     v-model="editForm.email"
@@ -582,7 +675,9 @@
               </div>
 
               <div class="space-y-1">
-                <label class="text-sm font-semibold text-gray-700" for="captain-hours">Office Hours</label>
+                <label class="text-sm font-semibold text-gray-700" for="captain-hours"
+                  >Office Hours</label
+                >
                 <input
                   id="captain-hours"
                   v-model="editForm.officeHours"
@@ -592,7 +687,10 @@
                 />
               </div>
 
-              <p v-if="saveError" class="rounded-lg bg-red-50 px-3 py-2 text-sm font-semibold text-red-600">
+              <p
+                v-if="saveError"
+                class="rounded-lg bg-red-50 px-3 py-2 text-sm font-semibold text-red-600"
+              >
                 {{ saveError }}
               </p>
 
@@ -652,12 +750,18 @@
     </div>
 
     <!-- Add Personnel Modal -->
-    <div v-if="showModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50" @click.self="closeModal">
+    <div
+      v-if="showModal"
+      class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+      @click.self="closeModal"
+    >
       <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
         <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4">
-          <h3 class="text-xl font-bold text-white">{{ isEditMode ? 'Edit Personnel' : 'Add Personnel' }}</h3>
+          <h3 class="text-xl font-bold text-white">
+            {{ isEditMode ? 'Edit Personnel' : 'Add Personnel' }}
+          </h3>
         </div>
-        
+
         <form @submit.prevent="submitPersonnel" class="p-6 space-y-4">
           <div>
             <label class="block text-sm font-semibold text-[#002147] mb-2">Full Name</label>
@@ -705,7 +809,15 @@
               :disabled="submitting"
               class="flex-1 px-4 py-2 bg-[#004595] text-white rounded-lg hover:bg-[#00397a] transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {{ submitting ? (isEditMode ? 'Updating...' : 'Adding...') : (isEditMode ? 'Update Personnel' : 'Add Personnel') }}
+              {{
+                submitting
+                  ? isEditMode
+                    ? 'Updating...'
+                    : 'Adding...'
+                  : isEditMode
+                    ? 'Update Personnel'
+                    : 'Add Personnel'
+              }}
             </button>
           </div>
         </form>
@@ -747,23 +859,12 @@ const captainInfo = ref({
   profileImage: '',
 })
 const loadingCaptain = ref(false)
-<<<<<<< HEAD
-const captainId = ref(null)
-const isEditOpen = ref(false)
-=======
 const isEditing = ref(false)
 const saving = ref(false)
->>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
 const editForm = ref({
   name: '',
   phone: '',
   email: '',
-<<<<<<< HEAD
-  officeHours: '',
-})
-const savingCaptain = ref(false)
-const saveError = ref('')
-=======
 })
 const captainId = ref(null)
 const fileInput = ref(null)
@@ -777,17 +878,16 @@ const editingPersonnelId = ref(null)
 const personnelForm = ref({
   fullname: '',
   phone_number: '',
-  position: ''
+  position: '',
 })
 
 // Computed property to get all personnel
 const allPersonnel = computed(() => personnel.value)
->>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
 
 // Fetch Barangay Captain information
 const fetchCaptainInfo = async () => {
   if (!communityInfo.value) return
-  
+
   loadingCaptain.value = true
   try {
     // First, get the barangay details including cpt_id and id
@@ -799,10 +899,10 @@ const fetchCaptainInfo = async () => {
 
     if (barangayError) throw barangayError
     captainId.value = barangayData?.cpt_id ?? null
-    
+
     if (barangayData) {
       barangay_id.value = barangayData.id
-      
+
       if (barangayData.cpt_id) {
         // Then fetch the captain details using cpt_id
         const { data: captainData, error: captainError } = await supabase
@@ -811,9 +911,9 @@ const fetchCaptainInfo = async () => {
           .eq('id', barangayData.cpt_id)
           .single()
 
-        console.log('Fetched captain data:', captainData)  
+        console.log('Fetched captain data:', captainData)
         if (captainError) throw captainError
-        
+
         if (captainData) {
           captainId.value = captainData.id
           captainInfo.value = {
@@ -821,91 +921,31 @@ const fetchCaptainInfo = async () => {
             phone: captainData.phone || '',
             email: captainData.email || '',
             officeHours: captainData.office_hours || '',
-            profileImage: captainData.profile_image || ''
+            profileImage: captainData.profile_image || '',
           }
         }
       }
-      
+
       // Fetch personnel for this barangay
       await fetchPersonnel()
     }
   } catch (error) {
     console.error('Error fetching captain info:', error)
-<<<<<<< HEAD
-    captainId.value = null
-    // Keep default values on error
-=======
->>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
     captainInfo.value = {
       name: '',
       phone: '',
       email: '',
-      officeHours: ''
+      officeHours: '',
     }
   } finally {
     loadingCaptain.value = false
   }
 }
 
-<<<<<<< HEAD
-const openEditModal = () => {
-  if (loadingCaptain.value) return
-  saveError.value = ''
-  editForm.value = { ...captainInfo.value }
-  isEditOpen.value = true
-}
-
-const closeEditModal = () => {
-  if (savingCaptain.value) return
-  isEditOpen.value = false
-}
-
-const saveCaptain = async () => {
-  if (!captainId.value) {
-    saveError.value = 'No captain record found for this barangay.'
-    return
-  }
-
-  savingCaptain.value = true
-  saveError.value = ''
-
-  try {
-    const updates = {
-      fullname: editForm.value.name?.trim(),
-      phone: editForm.value.phone?.trim(),
-      email: editForm.value.email?.trim(),
-      office_hours: editForm.value.officeHours?.trim(),
-    }
-
-    const { data, error } = await supabase
-      .from('BrgyCaptain')
-      .update(updates)
-      .eq('id', captainId.value)
-      .select('*')
-      .single()
-
-    if (error) throw error
-
-    if (data) {
-      captainInfo.value = {
-        name: data.fullname || captainInfo.value.name,
-        phone: data.phone || captainInfo.value.phone,
-        email: data.email || captainInfo.value.email,
-        officeHours: data.office_hours || captainInfo.value.officeHours,
-      }
-    }
-
-    isEditOpen.value = false
-  } catch (error) {
-    console.error('Error updating captain info:', error)
-    saveError.value = 'Failed to save changes. Please try again.'
-  } finally {
-    savingCaptain.value = false
-=======
 // Fetch personnel from database
 const fetchPersonnel = async () => {
   if (!barangay_id.value) return
-  
+
   loadingPersonnel.value = true
   try {
     const { data, error } = await supabase
@@ -915,21 +955,20 @@ const fetchPersonnel = async () => {
       .order('fullname', { ascending: true })
 
     if (error) throw error
-    
+
     if (data) {
-      personnel.value = data.map(member => ({
+      personnel.value = data.map((member) => ({
         id: member.id,
         name: member.fullname,
         position: member.position,
         phone: member.phone_number,
-        type: member.position.includes('Purok') ? 'Purok Leader' : 'Officer'
+        type: member.position.includes('Purok') ? 'Purok Leader' : 'Officer',
       }))
     }
   } catch (error) {
     console.error('Error fetching personnel:', error)
   } finally {
     loadingPersonnel.value = false
->>>>>>> 584a996666ee7dcc0472164df0f2067255cc96dd
   }
 }
 
@@ -941,7 +980,7 @@ watch(
       fetchCaptainInfo()
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 onMounted(() => {
@@ -1086,7 +1125,7 @@ const editPersonnel = (person) => {
   personnelForm.value = {
     fullname: person.name,
     phone_number: person.phone,
-    position: person.position
+    position: person.position,
   }
   showModal.value = true
 }
@@ -1098,7 +1137,7 @@ const closeModal = () => {
   personnelForm.value = {
     fullname: '',
     phone_number: '',
-    position: ''
+    position: '',
   }
 }
 
@@ -1117,7 +1156,7 @@ const submitPersonnel = async () => {
         .update({
           fullname: personnelForm.value.fullname,
           phone_number: personnelForm.value.phone_number,
-          position: personnelForm.value.position
+          position: personnelForm.value.position,
         })
         .eq('id', editingPersonnelId.value)
         .select()
@@ -1126,7 +1165,7 @@ const submitPersonnel = async () => {
 
       if (data && data[0]) {
         const type = data[0].position.includes('Purok') ? 'Purok Leader' : 'Officer'
-        const index = personnel.value.findIndex(p => p.id === editingPersonnelId.value)
+        const index = personnel.value.findIndex((p) => p.id === editingPersonnelId.value)
         if (index !== -1) {
           personnel.value[index] = {
             id: data[0].id,
@@ -1148,8 +1187,8 @@ const submitPersonnel = async () => {
             fullname: personnelForm.value.fullname,
             phone_number: personnelForm.value.phone_number,
             position: personnelForm.value.position,
-            brgy_id: barangay_id.value
-          }
+            brgy_id: barangay_id.value,
+          },
         ])
         .select()
 
@@ -1182,14 +1221,11 @@ const removePersonnel = async (id) => {
   }
 
   try {
-    const { error } = await supabase
-      .from('BrgyMembers')
-      .delete()
-      .eq('id', id)
+    const { error } = await supabase.from('BrgyMembers').delete().eq('id', id)
 
     if (error) throw error
 
-    personnel.value = personnel.value.filter(p => p.id !== id)
+    personnel.value = personnel.value.filter((p) => p.id !== id)
     alert('Personnel removed successfully!')
   } catch (error) {
     console.error('Error removing personnel:', error)

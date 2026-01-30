@@ -1,449 +1,463 @@
 <template>
   <div class="flex-1 flex flex-col bg-[#f3f1ee]">
     <!-- Top Header -->
-      <header class="relative shadow-2xl overflow-hidden h-32 lg:sticky lg:top-0 lg:z-20">
-        <div
-          class="absolute inset-0 bg-cover bg-center"
-          :style="{ backgroundImage: `url(${headbk})` }"
-        ></div>
-        <div class="absolute inset-0 bg-linear-to-r from-[#002147]/60 to-[#004595]/50"></div>
+    <header class="relative shadow-2xl overflow-hidden h-32 lg:sticky lg:top-0 lg:z-20">
+      <div
+        class="absolute inset-0 bg-cover bg-center"
+        :style="{ backgroundImage: `url(${headbk})` }"
+      ></div>
+      <div class="absolute inset-0 bg-linear-to-r from-[#002147]/60 to-[#004595]/50"></div>
 
-        <div class="relative z-10 p-3 lg:p-6">
-          <div class="max-w-6xl mx-auto">
-            <div class="flex items-center gap-2 lg:gap-3 mb-2 lg:mb-3">
-              <div class="p-1.5 lg:p-2 bg-white/20 backdrop-blur-sm rounded-lg shrink-0">
-                <svg
-                  class="w-5 h-5 lg:w-8 lg:h-8 text-white"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
-                  />
-                </svg>
-              </div>
-              <h1
-                class="text-lg sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight drop-shadow-lg"
-              >
-                Community Events Calendar
-              </h1>
+      <div class="relative z-10 p-3 lg:p-6">
+        <div class="max-w-6xl mx-auto">
+          <div class="flex items-center gap-2 lg:gap-3 mb-2 lg:mb-3">
+            <div class="p-1.5 lg:p-2 bg-white/20 backdrop-blur-sm rounded-lg shrink-0">
+              <svg class="w-5 h-5 lg:w-8 lg:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+                />
+              </svg>
             </div>
-
-            <p class="text-xs sm:text-sm text-[#e0e7ff] mb-2 lg:mb-3 lg:ml-14 font-medium">
-              Click on any date to add barangay events
-            </p>
-          </div>
-        </div>
-      </header>
-
-      <!-- Calendar Container -->
-      <div class="flex-1 p-2 sm:p-4 lg:p-6 overflow-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
-          <!-- Left Side: Calendar -->
-          <div
-            class="bg-white rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden relative border-2 lg:border-4 border-white/50"
-          >
-            <!-- Custom Calendar -->
-            <div class="p-6 flex flex-col max-h-150">
-              <!-- Calendar Header -->
-              <div class="flex items-center justify-between mb-6 shrink-0">
-                <button
-                  @click="prevMonth"
-                  class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 19l-7-7 7-7"
-                    ></path>
-                  </svg>
-                </button>
-                <h2 class="text-2xl font-bold text-[#002147]">
-                  {{ monthNames[currentDate.getMonth()] }} {{ currentDate.getFullYear() }}
-                </h2>
-                <button
-                  @click="nextMonth"
-                  class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 5l7 7-7 7"
-                    ></path>
-                  </svg>
-                </button>
-              </div>
-
-              <!-- Calendar Grid -->
-              <div class="flex-1 overflow-y-auto">
-                <div class="grid grid-cols-7 gap-1 min-h-100">
-                  <!-- Day Headers -->
-                  <div
-                    v-for="day in ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']"
-                    :key="day"
-                    class="p-3 text-center font-semibold text-gray-600 border-b"
-                  >
-                    {{ day }}
-                  </div>
-
-                  <!-- Calendar Days -->
-                  <div
-                    v-for="day in calendarDays"
-                    :key="day.dateStr"
-                    :class="[
-                      'min-h-24 p-2 border cursor-pointer transition-colors relative',
-                      day.isCurrentMonth ? 'bg-white' : 'bg-gray-50 text-gray-400',
-                      day.isToday ? 'bg-blue-50 border-blue-200' : 'border-gray-200',
-                      day.hasEvents ? 'hover:bg-blue-50' : 'hover:bg-gray-50',
-                    ]"
-                    @click="selectDate(day)"
-                  >
-                    <div class="text-sm font-medium mb-1">
-                      {{ day.date.getDate() }}
-                    </div>
-
-                    <div class="space-y-1">
-                      <div
-                        v-for="event in day.events.slice(0, 2)"
-                        :key="event.id"
-                        class="text-xs bg-[#004595] text-white px-1 py-0.5 rounded truncate"
-                        :title="event.title"
-                      >
-                        {{ event.title }}
-                      </div>
-
-                      <div v-if="day.events.length > 2" class="text-xs text-gray-500">
-                        +{{ day.events.length - 2 }} more
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <h1
+              class="text-lg sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight drop-shadow-lg"
+            >
+              Community Events Calendar
+            </h1>
           </div>
 
-          <!-- Right Side: Barangay Events List -->
-          <div
-            class="bg-white rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden relative border-2 lg:border-4 border-white/50"
-          >
-            <div class="p-6 flex flex-col max-h-150">
-              <!-- Events Header -->
-              <div class="mb-6 shrink-0 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                <div>
-                  <h3 class="text-xl font-bold text-[#002147] mb-2">
-                  {{
-                    selectedDate
-                      ? `Events on ${selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`
-                      : 'Select a Date'
-                  }}
-                  </h3>
-                  <p class="text-sm text-gray-600">
-                    {{
-                      selectedDate
-                        ? 'Events organized by barangay:'
-                        : 'Click on a date in the calendar to view events'
-                    }}
-                  </p>
-                </div>
-                <button
-                  @click="openAddModal"
-                  :disabled="!selectedDate"
-                  class="px-4 py-2 rounded-lg bg-[#004595] text-white font-semibold hover:bg-[#00397a] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  Add Event
-                </button>
-              </div>
-
-              <!-- Events List -->
-              <div class="flex-1 overflow-y-auto">
-                <div v-if="!selectedDate" class="text-center py-12">
-                  <div
-                    class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                  >
-                    <svg
-                      class="w-8 h-8 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <p class="text-gray-500 text-lg font-medium">No Date Selected</p>
-                  <p class="text-gray-400 text-sm mt-1">
-                    Choose a date from the calendar to view events
-                  </p>
-                </div>
-
-                <div v-else-if="selectedDateEvents.length === 0" class="text-center py-12">
-                  <div
-                    class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                  >
-                    <svg
-                      class="w-8 h-8 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <p class="text-gray-500 text-lg font-medium">No Events</p>
-                  <p class="text-gray-400 text-sm mt-1">No events scheduled for this date</p>
-                </div>
-
-                <div v-else class="space-y-4">
-                  <!-- Group events by barangay -->
-                  <div
-                    v-for="barangay in getUniqueBarangays(selectedDateEvents)"
-                    :key="barangay"
-                    class="border border-gray-200 rounded-lg p-4"
-                  >
-                    <div class="flex items-center gap-2 mb-3">
-                      <div class="w-3 h-3 bg-[#004595] rounded-full"></div>
-                      <h4 class="font-semibold text-[#002147] text-lg">
-                        {{ getBarangayLabel(barangay) }}
-                      </h4>
-                      <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
-                        {{ getBarangayEventCount(barangay) }} event{{
-                          getBarangayEventCount(barangay) > 1 ? 's' : ''
-                        }}
-                      </span>
-                    </div>
-
-                    <div class="space-y-2">
-                      <div
-                        v-for="event in getEventsByBarangay(barangay)"
-                        :key="event.id"
-                        class="event-card bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors"
-                      >
-                        <div class="flex items-start justify-between">
-                          <div class="flex-1">
-                            <h5 class="font-medium text-[#002147] text-sm">{{ event.title }}</h5>
-                            <p class="text-xs text-gray-600 mt-1 line-clamp-2">
-                              {{ event.description }}
-                            </p>
-                          </div>
-                          <div class="ml-3 flex items-center gap-2">
-                            <button
-                              @click="startEdit(event)"
-                              class="icon-btn text-amber-600"
-                              title="Edit"
-                            >
-                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M11 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5"
-                                />
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"
-                                />
-                              </svg>
-                            </button>
-                            <button
-                              @click="deleteEvent(event)"
-                              class="icon-btn text-red-600"
-                              title="Delete"
-                            >
-                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-8 0h8m-8 0V5a2 2 0 012-2h4a2 2 0 012 2v2"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-                        </div>
-
-                        <div v-if="editingEventId === event.id" class="event-edit mt-3">
-                          <div class="grid grid-cols-1 gap-3">
-                            <div>
-                              <label class="block text-xs font-semibold text-gray-600 mb-1">Barangay</label>
-                              <select
-                                v-model="editDraft.brgyId"
-                                class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-[#004595] focus:outline-none text-sm"
-                              >
-                                <option value="">Select barangay</option>
-                                <option v-for="brgy in barangayOptions" :key="brgy.id" :value="brgy.id">
-                                  {{ brgy.label }}
-                                </option>
-                              </select>
-                            </div>
-                            <div>
-                              <label class="block text-xs font-semibold text-gray-600 mb-1">Title</label>
-                              <input
-                                v-model="editDraft.title"
-                                type="text"
-                                class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-[#004595] focus:outline-none text-sm"
-                              />
-                            </div>
-                            <div>
-                              <label class="block text-xs font-semibold text-gray-600 mb-1">Description</label>
-                              <textarea
-                                v-model="editDraft.description"
-                                rows="3"
-                                class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-[#004595] focus:outline-none text-sm"
-                              ></textarea>
-                            </div>
-                          </div>
-
-                          <div class="mt-3 flex justify-end gap-2">
-                            <button
-                              @click="cancelEdit"
-                              class="icon-btn text-gray-500"
-                              title="Cancel"
-                            >
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M6 18L18 6M6 6l12 12"
-                                />
-                              </svg>
-                            </button>
-                            <button
-                              @click="saveEdit"
-                              :disabled="isUpdatingEvent"
-                              class="icon-btn text-emerald-600"
-                              title="Save"
-                            >
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M5 13l4 4L19 7"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <p class="text-xs sm:text-sm text-[#e0e7ff] mb-2 lg:mb-3 lg:ml-14 font-medium">
+            Click on any date to add barangay events
+          </p>
         </div>
       </div>
+    </header>
 
-      <!-- Add Event Modal -->
-      <div
-        v-if="showAddModal"
-        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-        @click="closeModal"
-      >
+    <!-- Calendar Container -->
+    <div class="flex-1 p-2 sm:p-4 lg:p-6 overflow-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
+        <!-- Left Side: Calendar -->
         <div
-          class="bg-white rounded-2xl shadow-2xl max-w-xl w-full max-h-[80vh] overflow-y-auto"
-          @click.stop
+          class="bg-white rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden relative border-2 lg:border-4 border-white/50"
         >
-          <div class="p-6 border-b border-gray-200">
-            <div class="flex items-center justify-between">
-              <h3 class="text-xl font-bold text-[#002147]">
-                Add Event
-                {{
-                  selectedDate
-                    ? `• ${selectedDate.toLocaleDateString('en-US', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}`
-                    : ''
-                }}
-              </h3>
-              <button
-                @click="closeModal"
-                class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-              >
+          <!-- Custom Calendar -->
+          <div class="p-6 flex flex-col max-h-150">
+            <!-- Calendar Header -->
+            <div class="flex items-center justify-between mb-6 shrink-0">
+              <button @click="prevMonth" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
+                    d="M15 19l-7-7 7-7"
+                  ></path>
+                </svg>
+              </button>
+              <h2 class="text-2xl font-bold text-[#002147]">
+                {{ monthNames[currentDate.getMonth()] }} {{ currentDate.getFullYear() }}
+              </h2>
+              <button @click="nextMonth" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
                   ></path>
                 </svg>
               </button>
             </div>
+
+            <!-- Calendar Grid -->
+            <div class="flex-1 overflow-y-auto">
+              <div class="grid grid-cols-7 gap-1 min-h-100">
+                <!-- Day Headers -->
+                <div
+                  v-for="day in ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']"
+                  :key="day"
+                  class="p-3 text-center font-semibold text-gray-600 border-b"
+                >
+                  {{ day }}
+                </div>
+
+                <!-- Calendar Days -->
+                <div
+                  v-for="day in calendarDays"
+                  :key="day.dateStr"
+                  :class="[
+                    'min-h-24 p-2 border cursor-pointer transition-colors relative',
+                    day.isCurrentMonth ? 'bg-white' : 'bg-gray-50 text-gray-400',
+                    day.isToday ? 'bg-blue-50 border-blue-200' : 'border-gray-200',
+                    day.hasEvents ? 'hover:bg-blue-50' : 'hover:bg-gray-50',
+                  ]"
+                  @click="selectDate(day)"
+                >
+                  <div class="text-sm font-medium mb-1">
+                    {{ day.date.getDate() }}
+                  </div>
+
+                  <div class="space-y-1">
+                    <div
+                      v-for="event in day.events.slice(0, 2)"
+                      :key="event.id"
+                      class="text-xs bg-[#004595] text-white px-1 py-0.5 rounded truncate"
+                      :title="event.title"
+                    >
+                      {{ event.title }}
+                    </div>
+
+                    <div v-if="day.events.length > 2" class="text-xs text-gray-500">
+                      +{{ day.events.length - 2 }} more
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <div class="p-6 space-y-4">
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Barangay</label>
-              <select
-                v-model="newEvent.brgyId"
-                class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#004595] focus:outline-none transition-colors"
-              >
-                <option value="">Select barangay</option>
-                <option v-for="brgy in barangayOptions" :key="brgy.id" :value="brgy.id">
-                  {{ brgy.label }}
-                </option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Title</label>
-              <input
-                v-model="newEvent.title"
-                type="text"
-                class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#004595] focus:outline-none transition-colors"
-                placeholder="Event title"
-              />
-            </div>
-
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
-              <textarea
-                v-model="newEvent.description"
-                rows="4"
-                class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#004595] focus:outline-none transition-colors"
-                placeholder="Describe the event..."
-              ></textarea>
-            </div>
-
-            <div class="flex justify-end gap-3 pt-2">
+        <!-- Right Side: Barangay Events List -->
+        <div
+          class="bg-white rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden relative border-2 lg:border-4 border-white/50"
+        >
+          <div class="p-6 flex flex-col max-h-150">
+            <!-- Events Header -->
+            <div
+              class="mb-6 shrink-0 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"
+            >
+              <div>
+                <h3 class="text-xl font-bold text-[#002147] mb-2">
+                  {{
+                    selectedDate
+                      ? `Events on ${selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`
+                      : 'Select a Date'
+                  }}
+                </h3>
+                <p class="text-sm text-gray-600">
+                  {{
+                    selectedDate
+                      ? 'Events organized by barangay:'
+                      : 'Click on a date in the calendar to view events'
+                  }}
+                </p>
+              </div>
               <button
-                @click="closeModal"
-                class="px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-700 font-semibold hover:bg-gray-100 transition-all"
-              >
-                Cancel
-              </button>
-              <button
-                @click="saveEvent"
-                :disabled="isSavingEvent"
+                @click="openAddModal"
+                :disabled="!selectedDate"
                 class="px-4 py-2 rounded-lg bg-[#004595] text-white font-semibold hover:bg-[#00397a] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {{ isSavingEvent ? 'Saving...' : 'Save Event' }}
+                Add Event
               </button>
+            </div>
+
+            <!-- Events List -->
+            <div class="flex-1 overflow-y-auto">
+              <div v-if="!selectedDate" class="text-center py-12">
+                <div
+                  class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                >
+                  <svg
+                    class="w-8 h-8 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    ></path>
+                  </svg>
+                </div>
+                <p class="text-gray-500 text-lg font-medium">No Date Selected</p>
+                <p class="text-gray-400 text-sm mt-1">
+                  Choose a date from the calendar to view events
+                </p>
+              </div>
+
+              <div v-else-if="selectedDateEvents.length === 0" class="text-center py-12">
+                <div
+                  class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                >
+                  <svg
+                    class="w-8 h-8 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                    ></path>
+                  </svg>
+                </div>
+                <p class="text-gray-500 text-lg font-medium">No Events</p>
+                <p class="text-gray-400 text-sm mt-1">No events scheduled for this date</p>
+              </div>
+
+              <div v-else class="space-y-4">
+                <!-- Group events by barangay -->
+                <div
+                  v-for="barangay in getUniqueBarangays(selectedDateEvents)"
+                  :key="barangay"
+                  class="border border-gray-200 rounded-lg p-4"
+                >
+                  <div class="flex items-center gap-2 mb-3">
+                    <div class="w-3 h-3 bg-[#004595] rounded-full"></div>
+                    <h4 class="font-semibold text-[#002147] text-lg">
+                      {{ getBarangayLabel(barangay) }}
+                    </h4>
+                    <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                      {{ getBarangayEventCount(barangay) }} event{{
+                        getBarangayEventCount(barangay) > 1 ? 's' : ''
+                      }}
+                    </span>
+                  </div>
+
+                  <div class="space-y-2">
+                    <div
+                      v-for="event in getEventsByBarangay(barangay)"
+                      :key="event.id"
+                      class="event-card bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors"
+                    >
+                      <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                          <h5 class="font-medium text-[#002147] text-sm">{{ event.title }}</h5>
+                          <p class="text-xs text-gray-600 mt-1 line-clamp-2">
+                            {{ event.description }}
+                          </p>
+                        </div>
+                        <div class="ml-3 flex items-center gap-2">
+                          <button
+                            @click="startEdit(event)"
+                            class="icon-btn text-amber-600"
+                            title="Edit"
+                          >
+                            <svg
+                              class="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M11 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5"
+                              />
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"
+                              />
+                            </svg>
+                          </button>
+                          <button
+                            @click="deleteEvent(event)"
+                            class="icon-btn text-red-600"
+                            title="Delete"
+                          >
+                            <svg
+                              class="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m-8 0h8m-8 0V5a2 2 0 012-2h4a2 2 0 012 2v2"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div v-if="editingEventId === event.id" class="event-edit mt-3">
+                        <div class="grid grid-cols-1 gap-3">
+                          <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1"
+                              >Barangay</label
+                            >
+                            <select
+                              v-model="editDraft.brgyId"
+                              class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-[#004595] focus:outline-none text-sm"
+                            >
+                              <option value="">Select barangay</option>
+                              <option
+                                v-for="brgy in barangayOptions"
+                                :key="brgy.id"
+                                :value="brgy.id"
+                              >
+                                {{ brgy.label }}
+                              </option>
+                            </select>
+                          </div>
+                          <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1"
+                              >Title</label
+                            >
+                            <input
+                              v-model="editDraft.title"
+                              type="text"
+                              class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-[#004595] focus:outline-none text-sm"
+                            />
+                          </div>
+                          <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1"
+                              >Description</label
+                            >
+                            <textarea
+                              v-model="editDraft.description"
+                              rows="3"
+                              class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-[#004595] focus:outline-none text-sm"
+                            ></textarea>
+                          </div>
+                        </div>
+
+                        <div class="mt-3 flex justify-end gap-2">
+                          <button @click="cancelEdit" class="icon-btn text-gray-500" title="Cancel">
+                            <svg
+                              class="w-5 h-5"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </button>
+                          <button
+                            @click="saveEdit"
+                            :disabled="isUpdatingEvent"
+                            class="icon-btn text-emerald-600"
+                            title="Save"
+                          >
+                            <svg
+                              class="w-5 h-5"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
+    <!-- Add Event Modal -->
+    <div
+      v-if="showAddModal"
+      class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      @click="closeModal"
+    >
+      <div
+        class="bg-white rounded-2xl shadow-2xl max-w-xl w-full max-h-[80vh] overflow-y-auto"
+        @click.stop
+      >
+        <div class="p-6 border-b border-gray-200">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xl font-bold text-[#002147]">
+              Add Event
+              {{
+                selectedDate
+                  ? `• ${selectedDate.toLocaleDateString('en-US', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}`
+                  : ''
+              }}
+            </h3>
+            <button @click="closeModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="p-6 space-y-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Barangay</label>
+            <select
+              v-model="newEvent.brgyId"
+              class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#004595] focus:outline-none transition-colors"
+            >
+              <option value="">Select barangay</option>
+              <option v-for="brgy in barangayOptions" :key="brgy.id" :value="brgy.id">
+                {{ brgy.label }}
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Title</label>
+            <input
+              v-model="newEvent.title"
+              type="text"
+              class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#004595] focus:outline-none transition-colors"
+              placeholder="Event title"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+            <textarea
+              v-model="newEvent.description"
+              rows="4"
+              class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#004595] focus:outline-none transition-colors"
+              placeholder="Describe the event..."
+            ></textarea>
+          </div>
+
+          <div class="flex justify-end gap-3 pt-2">
+            <button
+              @click="closeModal"
+              class="px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-700 font-semibold hover:bg-gray-100 transition-all"
+            >
+              Cancel
+            </button>
+            <button
+              @click="saveEvent"
+              :disabled="isSavingEvent"
+              class="px-4 py-2 rounded-lg bg-[#004595] text-white font-semibold hover:bg-[#00397a] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {{ isSavingEvent ? 'Saving...' : 'Save Event' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -628,7 +642,6 @@ const openAddModal = () => {
   showAddModal.value = true
 }
 
-
 const startEdit = (event) => {
   editingEventId.value = event.id
   editDraft.value = {
@@ -682,10 +695,7 @@ const deleteEvent = async (event) => {
 
   isDeletingEvent.value = true
   try {
-    const { error: deleteError } = await supabase
-      .from('BrgyEvents')
-      .delete()
-      .eq('id', event.id)
+    const { error: deleteError } = await supabase.from('BrgyEvents').delete().eq('id', event.id)
 
     if (deleteError) throw deleteError
 
@@ -736,9 +746,7 @@ const saveEvent = async () => {
       event_date: formatLocalDate(selectedDate.value),
     }
 
-    const { error: insertError } = await supabase
-      .from('BrgyEvents')
-      .insert(payload)
+    const { error: insertError } = await supabase.from('BrgyEvents').insert(payload)
 
     if (insertError) throw insertError
 
@@ -784,11 +792,21 @@ select option:checked {
   transform: translateY(-2px);
 }
 
-.event-card:nth-child(1) { animation-delay: 0.03s; }
-.event-card:nth-child(2) { animation-delay: 0.06s; }
-.event-card:nth-child(3) { animation-delay: 0.09s; }
-.event-card:nth-child(4) { animation-delay: 0.12s; }
-.event-card:nth-child(5) { animation-delay: 0.15s; }
+.event-card:nth-child(1) {
+  animation-delay: 0.03s;
+}
+.event-card:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.event-card:nth-child(3) {
+  animation-delay: 0.09s;
+}
+.event-card:nth-child(4) {
+  animation-delay: 0.12s;
+}
+.event-card:nth-child(5) {
+  animation-delay: 0.15s;
+}
 
 .icon-btn {
   display: inline-flex;
@@ -796,7 +814,10 @@ select option:checked {
   justify-content: center;
   padding: 4px;
   border-radius: 9999px;
-  transition: transform 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .icon-btn:hover {
