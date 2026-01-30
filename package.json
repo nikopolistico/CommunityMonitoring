@@ -15,6 +15,7 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.79",
     "@mapbox/togeojson": "^0.16.2",
     "@supabase/supabase-js": "^2.93.1",
     "@tailwindcss/vite": "^4.1.18",
