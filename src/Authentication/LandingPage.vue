@@ -39,27 +39,37 @@
           <div
             class="flex justify-center items-center gap-16 mb-12 max-md:gap-6 max-sm:gap-3 animate-scaleIn"
           >
-            <div class="flex items-center justify-center">
-              <img
-                src="@/assets/BCPO 1 LOGO.png"
-                alt="BCPS 1 Logo"
-                class="h-30 w-30 object-contain max-md:h-20 max-md:w-20 hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-            <div class="flex items-center justify-center">
-              <img
-                src="@/assets/pnplogo.png"
-                alt="PNP Logo"
-                class="h-30 w-30 object-contain max-md:h-20 max-md:w-20 hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-            <div class="flex items-center justify-center">
-              <img
-                src="@/assets/butuanlogo.png"
-                alt="BXU Logo"
-                class="h-30 w-30 object-contain max-md:h-20 max-md:w-20 hover:scale-110 transition-transform duration-300"
-              />
-            </div>
+            <div class="flex justify-center items-center gap-10 max-md:gap-6 max-sm:gap-4">
+
+  <!-- BCPO -->
+  <div class="flex items-center justify-center w-30 h-30 max-md:w-20 max-md:h-20">
+    <img
+      src="@/assets/BCPO 1 LOGO.png"
+      alt="BCPS 1 Logo"
+      class="w-full h-full object-contain hover:scale-110 transition-transform duration-300"
+    />
+  </div>
+
+  <!-- PNP -->
+  <div class="flex items-center justify-center w-30 h-30 max-md:w-20 max-md:h-20">
+    <img
+      src="@/assets/pnplogo.png"
+      alt="PNP Logo"
+      class="w-full h-full object-contain hover:scale-110 transition-transform duration-300"
+    />
+  </div>
+
+  <!-- ✅ PNP BUTUAN (slightly bigger, spacing steady) -->
+  <div class="flex items-center justify-center w-30 h-30 max-md:w-20 max-md:h-20 overflow-visible">
+    <img
+      src="@/assets/pnpbutuan.png"
+      alt="PNP Butuan Logo"
+      class="w-full h-full object-contain scale-200 hover:scale-220 transition-transform duration-300"
+    />
+  </div>
+
+</div>
+
           </div>
           <h1
             class="text-[2.75rem] font-extrabold text-white mb-6 tracking-wider [text-shadow:2px_2px_8px_rgba(0,0,0,0.5)] max-md:text-[1.75rem] animate-fadeInUp animation-delay-200"
@@ -247,39 +257,52 @@
       </section>
 
       <!-- Footer -->
-      <footer class="px-8 py-8 bg-[#00397a] border-t-[3px] border-[#004595] animate-fadeIn">
-        <div class="max-w-300 mx-auto text-center">
-          <div class="flex justify-center items-center gap-10 mb-4 max-md:gap-6 max-sm:gap-4">
-            <div class="flex items-center justify-center">
-              <img
-                src="@/assets/BCPO 1 LOGO.png"
-                alt="BCPS 1 Logo"
-                class="h-15 w-15 object-contain max-md:h-12.5 max-md:w-12.5 hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-            <div class="flex items-center justify-center">
-              <img
-                src="@/assets/pnplogo.png"
-                alt="PNP Logo"
-                class="h-15 w-15 object-contain max-md:h-12.5 max-md:w-12.5 hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-            <div class="flex items-center justify-center">
-              <img
-                src="@/assets/butuanlogo.png"
-                alt="BXU Logo"
-                class="h-15 w-15 object-contain max-md:h-12.5 max-md:w-12.5 hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-          </div>
-          <p class="text-base font-semibold text-white mb-2">
-            © {{ new Date().getFullYear() }} Butuan City Police Station 1
-          </p>
-          <p class="text-[0.9rem] text-[#f3f1ee] opacity-90">
-            Serving and Protecting the Community
-          </p>
-        </div>
-      </footer>
+     <footer class="px-8 py-8 bg-[#00397a] border-t-[3px] border-[#004595] animate-fadeIn">
+  <div class="max-w-7xl mx-auto text-center">
+
+    <!-- Logos -->
+    <div class="flex justify-center items-center gap-10 max-md:gap-6 max-sm:gap-4 mb-4">
+
+      <!-- BCPO -->
+      <div class="flex items-center justify-center w-16 h-16 max-md:w-12 max-md:h-12 relative -right-2">
+        <img
+          src="@/assets/BCPO 1 LOGO.png"
+          alt="BCPO Logo"
+          class="w-full h-full object-contain hover:scale-110 transition-transform duration-300"
+        />
+      </div>
+
+      <!-- PNP -->
+      <div class="flex items-center justify-center w-16 h-16 max-md:w-12 max-md:h-12 relative -right-3">
+        <img
+          src="@/assets/pnplogo.png"
+          alt="PNP Logo"
+          class="w-full h-full object-contain hover:scale-110 transition-transform duration-300"
+        />
+      </div>
+
+      <!-- PNP BUTUAN (larger but spacing fixed) -->
+      <div class="flex items-center justify-center w-22 h-22 max-md:w-18 max-md:h-18 relative -right-1">
+        <img
+          src="@/assets/pnpbutuan.png"
+          alt="PNP Butuan Logo"
+          class="w-full h-full object-contain scale-152 hover:scale-162 transition-transform duration-300"
+        />
+      </div>
+
+    </div>
+
+    <!-- Text -->
+    <p class="text-base font-semibold text-white mb-1">
+      © {{ new Date().getFullYear() }} Butuan City Police Station 1
+    </p>
+    <p class="text-sm text-[#f3f1ee] opacity-90">
+      Serving and Protecting the Community
+    </p>
+
+  </div>
+</footer>
+
     </div>
   </div>
 </template>
