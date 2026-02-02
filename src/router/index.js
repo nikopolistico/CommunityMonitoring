@@ -17,8 +17,9 @@ const router = createRouter({
     { name: 'navigation', path: '/navigation', component: NavigationView },
     { name: 'dashboard', path: '/dashboard', component: NavigationView },
     { name: 'calendar', path: '/calendar', component: NavigationView },
+    { name: 'records', path: '/records', component: NavigationView },
     { name: 'settings', path: '/settings', component: NavigationView },
-    { name: 'CommunityView', path: '/community/:barangayName', component: CommunityView },
+    { name: 'community', path: '/community/:barangayName', component: CommunityView },
     { name: 'schools', path: '/community/:barangayName/schools', component: Schools },
     { name: 'churches', path: '/community/:barangayName/churches', component: Churches },
     {

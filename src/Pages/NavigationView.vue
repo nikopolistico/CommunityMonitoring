@@ -83,6 +83,31 @@
           <li>
             <a
               href="#"
+              @click.prevent="setActiveView('records')"
+              :class="[
+                'group flex items-center p-3 rounded-xl transition-all duration-300 transform hover:translate-x-1',
+                activeView === 'records' 
+                  ? 'bg-white/10 border-l-4 border-[#004595]' 
+                  : 'hover:bg-white/10'
+              ]"
+            >
+              <div
+                class="p-2 bg-transparent rounded-lg mr-3 group-hover:bg-white/10 transition-colors"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <span class="font-semibold">Records</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
               @click.prevent="setActiveView('settings')"
               :class="[
                 'group flex items-center p-3 rounded-xl transition-all duration-300 transform hover:translate-x-1',
@@ -161,6 +186,9 @@
       <!-- Calendar View -->
       <CalendarView v-else-if="activeView === 'calendar'" />
       
+      <!-- Records View -->
+      <RecordsView v-else-if="activeView === 'records'" />
+      
       <!-- Settings View -->
       <SettingsView v-else-if="activeView === 'settings'" />
     </main>
@@ -171,6 +199,7 @@
 import { ref } from 'vue'
 import DashBoard from './DashBoard.vue'
 import CalendarView from './CalendarView.vue'
+import RecordsView from './RecordsView.vue'
 import SettingsView from './SettingsView.vue'
 
 const sidebarOpen = ref(false)

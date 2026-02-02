@@ -3,7 +3,7 @@
     <!-- Top Header -->
       <header class="relative shadow-2xl overflow-hidden h-48">
         <div
-          class="absolute inset-0 bg-cover bg-center"
+          class="absolute inset-0 bg-cover bg-center" 
           :style="{ backgroundImage: `url(${headbk})` }"
         ></div>
         <div class="absolute inset-0 bg-linear-to-r from-[#002147]/80 to-[#004595]/70"></div>
@@ -176,13 +176,27 @@
             <div
               v-for="option in filteredBarangays"
               :key="option.value"
-              class="p-3 bg-linear-to-r from-[#f3f1ee] to-gray-100 rounded-lg border-2 border-[#004595]/20 hover:border-[#004595] hover:shadow-md transition-all duration-200 cursor-pointer group"
+              class="relative p-4 bg-linear-to-r from-[#f3f1ee] to-gray-100 rounded-lg border-2 border-[#004595]/20 hover:border-[#004595] hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden"
               @click="navigateToBarangay(option.value)"
             >
-              <div class="flex items-center gap-2">
-                <div class="w-2 h-2 bg-[#004595] rounded-full group-hover:scale-125 transition-transform"></div>
-                <span class="text-sm font-semibold text-gray-700 group-hover:text-[#004595]">{{ option.label }}</span>
+              <div class="relative z-10 text-center">
+                <span class="text-sm font-semibold text-gray-700 transition-colors block">{{ option.label }}</span>
               </div>
+              
+              <!-- View More Overlay -->
+              <div class="absolute inset-0 bg-[#004595]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                <div class="text-center">
+                  <svg class="w-6 h-6 text-white mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  <p class="text-white font-semibold text-xs">View Community</p>
+                </div>
+              </div>
+              
+              <div
+                class="absolute top-0 right-0 w-20 h-20 bg-[#004595]/5 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"
+              ></div>
             </div>
           </div>
           
@@ -333,7 +347,7 @@ const filteredBarangays = computed(() => {
 // Navigate to community view for selected barangay
 const navigateToBarangay = (barangayValue) => {
   router.push({
-    name: 'CommunityView',
+    name: 'community',
     params: { barangayName: barangayValue }
   })
 }
