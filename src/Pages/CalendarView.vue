@@ -312,7 +312,10 @@
                             {{ event.description }}
                           </p>
                         </div>
-                        <div v-if="selectedBarangay !== 'all'" class="ml-3 flex items-center gap-2">
+                        <div
+                          v-if="selectedBarangay !== 'all' && !event.isFiesta"
+                          class="ml-3 flex items-center gap-2"
+                        >
                           <button
                             @click="startEdit(event)"
                             class="icon-btn text-amber-600"
