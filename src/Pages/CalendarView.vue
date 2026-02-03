@@ -154,22 +154,37 @@
                     }}
                   </p>
                 </div>
-                <button
-                  @click="openAddModal"
-                  :disabled="!selectedDate"
-                  class="px-4 py-2 rounded-lg bg-linear-to-r from-[#004595] to-[#0056b3] text-white font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
-                >
-                  <span class="flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    Add Event
-                  </span>
-                </button>
+                <div class="flex flex-col gap-2">
+                  <button
+                    @click="openAddModal"
+                    :disabled="!selectedDate"
+                    class="px-4 py-2 rounded-lg bg-linear-to-r from-[#004595] to-[#0056b3] text-white font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+                  >
+                    <span class="flex items-center gap-2">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                      </svg>
+                      Add Event
+                    </span>
+                  </button>
+
+                  <div class="flex items-center gap-2">
+                    <select
+                      v-model="barangaySearch"
+                      :disabled="!selectedDate"
+                      class="w-full sm:w-60 px-3 py-2 border-2 border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent transition-all disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    >
+                      <option value="">All barangays</option>
+                      <option v-for="brgy in barangayOptions" :key="brgy.id" :value="brgy.label">
+                        {{ brgy.label }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
               </div>
 
               <!-- Status Filter Tabs -->
-              <div v-if="selectedDate && selectedDateEvents.length > 0" class="mb-4 shrink-0">
+              <div v-if="selectedDate && filteredBaseEvents.length > 0" class="mb-4 shrink-0">
                 <div class="flex gap-2 bg-gray-100 p-1 rounded-lg">
                   <button
                     @click="statusFilter = 'all'"
@@ -180,7 +195,7 @@
                         : 'text-gray-600 hover:text-gray-900'
                     ]"
                   >
-                    All Events ({{ selectedDateEvents.length }})
+                    All Events ({{ filteredBaseEvents.length }})
                   </button>
                   <button
                     @click="statusFilter = 'pending'"
@@ -233,7 +248,7 @@
                   </p>
                 </div>
 
-                <div v-else-if="selectedDateEvents.length === 0" class="text-center py-12">
+                <div v-else-if="filteredBaseEvents.length === 0" class="text-center py-12">
                   <div
                     class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
                   >
@@ -453,8 +468,22 @@
                                 <span class="text-xs text-gray-600 font-medium">{{ getBarangayLabel(event.brgy_id) }}</span>
                               </div>
                             </div>
-                            <div class="ml-3">
+                            <div class="ml-3 flex items-center gap-2">
                               <span class="text-xs text-gray-400 italic">Completed</span>
+                              <button
+                                @click="deleteEvent(event)"
+                                class="icon-btn text-red-600 hover:text-red-700 hover:bg-red-50"
+                                title="Delete"
+                              >
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                  />
+                                </svg>
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -608,6 +637,7 @@ const isDeletingEvent = ref(false)
 const editingEventId = ref(null)
 const statusFilter = ref('all') // 'all', 'pending', 'done'
 const notifiedEvents = ref(new Set()) // Track which events have been notified
+const barangaySearch = ref('')
 const newEvent = ref({
   brgyId: '',
   title: '',
@@ -648,18 +678,28 @@ const selectedDateEvents = computed(() => {
   return eventsData.value.filter((event) => getEventDateStr(event) === dateStr)
 })
 
+const filteredBaseEvents = computed(() => {
+  const query = barangaySearch.value.trim().toLowerCase()
+  if (!query) return selectedDateEvents.value
+  return selectedDateEvents.value.filter((event) => {
+    const label = getBarangayLabel(event.brgy_id).toLowerCase()
+    const idText = String(event.brgy_id ?? '').toLowerCase()
+    return label.includes(query) || idText.includes(query)
+  })
+})
+
 const pendingEvents = computed(() => {
-  return selectedDateEvents.value.filter(event => !event.status)
+  return filteredBaseEvents.value.filter(event => !event.status)
 })
 
 const doneEvents = computed(() => {
-  return selectedDateEvents.value.filter(event => event.status)
+  return filteredBaseEvents.value.filter(event => event.status)
 })
 
 const filteredEvents = computed(() => {
   if (statusFilter.value === 'pending') return pendingEvents.value
   if (statusFilter.value === 'done') return doneEvents.value
-  return selectedDateEvents.value
+  return filteredBaseEvents.value
 })
 
 const getUniqueBarangays = (events) => {
@@ -772,6 +812,7 @@ const nextMonth = () => {
 
 const selectDate = (day) => {
   selectedDate.value = day.date
+  barangaySearch.value = ''
 }
 
 const closeModal = () => {

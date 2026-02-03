@@ -49,6 +49,7 @@
                 <th class="px-4 py-3 text-left font-semibold">Schools</th>
                 <th class="px-4 py-3 text-left font-semibold">Churches</th>
                 <th class="px-4 py-3 text-left font-semibold">Establishments</th>
+                <th class="px-4 py-3 text-left font-semibold">Actions</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
@@ -72,6 +73,14 @@
                 <td class="px-4 py-3">{{ record.schoolname || '-' }}</td>
                 <td class="px-4 py-3">{{ record.churchname || '-' }}</td>
                 <td class="px-4 py-3">{{ record.establishmentname || '-' }}</td>
+                <td class="px-4 py-3">
+                  <button
+                    @click="exportSingleBarangay(record)"
+                    class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                  >
+                    Download
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -83,37 +92,103 @@
 
 <script setup>
 import { supabase } from '@/lib/supabase';
+import * as XLSX from 'xlsx-js-style';
 import { ref, onMounted } from 'vue'
 
 const records = ref([])
 const loading = ref(false)
 
-// Export to Excel function
-const exportToExcel = () => {
-  if (records.value.length === 0) {
+const buildWorksheet = (rows, barangayLabel) => {
+  const titleRow = ['BCPS - 1']
+  const brgyRow = [`Barangay: ${barangayLabel || 'All Barangays'}`]
+  const headerRow = [
+    'No.',
+    'Barangay Name',
+    'Captain (Cptfullname)',
+    'Members (BMfullname)',
+    'Patron',
+    'Fiesta Date',
+    'Schools',
+    'Churches',
+    'Establishments'
+  ]
+
+  const dataRows = rows.map((record, index) => ([
+    index + 1,
+    record.brgyname || '',
+    record.cptfullname || '',
+    record.bmfullname || '',
+    record.patron || '',
+    record.date || '',
+    record.schoolname || '',
+    record.churchname || '',
+    record.establishmentname || ''
+  ]))
+
+  const worksheet = XLSX.utils.aoa_to_sheet([titleRow, brgyRow, [], headerRow, ...dataRows])
+
+  worksheet['!merges'] = [
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 8 } },
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 8 } }
+  ]
+
+  worksheet['A1'].s = {
+    font: { bold: true, sz: 18, color: { rgb: '002147' } },
+    alignment: { horizontal: 'center', vertical: 'center' }
+  }
+  worksheet['A2'].s = {
+    font: { bold: true, sz: 14, color: { rgb: '002147' } },
+    alignment: { horizontal: 'center', vertical: 'center' }
+  }
+
+  headerRow.forEach((_, colIndex) => {
+    const cellRef = XLSX.utils.encode_cell({ r: 3, c: colIndex })
+    if (worksheet[cellRef]) {
+      worksheet[cellRef].s = {
+        font: { bold: true, color: { rgb: '002147' } },
+        alignment: { horizontal: 'left', vertical: 'center' }
+      }
+    }
+  })
+
+  const allRows = [headerRow, ...dataRows]
+  worksheet['!cols'] = allRows[0].map((_, colIndex) => {
+    const maxLength = Math.max(
+      ...allRows.map((row) => String(row[colIndex] ?? '').length)
+    )
+    return { wch: Math.min(Math.max(maxLength + 2, 10), 40) }
+  })
+
+  return worksheet
+}
+
+const exportRecordsToExcel = (rows, filename, barangayLabel) => {
+  if (!rows || rows.length === 0) {
     alert('No records to export')
     return
   }
 
-  // Create CSV content with all columns
-  let csvContent = 'No.,Barangay Name,Captain (Cptfullname),Members (BMfullname),Patron,Fiesta Date,Schools,Churches,Establishments\n'
-  
-  records.value.forEach((record, index) => {
-    csvContent += `${index + 1},"${record.brgyname || ''}","${record.cptfullname || ''}","${record.bmfullname || ''}","${record.patron || ''}","${record.date || ''}","${record.schoolname || ''}","${record.churchname || ''}","${record.establishmentname || ''}"\n`
-  })
+  const worksheet = buildWorksheet(rows, barangayLabel)
+  const workbook = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Records')
+  XLSX.writeFile(workbook, filename)
+}
 
-  // Create blob and download
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
-  const link = document.createElement('a')
-  const url = URL.createObjectURL(blob)
-  
-  link.setAttribute('href', url)
-  link.setAttribute('download', `Barangay_Records_${new Date().toISOString().split('T')[0]}.csv`)
-  link.style.visibility = 'hidden'
-  
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
+const exportToExcel = () => {
+  exportRecordsToExcel(
+    records.value,
+    `Barangay_Records_${new Date().toISOString().split('T')[0]}.xlsx`,
+    'All Barangays'
+  )
+}
+
+const exportSingleBarangay = (record) => {
+  const brgyName = (record?.brgyname || 'Barangay').replace(/[^a-zA-Z0-9_-]/g, '_')
+  exportRecordsToExcel(
+    [record],
+    `Barangay_${brgyName}_${new Date().toISOString().split('T')[0]}.xlsx`,
+    record?.brgyname || 'Barangay'
+  )
 }
 
 // Fetch records using the brgyrecords() function

@@ -14,9 +14,15 @@
       <div class="p-6 border-b border-white/10">
         <div class="flex flex-col items-center">
           <div
-            class="w-24 h-24 bg-linear-to-br from-[#004595] to-[#00397a] rounded-full flex items-center justify-center mb-3 shadow-lg ring-4 ring-white/20 transition-transform hover:scale-105"
+            class="w-30 h-30 bg-linear-to-br from-[#004595] to-[#00397a] rounded-full flex items-center justify-center mb-3 shadow-lg ring-4 ring-white/20 transition-transform hover:scale-105 overflow-hidden"
           >
-            <svg class="w-14 h-14 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <img
+              v-if="adminProfile.profile_picture"
+              :src="adminProfile.profile_picture"
+              alt="Admin Profile"
+              class="w-full h-full object-cover"
+            />
+            <svg v-else class="w-14 h-14 text-white" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fill-rule="evenodd"
                 d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
@@ -24,8 +30,8 @@
               />
             </svg>
           </div>
-          <h3 class="font-bold text-xl text-white">Officer Name</h3>
-          <p class="text-[#e0e7ff] text-sm mt-1 font-medium">Badge #12345</p>
+          <h3 class="font-bold text-xl text-white">{{ adminProfile.fullname || 'Loading...' }}</h3>
+          <p class="text-[#e0e7ff] text-sm mt-1 font-medium">Badge #{{ adminProfile.badge_number || 'N/A' }}</p>
         </div>
       </div>
 
@@ -196,7 +202,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { supabase } from '@/lib/supabase'
 import DashBoard from './DashBoard.vue'
 import CalendarView from './CalendarView.vue'
 import RecordsView from './RecordsView.vue'
@@ -205,8 +212,40 @@ import SettingsView from './SettingsView.vue'
 const sidebarOpen = ref(false)
 const activeView = ref('dashboard')
 
+const adminProfile = ref({
+  fullname: '',
+  profile_picture: '',
+  badge_number: ''
+})
+
+// Fetch admin profile data
+const fetchAdminProfile = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('Administrator')
+      .select('fullname, profile_picture, badge_number')
+      .single()
+
+    if (error) throw error
+
+    if (data) {
+      adminProfile.value = {
+        fullname: data.fullname || '',
+        profile_picture: data.profile_picture || '',
+        badge_number: data.badge_number || ''
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching admin profile:', error)
+  }
+}
+
 const setActiveView = (view) => {
   activeView.value = view
   sidebarOpen.value = false // Close sidebar on mobile after selection
 }
+
+onMounted(() => {
+  fetchAdminProfile()
+})
 </script>
