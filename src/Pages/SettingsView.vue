@@ -35,7 +35,7 @@
         <!-- Administrator Profile Section -->
         <div class="bg-white rounded-3xl shadow-2xl p-8 border-2 border-blue-50 hover:border-blue-100 transition-all duration-300 hover:shadow-3xl hover:-translate-y-1">
           <div class="flex items-center gap-3 mb-8">
-            <div class="p-3 bg-gradient-to-br from-[#004595] to-[#002147] rounded-xl">
+            <div class="p-3 bg-linear-to-br from-[#004595] to-[#002147] rounded-xl">
               <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fill-rule="evenodd"
@@ -51,9 +51,9 @@
           </div>
           
           <!-- Profile Picture with enhanced styling -->
-          <div class="flex items-center gap-8 mb-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
+          <div class="flex items-center gap-8 mb-8 p-6 bg-linear-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
             <div class="relative group">
-              <div class="w-32 h-32 bg-gradient-to-br from-[#004595] to-[#00397a] rounded-full flex items-center justify-center shadow-2xl ring-4 ring-blue-100 overflow-hidden group-hover:ring-8 group-hover:ring-blue-200 transition-all duration-300">
+              <div class="w-32 h-32 bg-linear-to-br from-[#004595] to-[#00397a] rounded-full flex items-center justify-center shadow-2xl ring-4 ring-blue-100 overflow-hidden group-hover:ring-8 group-hover:ring-blue-200 transition-all duration-300">
                 <img
                   v-if="adminProfile.profile_picture"
                   :src="adminProfile.profile_picture"
@@ -70,7 +70,7 @@
               </div>
               <button
                 @click="triggerFileUpload"
-                class="absolute bottom-0 right-0 p-3 bg-gradient-to-r from-[#004595] to-[#002147] rounded-full text-white hover:scale-110 hover:rotate-12 transition-all duration-300 shadow-xl"
+                class="absolute bottom-0 right-0 p-3 bg-linear-to-r from-[#004595] to-[#002147] rounded-full text-white hover:scale-110 hover:rotate-12 transition-all duration-300 shadow-xl"
                 title="Change Profile Picture"
               >
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -100,9 +100,9 @@
           <!-- Admin Info Cards -->
           <div class="grid md:grid-cols-2 gap-6">
             <!-- Email Card -->
-            <div class="group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-100 hover:border-blue-300 hover:shadow-lg transition-all duration-300">
+            <div class="group p-6 bg-linear-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-100 hover:border-blue-300 hover:shadow-lg transition-all duration-300">
               <div class="flex items-center gap-3 mb-3">
-                <div class="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                <div class="p-3 bg-linear-to-br from-blue-500 to-blue-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
                   <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
@@ -116,9 +116,9 @@
             </div>
 
             <!-- Badge Card -->
-            <div class="group p-6 bg-gradient-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-100 hover:border-blue-300 hover:shadow-lg transition-all duration-300">
+            <div class="group p-6 bg-linear-to-br from-white to-gray-50 rounded-2xl border-2 border-gray-100 hover:border-blue-300 hover:shadow-lg transition-all duration-300">
               <div class="flex items-center gap-3 mb-3">
-                <div class="p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                <div class="p-3 bg-linear-to-br from-indigo-500 to-purple-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
                   <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z" clip-rule="evenodd"/>
                   </svg>
@@ -135,7 +135,7 @@
         <!-- Account Settings -->
         <div class="bg-white rounded-3xl shadow-2xl p-8 border-2 border-blue-50 hover:border-blue-100 transition-all duration-300 hover:shadow-3xl hover:-translate-y-1">
           <div class="flex items-center gap-3 mb-6">
-            <div class="p-3 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl">
+            <div class="p-3 bg-linear-to-br from-green-500 to-emerald-600 rounded-xl">
               <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
               </svg>
@@ -146,9 +146,9 @@
             </div>
           </div>
           
-          <div class="p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl border-2 border-green-100">
+          <div class="p-6 bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl border-2 border-green-100">
             <div class="relative">
-              <label class="block text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
+              <label class="text-sm font-bold text-gray-700 mb-3 flex items-center gap-2">
                 <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd"/>
                 </svg>
@@ -167,7 +167,7 @@
               <button
                 @click="saveSettings"
                 :disabled="!settings.password"
-                class="group px-8 py-4 rounded-xl bg-gradient-to-r from-[#004595] to-[#002147] text-white font-bold hover:from-[#00397a] hover:to-[#001935] transition-all duration-300 shadow-lg hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 flex items-center gap-2"
+                class="group px-8 py-4 rounded-xl bg-linear-to-r from-[#004595] to-[#002147] text-white font-bold hover:from-[#00397a] hover:to-[#001935] transition-all duration-300 shadow-lg hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 flex items-center gap-2"
               >
                 <svg class="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
@@ -181,7 +181,7 @@
         <!-- Notification Settings -->
         <div class="bg-white rounded-3xl shadow-2xl p-8 border-2 border-blue-50 hover:border-blue-100 transition-all duration-300 hover:shadow-3xl hover:-translate-y-1">
           <div class="flex items-center gap-3 mb-6">
-            <div class="p-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl">
+            <div class="p-3 bg-linear-to-br from-purple-500 to-pink-600 rounded-xl">
               <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
               </svg>
@@ -193,9 +193,9 @@
           </div>
 
           <div class="space-y-4">
-            <div class="group flex items-center justify-between p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-100 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
+            <div class="group flex items-center justify-between p-6 bg-linear-to-r from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-100 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
               <div class="flex items-center gap-4">
-                <div class="p-3 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                <div class="p-3 bg-linear-to-br from-purple-500 to-purple-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
                   <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
@@ -212,13 +212,13 @@
                   type="checkbox"
                   class="sr-only peer"
                 />
-                <div class="w-14 h-7 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-purple-500 peer-checked:to-purple-600 shadow-inner"></div>
+                <div class="w-14 h-7 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-linear-to-r peer-checked:from-purple-500 peer-checked:to-purple-600 shadow-inner"></div>
               </label>
             </div>
 
-            <div class="group flex items-center justify-between p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl border-2 border-blue-100 hover:border-blue-300 hover:shadow-lg transition-all duration-300">
+            <div class="group flex items-center justify-between p-6 bg-linear-to-r from-blue-50 to-cyan-50 rounded-2xl border-2 border-blue-100 hover:border-blue-300 hover:shadow-lg transition-all duration-300">
               <div class="flex items-center gap-4">
-                <div class="p-3 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                <div class="p-3 bg-linear-to-br from-blue-500 to-cyan-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
                   <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
                   </svg>
@@ -234,13 +234,13 @@
                   type="checkbox"
                   class="sr-only peer"
                 />
-                <div class="w-14 h-7 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-blue-500 peer-checked:to-cyan-600 shadow-inner"></div>
+                <div class="w-14 h-7 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-linear-to-r peer-checked:from-blue-500 peer-checked:to-cyan-600 shadow-inner"></div>
               </label>
             </div>
 
-            <div class="group flex items-center justify-between p-6 bg-gradient-to-r from-pink-50 to-rose-50 rounded-2xl border-2 border-pink-100 hover:border-pink-300 hover:shadow-lg transition-all duration-300">
+            <div class="group flex items-center justify-between p-6 bg-linear-to-r from-pink-50 to-rose-50 rounded-2xl border-2 border-pink-100 hover:border-pink-300 hover:shadow-lg transition-all duration-300">
               <div class="flex items-center gap-4">
-                <div class="p-3 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                <div class="p-3 bg-linear-to-br from-pink-500 to-rose-600 rounded-xl group-hover:scale-110 transition-transform duration-300">
                   <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                   </svg>
@@ -256,7 +256,7 @@
                   type="checkbox"
                   class="sr-only peer"
                 />
-                <div class="w-14 h-7 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-pink-500 peer-checked:to-rose-600 shadow-inner"></div>
+                <div class="w-14 h-7 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-linear-to-r peer-checked:from-pink-500 peer-checked:to-rose-600 shadow-inner"></div>
               </label>
             </div>
           </div>
