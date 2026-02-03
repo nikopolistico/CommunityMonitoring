@@ -42,3 +42,5 @@ npm run build
 ```sh
 npm run lint
 ```
+
+### ERD schema link: https://drive.google.com/file/d/121tyjh4k3dc2vZ9aBAmm774jWmwkExMA/view?usp=sharing

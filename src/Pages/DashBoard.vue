@@ -10,28 +10,36 @@
 
         <div class="relative z-10 p-4 lg:p-6">
           <div class="max-w-6xl mx-auto">
-            <div class="flex items-center gap-2 lg:gap-3 mb-2 lg:mb-3">
-              <div class="p-1.5 lg:p-2 bg-white/20 backdrop-blur-sm rounded-lg shrink-0">
-                <svg
-                  class="w-5 h-5 lg:w-8 lg:h-8 text-white"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
-                  />
-                </svg>
-              </div>
-              <h1
-                class="text-lg sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight drop-shadow-lg"
-              >
-                Butuan City Police Station 1 Monitoring Dashboard
-              </h1>
-            </div>
+            <div class="flex items-start justify-between gap-4">
+              <div class="mt-8">
+                <div class="flex items-center gap-2 lg:gap-3 mb-2 lg:mb-3">
+                  <h1
+                    class="text-lg sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight drop-shadow-lg"
+                  >
+                    Butuan City Police Station 1
+                  </h1>
+                </div>
 
-            <p class="text-xs sm:text-sm text-[#e0e7ff] mb-2 lg:mb-3 lg:ml-14 font-medium">
-              Community monitoring across 28 barangays
-            </p>
+                <div>
+                  <p class="text-xs sm:text-sm text-[#e0e7ff] mb-1 ms-9 font-medium">
+                    Community monitoring across 28 barangays
+                  </p>
+                </div>
+              </div>
+
+              <div class="text-right">
+                <div class="inline-flex items-center gap-3 mt-8 px-5 py-3 rounded-full bg-linear-to-r from-white/20 to-white/5 backdrop-blur-md shadow-2xl border border-white/30">
+                  <span class="p-2 rounded-full bg-white/20">
+                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-8.75V5a.75.75 0 10-1.5 0v4.5c0 .2.08.39.22.53l3 3a.75.75 0 101.06-1.06l-2.78-2.72z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                  <p class="text-base sm:text-lg lg:text-2xl text-white font-extrabold tracking-wide drop-shadow">
+                    {{ currentTimestamp }}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </header>
@@ -213,7 +221,7 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import headbk from '@/assets/landing.jpg'
 import { supabase } from '@/lib/supabase'
@@ -226,6 +234,17 @@ const searchQuery = ref('')
 const currentTemperature = ref('--')
 const weatherCondition = ref('Loading...')
 const weatherCode = ref(0)
+const currentTimestamp = ref('')
+let timestampInterval = null
+
+const updateTimestamp = () => {
+  const now = new Date()
+  const formatter = new Intl.DateTimeFormat('en-PH', {
+    dateStyle: 'full',
+    timeStyle: 'medium'
+  })
+  currentTimestamp.value = formatter.format(now)
+}
 
 // Fetch weather data from Open-Meteo (free, no API key needed)
 const fetchWeather = async () => {
@@ -313,6 +332,15 @@ const fetchBarangays = async () => {
 onMounted(() => {
   fetchBarangays()
   fetchWeather()
+  updateTimestamp()
+  timestampInterval = setInterval(updateTimestamp, 1000)
+})
+
+onUnmounted(() => {
+  if (timestampInterval) {
+    clearInterval(timestampInterval)
+    timestampInterval = null
+  }
 })
 
 // Computed totals
@@ -347,7 +375,7 @@ const filteredBarangays = computed(() => {
 // Navigate to community view for selected barangay
 const navigateToBarangay = (barangayValue) => {
   router.push({
-    name: 'community',
+    name: 'CommunityView',
     params: { barangayName: barangayValue }
   })
 }

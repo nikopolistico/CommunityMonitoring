@@ -1,10 +1,12 @@
 <template>
-  <div class="w-screen h-screen flex justify-center items-center bg-linear-to-br from-[#002147] to-[#00397a] text-white">
+  <div
+    class="w-screen h-screen flex justify-center items-center bg-linear-to-br from-[#002147] to-[#00397a] text-white"
+  >
     <div class="text-center max-w-lg px-8">
       <div class="mb-8 flex justify-center items-center">
-        <img 
-          src="@/assets/BCPO 1 LOGO.png" 
-          alt="BCPO Logo" 
+        <img
+          src="@/assets/BCPO 1 LOGO.png"
+          alt="BCPO Logo"
           class="w-30 h-30 object-contain animate-pulse"
         />
       </div>
@@ -12,8 +14,8 @@
       <p class="text-base text-blue-100 mb-12 font-medium">Butuan City Police Station 1</p>
       <div class="w-full">
         <div class="w-full h-1.5 bg-white/20 rounded-full overflow-hidden mb-4">
-          <div 
-            class="h-full bg-linear-to-r from-[#004595] to-[#00397a] rounded-full transition-all duration-300 ease-out" 
+          <div
+            class="h-full bg-linear-to-r from-[#004595] to-[#00397a] rounded-full transition-all duration-300 ease-out"
             :style="{ width: progress + '%' }"
           ></div>
         </div>
@@ -50,5 +52,4 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

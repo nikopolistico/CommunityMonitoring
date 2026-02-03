@@ -1,3 +1,4 @@
+
 <template>
   <div class="flex h-screen bg-[#eeeff3]">
     <!-- Left Sidebar Navigation -->
