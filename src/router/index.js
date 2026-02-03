@@ -47,7 +47,7 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      name: 'CommunityView',
+      name: 'community',
       path: '/community/:barangayName',
       component: CommunityView,
       meta: { requiresAuth: true },

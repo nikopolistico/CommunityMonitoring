@@ -375,7 +375,7 @@ const filteredBarangays = computed(() => {
 // Navigate to community view for selected barangay
 const navigateToBarangay = (barangayValue) => {
   router.push({
-    name: 'CommunityView',
+    name: 'community',
     params: { barangayName: barangayValue }
   })
 }
