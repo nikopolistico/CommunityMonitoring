@@ -16,7 +16,13 @@
           <div
             class="w-24 h-24 bg-linear-to-br from-[#004595] to-[#00397a] rounded-full flex items-center justify-center mb-3 shadow-lg ring-4 ring-white/20 transition-transform hover:scale-105"
           >
-            <svg class="w-14 h-14 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <img
+              v-if="profileImageUrl"
+              :src="profileImageUrl"
+              :alt="displayEmail"
+              class="w-full h-full object-cover object-center rounded-full"
+            />
+            <svg v-else class="w-14 h-14 text-white" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fill-rule="evenodd"
                 d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
@@ -24,8 +30,7 @@
               />
             </svg>
           </div>
-          <h3 class="font-bold text-xl text-white">Officer Name</h3>
-          <p class="text-[#e0e7ff] text-sm mt-1 font-medium">Badge #12345</p>
+          <h3 class="font-bold text-lg text-white break-all text-center">{{ displayEmail }}</h3>
         </div>
       </div>
 
@@ -111,6 +116,7 @@
       <!-- Logout Button -->
       <div class="p-4 border-t border-white/10">
         <button
+          @click="handleLogout"
           class="w-full flex items-center justify-center p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#002147] text-white border-2 border-white/30 hover:border-white transition-all duration-300 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
         >
           <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -168,16 +174,111 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { supabase } from '@/lib/supabase'
 import DashBoard from './DashBoard.vue'
 import CalendarView from './CalendarView.vue'
 import SettingsView from './SettingsView.vue'
 
+const ADMIN_TABLE = 'Administrator'
+const ADMIN_BUCKET = 'administrator'
+
+const router = useRouter()
 const sidebarOpen = ref(false)
 const activeView = ref('dashboard')
+const displayEmail = ref('Officer')
+const profileImageUrl = ref('')
+
+const normalizeEmail = (email) => (email || '').trim().toLowerCase()
+
+const resolveProfileImageUrl = async (value) => {
+  if (!value) return ''
+  if (value.startsWith('http')) return `${value}${value.includes('?') ? '&' : '?'}t=${Date.now()}`
+
+  const { data, error } = await supabase.storage
+    .from(ADMIN_BUCKET)
+    .createSignedUrl(value, 60 * 60)
+
+  if (error) return ''
+  const signedUrl = data?.signedUrl || ''
+  return signedUrl ? `${signedUrl}${signedUrl.includes('?') ? '&' : '?'}t=${Date.now()}` : ''
+}
+
+const getLatestBucketImage = async () => {
+  const { data, error } = await supabase.storage
+    .from(ADMIN_BUCKET)
+    .list('', { limit: 100, offset: 0, sortBy: { column: 'created_at', order: 'desc' } })
+
+  if (error) {
+    console.warn('Failed to list bucket images:', error.message)
+    return ''
+  }
+
+  const files = (data || []).filter((item) => item?.name && !item?.name.endsWith('/'))
+  if (files.length === 0) return ''
+
+  const sorted = files.sort((a, b) => {
+    const aTime = Date.parse(a.created_at || a.updated_at || '') || 0
+    const bTime = Date.parse(b.created_at || b.updated_at || '') || 0
+    return bTime - aTime
+  })
+
+  return resolveProfileImageUrl(sorted[0].name)
+}
 
 const setActiveView = (view) => {
   activeView.value = view
   sidebarOpen.value = false // Close sidebar on mobile after selection
 }
+
+const handleLogout = async () => {
+  await supabase.auth.signOut()
+  router.replace({ name: 'login' })
+}
+
+const loadAdministrator = async () => {
+  const { data: authData } = await supabase.auth.getUser()
+  const user = authData?.user
+
+  if (!user) return
+
+  const email = normalizeEmail(user.email)
+  if (!email) return
+
+  const { data: adminRows, error: adminError } = await supabase
+    .from(ADMIN_TABLE)
+    .select('email, badge_number, profile_picture')
+    .ilike('email', email)
+    .limit(1)
+
+  if (adminError) {
+    console.warn('Failed to load admin profile:', adminError.message)
+  }
+
+  let admin = adminRows?.[0] || null
+
+  if (!admin) {
+    const { data: fuzzyRows, error: fuzzyError } = await supabase
+      .from(ADMIN_TABLE)
+      .select('email, badge_number, profile_picture')
+      .ilike('email', `%${email}%`)
+      .limit(1)
+
+    if (fuzzyError) {
+      console.warn('Failed to load admin profile (fuzzy):', fuzzyError.message)
+    }
+
+    admin = fuzzyRows?.[0] || null
+  }
+
+  displayEmail.value = admin?.email || user.email || 'Officer'
+  profileImageUrl.value =
+    (await getLatestBucketImage()) ||
+    'https://czwunysqbslfczktzjld.supabase.co/storage/v1/object/public/administrator/admin_1769598078434.jpg'
+}
+
+onMounted(() => {
+  loadAdministrator()
+})
 </script>

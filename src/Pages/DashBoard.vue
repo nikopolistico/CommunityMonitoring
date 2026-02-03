@@ -10,22 +10,22 @@
 
       <div class="relative z-10 p-4 lg:p-6">
         <div class="max-w-6xl mx-auto">
-          <div class="flex items-center gap-2 lg:gap-3 mb-2 lg:mb-3">
-            <div class="p-1.5 lg:p-2 bg-white/20 backdrop-blur-sm rounded-lg shrink-0">
-              <svg class="w-5 h-5 lg:w-8 lg:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
-                />
-              </svg>
-            </div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-2 lg:mb-3">
+            <div class="flex items-center gap-2 lg:gap-3">
             <h1
               class="text-lg sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight drop-shadow-lg"
             >
-              Butuan City Police Station 1 Monitoring Dashboard
+              Butuan City Police Station 1 
             </h1>
+            </div>
+
+            <div class="text-white/90 text-xs sm:text-sm text-right mt-5">
+              <p class="font-semibold tracking-wide">{{ formattedDate }}</p>
+              <p class="text-white text-lg sm:text-xl lg:text-2xl font-bold">{{ formattedTime }}</p>
+            </div>
           </div>
 
-          <p class="text-xs sm:text-sm text-[#e0e7ff] mb-2 lg:mb-3 lg:ml-14 font-medium">
+          <p class="text-xs sm:text-sm text-[#e0e7ff] mb-2 lg:mb-3 lg:ml-9 font-medium">
             Community monitoring across 28 barangays
           </p>
         </div>
@@ -306,7 +306,7 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import headbk from '@/assets/landing.jpg'
 import { supabase } from '@/lib/supabase'
@@ -319,6 +319,8 @@ const searchQuery = ref('')
 const currentTemperature = ref('--')
 const weatherCondition = ref('Loading...')
 const weatherCode = ref(0)
+const now = ref(new Date())
+let clockTimer = null
 
 // Fetch weather data from Open-Meteo (free, no API key needed)
 const fetchWeather = async () => {
@@ -406,6 +408,15 @@ const fetchBarangays = async () => {
 onMounted(() => {
   fetchBarangays()
   fetchWeather()
+  clockTimer = setInterval(() => {
+    now.value = new Date()
+  }, 1000)
+})
+
+onBeforeUnmount(() => {
+  if (clockTimer) {
+    clearInterval(clockTimer)
+  }
 })
 
 // Computed totals
@@ -425,6 +436,23 @@ const totalEstablishments = computed(() => {
   // 3 establishments per barangay based on communityData structure
   return totalBarangays.value * 3
 })
+
+const formattedDate = computed(() =>
+  new Intl.DateTimeFormat('en-PH', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(now.value),
+)
+
+const formattedTime = computed(() =>
+  new Intl.DateTimeFormat('en-PH', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  }).format(now.value),
+)
 
 // Filter barangays based on search query
 const filteredBarangays = computed(() => {
