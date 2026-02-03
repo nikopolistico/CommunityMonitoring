@@ -143,6 +143,7 @@
       <!-- Logout Button -->
       <div class="p-4 border-t border-white/10">
         <button
+          @click="showLogoutModal = true"
           class="w-full flex items-center justify-center p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#002147] text-white border-2 border-white/30 hover:border-white transition-all duration-300 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
         >
           <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -156,6 +157,44 @@
         </button>
       </div>
     </aside>
+
+    <!-- Logout Confirmation Modal -->
+    <Transition name="modal-fade">
+      <div v-if="showLogoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform animate-modal-slide">
+          <!-- Icon -->
+          <div class="flex justify-center mb-4">
+            <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
+              <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+              </svg>
+            </div>
+          </div>
+          
+          <!-- Message -->
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Confirm Logout</h3>
+            <p class="text-gray-600">Are you sure you want to log out?</p>
+          </div>
+          
+          <!-- Buttons -->
+          <div class="flex gap-3">
+            <button
+              @click="showLogoutModal = false"
+              class="flex-1 px-4 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-xl transition-all duration-300"
+            >
+              Cancel
+            </button>
+            <button
+              @click="confirmLogout"
+              class="flex-1 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </Transition>
 
     <!-- Mobile Menu Button -->
     <button
@@ -204,14 +243,17 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { supabase } from '@/lib/supabase'
 import DashBoard from './DashBoard.vue'
 import CalendarView from './CalendarView.vue'
 import RecordsView from './RecordsView.vue'
 import SettingsView from './SettingsView.vue'
 
+const router = useRouter()
 const sidebarOpen = ref(false)
 const activeView = ref('dashboard')
+const showLogoutModal = ref(false)
 
 const adminProfile = ref({
   fullname: '',
@@ -246,7 +288,58 @@ const setActiveView = (view) => {
   sidebarOpen.value = false // Close sidebar on mobile after selection
 }
 
+const confirmLogout = async () => {
+  showLogoutModal.value = false
+  
+  try {
+    console.log('🚪 Logging out...')
+    const { error } = await supabase.auth.signOut()
+    
+    if (error) {
+      console.error('❌ Logout error:', error)
+      alert('Error logging out. Please try again.')
+      return
+    }
+    
+    console.log('✅ Logout successful')
+    // Redirect to login page
+    router.push({ name: 'login' })
+  } catch (err) {
+    console.error('💥 Unexpected logout error:', err)
+    alert('An unexpected error occurred. Please try again.')
+  }
+}
+
 onMounted(() => {
   fetchAdminProfile()
 })
 </script>
+
+<style scoped>
+/* Modal Fade Animation */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
+/* Modal Slide Animation */
+@keyframes modal-slide {
+  from {
+    transform: scale(0.95) translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-modal-slide {
+  animation: modal-slide 0.3s ease-out;
+}
+</style>

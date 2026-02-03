@@ -73,14 +73,38 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach(async (to) => {
-  if (to.meta?.requiresAuth === false) return true
-
+router.beforeEach(async (to, from) => {
+  console.log('🔒 Route Guard Check:', to.name)
+  
+  // Check if user has a valid session
   const { data, error } = await supabase.auth.getSession()
-  if (error || !data?.session) {
-    return { name: 'login' }
+  const hasSession = !error && data?.session
+  
+  // If user is logged in and trying to access public pages (login, landing, intro)
+  // Redirect them to dashboard
+  if (hasSession && to.meta?.requiresAuth === false) {
+    console.log('⚠️ Already logged in, redirecting to dashboard')
+    return { name: 'dashboard' }
+  }
+  
+  // If route is public and user is not logged in, allow access
+  if (to.meta?.requiresAuth === false) {
+    console.log('✅ Public route, access granted')
+    return true
   }
 
+  // For protected routes, check if user has a valid session
+  if (error) {
+    console.error('❌ Session check error:', error)
+    return { name: 'login' }
+  }
+  
+  if (!data?.session) {
+    console.log('❌ No active session, redirecting to login')
+    return { name: 'intropage' }
+  }
+  
+  console.log('✅ Valid session, access granted')
   return true
 })
 
