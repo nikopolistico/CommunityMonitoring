@@ -109,16 +109,18 @@
                     <div class="space-y-1">
                       <div
                         v-for="event in day.events.slice(0, 2)"
-                        :key="event.id"
+                        :key="event.id || event.patron"
                         :class="[
                           'text-xs px-1 py-0.5 rounded truncate font-medium',
-                          event.status 
-                            ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white' 
-                            : 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white'
+                          event.type === 'fiesta'
+                            ? 'bg-linear-to-r from-purple-500 to-pink-500 text-white'
+                            : event.status 
+                            ? 'bg-linear-to-r from-green-500 to-emerald-500 text-white' 
+                            : 'bg-linear-to-r from-amber-500 to-yellow-500 text-white'
                         ]"
-                        :title="event.title + (event.status ? ' (Done)' : ' (Pending)')"
+                        :title="event.type === 'fiesta' ? event.patron + ' (Fiesta)' : event.title + (event.status ? ' (Done)' : ' (Pending)')"
                       >
-                        {{ event.status ? '✓ ' : '⏱ ' }}{{ event.title }}
+                        {{ event.type === 'fiesta' ? '🎉 ' + event.patron : (event.status ? '✓ ' : '⏱ ') + event.title }}
                       </div>
 
                       <div v-if="day.events.length > 2" class="text-xs text-gray-500 font-semibold">
@@ -491,6 +493,47 @@
                     </div>
                   </div>
 
+                  <!-- Barangay Fiestas Section -->
+                  <div v-if="selectedDate && selectedDateFiestas.length > 0" class="mt-6">
+                    <div class="flex items-center gap-2 mb-4 sticky top-0 bg-white py-2 z-10">
+                      <div class="w-1 h-6 bg-linear-to-b from-purple-400 to-purple-600 rounded-full"></div>
+                      <h4 class="text-lg font-bold text-purple-700">Barangay Fiestas</h4>
+                      <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full font-semibold">
+                        {{ selectedDateFiestas.length }}
+                      </span>
+                    </div>
+                    <div class="space-y-3">
+                      <div
+                        v-for="(fiesta, index) in selectedDateFiestas"
+                        :key="index"
+                        class="event-card bg-linear-to-br from-purple-50 to-pink-50 border-l-4 border-purple-400 rounded-lg p-4 hover:shadow-md transition-all duration-300"
+                      >
+                        <div class="flex items-start">
+                          <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                              <svg class="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+                              </svg>
+                              <h5 class="font-bold text-[#002147] text-base">{{ fiesta.patron }}</h5>
+                              <span class="text-xs bg-purple-200 text-purple-800 px-2 py-1 rounded-full font-bold">
+                                Fiesta
+                              </span>
+                            </div>
+                            <p class="text-sm text-gray-700 mb-2 ml-7">
+                              {{ fiesta.brgyname }}
+                            </p>
+                            <div class="flex items-center gap-2 ml-7">
+                              <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                              <span class="text-sm text-gray-600 font-medium">{{ formatFiestaDate(fiesta.date) }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <!-- Empty state when filter shows no results -->
                   <div v-if="filteredEvents.length === 0" class="text-center py-12">
                     <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -628,6 +671,7 @@ const selectedDate = ref(null)
 const showAddModal = ref(false)
 const currentDate = ref(new Date())
 const eventsData = ref([])
+const fiestaData = ref([])
 const loading = ref(true)
 const error = ref(null)
 const barangayOptions = ref([])
@@ -675,25 +719,64 @@ const fetchEvents = async () => {
 const selectedDateEvents = computed(() => {
   if (!selectedDate.value) return []
   const dateStr = formatLocalDate(selectedDate.value)
-  return eventsData.value.filter((event) => getEventDateStr(event) === dateStr)
+  
+  // Combine regular events and fiestas
+  const events = eventsData.value.filter((event) => getEventDateStr(event) === dateStr)
+  const fiestas = fiestaData.value
+    .filter((fiesta) => {
+      const fiestaDate = convertTextDateToISO(fiesta.date) || normalizeDateStr(fiesta.date)
+      return fiestaDate === dateStr
+    })
+    .map((fiesta) => ({
+      ...fiesta,
+      type: 'fiesta',
+      title: fiesta.patron,
+      description: `${fiesta.brgyname} - Barangay Fiesta`,
+      id: `fiesta-${fiesta.patron}` // Create unique ID for fiestas
+    }))
+  
+  return [...events, ...fiestas]
+})
+
+const selectedDateFiestas = computed(() => {
+  if (!selectedDate.value) return []
+  return selectedDateEvents.value.filter(item => item.type === 'fiesta')
 })
 
 const filteredBaseEvents = computed(() => {
   const query = barangaySearch.value.trim().toLowerCase()
+  console.log('Filter query:', query)
+  console.log('All events:', selectedDateEvents.value)
+  
   if (!query) return selectedDateEvents.value
-  return selectedDateEvents.value.filter((event) => {
+  
+  const filtered = selectedDateEvents.value.filter((event) => {
+    // For fiestas, compare with brgyname directly
+    if (event.type === 'fiesta') {
+      const brgyname = event.brgyname?.toLowerCase() || ''
+      console.log('Fiesta check:', { brgyname, query, event })
+      // Check if query matches the brgyname or if brgyname is part of query (handles "Barangay Apas" vs "Apas")
+      const matches = brgyname.includes(query) || query.includes(brgyname)
+      console.log('Fiesta matches:', matches)
+      return matches
+    }
+    // For regular events, use brgy_id
     const label = getBarangayLabel(event.brgy_id).toLowerCase()
     const idText = String(event.brgy_id ?? '').toLowerCase()
+    console.log('Event check:', { label, idText, query, brgy_id: event.brgy_id })
     return label.includes(query) || idText.includes(query)
   })
+  
+  console.log('Filtered results:', filtered)
+  return filtered
 })
 
 const pendingEvents = computed(() => {
-  return filteredBaseEvents.value.filter(event => !event.status)
+  return filteredBaseEvents.value.filter(event => event.type !== 'fiesta' && !event.status)
 })
 
 const doneEvents = computed(() => {
-  return filteredBaseEvents.value.filter(event => event.status)
+  return filteredBaseEvents.value.filter(event => event.type !== 'fiesta' && event.status)
 })
 
 const filteredEvents = computed(() => {
@@ -730,6 +813,23 @@ const normalizeDateStr = (value) => {
   }
 }
 
+// Convert text date like "May 18" to YYYY-MM-DD format for current year
+const convertTextDateToISO = (textDate) => {
+  if (!textDate) return ''
+  try {
+    // Parse "May 18" format
+    const currentYear = new Date().getFullYear()
+    const dateStr = `${textDate} ${currentYear}`
+    const date = new Date(dateStr)
+    
+    if (isNaN(date.getTime())) return ''
+    
+    return formatLocalDate(date)
+  } catch {
+    return ''
+  }
+}
+
 const formatLocalDate = (date) => {
   if (!(date instanceof Date)) return ''
   const year = date.getFullYear()
@@ -744,13 +844,37 @@ const getEventDateStr = (event) => {
 
 const eventsByDate = computed(() => {
   const eventsMap = {}
+  
+  // Add regular events
   eventsData.value.forEach((event) => {
     const dateKey = getEventDateStr(event)
     if (!eventsMap[dateKey]) {
       eventsMap[dateKey] = []
     }
-    eventsMap[dateKey].push(event)
+    eventsMap[dateKey].push({
+      ...event,
+      type: 'event'
+    })
   })
+  
+  // Add fiestas
+  fiestaData.value.forEach((fiesta, index) => {
+    // Convert text date like "May 18" to proper format
+    const dateKey = convertTextDateToISO(fiesta.date) || normalizeDateStr(fiesta.date)
+    if (!dateKey) return // Skip if date conversion failed
+    
+    if (!eventsMap[dateKey]) {
+      eventsMap[dateKey] = []
+    }
+    eventsMap[dateKey].push({
+      ...fiesta,
+      type: 'fiesta',
+      title: fiesta.patron,
+      description: `${fiesta.brgyname} - Barangay Fiesta`,
+      id: `fiesta-${dateKey}-${index}` // Unique ID for each fiesta
+    })
+  })
+  
   return eventsMap
 })
 
@@ -924,10 +1048,7 @@ const markEventDone = async (event) => {
 
 const fetchBarangays = async () => {
   try {
-    const { data, error: brgyError } = await supabase
-      .from('Barangays')
-      .select('id, brgyname')
-      .order('brgyname', { ascending: true })
+    const { data, error: brgyError } = await supabase.rpc('brgyfiesta')
 
     if (brgyError) throw brgyError
 
@@ -937,6 +1058,20 @@ const fetchBarangays = async () => {
     }))
   } catch (err) {
     console.error('Error fetching barangays:', err)
+  }
+}
+
+const fetchFiestas = async () => {
+  try {
+    const { data, error: fiestaError } = await supabase
+      .rpc('brgyfiesta') // Call the PostgreSQL function
+
+    if (fiestaError) throw fiestaError
+
+    fiestaData.value = data || []
+    console.log('Fiestas loaded:', data)
+  } catch (err) {
+    console.error('Error fetching fiestas:', err)
   }
 }
 
@@ -1084,6 +1219,27 @@ const formatTime = (time) => {
   return `${hour12}:${minutes} ${ampm}`
 }
 
+// Format fiesta date for display
+const formatFiestaDate = (date) => {
+  if (!date) return ''
+  
+  // If already in "Month Day" format, just add current year
+  if (typeof date === 'string' && /^[A-Za-z]+ \d+$/.test(date)) {
+    return `${date}, ${new Date().getFullYear()}`
+  }
+  
+  try {
+    const d = new Date(date)
+    return d.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    })
+  } catch {
+    return date
+  }
+}
+
 // Convert 24-hour time to 12-hour format with AM/PM
 const convertTimeTo12Hour = (time24) => {
   if (!time24) return ''
@@ -1110,6 +1266,7 @@ const convertTo12Hour = (type) => {
 onMounted(() => {
   fetchEvents()
   fetchBarangays()
+  fetchFiestas()
   requestNotificationPermission()
   
   // Check for upcoming events every minute
