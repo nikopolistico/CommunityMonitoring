@@ -1048,7 +1048,10 @@ const markEventDone = async (event) => {
 
 const fetchBarangays = async () => {
   try {
-    const { data, error: brgyError } = await supabase.rpc('brgyfiesta')
+    const { data, error: brgyError } = await supabase
+      .from('Barangays')
+      .select('id, brgyname')
+      .order('brgyname', { ascending: true })
 
     if (brgyError) throw brgyError
 
@@ -1056,6 +1059,7 @@ const fetchBarangays = async () => {
       id: item.id,
       label: item.brgyname,
     }))
+    console.log('Barangays loaded:', barangayOptions.value)
   } catch (err) {
     console.error('Error fetching barangays:', err)
   }
@@ -1076,7 +1080,10 @@ const fetchFiestas = async () => {
 }
 
 const saveEvent = async () => {
-  if (!selectedDate.value) return
+  if (!selectedDate.value) {
+    alert('Please select a date first')
+    return
+  }
   if (!newEvent.value.brgyId) {
     alert('Please select a barangay')
     return
@@ -1096,6 +1103,12 @@ const saveEvent = async () => {
       event_time: newEvent.value.time || null,
     }
 
+    // Validate brgy_id is set
+    if (!payload.brgy_id) {
+      throw new Error('Barangay ID is required')
+    }
+
+    console.log('Saving event with payload:', payload)
     const { error: insertError } = await supabase
       .from('BrgyEvents')
       .insert(payload)
@@ -1106,7 +1119,7 @@ const saveEvent = async () => {
     closeModal()
   } catch (err) {
     console.error('Error saving event:', err)
-    alert('Failed to save event. Please try again.')
+    alert(err.message || 'Failed to save event. Please try again.')
   } finally {
     isSavingEvent.value = false
   }
