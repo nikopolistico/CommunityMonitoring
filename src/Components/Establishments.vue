@@ -62,8 +62,18 @@
 									:disabled="loading"
 								/>
 							</label>
+							<label class="block space-y-2">
+								<span class="text-sm font-semibold text-[#002147]">Establishment Contact Number</span>
+								<input
+									v-model="newContactNumber"
+									type="text"
+									placeholder="Enter establishment contact number"
+									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+									:disabled="loading"
+								/>
+							</label>
 							<div class="grid gap-3 md:grid-cols-2">
-			
+		
 								<label class="block space-y-2">
 									<span class="text-sm font-semibold text-[#002147]">Manager Name</span>
 									<input
@@ -80,6 +90,16 @@
 										v-model="newOwnerContact"
 										type="text"
 										placeholder="Enter owner contact"
+										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+										:disabled="loading"
+									/>
+								</label>
+								<label class="block space-y-2">
+									<span class="text-sm font-semibold text-[#002147]">Owner Full Name</span>
+									<input
+										v-model="newOwnerName"
+										type="text"
+										placeholder="Enter owner full name"
 										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
 										:disabled="loading"
 									/>
@@ -187,7 +207,58 @@
 									v-model="editingName"
 									type="text"
 									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+									placeholder="Establishment name"
 								/>
+								<input
+									v-model="editingAddress"
+									type="text"
+									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+									placeholder="Establishment address"
+								/>
+								<input
+									v-model="editingContactNumber"
+									type="text"
+									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+									placeholder="Establishment contact number"
+								/>
+								<div class="grid gap-2 md:grid-cols-2">
+									<input
+										v-model="editingManagerName"
+										type="text"
+										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+										placeholder="Manager full name"
+									/>
+									<input
+										v-model="editingManagerContact"
+										type="text"
+										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+										placeholder="Manager contact"
+									/>
+									<input
+										v-model="editingManagerEmail"
+										type="email"
+										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+										placeholder="Manager email"
+									/>
+									<input
+										v-model="editingOwnerName"
+										type="text"
+										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+										placeholder="Owner full name"
+									/>
+									<input
+										v-model="editingOwnerContact"
+										type="text"
+										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+										placeholder="Owner contact"
+									/>
+									<input
+										v-model="editingOwnerEmail"
+										type="email"
+										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+										placeholder="Owner email"
+									/>
+								</div>
 								<div class="flex gap-2">
 									<button
 										type="button"
@@ -405,10 +476,20 @@ const newOwnerContact = ref('')
 const newManagerContact = ref('')
 const newOwnerEmail = ref('')
 const newManagerEmail = ref('')
+const newContactNumber = ref('')
+const newOwnerName = ref('')
 const newImage = ref(null)
 const imagePreview = ref('')
 const editingId = ref(null)
 const editingName = ref('')
+const editingAddress = ref('')
+const editingContactNumber = ref('')
+const editingManagerName = ref('')
+const editingManagerContact = ref('')
+const editingManagerEmail = ref('')
+const editingOwnerName = ref('')
+const editingOwnerContact = ref('')
+const editingOwnerEmail = ref('')
 const showDeleteConfirm = ref(false)
 const deleteId = ref(null)
 const deleteName = ref('')
@@ -480,6 +561,14 @@ watch(
 		fetchBarangayId()
 		editingId.value = null
 		editingName.value = ''
+		editingAddress.value = ''
+		editingContactNumber.value = ''
+		editingManagerName.value = ''
+		editingManagerContact.value = ''
+		editingManagerEmail.value = ''
+		editingOwnerName.value = ''
+		editingOwnerContact.value = ''
+		editingOwnerEmail.value = ''
 		newName.value = ''
 		newAddress.value = ''
 		newManagerName.value = ''
@@ -487,6 +576,8 @@ watch(
 		newManagerContact.value = ''
 		newOwnerEmail.value = ''
 		newManagerEmail.value = ''
+		newContactNumber.value = ''
+		newOwnerName.value = ''
 		newImage.value = null
 		imagePreview.value = ''
 	},
@@ -520,6 +611,7 @@ const goBack = () => {
 const addItem = async () => {
 	const name = newName.value.trim()
 	const address = newAddress.value.trim()
+	const contactNumber = newContactNumber.value.trim()
 	if (!name) {
 		alert('Please enter an establishment name')
 		return
@@ -555,11 +647,7 @@ const addItem = async () => {
 				{ 
 					establishmentName: name, 
 					establishmentAddress: address,
-					managerName: newManagerName.value.trim() || null,
-					ownerContact: newOwnerContact.value.trim() || null,
-					managerContact: newManagerContact.value.trim() || null,
-					ownerEmail: newOwnerEmail.value.trim() || null,
-					managerEmail: newManagerEmail.value.trim() || null,
+					contactNumber: contactNumber || null,
 					establishmentImages: imageUrl,
 					brgy_id: barangayId.value 
 				}
@@ -567,6 +655,36 @@ const addItem = async () => {
 			.select()
 		
 		if (error) throw error
+
+		const estId = data?.[0]?.id
+		if (!estId) {
+			throw new Error('Establishment insert did not return an id.')
+		}
+		const managerPayload = {
+			est_id: estId,
+			manager_fullname: newManagerName.value.trim() || null,
+			managerContact: newManagerContact.value.trim() || null,
+			manager_email: newManagerEmail.value.trim() || null
+		}
+		const ownerPayload = {
+			est_id: estId,
+			Ownerfullname: newOwnerName.value.trim() || null,
+			OwnerNumber: newOwnerContact.value.trim() || null,
+			profile_image: imageUrl,
+			OwnerEmail: newOwnerEmail.value.trim() || null
+		}
+
+		const { error: managerError } = await supabase
+			.from('EstablishmentManager')
+			.insert([managerPayload])
+
+		if (managerError) throw managerError
+
+		const { error: ownerError } = await supabase
+			.from('EstablishmentOwner')
+			.insert([ownerPayload])
+
+		if (ownerError) throw ownerError
 		
 		if (data && data.length > 0) {
 			items.value.push(data[0])
@@ -578,6 +696,8 @@ const addItem = async () => {
 		newManagerContact.value = ''
 		newOwnerEmail.value = ''
 		newManagerEmail.value = ''
+		newContactNumber.value = ''
+		newOwnerName.value = ''
 		newImage.value = null
 		imagePreview.value = ''
 		showAddForm.value = false
@@ -589,11 +709,50 @@ const addItem = async () => {
 	}
 }
 
-const startEdit = (id) => {
+const startEdit = async (id) => {
 	const item = items.value.find(i => i.id === id)
-	if (item) {
-		editingId.value = id
-		editingName.value = item.establishmentName
+	if (!item) {
+		return
+	}
+	editingId.value = id
+	editingName.value = item.establishmentName || ''
+	editingAddress.value = item.establishmentAddress || ''
+	editingContactNumber.value = item.contactNumber || ''
+	editingManagerName.value = ''
+	editingManagerContact.value = ''
+	editingManagerEmail.value = ''
+	editingOwnerName.value = ''
+	editingOwnerContact.value = ''
+	editingOwnerEmail.value = ''
+
+	try {
+		const { data: managerData, error: managerError } = await supabase
+			.from('EstablishmentManager')
+			.select('manager_fullname, managerContact, manager_email')
+			.eq('est_id', id)
+			.maybeSingle()
+
+		if (managerError) throw managerError
+		if (managerData) {
+			editingManagerName.value = managerData.manager_fullname || ''
+			editingManagerContact.value = managerData.managerContact || ''
+			editingManagerEmail.value = managerData.manager_email || ''
+		}
+
+		const { data: ownerData, error: ownerError } = await supabase
+			.from('EstablishmentOwner')
+			.select('Ownerfullname, OwnerNumber, OwnerEmail')
+			.eq('est_id', id)
+			.maybeSingle()
+
+		if (ownerError) throw ownerError
+		if (ownerData) {
+			editingOwnerName.value = ownerData.Ownerfullname || ''
+			editingOwnerContact.value = ownerData.OwnerNumber || ''
+			editingOwnerEmail.value = ownerData.OwnerEmail || ''
+		}
+	} catch (error) {
+		console.error('Error loading edit info:', error)
 	}
 }
 
@@ -602,6 +761,14 @@ const saveEdit = async () => {
 		return
 	}
 	const name = editingName.value.trim()
+	const address = editingAddress.value.trim()
+	const contactNumber = editingContactNumber.value.trim()
+	const managerName = editingManagerName.value.trim()
+	const managerContact = editingManagerContact.value.trim()
+	const managerEmail = editingManagerEmail.value.trim()
+	const ownerName = editingOwnerName.value.trim()
+	const ownerContact = editingOwnerContact.value.trim()
+	const ownerEmail = editingOwnerEmail.value.trim()
 	if (!name) {
 		return
 	}
@@ -610,17 +777,57 @@ const saveEdit = async () => {
 	try {
 		const { error } = await supabase
 			.from('Establishments')
-			.update({ establishmentName: name })
+			.update({
+				establishmentName: name,
+				establishmentAddress: address || null,
+				contactNumber: contactNumber || null
+			})
 			.eq('id', editingId.value)
 		
 		if (error) throw error
+
+		const { error: managerError } = await supabase
+			.from('EstablishmentManager')
+			.upsert([
+				{
+					est_id: editingId.value,
+					manager_fullname: managerName || null,
+					managerContact: managerContact || null,
+					manager_email: managerEmail || null
+				}
+			], { onConflict: 'est_id' })
+
+		if (managerError) throw managerError
+
+		const { error: ownerError } = await supabase
+			.from('EstablishmentOwner')
+			.upsert([
+				{
+					est_id: editingId.value,
+					Ownerfullname: ownerName || null,
+					OwnerNumber: ownerContact || null,
+					OwnerEmail: ownerEmail || null
+				}
+			], { onConflict: 'est_id' })
+
+		if (ownerError) throw ownerError
 		
 		const item = items.value.find(i => i.id === editingId.value)
 		if (item) {
 			item.establishmentName = name
+			item.establishmentAddress = address
+			item.contactNumber = contactNumber
 		}
 		editingId.value = null
 		editingName.value = ''
+		editingAddress.value = ''
+		editingContactNumber.value = ''
+		editingManagerName.value = ''
+		editingManagerContact.value = ''
+		editingManagerEmail.value = ''
+		editingOwnerName.value = ''
+		editingOwnerContact.value = ''
+		editingOwnerEmail.value = ''
 	} catch (error) {
 		console.error('Error updating establishment:', error)
 		alert('Failed to update establishment. Please try again.')
@@ -632,11 +839,33 @@ const saveEdit = async () => {
 const cancelEdit = () => {
 	editingId.value = null
 	editingName.value = ''
+	editingAddress.value = ''
+	editingContactNumber.value = ''
+	editingManagerName.value = ''
+	editingManagerContact.value = ''
+	editingManagerEmail.value = ''
+	editingOwnerName.value = ''
+	editingOwnerContact.value = ''
+	editingOwnerEmail.value = ''
 }
 
 const deleteItem = async (id) => {
 	loading.value = true
 	try {
+		const { error: deleteManagerError } = await supabase
+			.from('EstablishmentManager')
+			.delete()
+			.eq('est_id', id)
+
+		if (deleteManagerError) throw deleteManagerError
+
+		const { error: deleteOwnerError } = await supabase
+			.from('EstablishmentOwner')
+			.delete()
+			.eq('est_id', id)
+
+		if (deleteOwnerError) throw deleteOwnerError
+
 		const { error } = await supabase
 			.from('Establishments')
 			.delete()
