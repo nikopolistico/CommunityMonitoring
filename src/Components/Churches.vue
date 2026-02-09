@@ -298,7 +298,6 @@
 <script setup>
 import { computed, ref, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { communityData } from '@/data/communityData'
 import { supabase } from '@/lib/supabase'
 
 const route = useRoute()
@@ -311,7 +310,13 @@ const communityInfo = computed(() => {
 	if (!barangayName.value) {
 		return null
 	}
-	return communityData[barangayName.value] ?? null
+	// Convert kebab-case to Title Case for display
+	const displayName = barangayName.value
+		.split('-')
+		.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+		.join(' ')
+	
+	return { name: displayName }
 })
 
 const items = ref([])
@@ -418,7 +423,7 @@ const handleImageChange = (event) => {
 
 const goBack = () => {
 	if (barangayName.value) {
-		router.push({ name: 'CommunityView', params: { barangayName: barangayName.value } })
+		router.push({ name: 'community', params: { barangayName: barangayName.value } })
 		return
 	}
 	router.push({ name: 'dashboard' })

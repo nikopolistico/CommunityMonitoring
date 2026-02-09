@@ -9,7 +9,6 @@ import Intropage from '@/Authentication/Intropage.vue'
 import Schools from '@/Components/Schools.vue'
 import Churches from '@/Components/Churches.vue'
 import Establishments from '@/Components/Establishments.vue'
-import Calendar from '@/Pages/CalendarView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,13 +35,19 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      name: 'records',
+      path: '/records',
+      component: NavigationView,
+      meta: { requiresAuth: true },
+    },
+    {
       name: 'settings',
       path: '/settings',
       component: NavigationView,
       meta: { requiresAuth: true },
     },
     {
-      name: 'CommunityView',
+      name: 'community',
       path: '/community/:barangayName',
       component: CommunityView,
       meta: { requiresAuth: true },
@@ -68,14 +73,38 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach(async (to) => {
-  if (to.meta?.requiresAuth === false) return true
+router.beforeEach(async (to, from) => {
+  console.log('🔒 Route Guard Check:', to.name)
 
+  // Check if user has a valid session
   const { data, error } = await supabase.auth.getSession()
-  if (error || !data?.session) {
+  const hasSession = !error && data?.session
+
+  // If user is logged in and trying to access public pages (login, landing, intro)
+  // Redirect them to dashboard
+  if (hasSession && to.meta?.requiresAuth === false) {
+    console.log('⚠️ Already logged in, redirecting to dashboard')
+    return { name: 'dashboard' }
+  }
+
+  // If route is public and user is not logged in, allow access
+  if (to.meta?.requiresAuth === false) {
+    console.log('✅ Public route, access granted')
+    return true
+  }
+
+  // For protected routes, check if user has a valid session
+  if (error) {
+    console.error('❌ Session check error:', error)
     return { name: 'login' }
   }
 
+  if (!data?.session) {
+    console.log('❌ No active session, redirecting to login')
+    return { name: 'intropage' }
+  }
+
+  console.log('✅ Valid session, access granted')
   return true
 })
 

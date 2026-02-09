@@ -356,6 +356,16 @@ const showErrorModal = ref(false)
 const errorMessage = ref('')
 const userEmail = ref('')
 
+async function createProfile() {
+  // 1. Kunin muna ang kasalukuyang user
+  const { data: { user } } = await supabase.auth.getUser()
+
+  console.log('👤 Current User:', user)
+
+}
+
+createProfile()
+
 function closeErrorModal() {
   showErrorModal.value = false
   errorMessage.value = ''
