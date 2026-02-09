@@ -145,8 +145,8 @@
 									:disabled="loading"
 								/>
 							</label>
-							<div v-if="imagePreview" class="mt-2">
-								<img :src="imagePreview" alt="Preview" class="w-full h-48 object-cover rounded-lg border-2 border-gray-300" />
+							<div v-if="imagePreview" class="mt-2 rounded-lg border-2 border-gray-300 bg-gray-100">
+								<img :src="imagePreview" alt="Preview" class="w-full h-72 object-contain rounded-lg" />
 							</div>
 							<div class="flex gap-2">
 								<button
@@ -186,8 +186,8 @@
 					class="rounded-xl bg-white border-2 border-[#002147]/15 shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
 				>
 					<!-- Establishment Image -->
-					<div v-if="item.establishmentImages" class="w-full h-48 overflow-hidden">
-						<img :src="item.establishmentImages" :alt="item.establishmentName" class="w-full h-full object-cover" />
+					<div v-if="item.establishmentImages" class="w-full h-48 overflow-hidden bg-gray-100">
+						<img :src="item.establishmentImages" :alt="item.establishmentName" class="w-full h-full object-contain" />
 					</div>
 					<div v-else class="w-full h-48 bg-gradient-to-br from-[#002147] to-[#00162f] flex items-center justify-center">
 						<svg class="w-20 h-20 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">

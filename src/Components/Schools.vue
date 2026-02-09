@@ -4,7 +4,7 @@
 			<button
 				type="button"
 				class="inline-flex items-center gap-2 rounded-full bg-[#004595] px-5 py-2.5 text-sm font-bold text-white hover:bg-white hover:text-[#004595] border-2 border-[#004595] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-				@click="goBack"
+				@click="goBack" 
 			>
 				<span aria-hidden="true">←</span>
 				Back to Community
@@ -81,8 +81,8 @@
 								:disabled="loading"
 							/>
 						</label>
-						<div v-if="imagePreview" class="mt-2">
-							<img :src="imagePreview" alt="Preview" class="w-full h-48 object-cover rounded-lg border-2 border-gray-300" />
+						<div v-if="imagePreview" class="mt-2 rounded-lg border-2 border-gray-300 bg-gray-100">
+							<img :src="imagePreview" alt="Preview" class="w-full h-72 object-contain rounded-lg" />
 						</div>							<div class="flex gap-2">
 								<button
 									type="button"
@@ -121,8 +121,8 @@
 						class="rounded-xl bg-white border-2 border-[#004595]/15 shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
 					>
 						<!-- School Image -->
-						<div v-if="item.schoolImages" class="w-full h-48 overflow-hidden">
-							<img :src="item.schoolImages" :alt="item.schoolName" class="w-full h-full object-cover" />
+						<div v-if="item.schoolImages" class="w-full h-48 overflow-hidden bg-gray-100">
+							<img :src="item.schoolImages" :alt="item.schoolName" class="w-full h-full object-contain" />
 						</div>
 						<div v-else class="w-full h-48 bg-gradient-to-br from-[#004595] to-[#002147] flex items-center justify-center">
 							<svg class="w-20 h-20 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">

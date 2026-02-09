@@ -7,7 +7,7 @@
 				@click="goBack"
 			>
 				<span aria-hidden="true">←</span>
-				Back to Community
+				Back to Community 
 			</button>
 
 			<section v-if="communityInfo" class="space-y-6">
@@ -71,8 +71,8 @@
 								:disabled="loading"
 							/>
 						</label>
-						<div v-if="imagePreview" class="mt-2">
-							<img :src="imagePreview" alt="Preview" class="w-full h-48 object-cover rounded-lg border-2 border-gray-300" />
+						<div v-if="imagePreview" class="mt-2 rounded-lg border-2 border-gray-300 bg-gray-100">
+							<img :src="imagePreview" alt="Preview" class="w-full h-72 object-contain rounded-lg" />
 						</div>							<div class="flex gap-2">
 								<button
 									type="button"
@@ -111,8 +111,8 @@
 					class="rounded-xl bg-white border-2 border-[#00397a]/15 shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden"
 				>
 					<!-- Church Image -->
-					<div v-if="item.churchImages" class="w-full h-48 overflow-hidden">
-						<img :src="item.churchImages" :alt="item.churchName" class="w-full h-full object-cover" />
+					<div v-if="item.churchImages" class="w-full h-48 overflow-hidden bg-gray-100">
+						<img :src="item.churchImages" :alt="item.churchName" class="w-full h-full object-contain" />
 					</div>
 					<div v-else class="w-full h-48 bg-gradient-to-br from-[#00397a] to-[#002a63] flex items-center justify-center">
 						<svg class="w-20 h-20 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
