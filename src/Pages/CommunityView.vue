@@ -1080,6 +1080,7 @@ const saveEdit = async () => {
 
     isEditing.value = false
     alert('Captain information updated successfully!')
+    await fetchCaptainInfo();
   } catch (error) {
     console.error('Error updating captain info:', error)
     alert('Failed to update captain information. Please try again.')
