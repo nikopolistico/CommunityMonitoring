@@ -1,18 +1,108 @@
   <template>
-  <div class="min-h-screen bg-linear-to-br from-[#11315b] via-white to-[#262421]">
-    <div class="mx-auto max-w-7xl px-4 py-10">
-      <button
-        type="button"
-        class="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-3 text-sm font-bold text-white hover:shadow-2xl border-2 border-transparent hover:border-white transition-all duration-300 shadow-lg hover:-translate-y-1"
-        @click="goBack"
-      >
-        <span aria-hidden="true" class="transition-transform group-hover:-translate-x-1">←</span>
-        Back to Dashboard
-      </button>
+    <div class="min-h-screen bg-linear-to-br from-[#11315b] via-white to-[#262421]">
+      <div class="flex min-h-screen">
+        <aside class="w-full max-w-sm bg-white/95 backdrop-blur-md border-r border-white/60 shadow-2xl">
+          <div class="p-6 space-y-8">
+            <button
+              type="button"
+              class="w-full inline-flex items-center gap-2 rounded-2xl bg-linear-to-r from-[#004595] to-[#00397a] px-5 py-3 text-base font-bold text-white hover:shadow-2xl border-2 border-transparent hover:border-white transition-all duration-300 shadow-lg"
+              @click="goBack"
+            >
+              <span aria-hidden="true" class="transition-transform group-hover:-translate-x-1">←</span>
+              Back to Dashboard
+            </button>
 
-      <section v-if="communityInfo" class="mt-8 space-y-8">
+            <div class="rounded-3xl bg-linear-to-br from-[#004595] to-[#00397a] p-6 text-white shadow-2xl">
+              <div class="flex flex-col items-center text-center gap-4">
+                <div class="h-32 w-32 rounded-full bg-white/20 overflow-hidden flex items-center justify-center ring-4 ring-white/40">
+                  <img v-if="captainInfo.profileImage" :src="captainInfo.profileImage" alt="Captain" class="h-full w-full object-cover" />
+                  <svg v-else class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-base font-extrabold leading-tight">{{ captainInfo.name || 'No name' }}</p>
+                  <p class="text-xs text-white/80 font-semibold mt-1">Barangay Captain</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <button
+                type="button"
+                class="w-full inline-flex items-center gap-2 rounded-2xl border-2 border-[#004595] bg-white px-5 py-3 text-base font-bold text-[#004595] hover:bg-[#004595] hover:text-white transition-all"
+                @click="setActiveTab('dashboard')"
+              >
+                Dashboard
+              </button>
+              <button
+                type="button"
+                class="w-full inline-flex items-center justify-between rounded-2xl bg-white px-5 py-3 text-base font-semibold text-[#002147] border border-gray-200 hover:border-[#004595] transition-all"
+                @click="setActiveTab('officers')"
+              >
+                List of Officers
+                <span class="text-xs text-gray-500">{{ totalOfficers }}</span>
+              </button>
+              <button
+                type="button"
+                class="w-full inline-flex items-center justify-between rounded-2xl bg-white px-5 py-3 text-base font-semibold text-[#002147] border border-gray-200 hover:border-[#004595] transition-all"
+                @click="setActiveTab('landmarks')"
+              >
+                Landmarks
+                <span class="text-xs text-gray-500">{{ totalLandmarks }}</span>
+              </button>
+              <button
+                type="button"
+                class="w-full inline-flex items-center justify-between rounded-2xl bg-white px-5 py-3 text-base font-semibold text-[#002147] border border-gray-200 hover:border-[#004595] transition-all"
+                @click="setActiveTab('history')"
+              >
+                History
+                <span class="text-xs text-gray-500">{{ totalHistory }}</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <main class="flex-1">
+          <div class="mx-auto max-w-7xl px-4 py-10">
+            <section v-if="communityInfo" class="space-y-8">
+              <section v-if="activeTab === 'dashboard'" id="dashboard-section" class="grid gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="bg-white/95 rounded-3xl p-8 border-2 border-[#004595]/15 shadow-2xl hover:shadow-3xl transition-all duration-300">
+                    <p class="text-xs text-gray-500 font-semibold uppercase">List of Officers</p>
+                    <p class="text-5xl font-extrabold text-[#004595] mt-2">{{ totalOfficers }}</p>
+                  </div>
+                  <div class="bg-white/95 rounded-3xl p-8 border-2 border-[#00397a]/15 shadow-2xl hover:shadow-3xl transition-all duration-300">
+                    <p class="text-xs text-gray-500 font-semibold uppercase">Landmarks</p>
+                    <p class="text-5xl font-extrabold text-[#00397a] mt-2">{{ totalLandmarks }}</p>
+                  </div>
+                  <div class="bg-white/95 rounded-3xl p-8 border-2 border-[#002147]/15 shadow-2xl hover:shadow-3xl transition-all duration-300">
+                    <p class="text-xs text-gray-500 font-semibold uppercase">History</p>
+                    <p class="text-5xl font-extrabold text-[#002147] mt-2">{{ totalHistory }}</p>
+                  </div>
+                  <div class="bg-white/95 rounded-3xl p-6 border-2 border-[#004595]/15 shadow-2xl hover:shadow-3xl transition-all duration-300">
+                    <p class="text-xs text-gray-500 font-semibold uppercase">Barangay Captain</p>
+                    <p class="text-lg font-bold text-[#002147] mt-2">{{ captainInfo.name || 'No name' }}</p>
+                    <p class="text-xs text-gray-600 mt-1">{{ captainInfo.phone || 'No phone' }}</p>
+                    <p class="text-xs text-gray-600">{{ captainInfo.email || 'No email' }}</p>
+                    <p class="text-xs text-gray-600">{{ captainInfo.officeHours || 'No office hours' }}</p>
+                  </div>
+                </div>
+              </section>
+
+              <section v-if="activeTab === 'landmarks'" id="landmarks-section" class="bg-white/90 rounded-3xl p-6 border border-white/70 shadow-2xl">
+                <h3 class="text-lg font-bold text-[#002147] mb-3">Landmarks</h3>
+                <ul class="space-y-2 text-sm text-gray-700">
+                  <li v-for="landmark in landmarks" :key="landmark" class="flex items-start gap-2">
+                    <span class="text-[#004595] mt-1">•</span>
+                    <span class="font-medium">{{ landmark }}</span>
+                  </li>
+                  <li v-if="landmarks.length === 0" class="text-xs text-gray-500">No landmarks available.</li>
+                </ul>
+              </section>
         <!-- Header Banner -->
         <div
+          v-if="activeTab === 'overview'"
           class="relative overflow-hidden rounded-3xl bg-linear-to-br from-[#002147] via-[#004595] to-[#00397a] p-10 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.01]"
         >
           <div class="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl -mr-40 -mt-40"></div>
@@ -46,7 +136,7 @@
         </div>
 
         <!-- Barangay Captain Profile Card -->
-        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition-all duration-300">
+        <div v-if="activeTab === 'overview'" class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition-all duration-300">
           <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-8 py-6">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-3">
@@ -250,7 +340,7 @@
         </div>
 
         <!-- Barangay Personnel Section -->
-        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition-all duration-300">
+        <div v-if="activeTab === 'officers'" class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition-all duration-300">
           <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-8 py-6">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-3">
@@ -409,7 +499,7 @@
         </div>
 
          <!-- Barangay Information Section -->
-        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition-all duration-300">
+        <div v-if="activeTab === 'history'" id="history-section" class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition-all duration-300">
           <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-8 py-6">
             <div class="flex items-center gap-3">
               <div class="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
@@ -529,7 +619,7 @@
         </div>
 
         <!-- Community Establishments -->
-        <div class="bg-white rounded-2xl shadow-xl p-6 border-2 border-white/50">
+        <div v-if="activeTab === 'landmarks'" class="bg-white rounded-2xl shadow-xl p-6 border-2 border-white/50">
           <h2 class="text-2xl font-bold text-[#002147] mb-6 flex items-center gap-2">
             <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20">
               <path
@@ -688,7 +778,7 @@
         </div>
 
         <!-- Footer Note -->
-        <div class="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-white/50">
+        <div v-if="activeTab === 'landmarks'" class="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-white/50">
           <p class="text-xs text-gray-600 text-center flex items-center justify-center gap-2">
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path
@@ -703,10 +793,10 @@
         </div>
       </section>
 
-      <section
-        v-else
-        class="mt-8 rounded-2xl bg-white p-12 text-center shadow-xl border-2 border-red-200"
-      >
+          <section
+            v-else
+            class="mt-8 rounded-2xl bg-white p-12 text-center shadow-xl border-2 border-red-200"
+          >
         <div class="inline-block p-4 bg-red-100 rounded-full mb-4">
           <svg class="w-12 h-12 text-red-600" fill="currentColor" viewBox="0 0 20 20">
             <path
@@ -718,7 +808,9 @@
         </div>
         <h1 class="text-2xl font-bold text-gray-800 mb-2">Barangay Not Found</h1>
         <p class="text-gray-600">Return to the dashboard and select a valid barangay.</p>
-      </section>
+          </section>
+        </div>
+      </main>
     </div>
 
     <!-- Add Personnel Modal -->
@@ -899,6 +991,7 @@ const showModal = ref(false)
 const submitting = ref(false)
 const isEditMode = ref(false)
 const editingPersonnelId = ref(null)
+const activeTab = ref('dashboard')
 const personnelForm = ref({
   fullname: '',
   phone_number: '',
@@ -910,6 +1003,17 @@ const allPersonnel = computed(() => personnel.value)
 const officers = computed(() => personnel.value.filter(p => p.type === 'Officer'))
 const purokLeaders = computed(() => personnel.value.filter(p => p.type === 'Purok Leader'))
 const brgyInfo = computed(() => brgyFiesta.value ? [brgyFiesta.value] : []);
+const landmarks = computed(() => {
+  if (!communityInfo.value) return []
+  return [
+    ...(communityInfo.value.schools || []),
+    ...(communityInfo.value.churches || []),
+    ...(communityInfo.value.businesses || [])
+  ]
+})
+const totalOfficers = computed(() => officers.value.length)
+const totalLandmarks = computed(() => landmarks.value.length)
+const totalHistory = computed(() => brgyInfo.value.filter(item => item?.brgy_history).length)
 
 // Fetch Barangay Captain information
 const fetchCaptainInfo = async () => {
@@ -1279,6 +1383,10 @@ const goBack = () => {
     return
   }
   router.push({ name: 'dashboard' })
+}
+
+const setActiveTab = (tab) => {
+  activeTab.value = tab
 }
 
 const goToSchools = () => {
