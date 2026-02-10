@@ -129,65 +129,133 @@
               
               <!-- Dashboard Section -->
               <section v-if="activeTab === 'dashboard'" id="dashboard-section" class="space-y-6">
-                <!-- Enhanced Page Header -->
-                <div class="mb-8 relative">
-                  <div class="absolute -top-4 -left-4 w-24 h-24 bg-[#004595]/10 rounded-full blur-2xl"></div>
-                  <h1 class="text-4xl font-bold bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] bg-clip-text text-transparent mb-2 tracking-tight relative">
-                    {{ communityInfo.name }}
-                  </h1>
-                  <p class="text-[#00397a] font-medium tracking-wide">Butuan City, Agusan Del Norte 8600</p>
+                <!-- Page Header with Barangay Name -->
+                <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10">
+                  <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
+                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24"></div>
+                    
+                    <div class="relative flex items-center gap-4">
+                      <div class="p-3 bg-white/20 backdrop-blur-sm rounded-2xl ring-4 ring-white/20">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <h1 class="text-3xl font-bold text-white tracking-tight">{{ communityInfo.name }} Overview</h1>
+                        <p class="text-white/90 text-sm font-medium mt-1">Butuan City, Agusan Del Norte 8600</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <!-- Stats Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  <!-- Officers Card -->
-                  <div class="group bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl hover:shadow-[#002147]/10 transition-all duration-300 border border-[#004595]/10 hover:border-[#002147]/30 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#002147]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
-                    <div class="relative">
-                      <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                          <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                <!-- Statistics Cards -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#004595]/10">
+                  <div class="bg-gradient-to-r from-[#002147] to-[#004595] px-6 py-4 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
+                    <div class="relative flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <div class="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl">
+                          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
                           </svg>
                         </div>
-                        <span class="text-5xl font-bold bg-gradient-to-br from-[#002147] to-[#004595] bg-clip-text text-transparent">{{ totalOfficers }}</span>
+                        <div>
+                          <h2 class="text-xl font-bold text-white">Community Statistics</h2>
+                          <p class="text-xs text-white/80 font-medium">Quick overview of barangay data</p>
+                        </div>
                       </div>
-                      <h3 class="text-sm font-bold text-[#002147] uppercase tracking-wider">Officers</h3>
-                      <p class="text-xs text-[#00397a] mt-1 font-medium">Barangay personnel</p>
                     </div>
                   </div>
-
-                  <!-- Landmarks Card -->
-                  <div class="group bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl hover:shadow-[#00397a]/10 transition-all duration-300 border border-[#004595]/10 hover:border-[#00397a]/30 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#00397a]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
-                    <div class="relative">
-                      <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 bg-gradient-to-br from-[#00397a] via-[#004595] to-[#002147] rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                          <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
-                          </svg>
+                  
+                  <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/20 to-white">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <!-- Officers Card -->
+                      <div class="group cursor-pointer bg-white rounded-xl p-6 border-2 border-[#004595]/10 hover:border-[#002147]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#002147]/10 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#002147]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                        
+                        <div class="relative">
+                          <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                              <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                              </svg>
+                            </div>
+                            <div class="text-right">
+                              <span class="text-4xl font-bold bg-gradient-to-br from-[#002147] to-[#004595] bg-clip-text text-transparent">{{ totalOfficers }}</span>
+                            </div>
+                          </div>
+                          <h3 class="text-sm font-bold text-[#002147] uppercase tracking-wider mb-1">Barangay Officers</h3>
+                          <p class="text-xs text-[#00397a] font-medium">Community personnel & leaders</p>
+                          
+                          <div class="mt-4 pt-3 border-t border-[#004595]/10">
+                            <div class="flex items-center justify-between text-xs">
+                              <span class="text-[#00397a] font-semibold">View Details</span>
+                              <svg class="w-4 h-4 text-[#004595] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                              </svg>
+                            </div>
+                          </div>
                         </div>
-                        <span class="text-5xl font-bold bg-gradient-to-br from-[#00397a] to-[#004595] bg-clip-text text-transparent">{{ totalLandmarks }}</span>
                       </div>
-                      <h3 class="text-sm font-bold text-[#002147] uppercase tracking-wider">Landmarks</h3>
-                      <p class="text-xs text-[#00397a] mt-1 font-medium">Community locations</p>
-                    </div>
-                  </div>
 
-                  <!-- History Card -->
-                  <div class="group bg-white rounded-2xl p-6 shadow-md hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-300 border border-[#004595]/10 hover:border-[#004595]/30 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
-                    <div class="relative">
-                      <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 bg-gradient-to-br from-[#004595] via-[#00397a] to-[#002147] rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                          <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                          </svg>
+                      <!-- Landmarks Card -->
+                      <div class="group cursor-pointer bg-white rounded-xl p-6 border-2 border-[#00397a]/10 hover:border-[#00397a]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#00397a]/10 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#00397a]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                        
+                        <div class="relative">
+                          <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 bg-gradient-to-br from-[#00397a] via-[#004595] to-[#002147] rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                              <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                              </svg>
+                            </div>
+                            <div class="text-right">
+                              <span class="text-4xl font-bold bg-gradient-to-br from-[#00397a] to-[#004595] bg-clip-text text-transparent">{{ totalLandmarks }}</span>
+                            </div>
+                          </div>
+                          <h3 class="text-sm font-bold text-[#002147] uppercase tracking-wider mb-1">Community Landmarks</h3>
+                          <p class="text-xs text-[#00397a] font-medium">Notable locations & places</p>
+                          
+                          <div class="mt-4 pt-3 border-t border-[#00397a]/10">
+                            <div class="flex items-center justify-between text-xs">
+                              <span class="text-[#00397a] font-semibold">Explore Map</span>
+                              <svg class="w-4 h-4 text-[#00397a] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                              </svg>
+                            </div>
+                          </div>
                         </div>
-                        <span class="text-5xl font-bold bg-gradient-to-br from-[#004595] to-[#002147] bg-clip-text text-transparent">{{ totalHistory }}</span>
                       </div>
-                      <h3 class="text-sm font-bold text-[#002147] uppercase tracking-wider">History</h3>
-                      <p class="text-xs text-[#00397a] mt-1 font-medium">Historical records</p>
+
+                      <!-- History Card -->
+                      <div class="group cursor-pointer bg-white rounded-xl p-6 border-2 border-[#004595]/10 hover:border-[#004595]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#004595]/10 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                        
+                        <div class="relative">
+                          <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 bg-gradient-to-br from-[#004595] via-[#00397a] to-[#002147] rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                              <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                              </svg>
+                            </div>
+                            <div class="text-right">
+                              <span class="text-4xl font-bold bg-gradient-to-br from-[#004595] to-[#002147] bg-clip-text text-transparent">{{ totalHistory }}</span>
+                            </div>
+                          </div>
+                          <h3 class="text-sm font-bold text-[#002147] uppercase tracking-wider mb-1">Historical Records</h3>
+                          <p class="text-xs text-[#00397a] font-medium">Heritage & cultural data</p>
+                          
+                          <div class="mt-4 pt-3 border-t border-[#004595]/10">
+                            <div class="flex items-center justify-between text-xs">
+                              <span class="text-[#00397a] font-semibold">Read More</span>
+                              <svg class="w-4 h-4 text-[#004595] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
