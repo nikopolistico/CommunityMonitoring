@@ -92,8 +92,21 @@
                   ]"
                   @click="selectDate(day)"
                 >
-                  <div class="text-sm font-medium mb-1">
-                    {{ day.date.getDate() }}
+                  <div
+                    :class="[
+                      'text-sm font-medium mb-1 flex items-center gap-1',
+                      day.isToday ? 'text-white' : 'text-gray-800',
+                    ]"
+                  >
+                    <span
+                      v-if="day.isToday"
+                      class="w-7 h-7 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 font-bold shadow-md"
+                    >
+                      {{ day.date.getDate() }}
+                    </span>
+                    <span v-else>
+                      {{ day.date.getDate() }}
+                    </span>
                   </div>
 
                   <div class="space-y-1">
