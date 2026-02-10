@@ -367,16 +367,16 @@
             <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <!-- Officers Column -->
               <div>
-                <div class="flex items-center gap-3 mb-4 pb-3 border-b-2 border-[#004595]/20">
+                <div class="flex items-start gap-3 mb-4 pb-3 border-b-2 border-[#004595]/20 min-h-[56px]">
                   <div class="p-2 bg-[#004595] rounded-lg">
                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                     </svg>
                   </div>
-                <div>
-                  <h3 class="text-xl font-bold text-[#004595]">Barangay Officers</h3>
-                  <p class="text-xs text-gray-500 mt-1">(BMfullname field from database)</p>
-                </div>
+                  <div>
+                    <h3 class="text-xl font-bold text-[#004595]">Barangay Officers</h3>
+                    <p class="text-xs text-gray-500 mt-1">(BMfullname field from database)</p>
+                  </div>
                 </div>
                 
                 <div v-if="officers.length === 0" class="text-center py-8 text-gray-400">
@@ -427,13 +427,16 @@
 
               <!-- Purok Leaders Column -->
               <div>
-                <div class="flex items-center gap-3 mb-4 pb-3 border-b-2 border-[#00397a]/20">
+                <div class="flex items-start gap-3 mb-4 pb-3 border-b-2 border-[#00397a]/20 min-h-[56px]">
                   <div class="p-2 bg-[#00397a] rounded-lg">
                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                     </svg>
                   </div>
-                  <h3 class="text-xl font-bold text-[#00397a]">Purok Leaders</h3>
+                  <div>
+                    <h3 class="text-xl font-bold text-[#00397a]">Purok Leaders</h3>
+                    <p class="text-xs text-gray-500 mt-1">(Assigned purok representatives)</p>
+                  </div>
                 </div>
                 
                 <div v-if="purokLeaders.length === 0" class="text-center py-8 text-gray-400">

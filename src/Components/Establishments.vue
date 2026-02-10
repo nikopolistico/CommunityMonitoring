@@ -362,63 +362,62 @@
 				role="dialog"
 				aria-modal="true"
 			>
-				<div class="relative w-full max-w-2xl rounded-3xl bg-white p-6 shadow-2xl space-y-5 font-sans border border-gray-200">
+				<div class="relative w-full max-w-2xl rounded-3xl bg-white p-6 shadow-2xl space-y-5 font-sans border border-[#002147]/15">
 					<div v-if="detailsLoading" class="py-10 text-center">
 						<div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-[#002147] border-t-transparent"></div>
 						<p class="mt-3 text-sm text-gray-600">Loading details...</p>
 					</div>
 
 					<div v-else class="space-y-4">
-						<div class="rounded-xl border border-gray-200 p-4">
-							<h4 class="text-lg font-extrabold text-[#002147] tracking-tight">{{ detailsItem?.establishmentName }}</h4>
-							<p class="text-sm text-gray-700 leading-relaxed">{{ detailsItem?.establishmentAddress || 'No address provided.' }}</p>
+						<div class="flex items-start gap-4 border-b border-[#002147]/10 pb-4">
+							<div class="p-2 bg-blue-100 text-[#002147] rounded-xl">
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+								</svg>
+							</div>
+							<div class="flex-1 space-y-1">
+								<h4 class="text-xl font-extrabold text-[#002147] tracking-tight">{{ detailsItem?.establishmentName }}</h4>
+								<p class="text-sm text-gray-600 leading-relaxed">{{ detailsItem?.establishmentAddress || 'No address provided.' }}</p>
+							</div>
+							<span class="self-start rounded-full bg-[#002147]/10 px-3 py-1 text-xs font-semibold text-[#002147]">Establishment Details</span>
 						</div>
 
-						<div class="grid gap-4 text-sm text-gray-700 md:grid-cols-2">
-							<div class="rounded-lg bg-gray-50 p-3">
-								<p class="text-xs font-semibold text-[#002147] uppercase mb-2">Owner</p>
-								<div class="space-y-1">
-									<div>
-										<span class="font-semibold text-[#002147]">Name:</span>
-										<span>{{ detailsItem?.ownerName || 'Not provided.' }}</span>
-									</div>
-									<div>
-										<span class="font-semibold text-[#002147]">Contact:</span>
-										<span>{{ detailsItem?.ownerContact || 'Not provided.' }}</span>
-									</div>
-									<div>
-										<span class="font-semibold text-[#002147]">Email:</span>
-										<span>{{ detailsItem?.ownerEmail || 'Not provided.' }}</span>
-									</div>
-								</div>
+						<div class="rounded-xl border border-[#002147]/15 bg-[#f8fafc] p-3">
+							<div v-if="detailsItem?.establishmentImages" class="w-full h-56 overflow-hidden rounded-lg bg-white">
+								<img :src="detailsItem.establishmentImages" :alt="detailsItem.establishmentName" class="w-full h-full object-contain" />
 							</div>
-							<div class="rounded-lg bg-gray-50 p-3">
-								<p class="text-xs font-semibold text-[#002147] uppercase mb-2">Manager</p>
-								<div class="space-y-1">
-									<div>
-										<span class="font-semibold text-[#002147]">Name:</span>
-										<span>{{ detailsItem?.managerName || 'Not provided.' }}</span>
-									</div>
-									<div>
-										<span class="font-semibold text-[#002147]">Contact:</span>
-										<span>{{ detailsItem?.managerContact || 'Not provided.' }}</span>
-									</div>
-									<div>
-										<span class="font-semibold text-[#002147]">Email:</span>
-										<span>{{ detailsItem?.managerEmail || 'Not provided.' }}</span>
-									</div>
-								</div>
+							<div v-else class="w-full h-56 rounded-lg bg-gradient-to-br from-[#002147] to-[#00162f] flex items-center justify-center">
+								<svg class="w-16 h-16 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+									<path
+											fill-rule="evenodd"
+											d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z"
+											clip-rule="evenodd"
+										/>
+								</svg>
 							</div>
 						</div>
 
-						<div v-if="detailsItem?.establishmentImages" class="rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
-							<img :src="detailsItem.establishmentImages" :alt="detailsItem.establishmentName" class="w-full h-64 object-contain" />
-						</div>
-						<div v-else class="rounded-xl bg-gray-100 p-4 text-center text-sm text-gray-600 border border-dashed border-gray-300">
-							No image available.
+						<div class="grid gap-3 text-sm text-gray-700 md:grid-cols-2">
+							<div class="rounded-lg border border-[#002147]/10 bg-white px-3 py-2 md:col-span-2">
+								<p class="text-xs uppercase tracking-wide text-[#002147]/70">Barangay</p>
+								<p class="font-semibold text-[#002147]">{{ communityInfo?.name || 'Not provided.' }}</p>
+							</div>
+							<div class="rounded-lg border border-[#002147]/10 bg-white px-3 py-2">
+								<p class="text-xs uppercase tracking-wide text-[#002147]/70">Owner</p>
+								<p class="font-semibold text-[#002147]">{{ detailsItem?.ownerName || 'Not provided.' }}</p>
+								<p class="text-xs text-gray-600">{{ detailsItem?.ownerContact || 'No contact.' }}</p>
+								<p class="text-xs text-gray-600">{{ detailsItem?.ownerEmail || 'No email.' }}</p>
+							</div>
+							<div class="rounded-lg border border-[#002147]/10 bg-white px-3 py-2">
+								<p class="text-xs uppercase tracking-wide text-[#002147]/70">Manager</p>
+								<p class="font-semibold text-[#002147]">{{ detailsItem?.managerName || 'Not provided.' }}</p>
+								<p class="text-xs text-gray-600">{{ detailsItem?.managerContact || 'No contact.' }}</p>
+								<p class="text-xs text-gray-600">{{ detailsItem?.managerEmail || 'No email.' }}</p>
+							</div>
 						</div>
 					</div>
-					<div class="flex justify-end">
+					<div class="flex justify-end border-t border-[#002147]/10 pt-3">
 						<button
 							type="button"
 							class="inline-flex items-center gap-1 rounded-lg bg-[#002147] px-4 py-2 text-sm font-bold text-white hover:bg-[#00162f] border-2 border-[#002147] transition"
