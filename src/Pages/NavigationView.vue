@@ -144,52 +144,131 @@
       <div class="p-4 border-t border-white/10">
         <button
           @click="showLogoutModal = true"
-          class="w-full flex items-center justify-center p-3 rounded-xl bg-white/10 hover:bg-white hover:text-[#002147] text-white border-2 border-white/30 hover:border-white transition-all duration-300 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+          :disabled="isLoggingOut"
+          class="w-full flex items-center justify-center p-3.5 rounded-xl bg-white hover:bg-[#f3f1ee] text-[#002147] border-2 border-white/30 hover:border-white transition-all duration-300 font-bold shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none group relative overflow-hidden"
         >
-          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <!-- Shimmer Effect -->
+          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#004595]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+          
+          <!-- Loading Spinner -->
+          <svg v-if="isLoggingOut" class="animate-spin w-5 h-5 mr-2.5 relative z-10 text-[#004595]" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          
+          <!-- Logout Icon -->
+          <svg v-else class="w-5 h-5 mr-2.5 relative z-10 transition-all duration-300 group-hover:translate-x-1" fill="currentColor" viewBox="0 0 20 20">
             <path
               fill-rule="evenodd"
               d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
               clip-rule="evenodd"
             />
           </svg>
-          Logout
+          
+          <span class="relative z-10 tracking-wide text-sm font-bold">{{ isLoggingOut ? 'Signing Out...' : 'Sign Out' }}</span>
         </button>
       </div>
     </aside>
 
+    <!-- Logout Success Modal -->
+    <Transition name="modal-fade">
+      <div v-if="showLogoutSuccess" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-[#002147]/80 via-[#00397a]/70 to-[#004595]/80 backdrop-blur-md">
+        <div class="success-modal bg-gradient-to-br from-[#f3f1ee] to-white rounded-2xl shadow-2xl max-w-lg w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20">
+          <!-- Success Icon -->
+          <div class="flex justify-center mb-8">
+            <div class="success-checkmark">
+              <div class="check-icon">
+                <span class="icon-line line-tip"></span>
+                <span class="icon-line line-long"></span>
+                <div class="icon-circle"></div>
+                <div class="icon-fix"></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Success Message -->
+          <div class="text-center space-y-5">
+            <div class="space-y-2">
+              <h3 class="text-3xl font-extrabold text-[#002147] tracking-tight">Successfully Signed Out</h3>
+              <div class="w-24 h-1 bg-gradient-to-r from-transparent via-[#004595] to-transparent rounded-full mx-auto"></div>
+            </div>
+            
+            <div class="bg-white/70 backdrop-blur-sm rounded-xl p-5 border border-[#004595]/10 shadow-sm">
+              <p class="text-[#00397a] text-lg font-semibold mb-2">
+                Session Ended
+              </p>
+              <div class="flex items-center justify-center gap-2 text-[#00397a]/70 text-sm">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                </svg>
+                <span class="font-medium">Your session has been securely ended</span>
+              </div>
+            </div>
+            
+            <!-- Loading Bar -->
+            <div class="pt-2">
+              <div class="relative w-full h-3 bg-[#002147]/10 rounded-full overflow-hidden shadow-inner border border-[#004595]/20">
+                <div class="loading-bar absolute top-0 left-0 h-full bg-gradient-to-r from-[#004595] via-[#00397a] to-[#004595] rounded-full shadow-lg animate-pulse"></div>
+                <div class="loading-shimmer absolute top-0 left-0 h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+              </div>
+              <p class="text-[#00397a]/70 text-xs mt-3 font-semibold tracking-wide">
+                Redirecting to login page...
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Transition>
+
     <!-- Logout Confirmation Modal -->
     <Transition name="modal-fade">
-      <div v-if="showLogoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform animate-modal-slide">
+      <div v-if="showLogoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-[#002147]/80 via-[#00397a]/70 to-[#004595]/80 backdrop-blur-md">
+        <div class="bg-gradient-to-br from-[#f3f1ee] to-white rounded-3xl shadow-2xl max-w-md w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20 relative overflow-hidden">
+          
+          <!-- Decorative Background Elements -->
+          <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#004595]/10 to-transparent rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#00397a]/10 to-transparent rounded-full blur-2xl"></div>
+          
           <!-- Icon -->
-          <div class="flex justify-center mb-4">
-            <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
-              <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="flex justify-center mb-6 relative z-10">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center ring-4 ring-[#004595]/20 shadow-2xl relative overflow-hidden group">
+              <!-- Icon Glow Effect -->
+              <div class="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-50"></div>
+              <svg class="w-12 h-12 text-white relative z-10 transform transition-transform group-hover:scale-110 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
               </svg>
             </div>
           </div>
           
           <!-- Message -->
-          <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Confirm Logout</h3>
-            <p class="text-gray-600">Are you sure you want to log out?</p>
+          <div class="text-center mb-8 relative z-10">
+            <h3 class="text-3xl font-bold bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] bg-clip-text text-transparent mb-3">Sign Out</h3>
+            <p class="text-[#002147]/70 text-base leading-relaxed">Are you sure you want to end your session?</p>
           </div>
           
           <!-- Buttons -->
-          <div class="flex gap-3">
+          <div class="flex gap-4 relative z-10">
             <button
               @click="showLogoutModal = false"
-              class="flex-1 px-4 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-xl transition-all duration-300"
+              :disabled="isLoggingOut"
+              class="flex-1 px-6 py-3.5 bg-gradient-to-br from-white to-[#f3f1ee] hover:from-[#f3f1ee] hover:to-white text-[#002147] font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none border-2 border-[#004595]/20 hover:border-[#004595]/40 relative overflow-hidden group"
             >
-              Cancel
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#004595]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              <span class="relative z-10">Cancel</span>
             </button>
             <button
               @click="confirmLogout"
-              class="flex-1 px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+              :disabled="isLoggingOut"
+              class="flex-1 px-6 py-3.5 bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] hover:from-[#00397a] hover:via-[#004595] hover:to-[#002147] text-white font-bold rounded-xl transition-all duration-500 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2.5 relative overflow-hidden group"
             >
-              Logout
+              <!-- Button Shimmer -->
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              
+              <svg v-if="isLoggingOut" class="animate-spin w-5 h-5 relative z-10" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span class="relative z-10">{{ isLoggingOut ? 'Signing Out...' : 'Confirm' }}</span>
             </button>
           </div>
         </div>
@@ -254,6 +333,8 @@ const router = useRouter()
 const sidebarOpen = ref(false)
 const activeView = ref('dashboard')
 const showLogoutModal = ref(false)
+const isLoggingOut = ref(false)
+const showLogoutSuccess = ref(false)
 
 const adminProfile = ref({
   fullname: '',
@@ -290,22 +371,37 @@ const setActiveView = (view) => {
 
 const confirmLogout = async () => {
   showLogoutModal.value = false
+  isLoggingOut.value = true
   
   try {
     console.log('🚪 Logging out...')
+    
+    // Add a small delay for smooth visual feedback
+    await new Promise(resolve => setTimeout(resolve, 500))
+    
     const { error } = await supabase.auth.signOut()
     
     if (error) {
       console.error('❌ Logout error:', error)
+      isLoggingOut.value = false
       alert('Error logging out. Please try again.')
       return
     }
     
     console.log('✅ Logout successful')
-    // Redirect to login page
-    router.push({ name: 'login' })
+    
+    // Show success modal
+    isLoggingOut.value = false
+    showLogoutSuccess.value = true
+    
+    // Redirect to login page after showing success modal
+    setTimeout(() => {
+      router.push({ name: 'login' })
+    }, 2000)
+    
   } catch (err) {
     console.error('💥 Unexpected logout error:', err)
+    isLoggingOut.value = false
     alert('An unexpected error occurred. Please try again.')
   }
 }
@@ -341,5 +437,190 @@ onMounted(() => {
 
 .animate-modal-slide {
   animation: modal-slide 0.3s ease-out;
+}
+
+/* Success Checkmark Animation */
+.success-checkmark {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+}
+
+.success-checkmark .check-icon {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  border-radius: 50%;
+  box-sizing: content-box;
+  border: 4px solid #4ade80;
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+}
+
+.success-checkmark .check-icon::before {
+  top: 3px;
+  left: -2px;
+  width: 30px;
+  transform-origin: 100% 50%;
+  border-radius: 100px 0 0 100px;
+}
+
+.success-checkmark .check-icon::after {
+  top: 0;
+  left: 30px;
+  width: 60px;
+  transform-origin: 0 50%;
+  border-radius: 0 100px 100px 0;
+  animation: rotate-circle 4.25s ease-in;
+}
+
+.success-checkmark .check-icon::before,
+.success-checkmark .check-icon::after {
+  content: '';
+  height: 100px;
+  position: absolute;
+  background: linear-gradient(135deg, #f3f1ee 0%, #ffffff 100%);
+  transform: rotate(-45deg);
+}
+
+.success-checkmark .check-icon .icon-line {
+  height: 5px;
+  background-color: #4ade80;
+  display: block;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 10;
+}
+
+.success-checkmark .check-icon .icon-line.line-tip {
+  top: 46px;
+  left: 14px;
+  width: 25px;
+  transform: rotate(45deg);
+  animation: icon-line-tip 0.75s;
+}
+
+.success-checkmark .check-icon .icon-line.line-long {
+  top: 38px;
+  right: 8px;
+  width: 47px;
+  transform: rotate(-45deg);
+  animation: icon-line-long 0.75s;
+}
+
+.success-checkmark .check-icon .icon-circle {
+  top: -4px;
+  left: -4px;
+  z-index: 10;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: absolute;
+  box-sizing: content-box;
+  border: 4px solid rgba(74, 222, 128, 0.5);
+}
+
+.success-checkmark .check-icon .icon-fix {
+  top: 8px;
+  width: 5px;
+  left: 26px;
+  z-index: 1;
+  height: 85px;
+  position: absolute;
+  transform: rotate(-45deg);
+  background: linear-gradient(135deg, #f3f1ee 0%, #ffffff 100%);
+}
+
+@keyframes rotate-circle {
+  0% {
+    transform: rotate(-45deg);
+  }
+  5% {
+    transform: rotate(-45deg);
+  }
+  12% {
+    transform: rotate(-405deg);
+  }
+  100% {
+    transform: rotate(-405deg);
+  }
+}
+
+@keyframes icon-line-tip {
+  0% {
+    width: 0;
+    left: 1px;
+    top: 19px;
+  }
+  54% {
+    width: 0;
+    left: 1px;
+    top: 19px;
+  }
+  70% {
+    width: 50px;
+    left: -8px;
+    top: 37px;
+  }
+  84% {
+    width: 17px;
+    left: 21px;
+    top: 48px;
+  }
+  100% {
+    width: 25px;
+    left: 14px;
+    top: 45px;
+  }
+}
+
+@keyframes icon-line-long {
+  0% {
+    width: 0;
+    right: 46px;
+    top: 54px;
+  }
+  65% {
+    width: 0;
+    right: 46px;
+    top: 54px;
+  }
+  84% {
+    width: 55px;
+    right: 0px;
+    top: 35px;
+  }
+  100% {
+    width: 47px;
+    right: 8px;
+    top: 38px;
+  }
+}
+
+/* Loading Bar Animation */
+@keyframes loading {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.loading-bar {
+  animation: loading 2s ease-in-out forwards;
+}
+
+/* Loading Shimmer Animation */
+@keyframes loading-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.loading-shimmer {
+  animation: loading-shimmer 1s ease-in-out infinite;
 }
 </style>
