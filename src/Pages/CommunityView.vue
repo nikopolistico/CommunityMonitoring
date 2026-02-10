@@ -41,7 +41,6 @@
                 @click="setActiveTab('officers')"
               >
                 List of Officers
-                <span class="text-xs text-gray-500">{{ totalOfficers }}</span>
               </button>
               <button
                 type="button"
@@ -49,7 +48,6 @@
                 @click="setActiveTab('landmarks')"
               >
                 Landmarks
-                <span class="text-xs text-gray-500">{{ totalLandmarks }}</span>
               </button>
               <button
                 type="button"
@@ -57,7 +55,6 @@
                 @click="setActiveTab('history')"
               >
                 History
-                <span class="text-xs text-gray-500">{{ totalHistory }}</span>
               </button>
             </div>
           </div>
@@ -90,16 +87,6 @@
                 </div>
               </section>
 
-              <section v-if="activeTab === 'landmarks'" id="landmarks-section" class="bg-white/90 rounded-3xl p-6 border border-white/70 shadow-2xl">
-                <h3 class="text-lg font-bold text-[#002147] mb-3">Landmarks</h3>
-                <ul class="space-y-2 text-sm text-gray-700">
-                  <li v-for="landmark in landmarks" :key="landmark" class="flex items-start gap-2">
-                    <span class="text-[#004595] mt-1">•</span>
-                    <span class="font-medium">{{ landmark }}</span>
-                  </li>
-                  <li v-if="landmarks.length === 0" class="text-xs text-gray-500">No landmarks available.</li>
-                </ul>
-              </section>
         <!-- Header Banner -->
         <div
           v-if="activeTab === 'overview'"
@@ -629,7 +616,7 @@
             Communities
           </h2>
 
-          <div class="grid gap-6 md:grid-cols-3">
+          <div class="grid gap-6 grid-cols-1">
             <article
               class="group relative overflow-hidden rounded-xl border-2 border-[#004595]/20 p-5 hover:border-[#004595] transition-all duration-300 hover:shadow-lg bg-linear-to-br from-white to-[#f3f1ee] cursor-pointer"
               role="button"

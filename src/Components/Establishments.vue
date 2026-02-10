@@ -1,6 +1,6 @@
 <template>
 	<div class="min-h-screen bg-[#f3f1ee]">
-		<div class="mx-auto max-w-7xl px-4 py-10 space-y-8">
+		<div class="mx-auto max-w-none px-6 py-10 space-y-8">
 			<button
 				type="button"
 				class="inline-flex items-center gap-2 rounded-full bg-[#002147] px-5 py-2.5 text-sm font-bold text-white hover:bg-white hover:text-[#002147] border-2 border-[#002147] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
@@ -62,78 +62,73 @@
 									:disabled="loading"
 								/>
 							</label>
-							<label class="block space-y-2">
-								<span class="text-sm font-semibold text-[#002147]">Establishment Contact Number</span>
-								<input
-									v-model="newContactNumber"
-									type="text"
-									placeholder="Enter establishment contact number"
-									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-									:disabled="loading"
-								/>
-							</label>
-							<div class="grid gap-3 md:grid-cols-2">
-		
-								<label class="block space-y-2">
-									<span class="text-sm font-semibold text-[#002147]">Manager Name</span>
-									<input
-										v-model="newManagerName"
-										type="text"
-										placeholder="Enter manager name"
-										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-										:disabled="loading"
-									/>
-								</label>
-								<label class="block space-y-2">
-									<span class="text-sm font-semibold text-[#002147]">Owner Contact Number</span>
-									<input
-										v-model="newOwnerContact"
-										type="text"
-										placeholder="Enter owner contact"
-										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-										:disabled="loading"
-									/>
-								</label>
-								<label class="block space-y-2">
-									<span class="text-sm font-semibold text-[#002147]">Owner Full Name</span>
-									<input
-										v-model="newOwnerName"
-										type="text"
-										placeholder="Enter owner full name"
-										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-										:disabled="loading"
-									/>
-								</label>
-								<label class="block space-y-2">
-									<span class="text-sm font-semibold text-[#002147]">Manager Contact Number</span>
-									<input
-										v-model="newManagerContact"
-										type="text"
-										placeholder="Enter manager contact"
-										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-										:disabled="loading"
-									/>
-								</label>
-								<label class="block space-y-2">
-									<span class="text-sm font-semibold text-[#002147]">Owner Email</span>
-									<input
-										v-model="newOwnerEmail"
-										type="email"
-										placeholder="Enter owner email"
-										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-										:disabled="loading"
-									/>
-								</label>
-								<label class="block space-y-2">
-									<span class="text-sm font-semibold text-[#002147]">Manager Email</span>
-									<input
-										v-model="newManagerEmail"
-										type="email"
-										placeholder="Enter manager email"
-										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-										:disabled="loading"
-									/>
-								</label>
+							<div class="grid gap-4 md:grid-cols-2">
+								<div class="space-y-3">
+									<p class="text-xs font-semibold text-gray-500 uppercase">Owner Details</p>
+									<label class="block space-y-2">
+										<span class="text-sm font-semibold text-[#002147]">Owner Full Name</span>
+										<input
+											v-model="newOwnerName"
+											type="text"
+											placeholder="Enter owner full name"
+											class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+											:disabled="loading"
+										/>
+									</label>
+									<label class="block space-y-2">
+										<span class="text-sm font-semibold text-[#002147]">Owner Contact Number</span>
+										<input
+											v-model="newOwnerContact"
+											type="text"
+											placeholder="Enter owner contact"
+											class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+											:disabled="loading"
+										/>
+									</label>
+									<label class="block space-y-2">
+										<span class="text-sm font-semibold text-[#002147]">Owner Email</span>
+										<input
+											v-model="newOwnerEmail"
+											type="email"
+											placeholder="Enter owner email"
+											class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+											:disabled="loading"
+										/>
+									</label>
+								</div>
+								<div class="space-y-3">
+									<p class="text-xs font-semibold text-gray-500 uppercase">Manager Details</p>
+									<label class="block space-y-2">
+										<span class="text-sm font-semibold text-[#002147]">Manager Name</span>
+										<input
+											v-model="newManagerName"
+											type="text"
+											placeholder="Enter manager name"
+											class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+											:disabled="loading"
+										/>
+									</label>
+									<label class="block space-y-2">
+										<span class="text-sm font-semibold text-[#002147]">Manager Contact Number</span>
+										<input
+											v-model="newManagerContact"
+											type="text"
+											placeholder="Enter manager contact"
+											class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+											:disabled="loading"
+										/>
+									</label>
+									<label class="block space-y-2">
+										<span class="text-sm font-semibold text-[#002147]">Manager Email</span>
+										<input
+											v-model="newManagerEmail"
+											type="email"
+											placeholder="Enter manager email"
+											class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+											:disabled="loading"
+										/>
+									</label>
+								</div>
 							</div>
 							<label class="block space-y-2">
 								<span class="text-sm font-semibold text-[#002147]">Establishment Image</span>
@@ -170,7 +165,7 @@
 						<p class="text-xs text-gray-500">Changes are saved to Supabase database.</p>
 					</div>
 
-				<div class="grid gap-5 md:grid-cols-2">
+				<div class="grid gap-5 md:grid-cols-3">
 					<div v-if="loading" class="col-span-2 text-center py-12">
 						<div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#002147] border-t-transparent"></div>
 						<p class="mt-4 text-gray-600">Loading establishments...</p>
@@ -215,49 +210,49 @@
 									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
 									placeholder="Establishment address"
 								/>
-								<input
-									v-model="editingContactNumber"
-									type="text"
-									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-									placeholder="Establishment contact number"
-								/>
-								<div class="grid gap-2 md:grid-cols-2">
-									<input
-										v-model="editingManagerName"
-										type="text"
-										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-										placeholder="Manager full name"
-									/>
-									<input
-										v-model="editingManagerContact"
-										type="text"
-										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-										placeholder="Manager contact"
-									/>
-									<input
-										v-model="editingManagerEmail"
-										type="email"
-										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-										placeholder="Manager email"
-									/>
-									<input
-										v-model="editingOwnerName"
-										type="text"
-										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-										placeholder="Owner full name"
-									/>
-									<input
-										v-model="editingOwnerContact"
-										type="text"
-										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-										placeholder="Owner contact"
-									/>
-									<input
-										v-model="editingOwnerEmail"
-										type="email"
-										class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
-										placeholder="Owner email"
-									/>
+								<div class="grid gap-4 md:grid-cols-2">
+									<div class="space-y-2">
+										<p class="text-xs font-semibold text-gray-500 uppercase">Owner Details</p>
+										<input
+											v-model="editingOwnerName"
+											type="text"
+											class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+											placeholder="Owner full name"
+										/>
+										<input
+											v-model="editingOwnerContact"
+											type="text"
+											class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+											placeholder="Owner contact"
+										/>
+										<input
+											v-model="editingOwnerEmail"
+											type="email"
+											class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+											placeholder="Owner email"
+										/>
+									</div>
+									<div class="space-y-2">
+										<p class="text-xs font-semibold text-gray-500 uppercase">Manager Details</p>
+										<input
+											v-model="editingManagerName"
+											type="text"
+											class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+											placeholder="Manager full name"
+										/>
+										<input
+											v-model="editingManagerContact"
+											type="text"
+											class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+											placeholder="Manager contact"
+										/>
+										<input
+											v-model="editingManagerEmail"
+											type="email"
+											class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#002147] focus:ring-2 focus:ring-[#002147]/30 transition"
+											placeholder="Manager email"
+										/>
+									</div>
 								</div>
 								<div class="flex gap-2">
 									<button
@@ -367,49 +362,61 @@
 				role="dialog"
 				aria-modal="true"
 			>
-				<div class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl space-y-4">
-					<div class="flex items-start gap-4">
-						<div class="p-2 bg-blue-100 text-[#002147] rounded-lg">
-							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-							</svg>
+				<div class="relative w-full max-w-2xl rounded-3xl bg-white p-6 shadow-2xl space-y-5 font-sans border border-gray-200">
+					<div v-if="detailsLoading" class="py-10 text-center">
+						<div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-[#002147] border-t-transparent"></div>
+						<p class="mt-3 text-sm text-gray-600">Loading details...</p>
+					</div>
+
+					<div v-else class="space-y-4">
+						<div class="rounded-xl border border-gray-200 p-4">
+							<h4 class="text-lg font-extrabold text-[#002147] tracking-tight">{{ detailsItem?.establishmentName }}</h4>
+							<p class="text-sm text-gray-700 leading-relaxed">{{ detailsItem?.establishmentAddress || 'No address provided.' }}</p>
 						</div>
-						<div class="flex-1 space-y-3">
-							<div>
-								<h3 class="text-lg font-bold text-[#002147]">{{ detailsItem?.establishmentName }}</h3>
-								<p class="text-sm text-gray-700">{{ detailsItem?.establishmentAddress || 'No address provided.' }}</p>
-							</div>
-							<div class="grid gap-2 text-sm text-gray-700">
-		
-								<div>
-									<span class="font-semibold text-[#002147]">Owner Contact:</span>
-									<span>{{ detailsItem?.ownerContact || 'Not provided.' }}</span>
-								</div>
-								<div>
-									<span class="font-semibold text-[#002147]">Owner Email:</span>
-									<span>{{ detailsItem?.ownerEmail || 'Not provided.' }}</span>
-								</div>
-								<div>
-									<span class="font-semibold text-[#002147]">Manager:</span>
-									<span>{{ detailsItem?.managerName || 'Not provided.' }}</span>
-								</div>
-								<div>
-									<span class="font-semibold text-[#002147]">Manager Contact:</span>
-									<span>{{ detailsItem?.managerContact || 'Not provided.' }}</span>
-								</div>
-								<div>
-									<span class="font-semibold text-[#002147]">Manager Email:</span>
-									<span>{{ detailsItem?.managerEmail || 'Not provided.' }}</span>
+
+						<div class="grid gap-4 text-sm text-gray-700 md:grid-cols-2">
+							<div class="rounded-lg bg-gray-50 p-3">
+								<p class="text-xs font-semibold text-[#002147] uppercase mb-2">Owner</p>
+								<div class="space-y-1">
+									<div>
+										<span class="font-semibold text-[#002147]">Name:</span>
+										<span>{{ detailsItem?.ownerName || 'Not provided.' }}</span>
+									</div>
+									<div>
+										<span class="font-semibold text-[#002147]">Contact:</span>
+										<span>{{ detailsItem?.ownerContact || 'Not provided.' }}</span>
+									</div>
+									<div>
+										<span class="font-semibold text-[#002147]">Email:</span>
+										<span>{{ detailsItem?.ownerEmail || 'Not provided.' }}</span>
+									</div>
 								</div>
 							</div>
+							<div class="rounded-lg bg-gray-50 p-3">
+								<p class="text-xs font-semibold text-[#002147] uppercase mb-2">Manager</p>
+								<div class="space-y-1">
+									<div>
+										<span class="font-semibold text-[#002147]">Name:</span>
+										<span>{{ detailsItem?.managerName || 'Not provided.' }}</span>
+									</div>
+									<div>
+										<span class="font-semibold text-[#002147]">Contact:</span>
+										<span>{{ detailsItem?.managerContact || 'Not provided.' }}</span>
+									</div>
+									<div>
+										<span class="font-semibold text-[#002147]">Email:</span>
+										<span>{{ detailsItem?.managerEmail || 'Not provided.' }}</span>
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
-					<div v-if="detailsItem?.establishmentImages" class="rounded-xl overflow-hidden border border-gray-200">
-						<img :src="detailsItem.establishmentImages" :alt="detailsItem.establishmentName" class="w-full h-56 object-cover" />
-					</div>
-					<div v-else class="rounded-xl bg-gray-100 p-4 text-center text-sm text-gray-600 border border-dashed border-gray-300">
-						No image available.
+
+						<div v-if="detailsItem?.establishmentImages" class="rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
+							<img :src="detailsItem.establishmentImages" :alt="detailsItem.establishmentName" class="w-full h-64 object-contain" />
+						</div>
+						<div v-else class="rounded-xl bg-gray-100 p-4 text-center text-sm text-gray-600 border border-dashed border-gray-300">
+							No image available.
+						</div>
 					</div>
 					<div class="flex justify-end">
 						<button
@@ -476,14 +483,12 @@ const newOwnerContact = ref('')
 const newManagerContact = ref('')
 const newOwnerEmail = ref('')
 const newManagerEmail = ref('')
-const newContactNumber = ref('')
 const newOwnerName = ref('')
 const newImage = ref(null)
 const imagePreview = ref('')
 const editingId = ref(null)
 const editingName = ref('')
 const editingAddress = ref('')
-const editingContactNumber = ref('')
 const editingManagerName = ref('')
 const editingManagerContact = ref('')
 const editingManagerEmail = ref('')
@@ -495,6 +500,7 @@ const deleteId = ref(null)
 const deleteName = ref('')
 const showDetails = ref(false)
 const detailsItem = ref(null)
+const detailsLoading = ref(false)
 const loading = ref(false)
 const showAddForm = ref(false)
 const searchQuery = ref('')
@@ -562,7 +568,6 @@ watch(
 		editingId.value = null
 		editingName.value = ''
 		editingAddress.value = ''
-		editingContactNumber.value = ''
 		editingManagerName.value = ''
 		editingManagerContact.value = ''
 		editingManagerEmail.value = ''
@@ -576,7 +581,6 @@ watch(
 		newManagerContact.value = ''
 		newOwnerEmail.value = ''
 		newManagerEmail.value = ''
-		newContactNumber.value = ''
 		newOwnerName.value = ''
 		newImage.value = null
 		imagePreview.value = ''
@@ -611,7 +615,6 @@ const goBack = () => {
 const addItem = async () => {
 	const name = newName.value.trim()
 	const address = newAddress.value.trim()
-	const contactNumber = newContactNumber.value.trim()
 	if (!name) {
 		alert('Please enter an establishment name')
 		return
@@ -647,7 +650,6 @@ const addItem = async () => {
 				{ 
 					establishmentName: name, 
 					establishmentAddress: address,
-					contactNumber: contactNumber || null,
 					establishmentImages: imageUrl,
 					brgy_id: barangayId.value 
 				}
@@ -696,7 +698,6 @@ const addItem = async () => {
 		newManagerContact.value = ''
 		newOwnerEmail.value = ''
 		newManagerEmail.value = ''
-		newContactNumber.value = ''
 		newOwnerName.value = ''
 		newImage.value = null
 		imagePreview.value = ''
@@ -717,7 +718,6 @@ const startEdit = async (id) => {
 	editingId.value = id
 	editingName.value = item.establishmentName || ''
 	editingAddress.value = item.establishmentAddress || ''
-	editingContactNumber.value = item.contactNumber || ''
 	editingManagerName.value = ''
 	editingManagerContact.value = ''
 	editingManagerEmail.value = ''
@@ -762,7 +762,6 @@ const saveEdit = async () => {
 	}
 	const name = editingName.value.trim()
 	const address = editingAddress.value.trim()
-	const contactNumber = editingContactNumber.value.trim()
 	const managerName = editingManagerName.value.trim()
 	const managerContact = editingManagerContact.value.trim()
 	const managerEmail = editingManagerEmail.value.trim()
@@ -780,48 +779,93 @@ const saveEdit = async () => {
 			.update({
 				establishmentName: name,
 				establishmentAddress: address || null,
-				contactNumber: contactNumber || null
 			})
 			.eq('id', editingId.value)
 		
 		if (error) throw error
 
-		const { error: managerError } = await supabase
-			.from('EstablishmentManager')
-			.upsert([
-				{
-					est_id: editingId.value,
-					manager_fullname: managerName || null,
-					managerContact: managerContact || null,
-					manager_email: managerEmail || null
-				}
-			], { onConflict: 'est_id' })
+		const hasManagerFields = managerName || managerContact || managerEmail
+		if (hasManagerFields) {
+			const { data: managerRow, error: managerFetchError } = await supabase
+				.from('EstablishmentManager')
+				.select('est_id')
+				.eq('est_id', editingId.value)
+				.maybeSingle()
 
-		if (managerError) throw managerError
+			if (managerFetchError) throw managerFetchError
 
-		const { error: ownerError } = await supabase
-			.from('EstablishmentOwner')
-			.upsert([
-				{
-					est_id: editingId.value,
-					Ownerfullname: ownerName || null,
-					OwnerNumber: ownerContact || null,
-					OwnerEmail: ownerEmail || null
-				}
-			], { onConflict: 'est_id' })
+			if (managerRow) {
+				const { error: managerUpdateError } = await supabase
+					.from('EstablishmentManager')
+					.update({
+						manager_fullname: managerName || null,
+						managerContact: managerContact || null,
+						manager_email: managerEmail || null
+					})
+					.eq('est_id', editingId.value)
 
-		if (ownerError) throw ownerError
+				if (managerUpdateError) throw managerUpdateError
+			} else {
+				const { error: managerInsertError } = await supabase
+					.from('EstablishmentManager')
+					.insert([
+						{
+							est_id: editingId.value,
+							manager_fullname: managerName || null,
+							managerContact: managerContact || null,
+							manager_email: managerEmail || null
+						}
+					])
+
+				if (managerInsertError) throw managerInsertError
+			}
+		}
+
+		const hasOwnerFields = ownerName || ownerContact || ownerEmail
+		if (hasOwnerFields) {
+			const { data: ownerRow, error: ownerFetchError } = await supabase
+				.from('EstablishmentOwner')
+				.select('est_id')
+				.eq('est_id', editingId.value)
+				.maybeSingle()
+
+			if (ownerFetchError) throw ownerFetchError
+
+			if (ownerRow) {
+				const { error: ownerUpdateError } = await supabase
+					.from('EstablishmentOwner')
+					.update({
+						Ownerfullname: ownerName || null,
+						OwnerNumber: ownerContact || null,
+						OwnerEmail: ownerEmail || null
+					})
+					.eq('est_id', editingId.value)
+
+				if (ownerUpdateError) throw ownerUpdateError
+			} else {
+				const { error: ownerInsertError } = await supabase
+					.from('EstablishmentOwner')
+					.insert([
+						{
+							est_id: editingId.value,
+							Ownerfullname: ownerName || null,
+							OwnerNumber: ownerContact || null,
+							OwnerEmail: ownerEmail || null
+						}
+					])
+
+				if (ownerInsertError) throw ownerInsertError
+			}
+		}
 		
 		const item = items.value.find(i => i.id === editingId.value)
 		if (item) {
 			item.establishmentName = name
 			item.establishmentAddress = address
-			item.contactNumber = contactNumber
 		}
 		editingId.value = null
 		editingName.value = ''
 		editingAddress.value = ''
-		editingContactNumber.value = ''
 		editingManagerName.value = ''
 		editingManagerContact.value = ''
 		editingManagerEmail.value = ''
@@ -840,7 +884,6 @@ const cancelEdit = () => {
 	editingId.value = null
 	editingName.value = ''
 	editingAddress.value = ''
-	editingContactNumber.value = ''
 	editingManagerName.value = ''
 	editingManagerContact.value = ''
 	editingManagerEmail.value = ''
@@ -912,13 +955,46 @@ const confirmDelete = () => {
 	closeDelete()
 }
 
-const openDetails = (item) => {
+const openDetails = async (item) => {
 	detailsItem.value = item
 	showDetails.value = true
+	detailsLoading.value = true
+	try {
+		const { data: managerData, error: managerError } = await supabase
+			.from('EstablishmentManager')
+			.select('manager_fullname, managerContact, manager_email')
+			.eq('est_id', item.id)
+			.maybeSingle()
+
+		if (managerError) throw managerError
+
+		const { data: ownerData, error: ownerError } = await supabase
+			.from('EstablishmentOwner')
+			.select('Ownerfullname, OwnerNumber, OwnerEmail')
+			.eq('est_id', item.id)
+			.maybeSingle()
+
+		if (ownerError) throw ownerError
+
+		detailsItem.value = {
+			...item,
+			managerName: managerData?.manager_fullname || null,
+			managerContact: managerData?.managerContact || null,
+			managerEmail: managerData?.manager_email || null,
+			ownerName: ownerData?.Ownerfullname || null,
+			ownerContact: ownerData?.OwnerNumber || null,
+			ownerEmail: ownerData?.OwnerEmail || null
+		}
+	} catch (error) {
+		console.error('Error loading details:', error)
+	} finally {
+		detailsLoading.value = false
+	}
 }
 
 const closeDetails = () => {
 	showDetails.value = false
 	detailsItem.value = null
+	detailsLoading.value = false
 }
 </script>
