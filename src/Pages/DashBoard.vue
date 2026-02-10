@@ -42,51 +42,6 @@
                       {{ unreadNotifications }}
                     </span>
                   </button>
-                  
-                  <!-- Notification Dropdown -->
-                  <div v-if="showNotifications" class="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-2xl border border-[#004595]/20 overflow-hidden z-[100]">
-                    <div class="bg-gradient-to-r from-[#002147] to-[#004595] px-3 py-2.5">
-                      <h3 class="text-white font-semibold text-sm">Notifications</h3>
-                    </div>
-                    <div class="max-h-80 overflow-y-auto">
-                      <div v-if="notifications.length === 0" class="p-6 text-center text-gray-500">
-                        <svg class="w-10 h-10 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-                        </svg>
-                        <p class="font-medium text-sm">No notifications</p>
-                      </div>
-                      <div v-else>
-                        <div 
-                          v-for="(notification, index) in notifications" 
-                          :key="index"
-                          class="px-3 py-2.5 border-b border-gray-100 hover:bg-[#f3f1ee] transition-colors cursor-pointer"
-                          :class="{ 'bg-blue-50': !notification.read }"
-                          @click="markAsRead(index)"
-                        >
-                          <div class="flex items-start gap-2.5">
-                            <div class="p-1.5 rounded-full flex-shrink-0" :class="getNotificationIconBg(notification.type)">
-                              <svg class="w-3.5 h-3.5" :class="getNotificationIconColor(notification.type)" fill="currentColor" viewBox="0 0 20 20">
-                                <path v-if="notification.type === 'info'" fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
-                                <path v-else-if="notification.type === 'warning'" fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                                <path v-else fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                              </svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                              <p class="text-xs font-semibold text-gray-800">{{ notification.title }}</p>
-                              <p class="text-xs text-gray-600 mt-0.5 line-clamp-2">{{ notification.message }}</p>
-                              <p class="text-xs text-gray-400 mt-0.5">{{ notification.time }}</p>
-                            </div>
-                            <span v-if="!notification.read" class="w-1.5 h-1.5 bg-[#004595] rounded-full flex-shrink-0 mt-1"></span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="bg-[#f3f1ee] px-3 py-2 text-center border-t border-gray-100">
-                      <button @click="clearAllNotifications" class="text-xs text-[#004595] font-semibold hover:text-[#002147] transition-colors">
-                        Clear All
-                      </button>
-                    </div>
-                  </div>
                 </div>
 
                 <!-- Date and Time -->
@@ -279,7 +234,177 @@
           </div>
         </div>
       </div>
-    </div>
+
+    <!-- Full Screen Notification Modal -->
+    <transition name="modal-fade">
+      <div 
+        v-if="showNotifications" 
+        class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+        @click="closeNotificationModal"
+      >
+        <div 
+          class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-hidden transform transition-all animate-modal-slide"
+          @click.stop
+        >
+          <!-- Modal Header -->
+          <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="p-2 bg-white/20 rounded-lg">
+                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="text-xl font-bold text-white">Notifications</h2>
+                <p class="text-xs text-white/80">Fiestas, Events & Reminders</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="bg-white/20 px-3 py-1.5 rounded-full text-white text-sm font-bold">
+                {{ notifications.length }} Total
+              </span>
+              <button 
+                @click="closeNotificationModal"
+                class="p-2 hover:bg-white/20 rounded-lg transition-colors"
+              >
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="overflow-y-auto max-h-[calc(85vh-180px)] p-6">
+            <!-- Empty State -->
+            <div v-if="notifications.length === 0" class="text-center py-16">
+              <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-[#004595]/10 to-[#002147]/10 rounded-full mb-6">
+                <svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-800 mb-2">No Notifications</h3>
+              <p class="text-gray-500">You're all caught up! No fiestas or events scheduled.</p>
+            </div>
+
+            <!-- Notifications Grid -->
+            <div v-else class="space-y-4">
+              <div 
+                v-for="(notification, index) in notifications" 
+                :key="index"
+                class="notification-card bg-gradient-to-br from-white to-[#f3f1ee] rounded-xl p-5 border-2 transition-all duration-300 cursor-pointer hover:shadow-xl"
+                :class="[
+                  !notification.read ? 'border-[#004595] shadow-lg' : 'border-gray-200 hover:border-[#004595]',
+                  getNotificationCardClass(notification.type)
+                ]"
+                @click="markAsRead(index)"
+              >
+                <div class="flex items-start gap-4">
+                  <!-- Icon -->
+                  <div class="flex-shrink-0">
+                    <div class="p-3 rounded-xl" :class="getNotificationIconBg(notification.type)">
+                      <svg class="w-7 h-7" :class="getNotificationIconColor(notification.type)" fill="currentColor" viewBox="0 0 20 20">
+                        <path v-if="notification.type === 'fiesta'" d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2a2 2 0 100-4V6z"/>
+                        <path v-else-if="notification.type === 'info'" fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        <path v-else-if="notification.type === 'success'" fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        <path v-else-if="notification.type === 'warning'" fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                        <path v-else fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <!-- Content -->
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between gap-3 mb-2">
+                      <h3 class="text-lg font-bold text-gray-800">{{ notification.title }}</h3>
+                      <span v-if="!notification.read" class="flex-shrink-0">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-[#004595] text-white animate-pulse">
+                          NEW
+                        </span>
+                      </span>
+                    </div>
+                    <p class="text-base text-gray-700 mb-3 leading-relaxed">{{ notification.message }}</p>
+                    
+                    <!-- Additional Details -->
+                    <div v-if="notification.data" class="bg-white/60 rounded-lg p-3 mb-3 border border-gray-200">
+                      <div v-if="notification.type === 'fiesta'" class="space-y-2">
+                        <div class="flex items-center gap-2 text-sm">
+                          <svg class="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                          </svg>
+                          <span class="font-semibold text-gray-700">Barangay:</span>
+                          <span class="text-gray-600">{{ notification.data.brgyname }}</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                          <svg class="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2a2 2 0 100-4V6z"/>
+                          </svg>
+                          <span class="font-semibold text-gray-700">Patron Saint:</span>
+                          <span class="text-gray-600">{{ notification.data.patron }}</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                          <svg class="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                          </svg>
+                          <span class="font-semibold text-gray-700">Date:</span>
+                          <span class="text-gray-600">{{ notification.data.date }}</span>
+                        </div>
+                      </div>
+                      <div v-else-if="notification.type === 'success'" class="space-y-2">
+                        <div class="flex items-center gap-2 text-sm">
+                          <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                          </svg>
+                          <span class="font-semibold text-gray-700">Event:</span>
+                          <span class="text-gray-600">{{ notification.data.title || notification.data.description }}</span>
+                        </div>
+                        <div v-if="notification.data.event_time" class="flex items-center gap-2 text-sm">
+                          <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-8.75V5a.75.75 0 10-1.5 0v4.5c0 .2.08.39.22.53l3 3a.75.75 0 101.06-1.06l-2.78-2.72z" clip-rule="evenodd"/>
+                          </svg>
+                          <span class="font-semibold text-gray-700">Time:</span>
+                          <span class="text-gray-600">{{ notification.data.event_time }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Time Badge -->
+                    <div class="flex items-center gap-2 text-sm text-gray-500">
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-8.75V5a.75.75 0 10-1.5 0v4.5c0 .2.08.39.22.53l3 3a.75.75 0 101.06-1.06l-2.78-2.72z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="font-medium">{{ notification.time }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="bg-gradient-to-r from-[#f3f1ee] to-white px-6 py-4 border-t-2 border-gray-200 flex items-center justify-between">
+            <p class="text-sm text-gray-600">
+              <span class="font-semibold">{{ unreadNotifications }}</span> unread notifications
+            </p>
+            <div class="flex gap-3">
+              <button 
+                @click="clearAllNotifications" 
+                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-semibold transition-colors"
+              >
+                Clear All
+              </button>
+              <button 
+                @click="closeNotificationModal" 
+                class="px-5 py-2 bg-gradient-to-r from-[#004595] to-[#002147] hover:from-[#00397a] hover:to-[#004595] text-white rounded-lg font-semibold transition-all shadow-lg"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script setup>
@@ -301,36 +426,141 @@ let timestampInterval = null
 
 // Notification state
 const showNotifications = ref(false)
-const notifications = ref([
-  {
-    type: 'info',
-    title: 'System Update',
-    message: 'Community monitoring dashboard has been updated',
-    time: '5 minutes ago',
-    read: false
-  },
-  {
-    type: 'success',
-    title: 'Data Synchronized',
-    message: 'All barangay data has been successfully synchronized',
-    time: '1 hour ago',
-    read: false
-  },
-  {
-    type: 'warning',
-    title: 'Weather Alert',
-    message: 'Rainy weather expected in the area',
-    time: '2 hours ago',
-    read: true
-  }
-])
+const notifications = ref([])
+const eventsData = ref([])
+const fiestaData = ref([])
 
 const unreadNotifications = computed(() => {
   return notifications.value.filter(n => !n.read).length
 })
 
+// Generate notifications from real events and fiestas
+const generateNotifications = () => {
+  const newNotifications = []
+  const today = new Date()
+  const todayStr = formatLocalDate(today)
+  
+  // Get today's events
+  const todayEvents = eventsData.value.filter(event => {
+    const eventDate = normalizeDateStr(event.event_date)
+    return eventDate === todayStr && !event.status
+  })
+  
+  // Get today's fiestas
+  const todayFiestas = fiestaData.value.filter(fiesta => {
+    const fiestaDate = convertTextDateToISO(fiesta.date)
+    return fiestaDate === todayStr
+  })
+  
+  // Get upcoming fiestas (within next 7 days)
+  const upcomingFiestas = fiestaData.value.filter(fiesta => {
+    const fiestaDate = convertTextDateToISO(fiesta.date)
+    if (!fiestaDate) return false
+    
+    const fDate = new Date(fiestaDate)
+    const diffDays = Math.ceil((fDate - today) / (1000 * 60 * 60 * 24))
+    return diffDays > 0 && diffDays <= 7
+  })
+  
+  // Add fiesta notifications (today)
+  todayFiestas.forEach(fiesta => {
+    newNotifications.push({
+      type: 'fiesta',
+      title: `🎉 Barangay Fiesta Today!`,
+      message: `${fiesta.brgyname} - Celebrating ${fiesta.patron}`,
+      time: 'Today',
+      read: false,
+      data: fiesta
+    })
+  })
+  
+  // Add upcoming fiesta notifications
+  upcomingFiestas.forEach(fiesta => {
+    const fiestaDate = new Date(convertTextDateToISO(fiesta.date))
+    const diffDays = Math.ceil((fiestaDate - today) / (1000 * 60 * 60 * 24))
+    
+    newNotifications.push({
+      type: 'info',
+      title: `📅 Upcoming Fiesta`,
+      message: `${fiesta.brgyname} - ${fiesta.patron} in ${diffDays} day${diffDays > 1 ? 's' : ''}`,
+      time: `${diffDays} day${diffDays > 1 ? 's' : ''} from now`,
+      read: false,
+      data: fiesta
+    })
+  })
+  
+  // Add event notifications (today)
+  todayEvents.forEach(event => {
+    const brgyName = getBarangayLabel(event.brgy_id)
+    const timeStr = event.event_time ? ` at ${event.event_time}` : ''
+    
+    newNotifications.push({
+      type: 'success',
+      title: `📌 Event Today${timeStr}`,
+      message: `${brgyName} - ${event.title || event.description}`,
+      time: event.event_time || 'Today',
+      read: false,
+      data: event
+    })
+  })
+  
+  // Sort by priority (today's fiestas first, then today's events, then upcoming fiestas)
+  newNotifications.sort((a, b) => {
+    if (a.type === 'fiesta' && b.type !== 'fiesta') return -1
+    if (a.type !== 'fiesta' && b.type === 'fiesta') return 1
+    if (a.type === 'success' && b.type === 'info') return -1
+    if (a.type === 'info' && b.type === 'success') return 1
+    return 0
+  })
+  
+  notifications.value = newNotifications
+}
+
+// Format date helper functions
+const formatLocalDate = (date) => {
+  if (!(date instanceof Date)) return ''
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+const normalizeDateStr = (value) => {
+  if (!value) return ''
+  if (typeof value === 'string') return value.split('T')[0]
+  try {
+    return formatLocalDate(new Date(value))
+  } catch {
+    return ''
+  }
+}
+
+const convertTextDateToISO = (textDate) => {
+  if (!textDate) return ''
+  try {
+    const currentYear = new Date().getFullYear()
+    const dateStr = `${textDate} ${currentYear}`
+    const date = new Date(dateStr)
+    
+    if (isNaN(date.getTime())) return ''
+    
+    return formatLocalDate(date)
+  } catch {
+    return ''
+  }
+}
+
+const getBarangayLabel = (brgyId) => {
+  const match = barangayOptions.value.find((item) => item.id === brgyId)
+  return match ? match.label : 'Unknown Barangay'
+}
+
 const toggleNotifications = () => {
   showNotifications.value = !showNotifications.value
+}
+
+const closeNotificationModal = () => {
+  showNotifications.value = false
 }
 
 const markAsRead = (index) => {
@@ -342,7 +572,15 @@ const clearAllNotifications = () => {
   showNotifications.value = false
 }
 
+const getNotificationCardClass = (type) => {
+  if (type === 'fiesta') return 'notification-fiesta'
+  if (type === 'success') return 'notification-event'
+  if (type === 'info') return 'notification-info'
+  return ''
+}
+
 const getNotificationIconBg = (type) => {
+  if (type === 'fiesta') return 'bg-purple-100'
   if (type === 'info') return 'bg-blue-100'
   if (type === 'success') return 'bg-green-100'
   if (type === 'warning') return 'bg-yellow-100'
@@ -350,6 +588,7 @@ const getNotificationIconBg = (type) => {
 }
 
 const getNotificationIconColor = (type) => {
+  if (type === 'fiesta') return 'text-purple-600'
   if (type === 'info') return 'text-blue-600'
   if (type === 'success') return 'text-green-600'
   if (type === 'warning') return 'text-yellow-600'
@@ -421,7 +660,7 @@ const fetchBarangays = async () => {
   try {
     const { data, error } = await supabase
       .from('Barangays')
-      .select('brgyname')
+      .select('id, brgyname')
       .order('brgyname', { ascending: true })
     
     if (error) throw error
@@ -435,6 +674,7 @@ const fetchBarangays = async () => {
           .replace(/[^\w-]/g, '')
         
         return {
+          id: item.id,
           value: value,
           label: item.brgyname
         }
@@ -448,11 +688,49 @@ const fetchBarangays = async () => {
   }
 }
 
+// Fetch events from Supabase
+const fetchEvents = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('BrgyEvents')
+      .select('id, brgy_id, title, description, event_date, event_time, status')
+      .order('event_date', { ascending: true })
+    
+    if (error) throw error
+    eventsData.value = data || []
+    generateNotifications()
+  } catch (error) {
+    console.error('Error fetching events:', error)
+  }
+}
+
+// Fetch fiestas from Supabase
+const fetchFiestas = async () => {
+  try {
+    const { data, error } = await supabase
+      .rpc('brgyfiesta')
+    
+    if (error) throw error
+    fiestaData.value = data || []
+    generateNotifications()
+  } catch (error) {
+    console.error('Error fetching fiestas:', error)
+  }
+}
+
 onMounted(() => {
   fetchBarangays()
+  fetchEvents()
+  fetchFiestas()
   fetchWeather()
   updateTimestamp()
   timestampInterval = setInterval(updateTimestamp, 1000)
+  
+  // Refresh notifications every 5 minutes
+  setInterval(() => {
+    fetchEvents()
+    fetchFiestas()
+  }, 300000)
 })
 
 onUnmounted(() => {
@@ -527,7 +805,86 @@ select option:checked {
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Modal Animations */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
+@keyframes modal-slide {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-modal-slide {
+  animation: modal-slide 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Notification Card Styles */
+.notification-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.notification-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.notification-card:hover::before {
+  left: 100%;
+}
+
+.notification-fiesta {
+  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+}
+
+.notification-event {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+}
+
+.notification-info {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+}
+
+/* Scrollbar Styling */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #004595, #002147);
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00397a, #002147);
 }
 </style>
