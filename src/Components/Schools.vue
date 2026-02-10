@@ -261,30 +261,47 @@
 					role="dialog"
 					aria-modal="true"
 				>
-					<div class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl space-y-4">
-						<div class="flex items-start gap-4">
-							<div class="p-2 bg-blue-100 text-[#004595] rounded-lg">
+					<div class="w-full max-w-xl rounded-2xl bg-white p-6 shadow-2xl space-y-5 border border-[#004595]/15">
+						<div class="flex items-start gap-4 border-b border-[#004595]/10 pb-4">
+							<div class="p-2 bg-blue-100 text-[#004595] rounded-xl">
 								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
 								</svg>
 							</div>
 							<div class="flex-1 space-y-1">
-								<h3 class="text-lg font-bold text-[#004595]">{{ detailsItem?.schoolName }}</h3>
-								<p class="text-sm text-gray-700">{{ detailsItem?.schoolAddress || 'No address provided.' }}</p>
+								<h3 class="text-xl font-extrabold text-[#004595]">{{ detailsItem?.schoolName }}</h3>
+								<p class="text-sm text-gray-600">{{ detailsItem?.schoolAddress || 'No address provided.' }}</p>
+							</div>
+							<span class="self-start rounded-full bg-[#004595]/10 px-3 py-1 text-xs font-semibold text-[#004595]">School Details</span>
+						</div>
+						<div class="rounded-xl border border-[#004595]/15 bg-[#f8fafc] p-3">
+							<div v-if="detailsItem?.schoolImages" class="w-full h-56 overflow-hidden rounded-lg bg-white">
+								<img :src="detailsItem.schoolImages" :alt="detailsItem.schoolName" class="w-full h-full object-contain" />
+							</div>
+							<div v-else class="w-full h-56 rounded-lg bg-gradient-to-br from-[#004595] to-[#002147] flex items-center justify-center">
+								<svg class="w-16 h-16 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+									<path
+										d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"
+									/>
+								</svg>
 							</div>
 						</div>
-						<div class="grid gap-3 text-sm text-gray-700">
-							<div>
-								<span class="font-semibold text-[#004595]">Principal:</span>
-								<span>{{ detailsItem?.principalName || 'Not provided.' }}</span>
+						<div class="grid gap-3 text-sm text-gray-700 md:grid-cols-2">
+							<div class="rounded-lg border border-[#004595]/10 bg-white px-3 py-2">
+								<p class="text-xs uppercase tracking-wide text-[#004595]/70">Barangay</p>
+								<p class="font-semibold text-[#002147]">{{ communityInfo?.name || 'Not provided.' }}</p>
 							</div>
-							<div>
-								<span class="font-semibold text-[#004595]">Contact Number:</span>
-								<span>{{ detailsItem?.principalPhone || 'Not provided.' }}</span>
+							<div class="rounded-lg border border-[#004595]/10 bg-white px-3 py-2">
+								<p class="text-xs uppercase tracking-wide text-[#004595]/70">Principal</p>
+								<p class="font-semibold text-[#002147]">{{ detailsItem?.principalName || 'Not provided.' }}</p>
+							</div>
+							<div class="rounded-lg border border-[#004595]/10 bg-white px-3 py-2 md:col-span-2">
+								<p class="text-xs uppercase tracking-wide text-[#004595]/70">Contact Number</p>
+								<p class="font-semibold text-[#002147]">{{ detailsItem?.principalPhone || 'Not provided.' }}</p>
 							</div>
 						</div>
-						<div class="flex justify-end">
+						<div class="flex justify-end border-t border-[#004595]/10 pt-3">
 							<button
 								type="button"
 								class="inline-flex items-center gap-1 rounded-lg bg-[#004595] px-4 py-2 text-sm font-bold text-white hover:bg-[#00326b] border-2 border-[#004595] transition"

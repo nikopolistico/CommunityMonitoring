@@ -264,30 +264,49 @@
 					role="dialog"
 					aria-modal="true"
 				>
-					<div class="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl space-y-4">
-						<div class="flex items-start gap-4">
-							<div class="p-2 bg-blue-100 text-[#00397a] rounded-lg">
+					<div class="w-full max-w-xl rounded-2xl bg-white p-6 shadow-2xl space-y-5 border border-[#00397a]/15">
+						<div class="flex items-start gap-4 border-b border-[#00397a]/10 pb-4">
+							<div class="p-2 bg-blue-100 text-[#00397a] rounded-xl">
 								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
 								</svg>
 							</div>
 							<div class="flex-1 space-y-1">
-								<h3 class="text-lg font-bold text-[#00397a]">{{ detailsItem?.churchName }}</h3>
-								<p class="text-sm text-gray-700">{{ detailsItem?.churchAddress || 'No address provided.' }}</p>
+								<h3 class="text-xl font-extrabold text-[#00397a]">{{ detailsItem?.churchName }}</h3>
+								<p class="text-sm text-gray-600">{{ detailsItem?.churchAddress || 'No address provided.' }}</p>
+							</div>
+							<span class="self-start rounded-full bg-[#00397a]/10 px-3 py-1 text-xs font-semibold text-[#00397a]">Church Details</span>
+						</div>
+						<div class="rounded-xl border border-[#00397a]/15 bg-[#f8fafc] p-3">
+							<div v-if="detailsItem?.churchImages" class="w-full h-56 overflow-hidden rounded-lg bg-white">
+								<img :src="detailsItem.churchImages" :alt="detailsItem.churchName" class="w-full h-full object-contain" />
+							</div>
+							<div v-else class="w-full h-56 rounded-lg bg-gradient-to-br from-[#00397a] to-[#002a63] flex items-center justify-center">
+								<svg class="w-16 h-16 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+									<path
+											fill-rule="evenodd"
+											d="M10 2a1 1 0 00-.832.445l-7 10A1 1 0 003 14h3v3a1 1 0 001 1h6a1 1 0 001-1v-3h3a1 1 0 00.832-1.555l-7-10A1 1 0 0010 2z"
+											clip-rule="evenodd"
+										/>
+								</svg>
 							</div>
 						</div>
-						<div class="grid gap-3 text-sm text-gray-700">
-							<div>
-								<span class="font-semibold text-[#00397a]">Church Leader:</span>
-								<span>{{ detailsItem?.leaderName || 'Not provided.' }}</span>
+						<div class="grid gap-3 text-sm text-gray-700 md:grid-cols-2">
+							<div class="rounded-lg border border-[#00397a]/10 bg-white px-3 py-2 md:col-span-2">
+								<p class="text-xs uppercase tracking-wide text-[#00397a]/70">Barangay</p>
+								<p class="font-semibold text-[#002147]">{{ communityInfo?.name || 'Not provided.' }}</p>
 							</div>
-							<div>
-								<span class="font-semibold text-[#00397a]">Registered:</span>
-								<span>{{ detailsItem?.leaderRegisteredLabel || 'Not provided.' }}</span>
+							<div class="rounded-lg border border-[#00397a]/10 bg-white px-3 py-2">
+								<p class="text-xs uppercase tracking-wide text-[#00397a]/70">Church Leader</p>
+								<p class="font-semibold text-[#002147]">{{ detailsItem?.leaderName || 'Not provided.' }}</p>
+							</div>
+							<div class="rounded-lg border border-[#00397a]/10 bg-white px-3 py-2">
+								<p class="text-xs uppercase tracking-wide text-[#00397a]/70">Registered</p>
+								<p class="font-semibold text-[#002147]">{{ detailsItem?.leaderRegisteredLabel || 'Not provided.' }}</p>
 							</div>
 						</div>
-						<div class="flex justify-end">
+						<div class="flex justify-end border-t border-[#00397a]/10 pt-3">
 							<button
 								type="button"
 								class="inline-flex items-center gap-1 rounded-lg bg-[#00397a] px-4 py-2 text-sm font-bold text-white hover:bg-[#002a63] border-2 border-[#00397a] transition"
