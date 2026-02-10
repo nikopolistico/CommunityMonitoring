@@ -264,17 +264,97 @@
                 <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10 hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-300">
                   <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -mr-20 -mt-20"></div>
-                    <div class="flex items-center gap-3 relative">
-                      <div class="p-2 bg-white/20 backdrop-blur-sm rounded-lg">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
-                        </svg>
+                    <div class="flex items-center justify-between gap-3 relative">
+                      <div class="flex items-center gap-3">
+                        <div class="p-2 bg-white/20 backdrop-blur-sm rounded-lg">
+                          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                          </svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-white tracking-wide">Barangay Captain</h2>
                       </div>
-                      <h2 class="text-xl font-bold text-white tracking-wide">Barangay Captain Information</h2>
+                      
+                      <!-- Edit Button -->
+                      <button
+                        v-if="!isEditing"
+                        @click="startEdit"
+                        class="group flex items-center gap-2 px-4 py-2 bg-white text-[#002147] rounded-xl hover:bg-[#f3f1ee] transition-all duration-300 font-bold text-sm shadow-lg hover:scale-105"
+                      >
+                        <svg class="w-4 h-4 group-hover:rotate-12 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                        </svg>
+                        Edit
+                      </button>
+                      
+                      <!-- Save/Cancel Buttons -->
+                      <div v-else class="flex items-center gap-2">
+                        <button
+                          @click="saveEdit"
+                          :disabled="saving"
+                          class="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:scale-110"
+                          title="Save Changes"
+                        >
+                          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                          </svg>
+                        </button>
+                        <button
+                          @click="cancelEdit"
+                          :disabled="saving"
+                          class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:scale-110"
+                          title="Cancel"
+                        >
+                          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
+                  
                   <div class="p-6 bg-gradient-to-br from-white to-[#f3f1ee]/30">
-                    <div class="grid md:grid-cols-2 gap-4">
+                    <!-- Profile Picture Section -->
+                    <div class="flex justify-center mb-6">
+                      <div class="relative group">
+                        <div class="w-32 h-32 rounded-2xl overflow-hidden border-4 border-[#004595]/20 shadow-lg relative">
+                          <img 
+                            v-if="captainInfo.profileImage" 
+                            :src="captainInfo.profileImage" 
+                            alt="Captain Profile"
+                            class="w-full h-full object-cover"
+                          />
+                          <div v-else class="w-full h-full bg-gradient-to-br from-[#002147] to-[#004595] flex items-center justify-center">
+                            <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                            </svg>
+                          </div>
+                        </div>
+                        
+                        <!-- Upload Button Overlay -->
+                        <button
+                          v-if="isEditing"
+                          @click="$refs.fileInput.click()"
+                          class="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300"
+                        >
+                          <div class="text-center">
+                            <svg class="w-8 h-8 text-white mx-auto mb-1" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.413V13H5.5z"/>
+                            </svg>
+                            <span class="text-white text-xs font-bold">Upload Photo</span>
+                          </div>
+                        </button>
+                        <input
+                          ref="fileInput"
+                          type="file"
+                          accept="image/*"
+                          @change="handleImageUpload"
+                          class="hidden"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Captain Information Grid -->
+                    <div v-if="!isEditing" class="grid md:grid-cols-2 gap-4">
                       <div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md hover:shadow-[#004595]/10 transition-all border border-[#004595]/10">
                         <div class="p-2 bg-gradient-to-br from-[#002147] to-[#004595] rounded-lg">
                           <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -319,6 +399,51 @@
                           <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Office Hours</p>
                           <p class="font-semibold text-[#002147]">{{ captainInfo.officeHours || 'Not available' }}</p>
                         </div>
+                      </div>
+                    </div>
+
+                    <!-- Edit Form -->
+                    <div v-else class="space-y-4">
+                      <div>
+                        <label class="block text-sm font-bold text-[#002147] mb-2">Full Name</label>
+                        <input
+                          v-model="editForm.name"
+                          type="text"
+                          class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm font-semibold text-[#002147]"
+                          placeholder="Enter full name"
+                        />
+                      </div>
+                      
+                      <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <label class="block text-sm font-bold text-[#002147] mb-2">Phone Number</label>
+                          <input
+                            v-model="editForm.phone"
+                            type="text"
+                            class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm font-semibold text-[#002147]"
+                            placeholder="Enter phone number"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label class="block text-sm font-bold text-[#002147] mb-2">Email Address</label>
+                          <input
+                            v-model="editForm.email"
+                            type="email"
+                            class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm font-semibold text-[#002147]"
+                            placeholder="Enter email address"
+                          />
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <label class="block text-sm font-bold text-[#002147] mb-2">Office Hours</label>
+                        <input
+                          v-model="editForm.officeHours"
+                          type="text"
+                          class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm font-semibold text-[#002147]"
+                          placeholder="e.g., Mon-Fri 8:00 AM - 5:00 PM"
+                        />
                       </div>
                     </div>
                   </div>
@@ -1345,6 +1470,7 @@ const editForm = ref({
   name: '',
   phone: '',
   email: '',
+  officeHours: ''
 })
 const captainId = ref(null)
 const fileInput = ref(null)
@@ -1529,6 +1655,7 @@ const startEdit = () => {
     name: captainInfo.value.name,
     phone: captainInfo.value.phone,
     email: captainInfo.value.email,
+    officeHours: captainInfo.value.officeHours,
   }
 }
 
@@ -1538,6 +1665,7 @@ const cancelEdit = () => {
     name: '',
     phone: '',
     email: '',
+    officeHours: ''
   }
 }
 
@@ -1555,6 +1683,7 @@ const saveEdit = async () => {
         Cptfullname: editForm.value.name,
         phone: editForm.value.phone,
         email: editForm.value.email,
+        office_hours: editForm.value.officeHours,
       })
       .eq('id', captainId.value)
 
