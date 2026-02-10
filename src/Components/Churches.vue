@@ -1,6 +1,6 @@
 <template>
 	<div class="min-h-screen bg-[#f3f1ee]">
-		<div class="mx-auto max-w-7xl px-4 py-10 space-y-8">
+		<div class="mx-auto max-w-none px-6 py-10 space-y-8">
 			<button
 				type="button"
 				class="inline-flex items-center gap-2 rounded-full bg-[#00397a] px-5 py-2.5 text-sm font-bold text-white hover:bg-white hover:text-[#00397a] border-2 border-[#00397a] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
@@ -61,19 +61,42 @@
 									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#00397a] focus:ring-2 focus:ring-[#00397a]/30 transition"
 									:disabled="loading"
 								/>
-							</label>						<label class="block space-y-2">
-							<span class="text-sm font-semibold text-[#002147]">Church Image</span>
-							<input
-								type="file"
-								accept="image/*"
-								@change="handleImageChange"
-								class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#00397a] focus:ring-2 focus:ring-[#00397a]/30 transition"
-								:disabled="loading"
-							/>
-						</label>
-						<div v-if="imagePreview" class="mt-2 rounded-lg border-2 border-gray-300 bg-gray-100">
-							<img :src="imagePreview" alt="Preview" class="w-full h-72 object-contain rounded-lg" />
-						</div>							<div class="flex gap-2">
+							</label>
+							<label class="block space-y-2">
+								<span class="text-sm font-semibold text-[#002147]">Church Leader Name</span>
+								<input
+									v-model="newLeaderName"
+									type="text"
+									placeholder="Enter leader full name"
+									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#00397a] focus:ring-2 focus:ring-[#00397a]/30 transition"
+									:disabled="loading"
+								/>
+							</label>
+							<label class="block space-y-2">
+								<span class="text-sm font-semibold text-[#002147]">Leader Registration</span>
+								<select
+									v-model="newLeaderRegistration"
+									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#00397a] focus:ring-2 focus:ring-[#00397a]/30 transition"
+									:disabled="loading"
+								>
+									<option value="yes">Yes</option>
+									<option value="no">No</option>
+								</select>
+							</label>
+							<label class="block space-y-2">
+								<span class="text-sm font-semibold text-[#002147]">Church Image</span>
+								<input
+									type="file"
+									accept="image/*"
+									@change="handleImageChange"
+									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#00397a] focus:ring-2 focus:ring-[#00397a]/30 transition"
+									:disabled="loading"
+								/>
+							</label>
+							<div v-if="imagePreview" class="mt-2 rounded-lg border-2 border-gray-300 bg-gray-100">
+								<img :src="imagePreview" alt="Preview" class="w-full h-72 object-contain rounded-lg" />
+							</div>
+							<div class="flex gap-2">
 								<button
 									type="button"
 									class="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-[#00397a] px-4 py-2 text-sm font-bold text-white hover:bg-white hover:text-[#00397a] border-2 border-[#00397a] transition disabled:opacity-50 disabled:cursor-not-allowed"
@@ -95,7 +118,7 @@
 						<p class="text-xs text-gray-500">Changes are saved to Supabase database.</p>
 					</div>
 
-				<div class="grid gap-5 md:grid-cols-2">
+				<div class="grid gap-5 md:grid-cols-3">
 					<div v-if="loading" class="col-span-2 text-center py-12">
 						<div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#00397a] border-t-transparent"></div>
 						<p class="mt-4 text-gray-600">Loading churches...</p>
@@ -256,10 +279,12 @@
 						</div>
 						<div class="grid gap-3 text-sm text-gray-700">
 							<div>
-								<span class="font-semibold text-[#00397a]">Priests:</span>
-								<span>
-									{{ Array.isArray(detailsItem?.priests) ? detailsItem?.priests.join(', ') : (detailsItem?.priests || 'Not provided.') }}
-								</span>
+								<span class="font-semibold text-[#00397a]">Church Leader:</span>
+								<span>{{ detailsItem?.leaderName || 'Not provided.' }}</span>
+							</div>
+							<div>
+								<span class="font-semibold text-[#00397a]">Registered:</span>
+								<span>{{ detailsItem?.leaderRegisteredLabel || 'Not provided.' }}</span>
 							</div>
 						</div>
 						<div class="flex justify-end">
@@ -324,6 +349,8 @@ const newName = ref('')
 const newAddress = ref('')
 const newImage = ref(null)
 const imagePreview = ref('')
+const newLeaderName = ref('')
+const newLeaderRegistration = ref('yes')
 const editingId = ref(null)
 const editingName = ref('')
 const showDeleteConfirm = ref(false)
@@ -401,6 +428,8 @@ watch(
 		newAddress.value = ''
 		newImage.value = null
 		imagePreview.value = ''
+		newLeaderName.value = ''
+		newLeaderRegistration.value = 'yes'
 	},
 	{ immediate: true }
 )
@@ -477,11 +506,27 @@ const addItem = async () => {
 		
 		if (data && data.length > 0) {
 			items.value.push(data[0])
+			const leaderName = newLeaderName.value.trim()
+			const leaderRegistered = newLeaderRegistration.value === 'yes'
+			if (leaderName || newLeaderRegistration.value) {
+				const { error: leaderError } = await supabase
+					.from('ChurchLeader')
+					.insert([
+						{
+							fullname: leaderName || null,
+							registration: leaderRegistered,
+							ch_id: data[0].id
+						}
+					])
+				if (leaderError) throw leaderError
+			}
 		}
 		newName.value = ''
 		newAddress.value = ''
 		newImage.value = null
 		imagePreview.value = ''
+		newLeaderName.value = ''
+		newLeaderRegistration.value = 'yes'
 		showAddForm.value = false
 	} catch (error) {
 		console.error('Error adding church:', error)
@@ -585,9 +630,26 @@ const confirmDelete = () => {
 	closeDelete()
 }
 
-const openDetails = (item) => {
-	detailsItem.value = item
+const openDetails = async (item) => {
+	detailsItem.value = { ...item }
 	showDetails.value = true
+	try {
+		const { data, error } = await supabase
+			.from('ChurchLeader')
+			.select('fullname, registration')
+			.eq('ch_id', item.id)
+			.maybeSingle()
+		if (error) throw error
+		if (data) {
+			detailsItem.value = {
+				...detailsItem.value,
+				leaderName: data.fullname,
+				leaderRegisteredLabel: data.registration === null ? null : (data.registration ? 'Yes' : 'No')
+			}
+		}
+	} catch (error) {
+		console.error('Error fetching leader details:', error)
+	}
 }
 
 const closeDetails = () => {
