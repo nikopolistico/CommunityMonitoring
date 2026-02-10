@@ -1,6 +1,6 @@
 <template>
 	<div class="min-h-screen bg-[#f3f1ee]">
-		<div class="mx-auto max-w-7xl px-4 py-10 space-y-8">
+		<div class="mx-auto max-w-none px-6 py-10 space-y-8">
 			<button
 				type="button"
 				class="inline-flex items-center gap-2 rounded-full bg-[#004595] px-5 py-2.5 text-sm font-bold text-white hover:bg-white hover:text-[#004595] border-2 border-[#004595] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
@@ -63,27 +63,39 @@
 								/>
 							</label>
 							<label class="block space-y-2">
-								<span class="text-sm font-semibold text-[#002147]">School Level</span>
+								<span class="text-sm font-semibold text-[#002147]">School Principal Name</span>
 								<input
-									v-model="newLevel"
+									v-model="newPrincipalName"
 									type="text"
-									placeholder="Enter school level (e.g., Primary, Secondary)"
+									placeholder="Enter principal full name"
 									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/30 transition"
 									:disabled="loading"
 								/>
-							</label>						<label class="block space-y-2">
-							<span class="text-sm font-semibold text-[#002147]">School Image</span>
-							<input
-								type="file"
-								accept="image/*"
-								@change="handleImageChange"
-								class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/30 transition"
-								:disabled="loading"
-							/>
-						</label>
-						<div v-if="imagePreview" class="mt-2 rounded-lg border-2 border-gray-300 bg-gray-100">
-							<img :src="imagePreview" alt="Preview" class="w-full h-72 object-contain rounded-lg" />
-						</div>							<div class="flex gap-2">
+							</label>
+							<label class="block space-y-2">
+								<span class="text-sm font-semibold text-[#002147]">Principal Contact Number</span>
+								<input
+									v-model="newPrincipalContact"
+									type="text"
+									placeholder="Enter contact number"
+									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/30 transition"
+									:disabled="loading"
+								/>
+							</label>
+							<label class="block space-y-2">
+								<span class="text-sm font-semibold text-[#002147]">School Image</span>
+								<input
+									type="file"
+									accept="image/*"
+									@change="handleImageChange"
+									class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/30 transition"
+									:disabled="loading"
+								/>
+							</label>
+							<div v-if="imagePreview" class="mt-2 rounded-lg border-2 border-gray-300 bg-gray-100">
+								<img :src="imagePreview" alt="Preview" class="w-full h-72 object-contain rounded-lg" />
+							</div>
+								<div class="flex gap-2">
 								<button
 									type="button"
 									class="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-[#004595] px-4 py-2 text-sm font-bold text-white hover:bg-white hover:text-[#004595] border-2 border-[#004595] transition disabled:opacity-50 disabled:cursor-not-allowed"
@@ -105,7 +117,7 @@
 						<p class="text-xs text-gray-500">Changes are saved to Supabase database.</p> 
 					</div>
 
-				<div class="grid gap-5 md:grid-cols-2">
+				<div class="grid gap-5 md:grid-cols-3">
 					<div v-if="loading" class="col-span-2 text-center py-12">
 						<div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#004595] border-t-transparent"></div>
 						<p class="mt-4 text-gray-600">Loading schools...</p>
@@ -265,13 +277,11 @@
 						<div class="grid gap-3 text-sm text-gray-700">
 							<div>
 								<span class="font-semibold text-[#004595]">Principal:</span>
-								<span>{{ detailsItem?.principal || 'Not provided.' }}</span>
+								<span>{{ detailsItem?.principalName || 'Not provided.' }}</span>
 							</div>
 							<div>
-								<span class="font-semibold text-[#004595]">Teachers:</span>
-								<span>
-									{{ Array.isArray(detailsItem?.teachers) ? detailsItem?.teachers.join(', ') : (detailsItem?.teachers || 'Not provided.') }}
-								</span>
+								<span class="font-semibold text-[#004595]">Contact Number:</span>
+								<span>{{ detailsItem?.principalPhone || 'Not provided.' }}</span>
 							</div>
 						</div>
 						<div class="flex justify-end">
@@ -334,9 +344,10 @@ const communityInfo = computed(() => {
 const items = ref([])
 const newName = ref('')
 const newAddress = ref('')
-const newLevel = ref('')
 const newImage = ref(null)
 const imagePreview = ref('')
+const newPrincipalName = ref('')
+const newPrincipalContact = ref('')
 const editingId = ref(null)
 const editingName = ref('')
 const showDeleteConfirm = ref(false)
@@ -412,9 +423,10 @@ watch(
 		editingName.value = ''
 		newName.value = ''
 		newAddress.value = ''
-		newLevel.value = ''
 		newImage.value = null
 		imagePreview.value = ''
+		newPrincipalName.value = ''
+		newPrincipalContact.value = ''
 	},
 	{ immediate: true }
 )
@@ -491,12 +503,27 @@ const addItem = async () => {
 		
 		if (data && data.length > 0) {
 			items.value.push(data[0])
+			const principalName = newPrincipalName.value.trim()
+			const principalPhone = newPrincipalContact.value.trim()
+			if (principalName || principalPhone) {
+				const { error: principalError } = await supabase
+					.from('SchoolPrincipal')
+					.insert([
+						{
+							fullname: principalName || null,
+							phone: principalPhone || null,
+							sch_id: data[0].id
+						}
+					])
+				if (principalError) throw principalError
+			}
 		}
 		newName.value = ''
 		newAddress.value = ''
-		newLevel.value = ''
 		newImage.value = null
 		imagePreview.value = ''
+		newPrincipalName.value = ''
+		newPrincipalContact.value = ''
 		showAddForm.value = false
 	} catch (error) {
 		console.error('Error adding school:', error)
@@ -600,9 +627,26 @@ const confirmDelete = () => {
 	closeDelete()
 }
 
-const openDetails = (item) => {
-	detailsItem.value = item
+const openDetails = async (item) => {
+	detailsItem.value = { ...item }
 	showDetails.value = true
+	try {
+		const { data, error } = await supabase
+			.from('SchoolPrincipal')
+			.select('fullname, phone')
+			.eq('sch_id', item.id)
+			.maybeSingle()
+		if (error) throw error
+		if (data) {
+			detailsItem.value = {
+				...detailsItem.value,
+				principalName: data.fullname,
+				principalPhone: data.phone
+			}
+		}
+	} catch (error) {
+		console.error('Error fetching principal details:', error)
+	}
 }
 
 const closeDetails = () => {
