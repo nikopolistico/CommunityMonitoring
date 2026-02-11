@@ -1330,27 +1330,37 @@
 
       <!-- Add Personnel Modal -->
       <div v-if="showModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closeModal">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all max-h-[90vh] overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
           <!-- Modal Header -->
-          <div class="bg-gradient-to-r from-[#002147] to-[#00397a] px-6 py-5 sticky top-0 z-10">
-            <div class="flex items-center gap-3">
-              <div class="p-2 bg-white/20 rounded-lg">
-                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
-                </svg>
+          <div class="bg-gradient-to-r from-[#002147] to-[#00397a] px-5 py-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="p-1.5 bg-white/20 rounded-lg">
+                  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <h3 class="text-base font-bold text-white">{{ isEditMode ? 'Edit Officer' : 'Add Officer' }}</h3>
               </div>
-              <h3 class="text-xl font-bold text-white">{{ isEditMode ? 'Edit Officer' : 'Add Officer' }}</h3>
+              <button
+                type="button"
+                @click="closeModal"
+                class="p-1 hover:bg-white/20 rounded-lg transition-all"
+              >
+                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </button>
             </div>
           </div>
           
           <!-- Modal Body -->
-          <form @submit.prevent="submitPersonnel" class="p-6 space-y-5">
-            <!-- Photo Upload Section -->
-            <div>
-              <label class="block text-sm font-bold text-[#002147] mb-3">Profile Photo</label>
+          <form @submit.prevent="submitPersonnel" class="p-5">
+            <div class="space-y-3">
+              <!-- Photo Upload Section -->
               <div class="flex flex-col items-center">
                 <div class="relative group">
-                  <div class="w-32 h-32 rounded-2xl overflow-hidden border-4 border-[#004595]/20 shadow-lg">
+                  <div class="w-24 h-24 rounded-xl overflow-hidden border-2 border-[#004595]/20 shadow-md">
                     <img 
                       v-if="personnelForm.photo_url" 
                       :src="personnelForm.photo_url" 
@@ -1358,7 +1368,7 @@
                       class="w-full h-full object-cover"
                     />
                     <div v-else class="w-full h-full bg-gradient-to-br from-[#002147] to-[#004595] flex items-center justify-center">
-                      <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                       </svg>
                     </div>
@@ -1367,21 +1377,20 @@
                   <!-- Upload Button Overlay -->
                   <button
                     type="button"
-                    @click="$refs.personnelPhotoInput.click()"
+                    @click="personnelPhotoInput?.click()"
                     :disabled="uploadingPhoto"
-                    class="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 disabled:opacity-50"
+                    class="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 disabled:opacity-50"
                   >
                     <div class="text-center">
-                      <svg v-if="!uploadingPhoto" class="w-8 h-8 text-white mx-auto mb-1" fill="currentColor" viewBox="0 0 20 20">
+                      <svg v-if="!uploadingPhoto" class="w-5 h-5 text-white mx-auto" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.413V13H5.5z"/>
                       </svg>
-                      <div v-else class="w-8 h-8 mx-auto mb-1">
+                      <div v-else class="w-5 h-5 mx-auto">
                         <svg class="animate-spin text-white" fill="none" viewBox="0 0 24 24">
                           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
                       </div>
-                      <span class="text-white text-xs font-bold">{{ uploadingPhoto ? 'Uploading...' : 'Upload Photo' }}</span>
                     </div>
                   </button>
                   <input
@@ -1392,39 +1401,38 @@
                     class="hidden"
                   />
                 </div>
-                <p class="text-xs text-[#00397a] mt-2 text-center">Click to upload or change photo (Max 5MB)</p>
+                <p class="text-[9px] text-[#00397a] mt-1.5 text-center">Click photo to upload (Max 5MB)</p>
               </div>
-            </div>
 
-            <div>
-              <label class="block text-sm font-bold text-[#002147] mb-2">Full Name</label>
-              <input
-                v-model="personnelForm.fullname"
-                type="text"
-                required
-                class="w-full px-4 py-3 border-2 border-[#f3f1ee] rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm"
-                placeholder="Enter full name"
-              />
-            </div>
+              <!-- Form Fields -->
+              <div>
+                <label class="block text-xs font-semibold text-[#002147] mb-1">Full Name</label>
+                <input
+                  v-model="personnelForm.fullname"
+                  type="text"
+                  required
+                  class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
+                  placeholder="Enter full name"
+                />
+              </div>
 
-            <div>
-              <label class="block text-sm font-bold text-[#002147] mb-2">Phone Number</label>
-              <input
-                v-model="personnelForm.phone_number"
-                type="text"
-                required
-                class="w-full px-4 py-3 border-2 border-[#f3f1ee] rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm"
-                placeholder="Enter phone number"
-              />
-            </div>
+              <div>
+                <label class="block text-xs font-semibold text-[#002147] mb-1">Phone Number</label>
+                <input
+                  v-model="personnelForm.phone_number"
+                  type="text"
+                  required
+                  class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
+                  placeholder="Enter phone number"
+                />
+              </div>
 
-            <div>
-              <label class="block text-sm font-bold text-[#002147] mb-2">Position / Role</label>
-              <div class="space-y-2">
+              <div>
+                <label class="block text-xs font-semibold text-[#002147] mb-1">Position / Role</label>
                 <select
                   v-model="personnelForm.position"
                   required
-                  class="w-full px-4 py-3 border-2 border-[#f3f1ee] rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm bg-white"
+                  class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm bg-white"
                 >
                   <option value="" disabled>Select a position</option>
                   <optgroup label="Available Positions" v-if="positions.length > 0">
@@ -1438,30 +1446,31 @@
                     <option value="Purok Leader 5">Purok Leader 5</option>
                   </optgroup>
                 </select>
-                <p class="text-xs text-[#00397a] flex items-center gap-1">
-                  <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <p class="text-[9px] text-[#00397a] mt-1 flex items-center gap-1">
+                  <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                   </svg>
                   Need a new position? Click "Create Position" button first
                 </p>
               </div>
-            </div>
 
-            <div class="flex gap-3 pt-2">
-              <button
-                type="button"
-                @click="closeModal"
-                class="flex-1 px-4 py-3 border-2 border-[#f3f1ee] text-[#002147] rounded-xl hover:bg-[#f3f1ee] transition-all font-semibold text-sm"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                :disabled="submitting || uploadingPhoto"
-                class="flex-1 px-4 py-3 bg-gradient-to-r from-[#002147] to-[#00397a] text-white rounded-xl hover:shadow-lg transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-              >
-                {{ submitting ? (isEditMode ? 'Updating...' : 'Adding...') : (isEditMode ? 'Update Officer' : 'Add Officer') }}
-              </button>
+              <!-- Action Buttons -->
+              <div class="flex gap-2 pt-1">
+                <button
+                  type="button"
+                  @click="closeModal"
+                  class="flex-1 px-4 py-2 border-2 border-[#f3f1ee] text-[#002147] rounded-lg hover:bg-[#f3f1ee] transition-all font-semibold text-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  :disabled="submitting || uploadingPhoto"
+                  class="flex-1 px-4 py-2 bg-gradient-to-r from-[#002147] to-[#00397a] text-white rounded-lg hover:shadow-lg transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                >
+                  {{ submitting ? (isEditMode ? 'Updating...' : 'Adding...') : (isEditMode ? 'Update' : 'Add') }}
+                </button>
+              </div>
             </div>
           </form>
         </div>
@@ -2209,17 +2218,32 @@
   }
 
   const editFromDetails = () => {
+    console.log('Edit from details clicked', selectedPersonnel.value)
     if (selectedPersonnel.value) {
-      closeDetailsModal()
-      isEditMode.value = true
-      editingPersonnelId.value = selectedPersonnel.value.id
-      personnelForm.value = {
-        fullname: selectedPersonnel.value.name,
-        phone_number: selectedPersonnel.value.phone,
+      // Store the selected personnel data before closing the modal
+      const personnelData = {
+        id: selectedPersonnel.value.id,
+        name: selectedPersonnel.value.name,
+        phone: selectedPersonnel.value.phone,
         position: selectedPersonnel.value.position,
         photo_url: selectedPersonnel.value.photo_url || ''
       }
-      showModal.value = true
+      
+      closeDetailsModal()
+      
+      // Use nextTick or setTimeout to ensure the details modal is fully closed
+      setTimeout(() => {
+        isEditMode.value = true
+        editingPersonnelId.value = personnelData.id
+        personnelForm.value = {
+          fullname: personnelData.name,
+          phone_number: personnelData.phone,
+          position: personnelData.position,
+          photo_url: personnelData.photo_url
+        }
+        console.log('Opening edit modal with form:', personnelForm.value)
+        showModal.value = true
+      }, 100)
     }
   }
 
@@ -2251,9 +2275,12 @@
       return
     }
 
+    console.log('Submit Personnel - isEditMode:', isEditMode.value, 'editingPersonnelId:', editingPersonnelId.value)
+    
     submitting.value = true
     try {
       if (isEditMode.value && editingPersonnelId.value) {
+        console.log('Updating personnel with ID:', editingPersonnelId.value)
         // Update existing personnel
         const { data, error } = await supabase
           .from('BrgyMembers')
