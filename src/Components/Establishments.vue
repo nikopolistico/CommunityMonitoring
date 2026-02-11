@@ -560,8 +560,8 @@
 					<div v-else class="p-6 space-y-6">
 						<!-- Establishment Image -->
 						<div class="rounded-xl overflow-hidden border-2 border-[#004595]/10">
-							<div v-if="detailsItem?.establishmentImages" class="w-full h-80 overflow-hidden bg-gray-50">
-								<img :src="detailsItem.establishmentImages" :alt="detailsItem.establishmentName" class="w-full h-full object-cover" />
+							<div v-if="detailsItem?.establishmentImages" class="w-full bg-gray-50">
+								<img :src="detailsItem.establishmentImages" :alt="detailsItem.establishmentName" class="w-full h-auto object-contain" />
 							</div>
 							<div v-else class="w-full h-80 bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center relative overflow-hidden">
 								<div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-20 -mt-20"></div>
