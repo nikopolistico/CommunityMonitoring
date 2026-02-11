@@ -1,465 +1,502 @@
 <template>
-	<div class="min-h-screen bg-gradient-to-br from-[#f3f1ee] via-[#ffffff] to-[#f3f1ee]">
-		<div class="mx-auto max-w-7xl px-6 py-8 space-y-8">
-			<!-- Back Button -->
+	<div class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 font-['Poppins']">
+		<div class="mx-auto max-w-none px-6 py-10 space-y-8">
 			<button
 				type="button"
-				class="group inline-flex items-center gap-2 rounded-2xl bg-white border-2 border-[#002147]/10 px-6 py-3 text-sm font-semibold text-[#002147] hover:border-[#004595] hover:bg-[#f3f1ee] hover:shadow-lg transition-all duration-300"
-				@click="goBack" 
+				class="inline-flex items-center gap-3 rounded-xl bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-3.5 text-sm font-semibold text-white hover:shadow-xl hover:shadow-[#004595]/20 hover:scale-[1.02] transition-all duration-300"
+				@click="goBack"
 			>
-				<svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
 				</svg>
-				Back to Community
+				<span class="tracking-wide">Back to Community</span>
 			</button>
 
-			<section v-if="communityInfo" class="space-y-8">
-				<!-- Hero Header -->
-				<div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] p-12 shadow-xl">
-					<div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -mr-48 -mt-48"></div>
-					<div class="absolute bottom-0 left-0 w-80 h-80 bg-white/5 rounded-full blur-3xl -ml-40 -mb-40"></div>
+			<section v-if="communityInfo" class="space-y-6">
+				<!-- Enhanced Header Card -->
+				<div class="rounded-2xl bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] p-8 shadow-2xl shadow-[#004595]/30 text-white relative overflow-hidden">
+					<!-- Animated Background Elements -->
+					<div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-20 -mt-20 animate-pulse"></div>
+					<div class="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-xl -ml-16 -mb-16"></div>
 					<div class="relative z-10">
-						<div class="flex items-center gap-4 mb-4">
-							<div class="p-3.5 bg-white/15 backdrop-blur-md rounded-2xl shadow-lg">
-								<svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
-								</svg>
-							</div>
-							<div class="flex-1">
-								<span class="inline-block text-xs uppercase tracking-[0.25em] font-semibold text-white/60 mb-1">Educational Institutions</span>
-								<h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight">{{ communityInfo.name }}</h1>
-							</div>
-						</div>
-						<p class="text-base text-white/75 max-w-3xl leading-relaxed mt-3">Empowering the community through quality education and academic excellence.</p>
+						<p class="text-sm uppercase tracking-widest font-semibold opacity-90">Schools</p>
+						<h1 class="text-4xl font-extrabold mt-2">{{ communityInfo.name }}</h1>
+						<p class="text-lg text-white/90 mt-2">Educational institutions in this barangay.</p>
 					</div>
 				</div>
 
-				<!-- Action Bar -->
-				<div class="flex flex-col sm:flex-row gap-4">
+				<div class="flex gap-3">
 					<!-- Add Button -->
 					<button
 						type="button"
-						class="group inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-br from-[#002147] to-[#004595] px-7 py-3.5 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:from-[#00397a] hover:to-[#004595] transition-all duration-300"
-						@click="showAddForm = !showAddForm"
+						class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#002147] to-[#00397a] px-5 py-2.5 text-sm font-semibold text-white hover:shadow-lg hover:shadow-[#004595]/30 hover:scale-[1.02] transition-all duration-300"
+						@click="showAddModal = true"
 					>
-						<svg class="w-5 h-5 transition-transform group-hover:rotate-90 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+							<path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
 						</svg>
-						Add New School
+						Add School
 					</button>
 
 					<!-- Search Bar -->
 					<div class="flex-1 relative">
-						<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-							<svg class="w-5 h-5 text-[#00397a]/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-							</svg>
-						</div>
+						<svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+						</svg>
 						<input
 							v-model="searchQuery"
 							type="text"
-							placeholder="Search by school name or address..."
-							class="w-full rounded-2xl border-2 border-[#002147]/10 bg-white pl-12 pr-4 py-3.5 text-sm placeholder:text-[#00397a]/40 focus:border-[#004595] focus:ring-4 focus:ring-[#004595]/10 transition-all duration-300 shadow-sm hover:border-[#004595]/30 hover:shadow-md"
+							placeholder="Search schools..."
+							class="w-full rounded-xl border-2 border-[#f3f1ee] pl-10 pr-4 py-2.5 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
 						/>
 					</div>
 				</div>
 
-				<!-- Collapsible Add Form -->
-				<div v-if="showAddForm" class="bg-white rounded-3xl border border-[#002147]/10 p-8 shadow-xl space-y-6 animate-slideDown">
-					<div class="flex items-center gap-3 pb-5 border-b border-[#f3f1ee]">
-						<div class="p-2.5 bg-gradient-to-br from-[#002147] to-[#004595] rounded-xl shadow-md">
-							<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-							</svg>
-						</div>
-						<h3 class="text-2xl font-bold text-[#002147]">Add New School</h3>
-					</div>
-					
-					<div class="grid gap-6 md:grid-cols-2">
-						<label class="block space-y-2.5">
-							<span class="text-xs font-semibold text-[#002147] uppercase tracking-wider flex items-center gap-2">
-								School Name
-								<span class="text-[#004595]">*</span>
-							</span>
-							<input
-								v-model="newName"
-								type="text"
-								placeholder="e.g., Butuan Central Elementary School"
-								class="w-full rounded-xl border border-[#002147]/10 px-4 py-3.5 text-sm focus:border-[#004595] focus:ring-4 focus:ring-[#004595]/10 transition-all duration-300 hover:border-[#004595]/30 bg-[#f3f1ee]/30 focus:bg-white"
-								:disabled="loading"
-							/>
-						</label>
-						<label class="block space-y-2.5">
-							<span class="text-xs font-semibold text-[#002147] uppercase tracking-wider">School Address</span>
-							<input
-								v-model="newAddress"
-								type="text"
-								placeholder="e.g., P. Burgos St., Butuan City"
-								class="w-full rounded-xl border border-[#002147]/10 px-4 py-3.5 text-sm focus:border-[#004595] focus:ring-4 focus:ring-[#004595]/10 transition-all duration-300 hover:border-[#004595]/30 bg-[#f3f1ee]/30 focus:bg-white"
-								:disabled="loading"
-							/>
-						</label>
-						<label class="block space-y-2.5">
-							<span class="text-xs font-semibold text-[#002147] uppercase tracking-wider">Principal Name</span>
-							<input
-								v-model="newPrincipalName"
-								type="text"
-								placeholder="e.g., Dr. Juan Dela Cruz"
-								class="w-full rounded-xl border border-[#002147]/10 px-4 py-3.5 text-sm focus:border-[#004595] focus:ring-4 focus:ring-[#004595]/10 transition-all duration-300 hover:border-[#004595]/30 bg-[#f3f1ee]/30 focus:bg-white"
-								:disabled="loading"
-							/>
-						</label>
-						<label class="block space-y-2.5">
-							<span class="text-xs font-semibold text-[#002147] uppercase tracking-wider">Principal Contact</span>
-							<input
-								v-model="newPrincipalContact"
-								type="text"
-								placeholder="e.g., 0912-345-6789"
-								class="w-full rounded-xl border border-[#002147]/10 px-4 py-3.5 text-sm focus:border-[#004595] focus:ring-4 focus:ring-[#004595]/10 transition-all duration-300 hover:border-[#004595]/30 bg-[#f3f1ee]/30 focus:bg-white"
-								:disabled="loading"
-							/>
-						</label>
-					</div>
-
-					<label class="block space-y-2.5">
-						<span class="text-xs font-semibold text-[#002147] uppercase tracking-wider">School Image</span>
-						<div class="relative">
-							<input
-								type="file"
-								accept="image/*"
-								@change="handleImageChange"
-								class="w-full rounded-xl border border-[#002147]/10 px-4 py-3.5 text-sm focus:border-[#004595] focus:ring-4 focus:ring-[#004595]/10 transition-all duration-300 file:mr-4 file:py-2.5 file:px-5 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-gradient-to-br file:from-[#002147] file:to-[#004595] file:text-white hover:file:opacity-90 file:transition-all file:cursor-pointer bg-[#f3f1ee]/30 focus:bg-white"
-								:disabled="loading"
-							/>
-						</div>
-					</label>
-					
-					<div v-if="imagePreview" class="rounded-2xl border border-[#002147]/10 bg-[#f3f1ee]/50 p-5">
-						<img :src="imagePreview" alt="Preview" class="w-full h-80 object-contain rounded-xl shadow-md" />
-					</div>
-
-					<div class="flex gap-3 pt-4">
-						<button
-							type="button"
-							class="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[#002147] to-[#004595] px-6 py-3.5 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:from-[#00397a] hover:to-[#004595] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-							@click="addItem"
-							:disabled="loading"
-						>
-							<svg v-if="!loading" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-							</svg>
-							<div v-else class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-							{{ loading ? 'Adding...' : 'Add School' }}
-						</button>
-						<button
-							type="button"
-							class="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-[#002147] border border-[#002147]/20 hover:bg-[#f3f1ee] hover:border-[#004595] transition-all duration-300"
-							@click="showAddForm = false"
-						>
-							Cancel
-						</button>
-					</div>
-					<p class="text-xs text-[#00397a]/60 flex items-center gap-2 bg-[#f3f1ee]/50 px-4 py-3 rounded-xl">
-						<svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-							<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
-						</svg>
-						All changes are automatically saved to the database.
-					</p>
-				</div>
-
 				<!-- Schools Grid -->
-				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-					<div v-if="loading" class="col-span-full flex flex-col items-center justify-center py-24">
-						<div class="relative">
-							<div class="w-16 h-16 border-4 border-[#f3f1ee] border-t-[#002147] rounded-full animate-spin"></div>
-							<div class="absolute inset-0 w-16 h-16 border-4 border-transparent border-b-[#004595] rounded-full animate-spin" style="animation-delay: -0.15s"></div>
-						</div>
-						<p class="mt-6 text-[#002147] font-semibold">Loading schools...</p>
+				<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+					<div v-if="loading" class="col-span-full text-center py-16">
+						<div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#004595] border-t-transparent"></div>
+						<p class="mt-4 text-gray-600 font-medium">Loading schools...</p>
 					</div>
 
-					<div v-else-if="filteredItems.length === 0" class="col-span-full flex flex-col items-center justify-center py-24 bg-white rounded-3xl border border-dashed border-[#002147]/20">
-						<div class="p-5 bg-[#f3f1ee] rounded-2xl mb-5 shadow-inner">
-							<svg class="w-14 h-14 text-[#00397a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+					<div v-else-if="filteredItems.length === 0" class="col-span-full text-center py-16">
+						<div class="inline-block p-4 bg-gray-100 rounded-full mb-4">
+							<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
 							</svg>
 						</div>
-						<p class="text-[#002147] font-bold text-xl mb-2">{{ searchQuery ? 'No schools found' : 'No schools yet' }}</p>
-						<p class="text-[#00397a]/60 text-sm">{{ searchQuery ? 'Try adjusting your search criteria.' : 'Click "Add New School" to get started!' }}</p>
+						<p class="text-gray-600 font-medium">{{ searchQuery ? 'No schools found matching your search.' : 'No schools yet. Add one to get started!' }}</p>
 					</div>
-
-					<!-- School Card -->
+					
 					<article
 						v-for="(item, index) in filteredItems"
 						:key="item.id || index"
-						class="group relative bg-white rounded-2xl border border-[#002147]/10 shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden hover:-translate-y-1"
+						class="rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-[#004595]/10 hover:border-[#004595]/30 transform hover:-translate-y-1"
 					>
-						<!-- Subtle Gradient Overlay on Hover -->
-						<div class="absolute inset-0 bg-gradient-to-br from-[#002147]/5 via-transparent to-[#004595]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"></div>
-						
 						<!-- School Image -->
-						<div class="relative overflow-hidden h-56">
-							<div v-if="item.schoolImages" class="w-full h-full bg-[#f3f1ee]">
-								<img :src="item.schoolImages" :alt="item.schoolName" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-							</div>
-							<div v-else class="w-full h-full bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center">
-								<svg class="w-20 h-20 text-white/30 transition-transform duration-700 group-hover:scale-110" fill="currentColor" viewBox="0 0 20 20">
-									<path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
-								</svg>
-							</div>
-							<!-- Status Badge -->
-							<div class="absolute top-3 right-3">
-								<span class="px-3 py-1.5 bg-white/95 backdrop-blur-sm text-[#004595] text-xs font-semibold rounded-full shadow-lg border border-[#004595]/20">Active</span>
-							</div>
+						<div v-if="item.schoolImages" class="w-full h-56 overflow-hidden bg-gray-50">
+							<img :src="item.schoolImages" :alt="item.schoolName" class="w-full h-full object-cover" />
+						</div>
+						<div v-else class="w-full h-56 bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center relative overflow-hidden">
+							<div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-16 -mt-16"></div>
+							<svg class="w-20 h-20 text-white/50 relative z-10" fill="currentColor" viewBox="0 0 20 20">
+								<path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+							</svg>
 						</div>
 
-						<!-- Content -->
-						<div class="relative z-20 p-6 space-y-4">
+						<div class="p-5">
+							<!-- Editing Mode -->
 							<div v-if="editingId === item.id" class="space-y-3">
+								<!-- Photo Upload Section -->
+								<div class="flex flex-col items-center mb-3">
+									<div class="relative group">
+										<div class="w-24 h-24 rounded-xl overflow-hidden border-2 border-[#004595]/20 shadow-md cursor-pointer" @click="$refs['editFileInput' + item.id][0].click()">
+											<img v-if="editImagePreview || item.schoolImages" :src="editImagePreview || item.schoolImages" :alt="item.schoolName" class="w-full h-full object-cover" />
+											<div v-else class="w-full h-full bg-gradient-to-br from-[#002147] to-[#004595] flex items-center justify-center">
+												<svg class="w-8 h-8 text-white/50" fill="currentColor" viewBox="0 0 20 20">
+													<path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z"/>
+												</svg>
+											</div>
+										</div>
+										<input
+											:ref="'editFileInput' + item.id"
+											type="file"
+											accept="image/*"
+											@change="handleEditImageChange($event, item.id)"
+											class="hidden"
+										/>
+									</div>
+									<p class="text-[9px] text-[#00397a] mt-1.5 text-center">Click photo to update</p>
+								</div>
+
 								<input
 									v-model="editingName"
 									type="text"
-									class="w-full rounded-xl border border-[#002147]/20 px-4 py-3 text-sm focus:border-[#004595] focus:ring-4 focus:ring-[#004595]/10 transition-all bg-[#f3f1ee]/30 focus:bg-white"
+									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm font-semibold"
+									placeholder="School name"
 								/>
-								<div class="flex gap-2">
+								<input
+									v-model="editingAddress"
+									type="text"
+									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
+									placeholder="School address"
+								/>
+								<div class="space-y-2">
+									<input
+										v-model="editingPrincipalName"
+										type="text"
+										class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
+										placeholder="Principal name"
+									/>
+									<input
+										v-model="editingPrincipalContact"
+										type="text"
+										class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
+										placeholder="Principal contact"
+									/>
+								</div>
+								<div class="flex gap-2 pt-2">
 									<button
 										type="button"
-										class="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-br from-[#002147] to-[#004595] px-3 py-2.5 text-xs font-semibold text-white hover:shadow-lg transition-all"
 										@click="saveEdit"
+										:disabled="uploadingPhoto"
+										class="flex-1 rounded-lg bg-gradient-to-r from-[#002147] to-[#00397a] px-3 py-2 text-xs font-semibold text-white hover:shadow-lg transition-all disabled:opacity-50"
 									>
-										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-										</svg>
-										Save
+										{{ uploadingPhoto ? 'Uploading...' : 'Save' }}
 									</button>
 									<button
 										type="button"
-										class="inline-flex items-center gap-1.5 rounded-xl bg-white px-3 py-2.5 text-xs font-semibold text-[#002147] border border-[#002147]/20 hover:bg-[#f3f1ee] transition-all"
 										@click="cancelEdit"
+										class="rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-xs font-semibold text-[#002147] hover:bg-[#f3f1ee] transition-all"
 									>
 										Cancel
 									</button>
 								</div>
 							</div>
 
+							<!-- View Mode -->
 							<div v-else class="space-y-3">
-								<h2 class="text-xl font-bold text-[#002147] line-clamp-2 leading-snug group-hover:text-[#004595] transition-colors">{{ item.schoolName }}</h2>
-								<div class="flex items-start gap-2.5">
-									<svg class="w-4 h-4 text-[#00397a]/60 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-									</svg>
-									<p class="text-sm text-[#00397a]/70 line-clamp-2 leading-relaxed">{{ item.schoolAddress || 'Located in ' + communityInfo.name + ', Butuan City.' }}</p>
+								<h2 class="text-xl font-bold text-[#002147]">{{ item.schoolName }}</h2>
+								<div class="space-y-1.5 text-sm text-gray-600">
+									<div class="flex items-start gap-2">
+										<svg class="w-4 h-4 text-[#00397a]/60 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+										</svg>
+										<p class="text-sm text-gray-600 flex-1">{{ item.schoolAddress || 'No address provided' }}</p>
+									</div>
 								</div>
-							</div>
-
-							<!-- Action Buttons -->
-							<div class="flex gap-2.5 pt-3 border-t border-[#f3f1ee]">
-								<button
-									type="button"
-									class="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-[#002147] to-[#004595] p-3 text-white hover:shadow-lg transition-all duration-300"
-									@click="openDetails(item)"
-									title="View details"
-								>
-									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-									</svg>
-									<span class="text-xs font-semibold">View</span>
-								</button>
-								<button
-									type="button"
-									class="inline-flex items-center justify-center rounded-xl bg-white p-3 text-[#004595] border border-[#002147]/10 hover:bg-[#f3f1ee] hover:border-[#004595] transition-all duration-300"
-									@click="startEdit(item.id)"
-									title="Edit school"
-								>
-									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-									</svg>
-								</button>
-								<button
-									type="button"
-									class="inline-flex items-center justify-center rounded-xl bg-red-50 p-3 text-red-600 border border-red-200 hover:bg-red-100 hover:border-red-300 transition-all duration-300"
-									@click="openDelete(item.id)"
-									title="Delete school"
-								>
-									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-									</svg>
-								</button>
+								<div class="flex flex-wrap gap-2 pt-2">
+									<button
+										type="button"
+										@click="openDetails(item)"
+										class="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-[#002147] to-[#00397a] px-3 py-2 text-xs font-semibold text-white hover:shadow-lg transition-all"
+										title="View details"
+									>
+										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+										</svg>
+										View
+									</button>
+									<button
+										type="button"
+										@click="startEdit(item.id)"
+										class="rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-[#004595] hover:bg-[#f3f1ee] hover:border-[#004595] transition-all"
+										title="Edit school"
+									>
+										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+										</svg>
+									</button>
+									<button
+										type="button"
+										@click="openDelete(item.id)"
+										class="rounded-lg bg-red-50 px-3 py-2 text-red-600 border border-red-200 hover:bg-red-100 transition-all"
+										title="Delete school"
+									>
+										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+										</svg>
+									</button>
+								</div>
 							</div>
 						</div>
 					</article>
 				</div>
 
-				<!-- Delete Confirmation Modal -->
-				<div
-					v-if="showDeleteConfirm"
-					class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md px-4 animate-fadeIn"
-					role="dialog"
-					aria-modal="true"
-				>
-					<div class="w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl space-y-6 animate-scaleIn border border-red-100">
-						<div class="flex items-start gap-4">
-							<div class="p-3.5 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-2xl shadow-lg">
-								<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-									<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-								</svg>
+			<!-- Add School Modal -->
+			<div v-if="showAddModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closeAddModal">
+				<div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all">
+					<!-- Modal Header -->
+					<div class="bg-gradient-to-r from-[#002147] to-[#00397a] px-6 py-4 sticky top-0 z-10">
+						<div class="flex items-center justify-between">
+							<div class="flex items-center gap-3">
+								<div class="p-2 bg-white/20 rounded-lg">
+									<svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z"/>
+									</svg>
+								</div>
+								<h3 class="text-lg font-bold text-white">Add New School</h3>
 							</div>
-							<div class="flex-1">
-								<h3 class="text-2xl font-bold text-[#002147] mb-2">Delete School?</h3>
-								<p class="text-sm text-[#00397a]/70 leading-relaxed">You're about to permanently remove <span class="font-semibold text-[#002147]">"{{ deleteName }}"</span> from the database. This action cannot be undone.</p>
-							</div>
-						</div>
-						<div class="flex gap-3 pt-2">
 							<button
 								type="button"
-								class="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-semibold text-[#002147] border border-[#002147]/20 hover:bg-[#f3f1ee] hover:border-[#004595] transition-all duration-300"
-								@click="closeDelete"
+								@click="closeAddModal"
+								class="p-1.5 hover:bg-white/20 rounded-lg transition-all"
 							>
-								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+								<svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
 								</svg>
-								Cancel
-							</button>
-							<button
-								type="button"
-								class="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-red-600 to-red-700 px-5 py-3.5 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:from-red-700 hover:to-red-800 transition-all duration-300"
-								@click="confirmDelete"
-							>
-								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-								</svg>
-								Delete School
 							</button>
 						</div>
 					</div>
-				</div>
+					
+					<!-- Modal Body -->
+					<form @submit.prevent="addItem" class="p-6">
+						<div class="space-y-4">
+							<!-- Photo Upload Section -->
+							<div class="flex flex-col items-center">
+								<div class="relative group">
+									<div class="w-32 h-32 rounded-xl overflow-hidden border-2 border-[#004595]/20 shadow-md">
+										<img v-if="imagePreview" :src="imagePreview" alt="Preview" class="w-full h-full object-cover" />
+										<div v-else class="w-full h-full bg-gradient-to-br from-[#002147] to-[#004595] flex items-center justify-center">
+											<svg class="w-12 h-12 text-white/50" fill="currentColor" viewBox="0 0 20 20">
+												<path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z"/>
+											</svg>
+										</div>
+									</div>
+									
+									<!-- Upload Button Overlay -->
+									<button
+										type="button"
+										@click="$refs.fileInput.click()"
+										class="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 disabled:opacity-50"
+										:disabled="uploadingPhoto"
+									>
+										<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+										</svg>
+									</button>
+									<input
+										ref="fileInput"
+										type="file"
+										accept="image/*"
+										@change="handleImageChange"
+										class="hidden"
+									/>
+								</div>
+								<p class="text-xs text-[#00397a] mt-2 text-center">Click photo to upload (Max 5MB)</p>
+							</div>
 
-				<!-- Details Modal -->
-				<div
-					v-if="showDetails"
-					class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md px-4 animate-fadeIn"
-					role="dialog"
-					aria-modal="true"
-				>
-					<div class="w-full max-w-2xl rounded-3xl bg-white shadow-2xl overflow-hidden animate-scaleIn border border-[#002147]/10">
-						<!-- Header -->
-						<div class="relative bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] p-8">
-							<div class="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
-							<div class="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -ml-16 -mb-16"></div>
-							<div class="relative z-10 flex items-start gap-4">
-								<div class="p-3 bg-white/15 backdrop-blur-md rounded-2xl shadow-lg">
-									<svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-										<path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+							<!-- Basic Information -->
+							<div class="space-y-3">
+								<h4 class="text-sm font-bold text-[#002147] uppercase tracking-wide border-b border-[#004595]/20 pb-2">Basic Information</h4>
+								
+								<div>
+									<label class="block text-xs font-semibold text-[#002147] mb-1.5">School Name <span class="text-red-500">*</span></label>
+									<input
+										v-model="newName"
+										type="text"
+										placeholder="e.g., Butuan Central Elementary School"
+										class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+										:disabled="loading"
+									/>
+								</div>
+
+								<div>
+									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Address</label>
+									<input
+										v-model="newAddress"
+										type="text"
+										placeholder="e.g., P. Burgos St., Butuan City"
+										class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+										:disabled="loading"
+									/>
+								</div>
+							</div>
+
+							<!-- Principal Details -->
+							<div class="space-y-3">
+								<h4 class="text-sm font-bold text-[#002147] uppercase tracking-wide border-b border-[#004595]/20 pb-2">Principal Details</h4>
+								<div>
+									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Principal Name</label>
+									<input
+										v-model="newPrincipalName"
+										type="text"
+										placeholder="e.g., Dr. Juan Dela Cruz"
+										class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+										:disabled="loading"
+									/>
+								</div>
+								<div>
+									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Principal Contact</label>
+									<input
+										v-model="newPrincipalContact"
+										type="text"
+										placeholder="e.g., 0912-345-6789"
+										class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+										:disabled="loading"
+									/>
+								</div>
+							</div>
+
+							<!-- Action Buttons -->
+							<div class="flex gap-3 pt-4 border-t border-[#004595]/10">
+								<button
+									type="button"
+									@click="closeAddModal"
+									class="flex-1 px-4 py-2.5 border-2 border-[#f3f1ee] text-[#002147] rounded-lg hover:bg-[#f3f1ee] transition-all font-semibold text-sm"
+								>
+									Cancel
+								</button>
+								<button
+									type="submit"
+									:disabled="loading || uploadingPhoto"
+									class="flex-1 px-4 py-2.5 bg-gradient-to-r from-[#002147] to-[#00397a] text-white rounded-lg hover:shadow-lg transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+								>
+									{{ loading || uploadingPhoto ? 'Adding...' : 'Add School' }}
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<!-- Delete Confirmation Modal -->
+			<div
+				v-if="showDeleteConfirm"
+				class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
+				role="dialog"
+				aria-modal="true"
+			>
+				<div class="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl space-y-4">
+					<div class="flex items-center gap-3">
+						<div class="p-2 bg-red-100 text-red-700 rounded-lg">
+							<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+								<path
+									fill-rule="evenodd"
+									d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+									clip-rule="evenodd"
+								/>
+							</svg>
+						</div>
+						<div>
+							<h3 class="text-lg font-bold text-[#002147]">Delete school?</h3>
+							<p class="text-sm text-gray-600">This removes "{{ deleteName }}" from the list.</p>
+						</div>
+					</div>
+					<div class="flex flex-wrap justify-end gap-2">
+						<button
+							type="button"
+							class="inline-flex items-center gap-1 rounded-lg bg-white px-4 py-2 text-sm font-bold text-[#002147] border-2 border-[#002147] hover:bg-[#002147]/10 transition"
+							@click="closeDelete"
+						>
+							Cancel
+						</button>
+						<button
+							type="button"
+							class="inline-flex items-center gap-1 rounded-lg bg-red-600 px-4 py-2 text-sm font-bold text-white hover:bg-red-700 border-2 border-red-700 transition"
+							@click="confirmDelete"
+						>
+							Delete
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- Details Modal -->
+			<div
+				v-if="showDetails"
+				class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
+				role="dialog"
+				aria-modal="true"
+			>
+				<div class="relative w-full max-w-3xl rounded-2xl bg-white shadow-2xl overflow-hidden transform transition-all max-h-[90vh] overflow-y-auto">
+					<!-- Modal Header -->
+					<div class="bg-gradient-to-r from-[#002147] to-[#00397a] px-6 py-4 sticky top-0 z-10">
+						<div class="flex items-center justify-between">
+							<div class="flex items-center gap-3">
+								<div class="p-2 bg-white/20 rounded-lg">
+									<svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+										<path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z"/>
 									</svg>
 								</div>
-								<div class="flex-1">
-									<h3 class="text-2xl font-bold text-white mb-2 leading-tight">{{ detailsItem?.schoolName }}</h3>
-									<div class="flex items-center gap-2 text-white/80">
-										<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<h3 class="text-lg font-bold text-white">School Details</h3>
+							</div>
+							<button
+								type="button"
+								@click="closeDetails"
+								class="p-1.5 hover:bg-white/20 rounded-lg transition-all"
+							>
+								<svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+								</svg>
+							</button>
+						</div>
+					</div>
+
+					<div v-if="detailsLoading" class="py-16 text-center">
+						<div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#004595] border-t-transparent"></div>
+						<p class="mt-4 text-sm text-gray-600">Loading details...</p>
+					</div>
+
+					<div v-else class="p-6 space-y-6">
+						<!-- School Image -->
+						<div class="rounded-xl overflow-hidden border-2 border-[#004595]/10">
+							<div v-if="detailsItem?.schoolImages" class="w-full bg-gray-50">
+								<img :src="detailsItem.schoolImages" :alt="detailsItem.schoolName" class="w-full h-auto object-contain" />
+							</div>
+							<div v-else class="w-full h-80 bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center relative overflow-hidden">
+								<div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-20 -mt-20"></div>
+								<svg class="w-24 h-24 text-white/50 relative z-10" fill="currentColor" viewBox="0 0 20 20">
+									<path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z"/>
+								</svg>
+							</div>
+						</div>
+
+						<!-- School Info -->
+						<div class="space-y-4">
+							<div>
+								<h2 class="text-2xl font-bold text-[#002147]">{{ detailsItem?.schoolName }}</h2>
+								<p class="text-sm text-gray-500 mt-1">{{ communityInfo?.name || 'Barangay' }}</p>
+							</div>
+
+							<div class="grid gap-4 md:grid-cols-2">
+								<div class="rounded-lg border-2 border-[#004595]/10 bg-gradient-to-br from-[#f3f1ee]/30 to-white px-4 py-3">
+									<div class="flex items-center gap-2 mb-1.5">
+										<svg class="w-4 h-4 text-[#004595]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
 										</svg>
-										<p class="text-sm">{{ detailsItem?.schoolAddress || 'No address provided' }}</p>
+										<p class="text-xs uppercase tracking-wider text-gray-500 font-semibold">Address</p>
 									</div>
-								</div>
-								<span class="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-xs font-semibold text-white border border-white/30">Details</span>
-							</div>
-						</div>
-
-						<!-- Content -->
-						<div class="p-8 space-y-6">
-							<!-- Image -->
-							<div class="rounded-2xl border border-[#002147]/10 overflow-hidden bg-[#f3f1ee]/50 p-4">
-								<div v-if="detailsItem?.schoolImages" class="w-full h-64 overflow-hidden rounded-xl bg-white shadow-sm">
-									<img :src="detailsItem.schoolImages" :alt="detailsItem.schoolName" class="w-full h-full object-cover" />
-								</div>
-								<div v-else class="w-full h-64 rounded-xl bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center shadow-sm">
-									<svg class="w-20 h-20 text-white/30" fill="currentColor" viewBox="0 0 20 20">
-										<path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
-									</svg>
-								</div>
-							</div>
-
-							<!-- Information Grid -->
-							<div class="grid gap-4 md:grid-cols-2">
-								<div class="rounded-xl border border-[#002147]/10 bg-gradient-to-br from-[#f3f1ee]/80 to-white p-5">
-									<div class="flex items-center gap-2 mb-2.5">
-										<div class="p-1.5 bg-gradient-to-br from-[#002147] to-[#004595] rounded-lg shadow-sm">
-											<svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-											</svg>
-										</div>
-										<p class="text-xs uppercase tracking-wider text-[#00397a]/70 font-semibold">Barangay</p>
-									</div>
-									<p class="font-bold text-[#002147] text-base">{{ communityInfo?.name || 'Not provided' }}</p>
+									<p class="font-bold text-[#002147] text-sm">{{ detailsItem?.schoolAddress || 'Not provided' }}</p>
 								</div>
 
-								<div class="rounded-xl border border-[#002147]/10 bg-gradient-to-br from-[#f3f1ee]/80 to-white p-5">
-									<div class="flex items-center gap-2 mb-2.5">
-										<div class="p-1.5 bg-gradient-to-br from-[#002147] to-[#004595] rounded-lg shadow-sm">
-											<svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-											</svg>
-										</div>
-										<p class="text-xs uppercase tracking-wider text-[#00397a]/70 font-semibold">Principal</p>
+								<div class="rounded-lg border-2 border-[#004595]/10 bg-gradient-to-br from-[#f3f1ee]/30 to-white px-4 py-3">
+									<div class="flex items-center gap-2 mb-1.5">
+										<svg class="w-4 h-4 text-[#004595]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+										</svg>
+										<p class="text-xs uppercase tracking-wider text-gray-500 font-semibold">Principal</p>
 									</div>
-									<p class="font-bold text-[#002147] text-base">{{ detailsItem?.principalName || 'Not provided' }}</p>
+									<p class="font-bold text-[#002147] text-sm">{{ detailsItem?.principalName || 'Not provided' }}</p>
 								</div>
 
-								<div class="rounded-xl border border-[#002147]/10 bg-gradient-to-br from-[#f3f1ee]/80 to-white p-5 md:col-span-2">
-									<div class="flex items-center gap-2 mb-2.5">
-										<div class="p-1.5 bg-gradient-to-br from-[#002147] to-[#004595] rounded-lg shadow-sm">
-											<svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-											</svg>
-										</div>
-										<p class="text-xs uppercase tracking-wider text-[#00397a]/70 font-semibold">Contact Number</p>
+								<div class="rounded-lg border-2 border-[#004595]/10 bg-gradient-to-br from-[#f3f1ee]/30 to-white px-4 py-3 md:col-span-2">
+									<div class="flex items-center gap-2 mb-1.5">
+										<svg class="w-4 h-4 text-[#004595]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+										</svg>
+										<p class="text-xs uppercase tracking-wider text-gray-500 font-semibold">Contact Number</p>
 									</div>
-									<p class="font-bold text-[#002147] text-base">{{ detailsItem?.principalPhone || 'Not provided' }}</p>
+									<p class="font-bold text-[#002147] text-sm">{{ detailsItem?.principalPhone || 'Not provided' }}</p>
 								</div>
 							</div>
-						</div>
-
-						<!-- Footer -->
-						<div class="flex justify-end gap-3 px-8 pb-8 border-t border-[#f3f1ee] pt-6">
-							<button
-								type="button"
-								class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-[#002147] to-[#004595] px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:from-[#00397a] hover:to-[#004595] transition-all duration-300"
-								@click="closeDetails"
-							>
-								<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-								</svg>
-								Close
-							</button>
 						</div>
 					</div>
 				</div>
+			</div>
 			</section>
 
 			<!-- Error State -->
 			<section
 				v-else
-				class="mt-8 rounded-3xl bg-white p-16 text-center shadow-xl border border-red-100"
+				class="mt-8 rounded-2xl bg-white p-12 text-center shadow-xl border-2 border-red-200"
 			>
-				<div class="inline-block p-5 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl mb-6 shadow-lg">
-					<svg class="w-14 h-14 text-white" fill="currentColor" viewBox="0 0 20 20">
-						<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+				<div class="inline-block p-4 bg-red-100 rounded-full mb-4">
+					<svg class="w-12 h-12 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+						<path
+							fill-rule="evenodd"
+							d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+							clip-rule="evenodd"
+						/>
 					</svg>
 				</div>
-				<h1 class="text-3xl font-bold text-[#002147] mb-3">Barangay Not Found</h1>
-				<p class="text-[#00397a]/70 text-base max-w-md mx-auto mb-8 leading-relaxed">The barangay you're looking for doesn't exist. Please return to the dashboard and select a valid barangay.</p>
-				<button
-					type="button"
-					class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-[#002147] to-[#004595] px-6 py-3 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:from-[#00397a] hover:to-[#004595] transition-all duration-300"
-					@click="goBack"
-				>
-					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-					</svg>
-					Back to Dashboard
-				</button>
+				<h1 class="text-2xl font-bold text-gray-800 mb-2">Barangay Not Found</h1>
+				<p class="text-gray-600">Return to the dashboard and select a valid barangay.</p>
 			</section>
 		</div>
 	</div>
@@ -498,14 +535,21 @@ const newPrincipalName = ref('')
 const newPrincipalContact = ref('')
 const editingId = ref(null)
 const editingName = ref('')
+const editingAddress = ref('')
+const editingPrincipalName = ref('')
+const editingPrincipalContact = ref('')
+const editImage = ref(null)
+const editImagePreview = ref('')
 const showDeleteConfirm = ref(false)
 const deleteId = ref(null)
 const deleteName = ref('')
 const showDetails = ref(false)
 const detailsItem = ref(null)
+const detailsLoading = ref(false)
 const loading = ref(false)
-const showAddForm = ref(false)
+const showAddModal = ref(false)
 const searchQuery = ref('')
+const uploadingPhoto = ref(false)
 
 const filteredItems = computed(() => {
 	if (!searchQuery.value.trim()) {
@@ -569,6 +613,9 @@ watch(
 		fetchBarangayId()
 		editingId.value = null
 		editingName.value = ''
+		editingAddress.value = ''
+		editingPrincipalName.value = ''
+		editingPrincipalContact.value = ''
 		newName.value = ''
 		newAddress.value = ''
 		newImage.value = null
@@ -593,6 +640,68 @@ const handleImageChange = (event) => {
 		}
 		reader.readAsDataURL(file)
 	}
+}
+
+const handleEditImageChange = async (event, itemId) => {
+	const file = event.target.files[0]
+	if (!file) return
+	
+	if (file.size > 5 * 1024 * 1024) {
+		alert('File size must be less than 5MB')
+		return
+	}
+	
+	uploadingPhoto.value = true
+	
+	try {
+		const fileExt = file.name.split('.').pop()
+		const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`
+		
+		const { error: uploadError } = await supabase.storage
+			.from('SchoolImages')
+			.upload(fileName, file)
+		
+		if (uploadError) throw uploadError
+		
+		const imageUrl = `https://czwunysqbslfczktzjld.supabase.co/storage/v1/object/public/SchoolImages/${fileName}`
+		
+		// Update preview
+		const reader = new FileReader()
+		reader.onload = (e) => {
+			editImagePreview.value = e.target.result
+		}
+		reader.readAsDataURL(file)
+		
+		// Update the item in database
+		const { error: updateError } = await supabase
+			.from('Schools')
+			.update({ schoolImages: imageUrl })
+			.eq('id', itemId)
+		
+		if (updateError) throw updateError
+		
+		// Update local item
+		const item = items.value.find(i => i.id === itemId)
+		if (item) {
+			item.schoolImages = imageUrl
+		}
+		
+	} catch (error) {
+		console.error('Error uploading image:', error)
+		alert(`Failed to upload image: ${error?.message || 'Please try again.'}`)
+	} finally {
+		uploadingPhoto.value = false
+	}
+}
+
+const closeAddModal = () => {
+	showAddModal.value = false
+	newName.value = ''
+	newAddress.value = ''
+	newImage.value = null
+	imagePreview.value = ''
+	newPrincipalName.value = ''
+	newPrincipalContact.value = ''
 }
 
 const goBack = () => {
@@ -621,6 +730,7 @@ const addItem = async () => {
 		
 		// Upload image if provided
 		if (newImage.value) {
+			uploadingPhoto.value = true
 			const fileExt = newImage.value.name.split('.').pop()
 			const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`
 			const filePath = fileName
@@ -633,6 +743,7 @@ const addItem = async () => {
 			
 			// Construct public URL
 			imageUrl = `https://czwunysqbslfczktzjld.supabase.co/storage/v1/object/public/SchoolImages/${fileName}`
+			uploadingPhoto.value = false
 		}
 		
 		const { data, error } = await supabase
@@ -648,44 +759,67 @@ const addItem = async () => {
 			.select()
 		
 		if (error) throw error
+
+		const schoolId = data?.[0]?.id
+		if (!schoolId) {
+			throw new Error('School insert did not return an id.')
+		}
+
+		const principalName = newPrincipalName.value.trim()
+		const principalPhone = newPrincipalContact.value.trim()
+		if (principalName || principalPhone) {
+			const principalPayload = {
+				sch_id: schoolId,
+				fullname: principalName || null,
+				phone: principalPhone || null
+			}
+
+			const { error: principalError } = await supabase
+				.from('SchoolPrincipal')
+				.insert([principalPayload])
+
+			if (principalError) throw principalError
+		}
 		
 		if (data && data.length > 0) {
 			items.value.push(data[0])
-			const principalName = newPrincipalName.value.trim()
-			const principalPhone = newPrincipalContact.value.trim()
-			if (principalName || principalPhone) {
-				const { error: principalError} = await supabase
-					.from('SchoolPrincipal')
-					.insert([
-						{
-							fullname: principalName || null,
-							phone: principalPhone || null,
-							sch_id: data[0].id
-						}
-					])
-				if (principalError) throw principalError
-			}
 		}
-		newName.value = ''
-		newAddress.value = ''
-		newImage.value = null
-		imagePreview.value = ''
-		newPrincipalName.value = ''
-		newPrincipalContact.value = ''
-		showAddForm.value = false
+		closeAddModal()
 	} catch (error) {
 		console.error('Error adding school:', error)
-		alert('Failed to add school. Please try again.')
+		alert(`Failed to add school: ${error?.message || 'Please try again.'}`)
 	} finally {
 		loading.value = false
+		uploadingPhoto.value = false
 	}
 }
 
-const startEdit = (id) => {
+const startEdit = async (id) => {
 	const item = items.value.find(i => i.id === id)
-	if (item) {
-		editingId.value = id
-		editingName.value = item.schoolName
+	if (!item) {
+		return
+	}
+	editingId.value = id
+	editingName.value = item.schoolName || ''
+	editingAddress.value = item.schoolAddress || ''
+	editingPrincipalName.value = ''
+	editingPrincipalContact.value = ''
+	editImagePreview.value = ''
+
+	try {
+		const { data: principalData, error: principalError } = await supabase
+			.from('SchoolPrincipal')
+			.select('fullname, phone')
+			.eq('sch_id', id)
+			.maybeSingle()
+
+		if (principalError) throw principalError
+		if (principalData) {
+			editingPrincipalName.value = principalData.fullname || ''
+			editingPrincipalContact.value = principalData.phone || ''
+		}
+	} catch (error) {
+		console.error('Error loading edit info:', error)
 	}
 }
 
@@ -694,6 +828,9 @@ const saveEdit = async () => {
 		return
 	}
 	const name = editingName.value.trim()
+	const address = editingAddress.value.trim()
+	const principalName = editingPrincipalName.value.trim()
+	const principalContact = editingPrincipalContact.value.trim()
 	if (!name) {
 		return
 	}
@@ -702,17 +839,60 @@ const saveEdit = async () => {
 	try {
 		const { error } = await supabase
 			.from('Schools')
-			.update({ schoolName: name })
+			.update({
+				schoolName: name,
+				schoolAddress: address || null,
+			})
 			.eq('id', editingId.value)
 		
 		if (error) throw error
+
+		const hasPrincipalFields = principalName || principalContact
+		if (hasPrincipalFields) {
+			const { data: principalRow, error: principalFetchError } = await supabase
+				.from('SchoolPrincipal')
+				.select('sch_id')
+				.eq('sch_id', editingId.value)
+				.maybeSingle()
+
+			if (principalFetchError) throw principalFetchError
+
+			if (principalRow) {
+				const { error: principalUpdateError } = await supabase
+					.from('SchoolPrincipal')
+					.update({
+						fullname: principalName || null,
+						phone: principalContact || null
+					})
+					.eq('sch_id', editingId.value)
+
+				if (principalUpdateError) throw principalUpdateError
+			} else {
+				const { error: principalInsertError } = await supabase
+					.from('SchoolPrincipal')
+					.insert([
+						{
+							sch_id: editingId.value,
+							fullname: principalName || null,
+							phone: principalContact || null
+						}
+					])
+
+				if (principalInsertError) throw principalInsertError
+			}
+		}
 		
 		const item = items.value.find(i => i.id === editingId.value)
 		if (item) {
 			item.schoolName = name
+			item.schoolAddress = address
 		}
 		editingId.value = null
 		editingName.value = ''
+		editingAddress.value = ''
+		editingPrincipalName.value = ''
+		editingPrincipalContact.value = ''
+		editImagePreview.value = ''
 	} catch (error) {
 		console.error('Error updating school:', error)
 		alert('Failed to update school. Please try again.')
@@ -724,11 +904,22 @@ const saveEdit = async () => {
 const cancelEdit = () => {
 	editingId.value = null
 	editingName.value = ''
+	editingAddress.value = ''
+	editingPrincipalName.value = ''
+	editingPrincipalContact.value = ''
+	editImagePreview.value = ''
 }
 
 const deleteItem = async (id) => {
 	loading.value = true
 	try {
+		const { error: deletePrincipalError } = await supabase
+			.from('SchoolPrincipal')
+			.delete()
+			.eq('sch_id', id)
+
+		if (deletePrincipalError) throw deletePrincipalError
+
 		const { error } = await supabase
 			.from('Schools')
 			.delete()
@@ -776,29 +967,33 @@ const confirmDelete = () => {
 }
 
 const openDetails = async (item) => {
-	detailsItem.value = { ...item }
+	detailsItem.value = item
 	showDetails.value = true
+	detailsLoading.value = true
 	try {
-		const { data, error } = await supabase
+		const { data: principalData, error: principalError } = await supabase
 			.from('SchoolPrincipal')
 			.select('fullname, phone')
 			.eq('sch_id', item.id)
 			.maybeSingle()
-		if (error) throw error
-		if (data) {
-			detailsItem.value = {
-				...detailsItem.value,
-				principalName: data.fullname,
-				principalPhone: data.phone
-			}
+
+		if (principalError) throw principalError
+
+		detailsItem.value = {
+			...item,
+			principalName: principalData?.fullname || null,
+			principalPhone: principalData?.phone || null
 		}
 	} catch (error) {
-		console.error('Error fetching principal details:', error)
+		console.error('Error loading details:', error)
+	} finally {
+		detailsLoading.value = false
 	}
 }
 
 const closeDetails = () => {
 	showDetails.value = false
 	detailsItem.value = null
+	detailsLoading.value = false
 }
 </script>
