@@ -287,7 +287,10 @@
             <!-- Remember Me & Forgot Password -->
             <div class="flex items-center justify-between text-xs">
               <label class="flex items-center cursor-pointer group">
-                <input type="checkbox" class="w-3.5 h-3.5 rounded border border-gray-300 text-[#004595]/70 focus:ring-2 focus:ring-[#004595]/15 cursor-pointer transition-all">
+                <input 
+                  v-model="rememberMe"
+                  type="checkbox" 
+                  class="w-3.5 h-3.5 rounded border border-gray-300 text-[#004595]/70 focus:ring-2 focus:ring-[#004595]/15 cursor-pointer transition-all">
                 <span class="ml-2 text-gray-600 group-hover:text-gray-800 transition-colors font-medium">
                   Remember me
                 </span>
@@ -339,7 +342,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { supabase } from '@/lib/supabase'
 import bcpoLogo from '@/assets/BCPO 1 LOGO.png'
@@ -350,11 +353,31 @@ const router = useRouter()
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
+const rememberMe = ref(false)
 const isLoading = ref(false)
 const showSuccessModal = ref(false)
 const showErrorModal = ref(false)
 const errorMessage = ref('')
 const userEmail = ref('')
+
+// Load saved credentials on component mount
+onMounted(() => {
+  console.log('🔍 Checking for saved credentials...')
+  const savedEmail = localStorage.getItem('rememberedEmail')
+  const savedPassword = localStorage.getItem('rememberedPassword')
+  
+  console.log('📧 Saved Email:', savedEmail)
+  console.log('🔑 Saved Password exists:', !!savedPassword)
+  
+  if (savedEmail && savedPassword) {
+    email.value = savedEmail
+    password.value = savedPassword
+    rememberMe.value = true
+    console.log('✅ Credentials loaded and form filled')
+  } else {
+    console.log('❌ No saved credentials found')
+  }
+})
 
 async function createProfile() {
   // 1. Kunin muna ang kasalukuyang user
@@ -427,6 +450,24 @@ async function handleLogin() {
     
     console.log('✅ User authenticated successfully!')
     console.log('👤 User:', data.user)
+    
+    // Handle Remember Me functionality
+    console.log('💾 Remember Me Status:', rememberMe.value)
+    if (rememberMe.value) {
+      // Save credentials to localStorage
+      console.log('💾 Saving credentials to localStorage...')
+      localStorage.setItem('rememberedEmail', email.value)
+      localStorage.setItem('rememberedPassword', password.value)
+      console.log('✅ Credentials saved!')
+      console.log('📧 Saved Email:', localStorage.getItem('rememberedEmail'))
+      console.log('🔑 Saved Password exists:', !!localStorage.getItem('rememberedPassword'))
+    } else {
+      // Clear saved credentials if remember me is unchecked
+      console.log('🗑️ Clearing saved credentials...')
+      localStorage.removeItem('rememberedEmail')
+      localStorage.removeItem('rememberedPassword')
+      console.log('✅ Credentials cleared!')
+    }
     
     // All checks passed - Login successful
     console.log('🎉 Login successful!')

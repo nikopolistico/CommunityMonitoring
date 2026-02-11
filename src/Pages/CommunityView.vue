@@ -1,105 +1,455 @@
   <template>
-    <div class="min-h-screen bg-linear-to-br from-[#11315b] via-white to-[#262421]">
+    <div class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 font-['Poppins']">
       <div class="flex min-h-screen">
-        <aside class="w-full max-w-sm bg-white/95 backdrop-blur-md border-r border-white/60 shadow-2xl">
-          <div class="p-6 space-y-8">
+        <!-- Enhanced Blue Sidebar -->
+        <aside class="w-full max-w-sm bg-gradient-to-b from-white via-[#f3f1ee]/30 to-white shadow-2xl border-r border-[#004595]/10">
+          <div class="p-6 space-y-6">
+            <!-- Enhanced Back Button -->
             <button
               type="button"
-              class="w-full inline-flex items-center gap-2 rounded-2xl bg-linear-to-r from-[#004595] to-[#00397a] px-5 py-3 text-base font-bold text-white hover:shadow-2xl border-2 border-transparent hover:border-white transition-all duration-300 shadow-lg"
+              class="w-full inline-flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-3.5 text-sm font-semibold text-white hover:shadow-xl hover:shadow-[#004595]/20 hover:scale-[1.02] transition-all duration-300"
               @click="goBack"
             >
-              <span aria-hidden="true" class="transition-transform group-hover:-translate-x-1">←</span>
-              Back to Dashboard
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+              </svg>
+              <span class="tracking-wide">Back to Dashboard</span>
             </button>
 
-            <div class="rounded-3xl bg-linear-to-br from-[#004595] to-[#00397a] p-6 text-white shadow-2xl">
-              <div class="flex flex-col items-center text-center gap-4">
-                <div class="h-32 w-32 rounded-full bg-white/20 overflow-hidden flex items-center justify-center ring-4 ring-white/40">
+            <!-- Enhanced Barangay Profile Card -->
+            <div class="rounded-2xl bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] p-8 text-white shadow-xl shadow-[#004595]/30 relative overflow-hidden">
+              <!-- Animated Background Elements -->
+              <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-20 -mt-20 animate-pulse"></div>
+              <div class="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-xl -ml-16 -mb-16"></div>
+              <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#004595]/20 rounded-full blur-3xl"></div>
+              
+              <div class="relative flex flex-col items-center text-center gap-4">
+                <div class="h-28 w-28 rounded-full bg-white/20 backdrop-blur-sm overflow-hidden flex items-center justify-center ring-4 ring-white/40 shadow-2xl">
                   <img v-if="captainInfo.profileImage" :src="captainInfo.profileImage" alt="Captain" class="h-full w-full object-cover" />
-                  <svg v-else class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <svg v-else class="w-14 h-14 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                   </svg>
                 </div>
                 <div>
-                  <p class="text-base font-extrabold leading-tight">{{ captainInfo.name || 'No name' }}</p>
-                  <p class="text-xs text-white/80 font-semibold mt-1">Barangay Captain</p>
+                  <p class="text-xl font-bold leading-tight tracking-wide">{{ captainInfo.name || 'No name' }}</p>
+                  <p class="text-sm text-white/90 font-medium mt-2 tracking-wide">Barangay Captain</p>
                 </div>
               </div>
             </div>
 
-            <div class="space-y-3">
+            <!-- Enhanced Navigation Menu -->
+            <div class="space-y-2">
               <button
                 type="button"
-                class="w-full inline-flex items-center gap-2 rounded-2xl border-2 border-[#004595] bg-white px-5 py-3 text-base font-bold text-[#004595] hover:bg-[#004595] hover:text-white transition-all"
+                :class="[
+                  'w-full inline-flex items-center gap-3 rounded-xl px-5 py-3.5 text-sm font-semibold transition-all duration-300 tracking-wide',
+                  activeTab === 'dashboard' 
+                    ? 'bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] text-white shadow-lg shadow-[#004595]/30 scale-[1.02]' 
+                    : 'bg-white text-[#002147] hover:bg-gradient-to-r hover:from-[#004595]/10 hover:to-[#00397a]/10 border border-[#004595]/20 hover:border-[#004595]/40 hover:shadow-md'
+                ]"
                 @click="setActiveTab('dashboard')"
               >
+                <div :class="[
+                  'p-1.5 rounded-lg transition-all',
+                  activeTab === 'dashboard' ? 'bg-white/20' : 'bg-[#004595]/10'
+                ]">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                  </svg>
+                </div>
                 Dashboard
               </button>
               <button
                 type="button"
-                class="w-full inline-flex items-center justify-between rounded-2xl bg-white px-5 py-3 text-base font-semibold text-[#002147] border border-gray-200 hover:border-[#004595] transition-all"
+                :class="[
+                  'w-full inline-flex items-center gap-3 rounded-xl px-5 py-3.5 text-sm font-semibold transition-all duration-300 tracking-wide',
+                  activeTab === 'officers' 
+                    ? 'bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] text-white shadow-lg shadow-[#004595]/30 scale-[1.02]' 
+                    : 'bg-white text-[#002147] hover:bg-gradient-to-r hover:from-[#004595]/10 hover:to-[#00397a]/10 border border-[#004595]/20 hover:border-[#004595]/40 hover:shadow-md'
+                ]"
                 @click="setActiveTab('officers')"
               >
+                <div :class="[
+                  'p-1.5 rounded-lg transition-all',
+                  activeTab === 'officers' ? 'bg-white/20' : 'bg-[#004595]/10'
+                ]">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                  </svg>
+                </div>
                 List of Officers
-                <span class="text-xs text-gray-500">{{ totalOfficers }}</span>
               </button>
               <button
                 type="button"
-                class="w-full inline-flex items-center justify-between rounded-2xl bg-white px-5 py-3 text-base font-semibold text-[#002147] border border-gray-200 hover:border-[#004595] transition-all"
+                :class="[
+                  'w-full inline-flex items-center gap-3 rounded-xl px-5 py-3.5 text-sm font-semibold transition-all duration-300 tracking-wide',
+                  activeTab === 'landmarks' 
+                    ? 'bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] text-white shadow-lg shadow-[#004595]/30 scale-[1.02]' 
+                    : 'bg-white text-[#002147] hover:bg-gradient-to-r hover:from-[#004595]/10 hover:to-[#00397a]/10 border border-[#004595]/20 hover:border-[#004595]/40 hover:shadow-md'
+                ]"
                 @click="setActiveTab('landmarks')"
               >
+                <div :class="[
+                  'p-1.5 rounded-lg transition-all',
+                  activeTab === 'landmarks' ? 'bg-white/20' : 'bg-[#004595]/10'
+                ]">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
                 Landmarks
-                <span class="text-xs text-gray-500">{{ totalLandmarks }}</span>
               </button>
               <button
                 type="button"
-                class="w-full inline-flex items-center justify-between rounded-2xl bg-white px-5 py-3 text-base font-semibold text-[#002147] border border-gray-200 hover:border-[#004595] transition-all"
+                :class="[
+                  'w-full inline-flex items-center gap-3 rounded-xl px-5 py-3.5 text-sm font-semibold transition-all duration-300 tracking-wide',
+                  activeTab === 'history' 
+                    ? 'bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] text-white shadow-lg shadow-[#004595]/30 scale-[1.02]' 
+                    : 'bg-white text-[#002147] hover:bg-gradient-to-r hover:from-[#004595]/10 hover:to-[#00397a]/10 border border-[#004595]/20 hover:border-[#004595]/40 hover:shadow-md'
+                ]"
                 @click="setActiveTab('history')"
               >
+                <div :class="[
+                  'p-1.5 rounded-lg transition-all',
+                  activeTab === 'history' ? 'bg-white/20' : 'bg-[#004595]/10'
+                ]">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
                 History
-                <span class="text-xs text-gray-500">{{ totalHistory }}</span>
               </button>
             </div>
           </div>
         </aside>
 
-        <main class="flex-1">
-          <div class="mx-auto max-w-7xl px-4 py-10">
-            <section v-if="communityInfo" class="space-y-8">
-              <section v-if="activeTab === 'dashboard'" id="dashboard-section" class="grid gap-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div class="bg-white/95 rounded-3xl p-8 border-2 border-[#004595]/15 shadow-2xl hover:shadow-3xl transition-all duration-300">
-                    <p class="text-xs text-gray-500 font-semibold uppercase">List of Officers</p>
-                    <p class="text-5xl font-extrabold text-[#004595] mt-2">{{ totalOfficers }}</p>
+        <main class="flex-1 bg-gradient-to-br from-[#004595]/5 via-transparent to-[#00397a]/5">
+          <div class="mx-auto max-w-7xl px-8 py-10">
+            <section v-if="communityInfo" class="space-y-6">
+              
+              <!-- Dashboard Section -->
+              <section v-if="activeTab === 'dashboard'" id="dashboard-section" class="space-y-6">
+                <!-- Page Header with Barangay Name -->
+                <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10">
+                  <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
+                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24"></div>
+                    
+                    <div class="relative flex items-center gap-4">
+                      <div class="p-3 bg-white/20 backdrop-blur-sm rounded-2xl ring-4 ring-white/20">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <h1 class="text-3xl font-bold text-white tracking-tight">{{ communityInfo.name }} Overview</h1>
+                        <p class="text-white/90 text-sm font-medium mt-1">Butuan City, Agusan Del Norte 8600</p>
+                      </div>
+                    </div>
                   </div>
-                  <div class="bg-white/95 rounded-3xl p-8 border-2 border-[#00397a]/15 shadow-2xl hover:shadow-3xl transition-all duration-300">
-                    <p class="text-xs text-gray-500 font-semibold uppercase">Landmarks</p>
-                    <p class="text-5xl font-extrabold text-[#00397a] mt-2">{{ totalLandmarks }}</p>
+                </div>
+
+                <!-- Statistics Cards -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#004595]/10">
+                  <div class="bg-gradient-to-r from-[#002147] to-[#004595] px-6 py-4 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
+                    <div class="relative flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <div class="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl">
+                          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <h2 class="text-xl font-bold text-white">Community Statistics</h2>
+                          <p class="text-xs text-white/80 font-medium">Quick overview of barangay data</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="bg-white/95 rounded-3xl p-8 border-2 border-[#002147]/15 shadow-2xl hover:shadow-3xl transition-all duration-300">
-                    <p class="text-xs text-gray-500 font-semibold uppercase">History</p>
-                    <p class="text-5xl font-extrabold text-[#002147] mt-2">{{ totalHistory }}</p>
+                  
+                  <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/20 to-white">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <!-- Officers Card -->
+                      <div class="group cursor-pointer bg-white rounded-xl p-6 border-2 border-[#004595]/10 hover:border-[#002147]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#002147]/10 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#002147]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                        
+                        <div class="relative">
+                          <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                              <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                              </svg>
+                            </div>
+                            <div class="text-right">
+                              <span class="text-4xl font-bold bg-gradient-to-br from-[#002147] to-[#004595] bg-clip-text text-transparent">{{ totalOfficers }}</span>
+                            </div>
+                          </div>
+                          <h3 class="text-sm font-bold text-[#002147] uppercase tracking-wider mb-1">Barangay Officers</h3>
+                          <p class="text-xs text-[#00397a] font-medium">Community personnel & leaders</p>
+                          
+                          <div class="mt-4 pt-3 border-t border-[#004595]/10">
+                            <div class="flex items-center justify-between text-xs">
+                              <span class="text-[#00397a] font-semibold">View Details</span>
+                              <svg class="w-4 h-4 text-[#004595] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Landmarks Card -->
+                      <div class="group cursor-pointer bg-white rounded-xl p-6 border-2 border-[#00397a]/10 hover:border-[#00397a]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#00397a]/10 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#00397a]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                        
+                        <div class="relative">
+                          <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 bg-gradient-to-br from-[#00397a] via-[#004595] to-[#002147] rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                              <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                              </svg>
+                            </div>
+                            <div class="text-right">
+                              <span class="text-4xl font-bold bg-gradient-to-br from-[#00397a] to-[#004595] bg-clip-text text-transparent">{{ totalLandmarks }}</span>
+                            </div>
+                          </div>
+                          <h3 class="text-sm font-bold text-[#002147] uppercase tracking-wider mb-1">Community Landmarks</h3>
+                          <p class="text-xs text-[#00397a] font-medium">Notable locations & places</p>
+                          
+                          <div class="mt-4 pt-3 border-t border-[#00397a]/10">
+                            <div class="flex items-center justify-between text-xs">
+                              <span class="text-[#00397a] font-semibold">Explore Map</span>
+                              <svg class="w-4 h-4 text-[#00397a] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- History Card -->
+                      <div class="group cursor-pointer bg-white rounded-xl p-6 border-2 border-[#004595]/10 hover:border-[#004595]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#004595]/10 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                        
+                        <div class="relative">
+                          <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 bg-gradient-to-br from-[#004595] via-[#00397a] to-[#002147] rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                              <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                              </svg>
+                            </div>
+                            <div class="text-right">
+                              <span class="text-4xl font-bold bg-gradient-to-br from-[#004595] to-[#002147] bg-clip-text text-transparent">{{ totalHistory }}</span>
+                            </div>
+                          </div>
+                          <h3 class="text-sm font-bold text-[#002147] uppercase tracking-wider mb-1">Historical Records</h3>
+                          <p class="text-xs text-[#00397a] font-medium">Heritage & cultural data</p>
+                          
+                          <div class="mt-4 pt-3 border-t border-[#004595]/10">
+                            <div class="flex items-center justify-between text-xs">
+                              <span class="text-[#00397a] font-semibold">Read More</span>
+                              <svg class="w-4 h-4 text-[#004595] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="bg-white/95 rounded-3xl p-6 border-2 border-[#004595]/15 shadow-2xl hover:shadow-3xl transition-all duration-300">
-                    <p class="text-xs text-gray-500 font-semibold uppercase">Barangay Captain</p>
-                    <p class="text-lg font-bold text-[#002147] mt-2">{{ captainInfo.name || 'No name' }}</p>
-                    <p class="text-xs text-gray-600 mt-1">{{ captainInfo.phone || 'No phone' }}</p>
-                    <p class="text-xs text-gray-600">{{ captainInfo.email || 'No email' }}</p>
-                    <p class="text-xs text-gray-600">{{ captainInfo.officeHours || 'No office hours' }}</p>
+                </div>
+
+                <!-- Captain Information Card -->
+                <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10 hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-300">
+                  <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -mr-20 -mt-20"></div>
+                    <div class="flex items-center justify-between gap-3 relative">
+                      <div class="flex items-center gap-3">
+                        <div class="p-2 bg-white/20 backdrop-blur-sm rounded-lg">
+                          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                          </svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-white tracking-wide">Barangay Captain</h2>
+                      </div>
+                      
+                      <!-- Edit Button -->
+                      <button
+                        v-if="!isEditing"
+                        @click="startEdit"
+                        class="group flex items-center gap-2 px-4 py-2 bg-white text-[#002147] rounded-xl hover:bg-[#f3f1ee] transition-all duration-300 font-bold text-sm shadow-lg hover:scale-105"
+                      >
+                        <svg class="w-4 h-4 group-hover:rotate-12 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                        </svg>
+                        Edit
+                      </button>
+                      
+                      <!-- Save/Cancel Buttons -->
+                      <div v-else class="flex items-center gap-2">
+                        <button
+                          @click="saveEdit"
+                          :disabled="saving"
+                          class="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:scale-110"
+                          title="Save Changes"
+                        >
+                          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                          </svg>
+                        </button>
+                        <button
+                          @click="cancelEdit"
+                          :disabled="saving"
+                          class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:scale-110"
+                          title="Cancel"
+                        >
+                          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="p-6 bg-gradient-to-br from-white to-[#f3f1ee]/30">
+                    <!-- Profile Picture Section -->
+                    <div class="flex justify-center mb-6">
+                      <div class="relative group">
+                        <div class="w-32 h-32 rounded-2xl overflow-hidden border-4 border-[#004595]/20 shadow-lg relative">
+                          <img 
+                            v-if="captainInfo.profileImage" 
+                            :src="captainInfo.profileImage" 
+                            alt="Captain Profile"
+                            class="w-full h-full object-cover"
+                          />
+                          <div v-else class="w-full h-full bg-gradient-to-br from-[#002147] to-[#004595] flex items-center justify-center">
+                            <svg class="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                            </svg>
+                          </div>
+                        </div>
+                        
+                        <!-- Upload Button Overlay -->
+                        <button
+                          v-if="isEditing"
+                          @click="$refs.fileInput.click()"
+                          class="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300"
+                        >
+                          <div class="text-center">
+                            <svg class="w-8 h-8 text-white mx-auto mb-1" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.413V13H5.5z"/>
+                            </svg>
+                            <span class="text-white text-xs font-bold">Upload Photo</span>
+                          </div>
+                        </button>
+                        <input
+                          ref="fileInput"
+                          type="file"
+                          accept="image/*"
+                          @change="handleImageUpload"
+                          class="hidden"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Captain Information Grid -->
+                    <div v-if="!isEditing" class="grid md:grid-cols-2 gap-4">
+                      <div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md hover:shadow-[#004595]/10 transition-all border border-[#004595]/10">
+                        <div class="p-2 bg-gradient-to-br from-[#002147] to-[#004595] rounded-lg">
+                          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Name</p>
+                          <p class="font-semibold text-[#002147]">{{ captainInfo.name || 'Not available' }}</p>
+                        </div>
+                      </div>
+                      <div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md hover:shadow-[#004595]/10 transition-all border border-[#004595]/10">
+                        <div class="p-2 bg-gradient-to-br from-[#00397a] to-[#004595] rounded-lg">
+                          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Phone</p>
+                          <p class="font-semibold text-[#002147]">{{ captainInfo.phone || 'Not available' }}</p>
+                        </div>
+                      </div>
+                      <div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md hover:shadow-[#004595]/10 transition-all border border-[#004595]/10">
+                        <div class="p-2 bg-gradient-to-br from-[#004595] to-[#00397a] rounded-lg">
+                          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Email</p>
+                          <p class="font-semibold text-[#002147] text-sm break-all">{{ captainInfo.email || 'Not available' }}</p>
+                        </div>
+                      </div>
+                      <div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md hover:shadow-[#004595]/10 transition-all border border-[#004595]/10">
+                        <div class="p-2 bg-gradient-to-br from-[#002147] to-[#00397a] rounded-lg">
+                          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Office Hours</p>
+                          <p class="font-semibold text-[#002147]">{{ captainInfo.officeHours || 'Not available' }}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Edit Form -->
+                    <div v-else class="space-y-4">
+                      <div>
+                        <label class="block text-sm font-bold text-[#002147] mb-2">Full Name</label>
+                        <input
+                          v-model="editForm.name"
+                          type="text"
+                          class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm font-semibold text-[#002147]"
+                          placeholder="Enter full name"
+                        />
+                      </div>
+                      
+                      <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <label class="block text-sm font-bold text-[#002147] mb-2">Phone Number</label>
+                          <input
+                            v-model="editForm.phone"
+                            type="text"
+                            class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm font-semibold text-[#002147]"
+                            placeholder="Enter phone number"
+                          />
+                        </div>
+                        
+                        <div>
+                          <label class="block text-sm font-bold text-[#002147] mb-2">Email Address</label>
+                          <input
+                            v-model="editForm.email"
+                            type="email"
+                            class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm font-semibold text-[#002147]"
+                            placeholder="Enter email address"
+                          />
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <label class="block text-sm font-bold text-[#002147] mb-2">Office Hours</label>
+                        <input
+                          v-model="editForm.officeHours"
+                          type="text"
+                          class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm font-semibold text-[#002147]"
+                          placeholder="e.g., Mon-Fri 8:00 AM - 5:00 PM"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </section>
 
-              <section v-if="activeTab === 'landmarks'" id="landmarks-section" class="bg-white/90 rounded-3xl p-6 border border-white/70 shadow-2xl">
-                <h3 class="text-lg font-bold text-[#002147] mb-3">Landmarks</h3>
-                <ul class="space-y-2 text-sm text-gray-700">
-                  <li v-for="landmark in landmarks" :key="landmark" class="flex items-start gap-2">
-                    <span class="text-[#004595] mt-1">•</span>
-                    <span class="font-medium">{{ landmark }}</span>
-                  </li>
-                  <li v-if="landmarks.length === 0" class="text-xs text-gray-500">No landmarks available.</li>
-                </ul>
-              </section>
         <!-- Header Banner -->
         <div
           v-if="activeTab === 'overview'"
@@ -340,155 +690,234 @@
         </div>
 
         <!-- Barangay Personnel Section -->
-        <div v-if="activeTab === 'officers'" class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition-all duration-300">
-          <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-8 py-6">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                <div class="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
-                  <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
-                  </svg>
+        <div v-if="activeTab === 'officers'" class="space-y-6">
+          <!-- Page Header with Stats -->
+          <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10">
+            <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-6 relative overflow-hidden">
+              <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
+              <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24"></div>
+              
+              <div class="relative flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center gap-4">
+                  <div class="p-3 bg-white/20 backdrop-blur-sm rounded-2xl ring-4 ring-white/20">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="text-3xl font-bold text-white tracking-tight">Barangay Personnel</h2>
+                    <p class="text-white/90 text-sm font-medium mt-1">Community Officers & Leaders Directory</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 class="text-3xl font-bold text-white">Barangay Personnel</h2>
-                  <p class="text-blue-100 text-sm">Officers & Community Leaders</p>
+                
+                <button
+                  @click="addPersonnel"
+                  class="group flex items-center gap-2 px-6 py-3 bg-white text-[#002147] rounded-xl hover:bg-[#f3f1ee] transition-all duration-300 font-bold text-sm shadow-lg hover:shadow-xl hover:scale-105"
+                >
+                  <svg class="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                  </svg>
+                  Add Personnel
+                </button>
+              </div>
+              
+              <!-- Stats Bar -->
+              <div class="relative mt-6 grid grid-cols-2 gap-4">
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/20">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="text-white/70 text-xs font-semibold uppercase tracking-wide">Officers</p>
+                      <p class="text-white text-2xl font-bold mt-1">{{ sortedOfficers.length }}</p>
+                    </div>
+                    <div class="p-2 bg-white/20 rounded-lg">
+                      <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/20">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="text-white/70 text-xs font-semibold uppercase tracking-wide">Purok Leaders</p>
+                      <p class="text-white text-2xl font-bold mt-1">{{ sortedPurokLeaders.length }}</p>
+                    </div>
+                    <div class="p-2 bg-white/20 rounded-lg">
+                      <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <button
-                @click="addPersonnel"
-                class="flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-sm text-white rounded-xl hover:bg-white hover:text-[#004595] transition-all duration-300 font-semibold text-sm border border-white/30"
-              >
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
-                </svg>
-                Add Personnel
-              </button>
             </div>
           </div>
 
-          <div class="p-8">
-            <div v-if="allPersonnel.length === 0" class="text-center py-16">
-              <div class="inline-block p-6 bg-linear-to-br from-gray-100 to-gray-50 rounded-3xl mb-4 shadow-inner">
-                <svg class="w-16 h-16 mx-auto text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold text-gray-700 mb-2">No Personnel Added</h3>
-              <p class="text-gray-500">Click "Add Personnel" to add barangay officers or purok leaders</p>
+          <!-- Empty State -->
+          <div v-if="allPersonnel.length === 0" class="bg-gradient-to-br from-white to-[#f3f1ee]/30 rounded-2xl shadow-lg p-16 text-center border border-[#004595]/10">
+            <div class="inline-block p-8 bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 rounded-3xl mb-6 relative">
+              <div class="absolute inset-0 bg-gradient-to-br from-[#004595]/20 to-transparent rounded-3xl blur-xl"></div>
+              <svg class="w-20 h-20 text-[#004595]/40 relative" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+              </svg>
             </div>
+            <h3 class="text-2xl font-bold text-[#002147] mb-3">No Personnel Records Found</h3>
+            <p class="text-[#00397a] font-medium mb-6">Start building your barangay team directory</p>
+            <button
+              @click="addPersonnel"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#002147] to-[#004595] text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+              </svg>
+              Add First Personnel
+            </button>
+          </div>
 
-            <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <!-- Officers Column -->
-              <div>
-                <div class="flex items-center gap-3 mb-4 pb-3 border-b-2 border-[#004595]/20">
-                  <div class="p-2 bg-[#004595] rounded-lg">
-                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <!-- Personnel Grid -->
+          <div v-else class="space-y-6">
+            <!-- Barangay Officers Section -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#004595]/10">
+              <div class="bg-gradient-to-r from-[#002147] to-[#004595] px-6 py-4 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
+                <div class="relative flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl">
+                      <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="text-xl font-bold text-white">Barangay Officers</h3>
+                      <p class="text-xs text-white/80 font-medium">{{ sortedOfficers.length }} Official{{ sortedOfficers.length !== 1 ? 's' : '' }}</p>
+                    </div>
+                  </div>
+                  <div class="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg border border-white/30">
+                    <span class="text-white font-bold text-sm">Alphabetically Sorted</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/20 to-white">
+                <div v-if="sortedOfficers.length === 0" class="text-center py-12">
+                  <div class="inline-block p-4 bg-[#004595]/5 rounded-2xl mb-3">
+                    <svg class="w-12 h-12 text-[#004595]/30" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                     </svg>
                   </div>
-                <div>
-                  <h3 class="text-xl font-bold text-[#004595]">Barangay Officers</h3>
-                  <p class="text-xs text-gray-500 mt-1">(BMfullname field from database)</p>
-                </div>
+                  <p class="text-[#00397a] font-semibold">No officers added yet</p>
                 </div>
                 
-                <div v-if="officers.length === 0" class="text-center py-8 text-gray-400">
-                  <p class="text-sm">No officers added yet</p>
-                </div>
-                
-                <div v-else class="space-y-3">
+                <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div
-                    v-for="person in officers"
+                    v-for="person in sortedOfficers"
                     :key="person.id"
-                    class="p-4 bg-linear-to-br from-blue-50 to-white rounded-xl border-2 border-[#004595]/20 hover:border-[#004595] transition-all duration-200 hover:shadow-md"
+                    @click="viewPersonnelDetails(person)"
+                    class="group cursor-pointer bg-white rounded-xl p-5 border-2 border-[#004595]/10 hover:border-[#004595]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#004595]/10 hover:-translate-y-1 relative overflow-hidden"
                   >
-                    <div class="flex items-start gap-3">
-                      <div class="w-12 h-12 rounded-lg flex items-center justify-center shrink-0 bg-[#004595]">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                    
+                    <div class="relative flex flex-col items-center text-center">
+                      <div class="w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#002147] to-[#004595] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                         </svg>
                       </div>
-                      <div class="flex-1">
-                        <h4 class="font-bold text-[#002147]">{{ person.name }}</h4>
-                        <p class="text-sm text-gray-600">{{ person.position }}</p>
-                        <p class="text-xs text-gray-500 mt-1">{{ person.phone }}</p>
+                      
+                      <h4 class="font-bold text-[#002147] text-base mb-1 group-hover:text-[#004595] transition-colors">{{ person.name }}</h4>
+                      <p class="text-sm text-[#00397a] font-semibold mb-3 px-3 py-1 bg-[#004595]/10 rounded-lg">{{ person.position }}</p>
+                      
+                      <div class="w-full pt-3 border-t border-[#004595]/10 space-y-2">
+                        <div class="flex items-center justify-center gap-2 text-xs text-[#00397a]">
+                          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                          </svg>
+                          <span class="font-medium">{{ person.phone }}</span>
+                        </div>
                       </div>
-                      <div class="flex flex-col gap-2">
-                        <button
-                          @click="editPersonnel(person)"
-                          class="text-[#004595] hover:text-[#00397a] transition-colors"
-                          title="Edit"
-                        >
-                          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                      
+                      <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div class="p-1.5 bg-[#004595] rounded-lg shadow-lg">
+                          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
                           </svg>
-                        </button>
-                        <button
-                          @click="removePersonnel(person.id)"
-                          class="text-red-500 hover:text-red-700 transition-colors"
-                          title="Delete"
-                        >
-                          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                          </svg>
-                        </button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <!-- Purok Leaders Column -->
-              <div>
-                <div class="flex items-center gap-3 mb-4 pb-3 border-b-2 border-[#00397a]/20">
-                  <div class="p-2 bg-[#00397a] rounded-lg">
-                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+            <!-- Purok Leaders Section -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#004595]/10">
+              <div class="bg-gradient-to-r from-[#00397a] to-[#004595] px-6 py-4 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
+                <div class="relative flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl">
+                      <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 class="text-xl font-bold text-white">Purok Leaders</h3>
+                      <p class="text-xs text-white/80 font-medium">{{ sortedPurokLeaders.length }} Leader{{ sortedPurokLeaders.length !== 1 ? 's' : '' }}</p>
+                    </div>
+                  </div>
+                  <div class="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg border border-white/30">
+                    <span class="text-white font-bold text-sm">Alphabetically Sorted</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/20 to-white">
+                <div v-if="sortedPurokLeaders.length === 0" class="text-center py-12">
+                  <div class="inline-block p-4 bg-[#00397a]/5 rounded-2xl mb-3">
+                    <svg class="w-12 h-12 text-[#00397a]/30" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
                     </svg>
                   </div>
-                  <h3 class="text-xl font-bold text-[#00397a]">Purok Leaders</h3>
+                  <p class="text-[#00397a] font-semibold">No purok leaders added yet</p>
                 </div>
                 
-                <div v-if="purokLeaders.length === 0" class="text-center py-8 text-gray-400">
-                  <p class="text-sm">No purok leaders added yet</p>
-                </div>
-                
-                <div v-else class="space-y-3">
+                <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div
-                    v-for="person in purokLeaders"
+                    v-for="person in sortedPurokLeaders"
                     :key="person.id"
-                    class="p-4 bg-linear-to-br from-green-50 to-white rounded-xl border-2 border-[#00397a]/20 hover:border-[#00397a] transition-all duration-200 hover:shadow-md"
+                    @click="viewPersonnelDetails(person)"
+                    class="group cursor-pointer bg-white rounded-xl p-5 border-2 border-[#00397a]/10 hover:border-[#00397a]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#00397a]/10 hover:-translate-y-1 relative overflow-hidden"
                   >
-                    <div class="flex items-start gap-3">
-                      <div class="w-12 h-12 rounded-lg flex items-center justify-center shrink-0 bg-[#00397a]">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#00397a]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                    
+                    <div class="relative flex flex-col items-center text-center">
+                      <div class="w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#00397a] to-[#004595] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                         </svg>
                       </div>
-                      <div class="flex-1">
-                        <h4 class="font-bold text-[#002147]">{{ person.name }}</h4>
-                        <p class="text-sm text-gray-600">{{ person.position }}</p>
-                        <p class="text-xs text-gray-500 mt-1">{{ person.phone }}</p>
+                      
+                      <h4 class="font-bold text-[#002147] text-base mb-1 group-hover:text-[#00397a] transition-colors">{{ person.name }}</h4>
+                      <p class="text-sm text-[#00397a] font-semibold mb-3 px-3 py-1 bg-[#00397a]/10 rounded-lg">{{ person.position }}</p>
+                      
+                      <div class="w-full pt-3 border-t border-[#00397a]/10 space-y-2">
+                        <div class="flex items-center justify-center gap-2 text-xs text-[#00397a]">
+                          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                          </svg>
+                          <span class="font-medium">{{ person.phone }}</span>
+                        </div>
                       </div>
-                      <div class="flex flex-col gap-2">
-                        <button
-                          @click="editPersonnel(person)"
-                          class="text-[#00397a] hover:text-[#002147] transition-colors"
-                          title="Edit"
-                        >
-                          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                      
+                      <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div class="p-1.5 bg-[#00397a] rounded-lg shadow-lg">
+                          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
                           </svg>
-                        </button>
-                        <button
-                          @click="removePersonnel(person.id)"
-                          class="text-red-500 hover:text-red-700 transition-colors"
-                          title="Delete"
-                        >
-                          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                          </svg>
-                        </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -499,297 +928,328 @@
         </div>
 
          <!-- Barangay Information Section -->
-        <div v-if="activeTab === 'history'" id="history-section" class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition-all duration-300">
-          <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-8 py-6">
-            <div class="flex items-center gap-3">
-              <div class="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
-                <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              <div>
-                <h2 class="text-3xl font-bold text-white">Barangay Information</h2>
-                <p class="text-blue-100 text-sm">Patron Saint & Fiesta Celebration</p>
+        <div v-if="activeTab === 'history'" id="history-section" class="space-y-6">
+          <!-- Page Header -->
+          <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10">
+            <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-6 relative overflow-hidden">
+              <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
+              <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24"></div>
+              
+              <div class="relative flex items-center gap-4">
+                <div class="p-3 bg-white/20 backdrop-blur-sm rounded-2xl ring-4 ring-white/20">
+                  <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <div>
+                  <h1 class="text-3xl font-bold text-white tracking-tight">Barangay Information</h1>
+                  <p class="text-white/90 text-sm font-medium mt-1">History, Patron Saint & Fiesta Celebration</p>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="p-8">
-            <div v-if="brgyInfo.length > 0" class="space-y-6">
-              <div
-                v-for="brgy in brgyInfo"
-                :key="brgy.araw"
-                class="bg-linear-to-br from-[#f3f1ee] to-gray-50 rounded-2xl overflow-hidden border-2 border-[#004595]/10 hover:border-[#004595]/30 transition-all duration-300 hover:shadow-lg"
-              >
-                <!-- Mobile/Tablet Layout -->
-                <div class="flex flex-col lg:flex-row">
-                  <!-- Image Section -->
-                  <div class="lg:w-2/5 relative overflow-hidden bg-gray-100">
-                    <div class="h-64 sm:h-80 lg:h-full min-h-100">
-                      <img 
-                        class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
-                        :src="brgy.brgy_images" 
-                        alt="Barangay Image" 
-                      />
-                      <div class="absolute inset-0 bg-linear-to-t from-black/20 to-transparent pointer-events-none"></div>
+          <!-- Content -->
+          <div v-if="brgyInfo.length > 0" class="space-y-6">
+            <article
+              v-for="brgy in brgyInfo"
+              :key="brgy.araw"
+              class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-500 border-2 border-[#004595]/10 hover:border-[#004595]/30 hover:-translate-y-1"
+            >
+              <div class="grid lg:grid-cols-5 gap-0">
+                <!-- Image Section -->
+                <div class="lg:col-span-2 relative overflow-hidden">
+                  <div class="aspect-[4/3] lg:aspect-auto lg:h-full relative">
+                    <img 
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                      :src="brgy.brgy_images" 
+                      alt="Barangay Image" 
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#002147]/80 via-[#002147]/30 to-transparent"></div>
+                    
+                    <!-- Floating Badge on Image -->
+                    <div class="absolute top-4 left-4 z-10">
+                      <div class="px-4 py-2 bg-white/95 backdrop-blur-sm rounded-xl shadow-lg border border-white/50">
+                        <div class="flex items-center gap-2">
+                          <svg class="w-4 h-4 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                          </svg>
+                          <span class="text-[#002147] font-bold text-xs uppercase tracking-wide">{{ brgy.araw }}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  
-                  <!-- Info Section -->
-                  <div class="lg:w-3/5 p-8 flex flex-col justify-center space-y-6">
-                    <!-- Header with Icon -->
-                    <div class="flex items-start gap-4">
-                      <div class="shrink-0 w-14 h-14 rounded-xl flex items-center justify-center bg-linear-to-br from-[#004595] to-[#00397a] shadow-lg">
-                        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                        </svg>
-                      </div>
-                      <div class="flex-1">
-                        <h3 class="text-3xl font-bold text-[#002147] mb-1">{{ brgy.araw }}</h3>
-                        <div class="h-1 w-16 bg-linear-to-r from-[#004595] to-transparent rounded-full"></div>
-                      </div>
+                </div>
+                
+                <!-- Info Section -->
+                <div class="lg:col-span-3 p-8 bg-gradient-to-br from-white to-[#f3f1ee]/20">
+                  <!-- Section Title -->
+                  <div class="mb-6 pb-4 border-b-2 border-[#004595]/10">
+                    <div class="flex items-center gap-2 mb-2">
+                      <div class="h-1.5 w-1.5 rounded-full bg-[#004595]"></div>
+                      <div class="h-1.5 w-1.5 rounded-full bg-[#00397a]"></div>
+                      <div class="h-1.5 w-1.5 rounded-full bg-[#002147]"></div>
                     </div>
+                    <h2 class="text-2xl font-bold text-[#002147] tracking-tight">Community Details</h2>
+                  </div>
 
-                    <!-- Details Grid -->
-                    <div class="grid gap-4">
-                      <!-- Patron Saint -->
-                      <div class="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                        <div class="shrink-0 w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
-                          <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                  <!-- Details Grid -->
+                  <div class="space-y-5">
+                    <!-- Patron Saint -->
+                    <div class="group/item relative overflow-hidden rounded-2xl p-5 bg-gradient-to-r from-[#004595]/5 via-[#004595]/10 to-transparent border-l-4 border-[#004595] hover:border-[#00397a] hover:shadow-lg hover:shadow-[#004595]/5 transition-all duration-300">
+                      <div class="flex items-start gap-4">
+                        <div class="shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#002147] to-[#004595] shadow-lg flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                           </svg>
                         </div>
                         <div class="flex-1">
-                          <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Patron Saint</p>
-                          <p class="text-lg font-bold text-[#002147]">{{ brgy.patron }}</p>
+                          <p class="text-xs font-bold text-[#00397a] uppercase tracking-wider mb-1.5 flex items-center gap-2">
+                            Patron Saint
+                            <span class="h-px flex-1 bg-[#004595]/20"></span>
+                          </p>
+                          <p class="text-xl font-bold text-[#002147] group-hover/item:text-[#004595] transition-colors">{{ brgy.patron }}</p>
                         </div>
                       </div>
+                    </div>
 
-                      <!-- Fiesta Date -->
-                      <div class="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                        <div class="shrink-0 w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center">
-                          <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                    <!-- Fiesta Date -->
+                    <div class="group/item relative overflow-hidden rounded-2xl p-5 bg-gradient-to-r from-[#00397a]/5 via-[#00397a]/10 to-transparent border-l-4 border-[#00397a] hover:border-[#004595] hover:shadow-lg hover:shadow-[#00397a]/5 transition-all duration-300">
+                      <div class="flex items-start gap-4">
+                        <div class="shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#00397a] to-[#004595] shadow-lg flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
                           </svg>
                         </div>
                         <div class="flex-1">
-                          <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Fiesta Celebration</p>
-                          <p class="text-lg font-bold text-[#002147]">{{ brgy.date }}</p>
-                        </div>
-                      </div>
-
-                      <!-- History -->
-                      <div v-if="brgy.brgy_history" class="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                        <div class="shrink-0 w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center">
-                          <svg class="w-5 h-5 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/>
-                          </svg>
-                        </div>
-                        <div class="flex-1">
-                          <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Barangay History</p>
-                          <p class="text-sm text-gray-700 leading-relaxed line-clamp-3">{{ brgy.brgy_history }}</p>
+                          <p class="text-xs font-bold text-[#00397a] uppercase tracking-wider mb-1.5 flex items-center gap-2">
+                            Fiesta Celebration
+                            <span class="h-px flex-1 bg-[#00397a]/20"></span>
+                          </p>
+                          <p class="text-xl font-bold text-[#002147] group-hover/item:text-[#00397a] transition-colors">{{ brgy.date }}</p>
                         </div>
                       </div>
                     </div>
 
-                    <!-- Decorative Element -->
-                    <div class="flex items-center gap-3 pt-4">
-                      <div class="h-0.5 flex-1 bg-linear-to-r from-[#004595]/20 to-transparent"></div>
-                      <svg class="w-4 h-4 text-[#004595]/40" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
-                      </svg>
-                      <div class="h-0.5 flex-1 bg-linear-to-l from-[#004595]/20 to-transparent"></div>
+                    <!-- History -->
+                    <div v-if="brgy.brgy_history" class="relative overflow-hidden rounded-2xl p-6 bg-white border-2 border-[#004595]/10 shadow-sm hover:shadow-xl hover:shadow-[#004595]/5 hover:border-[#004595]/30 transition-all duration-300">
+                      <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-16 -mt-16"></div>
+                      
+                      <div class="relative">
+                        <div class="flex items-center gap-3 mb-4 pb-3 border-b border-[#004595]/10">
+                          <div class="p-2 bg-[#004595]/10 rounded-lg">
+                            <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/>
+                            </svg>
+                          </div>
+                          <div>
+                            <p class="text-xs font-bold text-[#00397a] uppercase tracking-wider">Barangay History</p>
+                          </div>
+                        </div>
+                        <p class="text-sm text-[#002147] leading-relaxed font-medium">{{ brgy.brgy_history }}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </article>
+          </div>
 
-            <!-- Empty State -->
-            <div v-else class="text-center py-16">
-              <div class="inline-block p-6 bg-linear-to-br from-gray-100 to-gray-50 rounded-3xl mb-4 shadow-inner">
-                <svg class="w-16 h-16 mx-auto text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold text-gray-700 mb-2">No Information Available</h3>
-              <p class="text-gray-500">Barangay information has not been added yet.</p>
+          <!-- Empty State -->
+          <div v-else class="bg-white rounded-2xl shadow-md p-12 text-center border-2 border-[#004595]/10">
+            <div class="inline-block p-8 bg-gradient-to-br from-[#f3f1ee] to-white rounded-3xl mb-6 shadow-inner">
+              <svg class="w-20 h-20 text-[#004595]/30" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-[#002147] mb-3">No Information Available</h3>
+            <p class="text-[#00397a] font-medium">Barangay information has not been added yet.</p>
+            <div class="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-[#f3f1ee] rounded-lg text-sm text-[#00397a] font-semibold">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+              </svg>
+              Check back later for updates
             </div>
           </div>
         </div>
 
         <!-- Community Establishments -->
-        <div v-if="activeTab === 'landmarks'" class="bg-white rounded-2xl shadow-xl p-6 border-2 border-white/50">
-          <h2 class="text-2xl font-bold text-[#002147] mb-6 flex items-center gap-2">
-            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
-              />
-            </svg>
-            Communities
-          </h2>
+        <div v-if="activeTab === 'landmarks'" class="space-y-6">
+          <!-- Page Header -->
+          <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10">
+            <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-6 relative overflow-hidden">
+              <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
+              <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24"></div>
+              
+              <div class="relative flex items-center gap-4">
+                <div class="p-3 bg-white/20 backdrop-blur-sm rounded-2xl ring-4 ring-white/20">
+                  <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <div>
+                  <h1 class="text-3xl font-bold text-white tracking-tight">Community Landmarks</h1>
+                  <p class="text-white/90 text-sm font-medium mt-1">Schools, Churches & Business Establishments</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <div class="grid gap-6 md:grid-cols-3">
+          <!-- Landmarks Grid -->
+          <div class="grid gap-6 grid-cols-1 lg:grid-cols-3">
+            <!-- Schools Card -->
             <article
-              class="group relative overflow-hidden rounded-xl border-2 border-[#004595]/20 p-5 hover:border-[#004595] transition-all duration-300 hover:shadow-lg bg-linear-to-br from-white to-[#f3f1ee] cursor-pointer"
+              class="group relative overflow-hidden rounded-2xl border-2 border-[#004595]/10 hover:border-[#004595]/40 bg-white shadow-md hover:shadow-xl hover:shadow-[#004595]/10 transition-all duration-300 cursor-pointer hover:-translate-y-1"
               role="button"
               tabindex="0"
               @click="goToSchools"
               @keyup.enter="goToSchools"
               @keyup.space="goToSchools"
             >
-              <!-- View More Overlay -->
-              <div class="absolute inset-0 bg-[#004595]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                <div class="text-center">
-                  <svg class="w-6 h-6 text-white mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                  <p class="text-white font-semibold text-sm">View More</p>
-                </div>
-              </div>
-              <div
-                class="absolute top-0 right-0 w-20 h-20 bg-[#004595]/5 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"
-              ></div>
-              <div class="relative">
-                <div class="flex items-center gap-2 mb-4">
-                  <div
-                    class="p-2 bg-[#004595] rounded-lg group-hover:scale-110 transition-transform duration-300"
-                  >
-                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"
-                      />
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+              
+              <div class="p-6 relative">
+                <div class="flex flex-col items-center text-center mb-4">
+                  <div class="w-20 h-20 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#002147] to-[#004595] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
+                    <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
                     </svg>
                   </div>
-                  <h3 class="text-xl font-bold text-[#004595]">Schools</h3>
+                  <h3 class="text-2xl font-bold text-[#002147] mb-1 group-hover:text-[#004595] transition-colors">Schools</h3>
+                  <p class="text-sm text-[#00397a] font-semibold px-4 py-1 bg-[#004595]/10 rounded-lg">{{ communityInfo.schools?.length || 0 }} Institutions</p>
                 </div>
-                <ul class="space-y-2 text-sm text-gray-700">
-                  <li
+                
+                <div class="space-y-2 mb-4 max-h-48 overflow-y-auto">
+                  <div
                     v-for="school in communityInfo.schools"
                     :key="school"
-                    class="flex items-start gap-2"
+                    class="flex items-start gap-2 py-2 px-3 rounded-lg bg-[#f3f1ee]/50 hover:bg-[#f3f1ee] transition-colors"
                   >
-                    <span class="text-[#004595] mt-1">•</span>
-                    <span class="font-medium">{{ school }}</span>
-                  </li>
-                </ul>
+                    <svg class="w-4 h-4 text-[#004595] mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm font-medium text-[#002147]">{{ school }}</span>
+                  </div>
+                </div>
+                
+                <div class="pt-3 border-t border-[#004595]/10">
+                  <div class="flex items-center justify-between text-sm">
+                    <span class="text-[#00397a] font-bold">View Details</span>
+                    <svg class="w-5 h-5 text-[#004595] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
             </article>
 
+            <!-- Churches Card -->
             <article
-              class="group relative overflow-hidden rounded-xl border-2 border-[#00397a]/20 p-5 hover:border-[#00397a] transition-all duration-300 hover:shadow-lg bg-linear-to-br from-white to-[#f3f1ee] cursor-pointer"
+              class="group relative overflow-hidden rounded-2xl border-2 border-[#00397a]/10 hover:border-[#00397a]/40 bg-white shadow-md hover:shadow-xl hover:shadow-[#00397a]/10 transition-all duration-300 cursor-pointer hover:-translate-y-1"
               role="button"
               tabindex="0"
               @click="goToChurches"
               @keyup.enter="goToChurches"
               @keyup.space="goToChurches"
             >
-              <!-- View More Overlay -->
-              <div class="absolute inset-0 bg-[#00397a]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                <div class="text-center">
-                  <svg class="w-6 h-6 text-white mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                  <p class="text-white font-semibold text-sm">View More</p>
-                </div>
-              </div>
-              <div
-                class="absolute top-0 right-0 w-20 h-20 bg-[#00397a]/5 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"
-              ></div>
-              <div class="relative">
-                <div class="flex items-center gap-2 mb-4">
-                  <div
-                    class="p-2 bg-[#00397a] rounded-lg group-hover:scale-110 transition-transform duration-300"
-                  >
-                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        fill-rule="evenodd"
-                        d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z"
-                        clip-rule="evenodd"
-                      />
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#00397a]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+              
+              <div class="p-6 relative">
+                <div class="flex flex-col items-center text-center mb-4">
+                  <div class="w-20 h-20 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#00397a] to-[#004595] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
+                    <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
                     </svg>
                   </div>
-                  <h3 class="text-xl font-bold text-[#00397a]">Churches</h3>
+                  <h3 class="text-2xl font-bold text-[#002147] mb-1 group-hover:text-[#00397a] transition-colors">Churches</h3>
+                  <p class="text-sm text-[#00397a] font-semibold px-4 py-1 bg-[#00397a]/10 rounded-lg">{{ communityInfo.churches?.length || 0 }} Places of Worship</p>
                 </div>
-                <ul class="space-y-2 text-sm text-gray-700">
-                  <li
+                
+                <div class="space-y-2 mb-4 max-h-48 overflow-y-auto">
+                  <div
                     v-for="church in communityInfo.churches"
                     :key="church"
-                    class="flex items-start gap-2"
+                    class="flex items-start gap-2 py-2 px-3 rounded-lg bg-[#f3f1ee]/50 hover:bg-[#f3f1ee] transition-colors"
                   >
-                    <span class="text-[#00397a] mt-1">•</span>
-                    <span class="font-medium">{{ church }}</span>
-                  </li>
-                </ul>
+                    <svg class="w-4 h-4 text-[#00397a] mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm font-medium text-[#002147]">{{ church }}</span>
+                  </div>
+                </div>
+                
+                <div class="pt-3 border-t border-[#00397a]/10">
+                  <div class="flex items-center justify-between text-sm">
+                    <span class="text-[#00397a] font-bold">View Details</span>
+                    <svg class="w-5 h-5 text-[#00397a] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
             </article>
 
+            <!-- Businesses Card -->
             <article
-              class="group relative overflow-hidden rounded-xl border-2 border-[#002147]/20 p-5 hover:border-[#002147] transition-all duration-300 hover:shadow-lg bg-linear-to-br from-white to-[#f3f1ee] cursor-pointer"
+              class="group relative overflow-hidden rounded-2xl border-2 border-[#002147]/10 hover:border-[#002147]/40 bg-white shadow-md hover:shadow-xl hover:shadow-[#002147]/10 transition-all duration-300 cursor-pointer hover:-translate-y-1"
               role="button"
               tabindex="0"
               @click="goToEstablishments"
               @keyup.enter="goToEstablishments"
               @keyup.space="goToEstablishments"
             >
-              <!-- View More Overlay -->
-              <div class="absolute inset-0 bg-[#002147]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                <div class="text-center">
-                  <svg class="w-6 h-6 text-white mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                  <p class="text-white font-semibold text-sm">View More</p>
-                </div>
-              </div>
-              <div
-                class="absolute top-0 right-0 w-20 h-20 bg-[#002147]/5 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"
-              ></div>
-              <div class="relative">
-                <div class="flex items-center gap-2 mb-4">
-                  <div
-                    class="p-2 bg-[#002147] rounded-lg group-hover:scale-110 transition-transform duration-300"
-                  >
-                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        fill-rule="evenodd"
-                        d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z"
-                        clip-rule="evenodd"
-                      />
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#002147]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+              
+              <div class="p-6 relative">
+                <div class="flex flex-col items-center text-center mb-4">
+                  <div class="w-20 h-20 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#002147] to-[#00397a] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
+                    <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd"/>
                     </svg>
                   </div>
-                  <h3 class="text-xl font-bold text-[#002147]">Businesses</h3>
+                  <h3 class="text-2xl font-bold text-[#002147] mb-1 group-hover:text-[#00397a] transition-colors">Businesses</h3>
+                  <p class="text-sm text-[#00397a] font-semibold px-4 py-1 bg-[#002147]/10 rounded-lg">{{ communityInfo.businesses?.length || 0 }} Establishments</p>
                 </div>
-                <ul class="space-y-2 text-sm text-gray-700">
-                  <li
+                
+                <div class="space-y-2 mb-4 max-h-48 overflow-y-auto">
+                  <div
                     v-for="business in communityInfo.businesses"
                     :key="business"
-                    class="flex items-start gap-2"
+                    class="flex items-start gap-2 py-2 px-3 rounded-lg bg-[#f3f1ee]/50 hover:bg-[#f3f1ee] transition-colors"
                   >
-                    <span class="text-[#002147] mt-1">•</span>
-                    <span class="font-medium">{{ business }}</span>
-                  </li>
-                </ul>
+                    <svg class="w-4 h-4 text-[#002147] mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-sm font-medium text-[#002147]">{{ business }}</span>
+                  </div>
+                </div>
+                
+                <div class="pt-3 border-t border-[#002147]/10">
+                  <div class="flex items-center justify-between text-sm">
+                    <span class="text-[#00397a] font-bold">View Details</span>
+                    <svg class="w-5 h-5 text-[#002147] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                </div>
               </div>
             </article>
           </div>
-        </div>
 
-        <!-- Footer Note -->
-        <div v-if="activeTab === 'landmarks'" class="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-white/50">
-          <p class="text-xs text-gray-600 text-center flex items-center justify-center gap-2">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fill-rule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            Sample data for demonstration purposes. Replace with official barangay records when
-            available.
-          </p>
+          <!-- Info Card -->
+          <div class="bg-gradient-to-br from-white to-[#f3f1ee]/30 rounded-xl p-5 border border-[#004595]/10 shadow-sm">
+            <div class="flex items-start gap-3">
+              <div class="p-2 bg-[#004595]/10 rounded-lg">
+                <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-[#002147] mb-1">Information Note</p>
+                <p class="text-xs text-[#00397a] font-medium">Click on any category card to view detailed information and location maps. Sample data is shown for demonstration purposes.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -814,63 +1274,163 @@
     </div>
 
     <!-- Add Personnel Modal -->
-    <div v-if="showModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50" @click.self="closeModal">
-      <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
-        <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4">
-          <h3 class="text-xl font-bold text-white">{{ isEditMode ? 'Edit Personnel' : 'Add Personnel' }}</h3>
+    <div v-if="showModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closeModal">
+      <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+        <!-- Modal Header -->
+        <div class="bg-gradient-to-r from-[#002147] to-[#00397a] px-6 py-5">
+          <div class="flex items-center gap-3">
+            <div class="p-2 bg-white/20 rounded-lg">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white">{{ isEditMode ? 'Edit Personnel' : 'Add Personnel' }}</h3>
+          </div>
         </div>
         
-        <form @submit.prevent="submitPersonnel" class="p-6 space-y-4">
+        <!-- Modal Body -->
+        <form @submit.prevent="submitPersonnel" class="p-6 space-y-5">
           <div>
-            <label class="block text-sm font-semibold text-[#002147] mb-2">Full Name (BMfullname)</label>
+            <label class="block text-sm font-bold text-[#002147] mb-2">Full Name</label>
             <input
               v-model="personnelForm.fullname"
               type="text"
               required
-              class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+              class="w-full px-4 py-3 border-2 border-[#f3f1ee] rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm"
               placeholder="Enter full name"
             />
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-[#002147] mb-2">Phone Number</label>
+            <label class="block text-sm font-bold text-[#002147] mb-2">Phone Number</label>
             <input
               v-model="personnelForm.phone_number"
               type="text"
               required
-              class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+              class="w-full px-4 py-3 border-2 border-[#f3f1ee] rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm"
               placeholder="Enter phone number"
             />
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-[#002147] mb-2">Position</label>
+            <label class="block text-sm font-bold text-[#002147] mb-2">Position</label>
             <input
               v-model="personnelForm.position"
               type="text"
               required
-              class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+              class="w-full px-4 py-3 border-2 border-[#f3f1ee] rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm"
               placeholder="e.g., Secretary, Treasurer, Purok Leader"
             />
           </div>
 
-          <div class="flex gap-3 pt-4">
+          <div class="flex gap-3 pt-2">
             <button
               type="button"
               @click="closeModal"
-              class="flex-1 px-4 py-2 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all font-semibold"
+              class="flex-1 px-4 py-3 border-2 border-[#f3f1ee] text-[#002147] rounded-xl hover:bg-[#f3f1ee] transition-all font-semibold text-sm"
             >
               Cancel
             </button>
             <button
               type="submit"
               :disabled="submitting"
-              class="flex-1 px-4 py-2 bg-[#004595] text-white rounded-lg hover:bg-[#00397a] transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+              class="flex-1 px-4 py-3 bg-gradient-to-r from-[#002147] to-[#00397a] text-white rounded-xl hover:shadow-lg transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm"
             >
               {{ submitting ? (isEditMode ? 'Updating...' : 'Adding...') : (isEditMode ? 'Update Personnel' : 'Add Personnel') }}
             </button>
           </div>
         </form>
+      </div>
+    </div>
+
+    <!-- Personnel Details Modal -->
+    <div v-if="showDetailsModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closeDetailsModal">
+      <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-all">
+        <!-- Modal Header -->
+        <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20"></div>
+          <div class="relative flex items-center gap-4">
+            <div class="w-16 h-16 rounded-2xl flex items-center justify-center bg-white/20 backdrop-blur-sm shadow-lg ring-4 ring-white/30">
+              <svg class="w-9 h-9 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-white">{{ selectedPersonnel?.name }}</h3>
+              <p class="text-white/90 text-sm font-semibold mt-1">{{ selectedPersonnel?.position }}</p>
+            </div>
+            <button
+              @click="closeDetailsModal"
+              class="p-2 hover:bg-white/20 rounded-lg transition-all"
+            >
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Modal Body -->
+        <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white space-y-4">
+          <!-- Contact Information -->
+          <div class="bg-white rounded-xl p-5 shadow-sm border border-[#004595]/10">
+            <h4 class="text-sm font-bold text-[#002147] uppercase tracking-wide mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+              </svg>
+              Contact Information
+            </h4>
+            
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 p-3 bg-[#f3f1ee]/50 rounded-lg">
+                <div class="p-2 bg-gradient-to-br from-[#002147] to-[#004595] rounded-lg">
+                  <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Phone Number</p>
+                  <p class="text-[#002147] font-semibold">{{ selectedPersonnel?.phone }}</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 p-3 bg-[#f3f1ee]/50 rounded-lg">
+                <div class="p-2 bg-gradient-to-br from-[#00397a] to-[#004595] rounded-lg">
+                  <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Role Type</p>
+                  <p class="text-[#002147] font-semibold">{{ selectedPersonnel?.type }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex gap-3">
+            <button
+              @click="editFromDetails"
+              class="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-[#004595] to-[#00397a] text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+              </svg>
+              Edit Details
+            </button>
+            <button
+              @click="deleteFromDetails"
+              class="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+              </svg>
+              Delete
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -980,6 +1540,7 @@ const editForm = ref({
   name: '',
   phone: '',
   email: '',
+  officeHours: ''
 })
 const captainId = ref(null)
 const fileInput = ref(null)
@@ -998,10 +1559,23 @@ const personnelForm = ref({
   position: ''
 })
 
+// Personnel details modal
+const showDetailsModal = ref(false)
+const selectedPersonnel = ref(null)
+
 // Computed property to get all personnel
 const allPersonnel = computed(() => personnel.value)
 const officers = computed(() => personnel.value.filter(p => p.type === 'Officer'))
 const purokLeaders = computed(() => personnel.value.filter(p => p.type === 'Purok Leader'))
+
+// Sorted personnel alphabetically by name
+const sortedOfficers = computed(() => {
+  return [...officers.value].sort((a, b) => a.name.localeCompare(b.name))
+})
+const sortedPurokLeaders = computed(() => {
+  return [...purokLeaders.value].sort((a, b) => a.name.localeCompare(b.name))
+})
+
 const brgyInfo = computed(() => brgyFiesta.value ? [brgyFiesta.value] : []);
 const landmarks = computed(() => {
   if (!communityInfo.value) return []
@@ -1151,6 +1725,7 @@ const startEdit = () => {
     name: captainInfo.value.name,
     phone: captainInfo.value.phone,
     email: captainInfo.value.email,
+    officeHours: captainInfo.value.officeHours,
   }
 }
 
@@ -1160,6 +1735,7 @@ const cancelEdit = () => {
     name: '',
     phone: '',
     email: '',
+    officeHours: ''
   }
 }
 
@@ -1177,6 +1753,7 @@ const saveEdit = async () => {
         Cptfullname: editForm.value.name,
         phone: editForm.value.phone,
         email: editForm.value.email,
+        office_hours: editForm.value.officeHours,
       })
       .eq('id', captainId.value)
 
@@ -1279,6 +1856,53 @@ const closeModal = () => {
     BMfullname: '',
     phone_number: '',
     position: ''
+  }
+}
+
+// Personnel details modal functions
+const viewPersonnelDetails = (person) => {
+  selectedPersonnel.value = person
+  showDetailsModal.value = true
+}
+
+const closeDetailsModal = () => {
+  showDetailsModal.value = false
+  selectedPersonnel.value = null
+}
+
+const editFromDetails = () => {
+  if (selectedPersonnel.value) {
+    closeDetailsModal()
+    isEditMode.value = true
+    editingPersonnelId.value = selectedPersonnel.value.id
+    personnelForm.value = {
+      fullname: selectedPersonnel.value.name,
+      phone_number: selectedPersonnel.value.phone,
+      position: selectedPersonnel.value.position
+    }
+    showModal.value = true
+  }
+}
+
+const deleteFromDetails = async () => {
+  if (!selectedPersonnel.value) return
+  
+  if (confirm(`Are you sure you want to delete ${selectedPersonnel.value.name}?`)) {
+    try {
+      const { error } = await supabase
+        .from('BrgyMembers')
+        .delete()
+        .eq('id', selectedPersonnel.value.id)
+
+      if (error) throw error
+
+      personnel.value = personnel.value.filter(p => p.id !== selectedPersonnel.value.id)
+      alert('Personnel deleted successfully!')
+      closeDetailsModal()
+    } catch (error) {
+      console.error('Error deleting personnel:', error)
+      alert('Failed to delete personnel. Please try again.')
+    }
   }
 }
 

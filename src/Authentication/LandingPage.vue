@@ -18,9 +18,9 @@
       </div>
       <router-link
         to="/login"
-        class="flex items-center gap-2 px-7 py-2.5 font-semibold text-[0.95rem] no-underline bg-[#004595] text-white border-2 border-white rounded-full transition-all duration-300 cursor-pointer shadow-[0_2px_8px_rgba(0,33,71,0.10)] tracking-wider hover:bg-white hover:text-[#004595] hover:border-[#004595] hover:shadow-[0_4px_16px_rgba(0,69,149,0.18)] hover:scale-105 animate-fadeIn"
+        class="flex items-center gap-2 px-7 py-2.5 font-semibold text-[0.95rem] no-underline bg-[#004595] text-white border-2 border-white rounded-full transition-all duration-500 ease-in-out cursor-pointer shadow-[0_2px_8px_rgba(0,33,71,0.10)] tracking-wider hover:shadow-[0_6px_20px_rgba(0,69,149,0.35)] hover:scale-105 hover:brightness-110 animate-fadeIn"
       >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-4 h-4 transition-transform duration-500 ease-in-out group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -84,9 +84,9 @@
           </p>
           <router-link
             to="/login"
-            class="inline-flex items-center gap-2 px-12 py-4 text-lg font-semibold bg-[#004595] text-white border-2 border-white rounded-full no-underline transition-all duration-300 cursor-pointer shadow-[0_2px_8px_rgba(0,33,71,0.10)] tracking-wider hover:bg-white hover:text-[#004595] hover:border-[#004595] hover:-translate-y-1 hover:shadow-[0_4px_16px_rgba(0,69,149,0.18)] hover:scale-105 animate-fadeInUp animation-delay-600"
+            class="inline-flex items-center gap-2 px-12 py-4 text-lg font-semibold bg-[#004595] text-white border-2 border-white rounded-full no-underline transition-all duration-500 ease-in-out cursor-pointer shadow-[0_2px_8px_rgba(0,33,71,0.10)] tracking-wider hover:-translate-y-1 hover:shadow-[0_8px_25px_rgba(0,69,149,0.4)] hover:scale-105 hover:brightness-110 animate-fadeInUp animation-delay-600"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 transition-transform duration-500 ease-in-out hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
