@@ -170,7 +170,7 @@
 										/>
 										<input
 											v-model="editingOwnerEmail"
-											type="email"
+											type="text"
 											class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-xs"
 											placeholder="Owner email"
 										/>
@@ -191,7 +191,7 @@
 										/>
 										<input
 											v-model="editingManagerEmail"
-											type="email"
+											type="text"
 											class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-xs"
 											placeholder="Manager email"
 										/>
@@ -414,7 +414,7 @@
 										<label class="block text-xs font-semibold text-[#002147] mb-1.5">Email</label>
 										<input
 											v-model="newOwnerEmail"
-											type="email"
+											type="text"
 											class="w-full px-3 py-2.5 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
 											placeholder="Owner email"
 											:disabled="loading"
@@ -447,7 +447,7 @@
 										<label class="block text-xs font-semibold text-[#002147] mb-1.5">Email</label>
 										<input
 											v-model="newManagerEmail"
-											type="email"
+											type="text"
 											class="w-full px-3 py-2.5 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
 											placeholder="Manager email"
 											:disabled="loading"
