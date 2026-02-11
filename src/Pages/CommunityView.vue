@@ -1512,17 +1512,23 @@
           
           <!-- Modal Body -->
           <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white space-y-4">
-            <!-- Contact Information -->
+            <!-- Personal Information -->
             <div class="bg-white rounded-xl p-5 shadow-sm border border-[#004595]/10">
               <h4 class="text-sm font-bold text-[#002147] uppercase tracking-wide mb-4 flex items-center gap-2">
                 <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                 </svg>
-                Contact Information
+                Personal Information
               </h4>
               
               <div class="space-y-3">
+                <!-- Full Name -->
+                <div class="p-3 bg-[#f3f1ee]/50 rounded-lg">
+                  <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide mb-1">Full Name</p>
+                  <p class="text-[#002147] font-semibold">{{ selectedPersonnel?.name }}</p>
+                </div>
+
+                <!-- Phone Number -->
                 <div class="flex items-center gap-3 p-3 bg-[#f3f1ee]/50 rounded-lg">
                   <div class="p-2 bg-gradient-to-br from-[#002147] to-[#004595] rounded-lg">
                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -1535,6 +1541,13 @@
                   </div>
                 </div>
 
+                <!-- Purok -->
+                <div class="p-3 bg-[#f3f1ee]/50 rounded-lg">
+                  <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide mb-1">Purok <span class="text-gray-400 text-[10px]">(Optional)</span></p>
+                  <p class="text-[#002147] font-semibold">{{ selectedPersonnel?.purok_number || 'Not specified' }}</p>
+                </div>
+
+                <!-- Position / Role -->
                 <div class="flex items-center gap-3 p-3 bg-[#f3f1ee]/50 rounded-lg">
                   <div class="p-2 bg-gradient-to-br from-[#00397a] to-[#004595] rounded-lg">
                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -1542,9 +1555,15 @@
                     </svg>
                   </div>
                   <div class="flex-1">
-                    <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Role Type</p>
-                    <p class="text-[#002147] font-semibold">{{ selectedPersonnel?.type }}</p>
+                    <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Position / Role</p>
+                    <p class="text-[#002147] font-semibold">{{ selectedPersonnel?.position }}</p>
                   </div>
+                </div>
+
+                <!-- Description -->
+                <div v-if="selectedPersonnel?.description" class="p-3 bg-[#f3f1ee]/50 rounded-lg">
+                  <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide mb-1">Description <span class="text-gray-400 text-[10px]">(Optional)</span></p>
+                  <p class="text-[#002147] font-medium text-sm">{{ selectedPersonnel?.description }}</p>
                 </div>
               </div>
             </div>
@@ -2383,24 +2402,34 @@
 
     uploadingPhoto.value = true
     try {
-      // Upload to Supabase storage
+      // Upload to Supabase storage - using BrgyMember bucket
       const fileExt = file.name.split('.').pop()
       const fileName = `personnel_${Date.now()}.${fileExt}`
       const filePath = fileName
 
       const { error: uploadError } = await supabase.storage
-        .from('BarangayImages')
-        .upload(filePath, file)
+        .from('BrgyMember')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false
+        })
 
-      if (uploadError) throw uploadError
+      if (uploadError) {
+        console.error('Upload error:', uploadError)
+        throw uploadError
+      }
 
-      // Construct public URL
-      const imageUrl = `https://czwunysqbslfczktzjld.supabase.co/storage/v1/object/public/BarangayImages/${fileName}`
+      // Get public URL from BrgyMember bucket
+      const { data: urlData } = supabase.storage
+        .from('BrgyMember')
+        .getPublicUrl(filePath)
 
-      // Update form
-      personnelForm.value.photo_url = imageUrl
-
-      alert('Photo uploaded successfully!')
+      if (urlData?.publicUrl) {
+        personnelForm.value.photo_url = urlData.publicUrl
+        alert('Photo uploaded successfully!')
+      } else {
+        throw new Error('Failed to get public URL')
+      }
     } catch (error) {
       console.error('Error uploading photo:', error)
       alert('Failed to upload photo. Please try again.')
