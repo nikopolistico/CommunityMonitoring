@@ -1239,9 +1239,9 @@
 
       <!-- Add Personnel Modal -->
       <div v-if="showModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" style="z-index: 100000;" @click.self="closeModal">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-hidden transform transition-all">
           <!-- Modal Header -->
-          <div class="bg-gradient-to-r from-[#002147] to-[#00397a] px-5 py-3">
+          <div class="bg-gradient-to-r from-[#002147] to-[#00397a] px-4 py-3">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <div class="p-1.5 bg-white/20 rounded-lg">
@@ -1264,138 +1264,142 @@
           </div>
           
           <!-- Modal Body -->
-          <form @submit.prevent="submitPersonnel" class="p-5">
-            <div class="space-y-3">
-              <!-- Photo Upload Section -->
-              <div class="flex flex-col items-center">
-                <div class="relative group">
-                  <div class="w-24 h-24 rounded-xl overflow-hidden border-2 border-[#004595]/20 shadow-md">
-                    <img 
-                      v-if="personnelForm.photo_url" 
-                      :src="personnelForm.photo_url" 
-                      alt="Officer Photo"
-                      class="w-full h-full object-cover"
-                    />
-                    <div v-else class="w-full h-full bg-gradient-to-br from-[#002147] to-[#004595] flex items-center justify-center">
-                      <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
-                      </svg>
-                    </div>
-                  </div>
-                  
-                  <!-- Upload Button Overlay -->
-                  <button
-                    type="button"
-                    @click="personnelPhotoInput?.click()"
-                    :disabled="uploadingPhoto"
-                    class="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 disabled:opacity-50"
-                  >
-                    <div class="text-center">
-                      <svg v-if="!uploadingPhoto" class="w-5 h-5 text-white mx-auto" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.413V13H5.5z"/>
-                      </svg>
-                      <div v-else class="w-5 h-5 mx-auto">
-                        <svg class="animate-spin text-white" fill="none" viewBox="0 0 24 24">
-                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          <div class="overflow-y-auto max-h-[calc(90vh-60px)]">
+            <form @submit.prevent="submitPersonnel" class="p-4">
+              <div class="space-y-3">
+                <!-- Photo Upload Section -->
+                <div class="flex justify-center mb-2">
+                  <div class="relative group">
+                    <div class="w-20 h-20 rounded-xl overflow-hidden border-2 border-[#004595]/20 shadow-md">
+                      <img 
+                        v-if="personnelForm.photo_url" 
+                        :src="personnelForm.photo_url" 
+                        alt="Officer Photo"
+                        class="w-full h-full object-cover"
+                      />
+                      <div v-else class="w-full h-full bg-gradient-to-br from-[#002147] to-[#004595] flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                         </svg>
                       </div>
                     </div>
-                  </button>
-                  <input
-                    ref="personnelPhotoInput"
-                    type="file"
-                    accept="image/*"
-                    @change="handlePersonnelPhotoUpload"
-                    class="hidden"
-                  />
+                    
+                    <!-- Upload Button Overlay -->
+                    <button
+                      type="button"
+                      @click="personnelPhotoInput?.click()"
+                      :disabled="uploadingPhoto"
+                      class="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 disabled:opacity-50"
+                    >
+                      <div class="text-center">
+                        <svg v-if="!uploadingPhoto" class="w-5 h-5 text-white mx-auto" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.413V13H5.5z"/>
+                        </svg>
+                        <div v-else class="w-5 h-5 mx-auto">
+                          <svg class="animate-spin text-white" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                        </div>
+                        <p class="text-[8px] text-white mt-1">Upload</p>
+                      </div>
+                    </button>
+                    <input
+                      ref="personnelPhotoInput"
+                      type="file"
+                      accept="image/*"
+                      @change="handlePersonnelPhotoUpload"
+                      class="hidden"
+                    />
+                  </div>
                 </div>
-                <p class="text-[9px] text-[#00397a] mt-1.5 text-center">Click photo to upload (Max 5MB)</p>
-              </div>
+                <p class="text-[9px] text-[#00397a] text-center -mt-1 mb-2">Click photo to upload (Max 5MB)</p>
 
-              <!-- Form Fields -->
-              <div>
-                <label class="block text-xs font-semibold text-[#002147] mb-1">Full Name</label>
-                <input
-                  v-model="personnelForm.fullname"
-                  type="text"
-                  required
-                  class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
-                  placeholder="Enter full name"
-                />
-              </div>
+                <!-- Form Fields in 2 Columns -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div class="md:col-span-2">
+                    <label class="block text-xs font-semibold text-[#002147] mb-1">Full Name</label>
+                    <input
+                      v-model="personnelForm.fullname"
+                      type="text"
+                      required
+                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
+                      placeholder="Enter full name"
+                    />
+                  </div>
 
-              <div>
-                <label class="block text-xs font-semibold text-[#002147] mb-1">Phone Number</label>
-                <input
-                  v-model="personnelForm.phone_number"
-                  type="text"
-                  required
-                  class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
-                  placeholder="Enter phone number"
-                />
-              </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-[#002147] mb-1">Phone Number</label>
+                    <input
+                      v-model="personnelForm.phone_number"
+                      type="text"
+                      required
+                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
+                      placeholder="Enter phone number"
+                    />
+                  </div>
 
-              <div>
-                <label class="block text-xs font-semibold text-[#002147] mb-1">Position / Role</label>
-                <select
-                  v-model="personnelForm.position"
-                  required
-                  class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm bg-white"
-                >
-                  <option value="" disabled>Select a position</option>
-                  <option v-if="positions.length === 0" value="" disabled>No positions available - Create one first</option>
-                  <option v-for="pos in positions" :key="pos" :value="pos">{{ pos }}</option>
-                </select>
-                <p class="text-[9px] text-[#00397a] mt-1 flex items-center gap-1">
-                  <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
-                  </svg>
-                  Need a new position? Click "Create Position" button first
-                </p>
-              </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-[#002147] mb-1">Purok <span class="text-gray-400 text-[10px]">(Optional)</span></label>
+                    <input
+                      v-model="personnelForm.purok_number"
+                      type="text"
+                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
+                      placeholder="e.g., 1, 2, 3A"
+                    />
+                  </div>
 
-              <!-- Purok Number Field (Optional) -->
-              <div>
-                <label class="block text-xs font-semibold text-[#002147] mb-1">Purok Number <span class="text-gray-400 text-[10px]">(Optional)</span></label>
-                <input
-                  v-model="personnelForm.purok_number"
-                  type="text"
-                  class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
-                  placeholder="e.g., 1, 2, 3A, etc."
-                />
-              </div>
+                  <div class="md:col-span-2">
+                    <label class="block text-xs font-semibold text-[#002147] mb-1">Position / Role</label>
+                    <select
+                      v-model="personnelForm.position"
+                      required
+                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm bg-white"
+                    >
+                      <option value="" disabled>Select a position</option>
+                      <option v-if="positions.length === 0" value="" disabled>No positions available - Create one first</option>
+                      <option v-for="pos in positions" :key="pos" :value="pos">{{ pos }}</option>
+                    </select>
+                    <p class="text-[9px] text-[#00397a] mt-1 flex items-center gap-1">
+                      <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                      </svg>
+                      Need a new position? Click "Create Position" button first
+                    </p>
+                  </div>
 
-              <!-- Description Field (Optional) -->
-              <div>
-                <label class="block text-xs font-semibold text-[#002147] mb-1">Short Description <span class="text-gray-400 text-[10px]">(Optional)</span></label>
-                <textarea
-                  v-model="personnelForm.description"
-                  rows="2"
-                  class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm resize-none"
-                  placeholder="Brief description or responsibilities..."
-                ></textarea>
-              </div>
+                  <!-- Description Field (Optional) -->
+                  <div class="md:col-span-2">
+                    <label class="block text-xs font-semibold text-[#002147] mb-1">Description <span class="text-gray-400 text-[10px]">(Optional)</span></label>
+                    <textarea
+                      v-model="personnelForm.description"
+                      rows="2"
+                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm resize-none"
+                      placeholder="Brief description or responsibilities..."
+                    ></textarea>
+                  </div>
+                </div>
 
-              <!-- Action Buttons -->
-              <div class="flex gap-2 pt-1">
-                <button
-                  type="button"
-                  @click="closeModal"
-                  class="flex-1 px-4 py-2 border-2 border-[#f3f1ee] text-[#002147] rounded-lg hover:bg-[#f3f1ee] transition-all font-semibold text-sm"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  :disabled="submitting || uploadingPhoto"
-                  class="flex-1 px-4 py-2 bg-gradient-to-r from-[#002147] to-[#00397a] text-white rounded-lg hover:shadow-lg transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-                >
-                  {{ submitting ? (isEditMode ? 'Updating...' : 'Adding...') : (isEditMode ? 'Update' : 'Add') }}
-                </button>
+                <!-- Action Buttons -->
+                <div class="flex gap-2 pt-2">
+                  <button
+                    type="button"
+                    @click="closeModal"
+                    class="flex-1 px-4 py-2 border-2 border-[#f3f1ee] text-[#002147] rounded-lg hover:bg-[#f3f1ee] transition-all font-semibold text-sm"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    :disabled="submitting || uploadingPhoto"
+                    class="flex-1 px-4 py-2 bg-gradient-to-r from-[#002147] to-[#00397a] text-white rounded-lg hover:shadow-lg transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                  >
+                    {{ submitting ? (isEditMode ? 'Updating...' : 'Adding...') : (isEditMode ? 'Update' : 'Add') }}
+                  </button>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
 
