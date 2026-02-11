@@ -1238,7 +1238,7 @@
       </div>
 
       <!-- Add Personnel Modal -->
-      <div v-if="showModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closeModal">
+      <div v-if="showModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" style="z-index: 100000;" @click.self="closeModal">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
           <!-- Modal Header -->
           <div class="bg-gradient-to-r from-[#002147] to-[#00397a] px-5 py-3">
@@ -1472,7 +1472,7 @@
       </div>
 
       <!-- Personnel Details Modal -->
-      <div v-if="showDetailsModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[70] p-4" @click.self="closeDetailsModal">
+      <div v-if="showDetailsModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" style="z-index: 99999;" @click.self="closeDetailsModal">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-all">
           <!-- Modal Header -->
           <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-6 relative overflow-hidden">
