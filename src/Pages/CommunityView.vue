@@ -1477,12 +1477,12 @@
 
       <!-- Personnel Details Modal -->
       <div v-if="showDetailsModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" style="z-index: 99999;" @click.self="closeDetailsModal">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-all">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
           <!-- Modal Header -->
-          <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-6 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20"></div>
-            <div class="relative flex items-center gap-4">
-              <div class="w-20 h-20 rounded-2xl overflow-hidden shadow-lg ring-4 ring-white/30">
+          <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-5 py-4 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
+            <div class="relative flex items-center gap-3">
+              <div class="w-14 h-14 rounded-xl overflow-hidden shadow-lg ring-2 ring-white/30 flex-shrink-0">
                 <img 
                   v-if="selectedPersonnel?.photo_url" 
                   :src="selectedPersonnel.photo_url" 
@@ -1490,20 +1490,20 @@
                   class="w-full h-full object-cover"
                 />
                 <div v-else class="w-full h-full flex items-center justify-center bg-white/20 backdrop-blur-sm">
-                  <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                   </svg>
                 </div>
               </div>
-              <div class="flex-1">
-                <h3 class="text-2xl font-bold text-white">{{ selectedPersonnel?.name }}</h3>
-                <p class="text-white/90 text-sm font-semibold mt-1">{{ selectedPersonnel?.position }}</p>
+              <div class="flex-1 min-w-0">
+                <h3 class="text-lg font-bold text-white truncate">{{ selectedPersonnel?.name }}</h3>
+                <p class="text-white/90 text-xs font-semibold truncate">{{ selectedPersonnel?.position }}</p>
               </div>
               <button
                 @click="closeDetailsModal"
-                class="p-2 hover:bg-white/20 rounded-lg transition-all"
+                class="p-1.5 hover:bg-white/20 rounded-lg transition-all flex-shrink-0"
               >
-                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
                 </svg>
               </button>
@@ -1511,79 +1511,79 @@
           </div>
           
           <!-- Modal Body -->
-          <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white space-y-4">
+          <div class="p-4 bg-gradient-to-br from-[#f3f1ee]/30 to-white space-y-3">
             <!-- Personal Information -->
-            <div class="bg-white rounded-xl p-5 shadow-sm border border-[#004595]/10">
-              <h4 class="text-sm font-bold text-[#002147] uppercase tracking-wide mb-4 flex items-center gap-2">
-                <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-[#004595]/10">
+              <h4 class="text-xs font-bold text-[#002147] uppercase tracking-wide mb-3 flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                 </svg>
                 Personal Information
               </h4>
               
-              <div class="space-y-3">
+              <div class="space-y-2.5">
                 <!-- Full Name -->
-                <div class="p-3 bg-[#f3f1ee]/50 rounded-lg">
-                  <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide mb-1">Full Name</p>
-                  <p class="text-[#002147] font-semibold">{{ selectedPersonnel?.name }}</p>
+                <div class="p-2.5 bg-[#f3f1ee]/50 rounded-lg">
+                  <p class="text-[9px] text-[#00397a] font-bold uppercase tracking-wide mb-0.5">Full Name</p>
+                  <p class="text-[#002147] font-semibold text-sm">{{ selectedPersonnel?.name }}</p>
                 </div>
 
                 <!-- Phone Number -->
-                <div class="flex items-center gap-3 p-3 bg-[#f3f1ee]/50 rounded-lg">
-                  <div class="p-2 bg-gradient-to-br from-[#002147] to-[#004595] rounded-lg">
-                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <div class="flex items-center gap-2.5 p-2.5 bg-[#f3f1ee]/50 rounded-lg">
+                  <div class="p-1.5 bg-gradient-to-br from-[#002147] to-[#004595] rounded-lg flex-shrink-0">
+                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                     </svg>
                   </div>
-                  <div class="flex-1">
-                    <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Phone Number</p>
-                    <p class="text-[#002147] font-semibold">{{ selectedPersonnel?.phone }}</p>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-[9px] text-[#00397a] font-bold uppercase tracking-wide">Phone Number</p>
+                    <p class="text-[#002147] font-semibold text-sm truncate">{{ selectedPersonnel?.phone }}</p>
                   </div>
                 </div>
 
                 <!-- Purok -->
-                <div class="p-3 bg-[#f3f1ee]/50 rounded-lg">
-                  <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide mb-1">Purok <span class="text-gray-400 text-[10px]">(Optional)</span></p>
-                  <p class="text-[#002147] font-semibold">{{ selectedPersonnel?.purok_number || 'Not specified' }}</p>
+                <div class="p-2.5 bg-[#f3f1ee]/50 rounded-lg">
+                  <p class="text-[9px] text-[#00397a] font-bold uppercase tracking-wide mb-0.5">Purok <span class="text-gray-400">(Optional)</span></p>
+                  <p class="text-[#002147] font-semibold text-sm">{{ selectedPersonnel?.purok_number || 'Not specified' }}</p>
                 </div>
 
                 <!-- Position / Role -->
-                <div class="flex items-center gap-3 p-3 bg-[#f3f1ee]/50 rounded-lg">
-                  <div class="p-2 bg-gradient-to-br from-[#00397a] to-[#004595] rounded-lg">
-                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <div class="flex items-center gap-2.5 p-2.5 bg-[#f3f1ee]/50 rounded-lg">
+                  <div class="p-1.5 bg-gradient-to-br from-[#00397a] to-[#004595] rounded-lg flex-shrink-0">
+                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
                     </svg>
                   </div>
-                  <div class="flex-1">
-                    <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Position / Role</p>
-                    <p class="text-[#002147] font-semibold">{{ selectedPersonnel?.position }}</p>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-[9px] text-[#00397a] font-bold uppercase tracking-wide">Position / Role</p>
+                    <p class="text-[#002147] font-semibold text-sm truncate">{{ selectedPersonnel?.position }}</p>
                   </div>
                 </div>
 
                 <!-- Description -->
-                <div v-if="selectedPersonnel?.description" class="p-3 bg-[#f3f1ee]/50 rounded-lg">
-                  <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide mb-1">Description <span class="text-gray-400 text-[10px]">(Optional)</span></p>
-                  <p class="text-[#002147] font-medium text-sm">{{ selectedPersonnel?.description }}</p>
+                <div v-if="selectedPersonnel?.description" class="p-2.5 bg-[#f3f1ee]/50 rounded-lg">
+                  <p class="text-[9px] text-[#00397a] font-bold uppercase tracking-wide mb-0.5">Description <span class="text-gray-400">(Optional)</span></p>
+                  <p class="text-[#002147] font-medium text-xs leading-relaxed">{{ selectedPersonnel?.description }}</p>
                 </div>
               </div>
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex gap-3">
+            <div class="flex gap-2.5">
               <button
                 @click="editFromDetails"
-                class="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-[#004595] to-[#00397a] text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold"
+                class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#004595] to-[#00397a] text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold text-sm"
               >
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
                 </svg>
-                Edit Details
+                Edit
               </button>
               <button
                 @click="deleteFromDetails"
-                class="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold"
+                class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold text-sm"
               >
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
                 </svg>
                 Delete
