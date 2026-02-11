@@ -733,7 +733,7 @@
                 </div>
                 
                 <!-- Stats Bar -->
-                <div class="relative mt-6 grid grid-cols-3 gap-4">
+                <div class="relative mt-6 grid grid-cols-2 gap-4">
                   <div class="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/20">
                     <div class="flex items-center justify-between">
                       <div>
@@ -758,20 +758,6 @@
                         <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
                           <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/20">
-                    <div class="flex items-center justify-between">
-                      <div>
-                        <p class="text-white/70 text-xs font-semibold uppercase tracking-wide">Purok Leaders</p>
-                        <p class="text-white text-2xl font-bold mt-1">{{ sortedPurokLeaders.length }}</p>
-                      </div>
-                      <div class="p-2 bg-white/20 rounded-lg">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
                         </svg>
                       </div>
                     </div>
@@ -803,176 +789,99 @@
 
             <!-- Personnel Grid -->
             <div v-else class="space-y-6">
-              <!-- Barangay Officers Section - Grouped by Position -->
-              <div v-if="sortedOfficers.length > 0" class="space-y-6">
-                <div
-                  v-for="position in uniquePositions"
-                  :key="position"
-                  class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#004595]/10"
-                >
-                  <div class="bg-gradient-to-r from-[#002147] to-[#004595] px-6 py-4 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
-                    <div class="relative flex items-center justify-between">
-                      <div class="flex items-center gap-3">
-                        <div class="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl">
-                          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
-                          </svg>
-                        </div>
-                        <div>
-                          <h3 class="text-xl font-bold text-white">{{ position }}</h3>
-                          <p class="text-xs text-white/80 font-medium">{{ officersByPosition[position]?.length || 0 }} Officer{{ (officersByPosition[position]?.length || 0) !== 1 ? 's' : '' }}</p>
-                        </div>
-                      </div>
-                      <div class="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg border border-white/30">
-                        <span class="text-white font-bold text-sm">Active</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/20 to-white">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      <div
-                        v-for="person in officersByPosition[position]"
-                        :key="person.id"
-                        @click="viewPersonnelDetails(person)"
-                        class="group cursor-pointer bg-white rounded-xl p-5 border-2 border-[#004595]/10 hover:border-[#004595]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#004595]/10 hover:-translate-y-1 relative overflow-hidden"
-                      >
-                        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
-                        
-                        <div class="relative flex flex-col items-center text-center">
-                          <!-- Photo or Avatar -->
-                          <div class="w-20 h-20 rounded-2xl overflow-hidden mb-4 shadow-lg ring-2 ring-[#004595]/20 group-hover:ring-4 group-hover:ring-[#004595]/40 transition-all">
-                            <img 
-                              v-if="person.photo_url" 
-                              :src="person.photo_url" 
-                              :alt="person.name"
-                              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                            <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#002147] to-[#004595] group-hover:scale-110 transition-transform duration-300">
-                              <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
-                              </svg>
-                            </div>
-                          </div>
-                          
-                          <h4 class="font-bold text-[#002147] text-base mb-3 group-hover:text-[#004595] transition-colors">{{ person.name }}</h4>
-                          
-                          <div class="w-full pt-3 border-t border-[#004595]/10 space-y-2">
-                            <div class="flex items-center justify-center gap-2 text-xs text-[#00397a]">
-                              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                              </svg>
-                              <span class="font-medium">{{ person.phone }}</span>
-                            </div>
-                          </div>
-                          
-                          <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <div class="p-1.5 bg-[#004595] rounded-lg shadow-lg">
-                              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
-                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Empty Officers State -->
-              <div v-else class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#004595]/10">
-                <div class="bg-gradient-to-r from-[#002147] to-[#004595] px-6 py-4">
-                  <h3 class="text-xl font-bold text-white">Barangay Officers</h3>
-                </div>
-                <div class="p-12 text-center">
-                  <div class="inline-block p-4 bg-[#004595]/5 rounded-2xl mb-3">
-                    <svg class="w-12 h-12 text-[#004595]/30" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
-                    </svg>
-                  </div>
-                  <p class="text-[#00397a] font-semibold mb-4">No officers added yet</p>
-                  <button
-                    @click="openPositionModal"
-                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#002147] to-[#004595] text-white rounded-xl hover:shadow-lg transition-all duration-300 font-semibold text-sm"
-                  >
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
-                    </svg>
-                    Create a Position First
-                  </button>
-                </div>
-              </div>
-
-              <!-- Purok Leaders Section -->
+              <!-- Position Buttons Grid -->
               <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#004595]/10">
-                <div class="bg-gradient-to-r from-[#00397a] to-[#004595] px-6 py-4 relative overflow-hidden">
-                  <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
-                  <div class="relative flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                      <div class="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 class="text-xl font-bold text-white">Purok Leaders</h3>
-                        <p class="text-xs text-white/80 font-medium">{{ sortedPurokLeaders.length }} Leader{{ sortedPurokLeaders.length !== 1 ? 's' : '' }}</p>
-                      </div>
-                    </div>
-                    <div class="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg border border-white/30">
-                      <span class="text-white font-bold text-sm">Alphabetically Sorted</span>
-                    </div>
-                  </div>
+                <div class="bg-gradient-to-r from-[#002147] to-[#004595] px-6 py-4">
+                  <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                      <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+                    </svg>
+                    Officer Positions
+                  </h3>
+                  <p class="text-xs text-white/80 font-medium mt-1">Click on a position to view and manage officers</p>
                 </div>
                 
                 <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/20 to-white">
-                  <div v-if="sortedPurokLeaders.length === 0" class="text-center py-12">
-                    <div class="inline-block p-4 bg-[#00397a]/5 rounded-2xl mb-3">
-                      <svg class="w-12 h-12 text-[#00397a]/30" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
+                  <div v-if="uniquePositions.length === 0" class="text-center py-12">
+                    <div class="inline-block p-4 bg-[#004595]/5 rounded-2xl mb-3">
+                      <svg class="w-12 h-12 text-[#004595]/30" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                       </svg>
                     </div>
-                    <p class="text-[#00397a] font-semibold">No purok leaders added yet</p>
+                    <p class="text-[#00397a] font-semibold mb-4">No positions created yet</p>
+                    <button
+                      @click="openPositionModal"
+                      class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#002147] to-[#004595] text-white rounded-xl hover:shadow-lg transition-all duration-300 font-semibold text-sm"
+                    >
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                      </svg>
+                      Create First Position
+                    </button>
                   </div>
                   
                   <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div
-                      v-for="person in sortedPurokLeaders"
-                      :key="person.id"
-                      @click="viewPersonnelDetails(person)"
-                      class="group cursor-pointer bg-white rounded-xl p-5 border-2 border-[#00397a]/10 hover:border-[#00397a]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#00397a]/10 hover:-translate-y-1 relative overflow-hidden"
+                      v-for="position in uniquePositions"
+                      :key="position"
+                      class="group bg-white rounded-xl p-6 border-2 border-[#004595]/10 hover:border-[#004595]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#004595]/10 hover:-translate-y-1 relative overflow-hidden"
                     >
-                      <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#00397a]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                      <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
                       
-                      <div class="relative flex flex-col items-center text-center">
-                        <div class="w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#00397a] to-[#004595] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
-                          <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                      <!-- 3-dot Menu Button -->
+                      <div class="absolute top-3 right-3 z-10 position-menu-container">
+                        <div class="relative">
+                          <button
+                            @click.stop="togglePositionMenu(position)"
+                            class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                            :class="{ 'bg-gray-100': activePositionMenu === position }"
+                          >
+                            <svg class="w-5 h-5 text-[#00397a]" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+                            </svg>
+                          </button>
+                          
+                          <!-- Dropdown Menu -->
+                          <div
+                            v-if="activePositionMenu === position"
+                            class="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-1 z-20"
+                          >
+                            <button
+                              @click.stop="confirmDeletePosition(position)"
+                              class="w-full px-4 py-2.5 text-left text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"
+                            >
+                              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                              </svg>
+                              Delete Position
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="relative cursor-pointer" @click="openPositionOfficersModal(position)">
+                        <div class="flex items-start justify-between mb-4">
+                          <div class="p-3 bg-gradient-to-br from-[#002147] to-[#004595] rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                            </svg>
+                          </div>
+                          <div class="px-3 py-1.5 bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 rounded-lg border border-[#004595]/20 mr-8">
+                            <span class="text-sm font-bold text-[#002147]">{{ officersByPosition[position]?.length || 0 }}</span>
+                          </div>
+                        </div>
+                        
+                        <h4 class="font-bold text-[#002147] text-lg mb-2 group-hover:text-[#004595] transition-colors line-clamp-2">{{ position }}</h4>
+                        <p class="text-xs text-[#00397a] font-medium mb-4">
+                          {{ (officersByPosition[position]?.length || 0) }} officer{{ (officersByPosition[position]?.length || 0) !== 1 ? 's' : '' }} assigned
+                        </p>
+                        
+                        <div class="flex items-center gap-2 text-xs font-semibold text-[#004595] group-hover:text-[#002147] transition-colors">
+                          <span>View Officers</span>
+                          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                           </svg>
-                        </div>
-                        
-                        <h4 class="font-bold text-[#002147] text-base mb-1 group-hover:text-[#00397a] transition-colors">{{ person.name }}</h4>
-                        <p class="text-sm text-[#00397a] font-semibold mb-3 px-3 py-1 bg-[#00397a]/10 rounded-lg">{{ person.position }}</p>
-                        
-                        <div class="w-full pt-3 border-t border-[#00397a]/10 space-y-2">
-                          <div class="flex items-center justify-center gap-2 text-xs text-[#00397a]">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                            </svg>
-                            <span class="font-medium">{{ person.phone }}</span>
-                          </div>
-                        </div>
-                        
-                        <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div class="p-1.5 bg-[#00397a] rounded-lg shadow-lg">
-                            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
-                              <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
-                            </svg>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -1435,16 +1344,8 @@
                   class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm bg-white"
                 >
                   <option value="" disabled>Select a position</option>
-                  <optgroup label="Available Positions" v-if="positions.length > 0">
-                    <option v-for="pos in positions" :key="pos" :value="pos">{{ pos }}</option>
-                  </optgroup>
-                  <optgroup label="Purok Leaders">
-                    <option value="Purok Leader 1">Purok Leader 1</option>
-                    <option value="Purok Leader 2">Purok Leader 2</option>
-                    <option value="Purok Leader 3">Purok Leader 3</option>
-                    <option value="Purok Leader 4">Purok Leader 4</option>
-                    <option value="Purok Leader 5">Purok Leader 5</option>
-                  </optgroup>
+                  <option v-if="positions.length === 0" value="" disabled>No positions available - Create one first</option>
+                  <option v-for="pos in positions" :key="pos" :value="pos">{{ pos }}</option>
                 </select>
                 <p class="text-[9px] text-[#00397a] mt-1 flex items-center gap-1">
                   <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
@@ -1452,6 +1353,28 @@
                   </svg>
                   Need a new position? Click "Create Position" button first
                 </p>
+              </div>
+
+              <!-- Purok Number Field (Optional) -->
+              <div>
+                <label class="block text-xs font-semibold text-[#002147] mb-1">Purok Number <span class="text-gray-400 text-[10px]">(Optional)</span></label>
+                <input
+                  v-model="personnelForm.purok_number"
+                  type="text"
+                  class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
+                  placeholder="e.g., 1, 2, 3A, etc."
+                />
+              </div>
+
+              <!-- Description Field (Optional) -->
+              <div>
+                <label class="block text-xs font-semibold text-[#002147] mb-1">Short Description <span class="text-gray-400 text-[10px]">(Optional)</span></label>
+                <textarea
+                  v-model="personnelForm.description"
+                  rows="2"
+                  class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm resize-none"
+                  placeholder="Brief description or responsibilities..."
+                ></textarea>
               </div>
 
               <!-- Action Buttons -->
@@ -1646,6 +1569,173 @@
           </div>
         </div>
       </div>
+
+      <!-- Position Officers Modal -->
+      <div v-if="showPositionOfficersModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closePositionOfficersModal">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all max-h-[90vh] flex flex-col">
+          <!-- Modal Header -->
+          <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
+            <div class="relative flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl">
+                  <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-white">{{ selectedPosition }}</h3>
+                  <p class="text-xs text-white/80 font-medium mt-1">{{ officersForSelectedPosition.length }} officer{{ officersForSelectedPosition.length !== 1 ? 's' : '' }} in this position</p>
+                </div>
+              </div>
+              <button
+                @click="addOfficerToPosition"
+                class="flex items-center gap-2 px-4 py-2.5 bg-white text-[#002147] rounded-xl hover:bg-[#f3f1ee] transition-all duration-300 font-bold text-sm shadow-lg"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                </svg>
+                Add Officer
+              </button>
+              <button
+                @click="closePositionOfficersModal"
+                class="p-2 hover:bg-white/20 rounded-lg transition-all"
+              >
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Modal Body -->
+          <div class="flex-1 overflow-y-auto p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white">
+            <div v-if="officersForSelectedPosition.length === 0" class="text-center py-16">
+              <div class="inline-block p-8 bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 rounded-3xl mb-6 relative">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#004595]/20 to-transparent rounded-3xl blur-xl"></div>
+                <svg class="w-16 h-16 text-[#004595]/40 relative" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-[#002147] mb-3">No Officers Yet</h3>
+              <p class="text-[#00397a] font-medium mb-6">Add officers to this position to get started</p>
+              <button
+                @click="addOfficerToPosition"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#002147] to-[#004595] text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                </svg>
+                Add First Officer
+              </button>
+            </div>
+            
+            <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div
+                v-for="person in officersForSelectedPosition"
+                :key="person.id"
+                @click="viewPersonnelDetails(person)"
+                class="group cursor-pointer bg-white rounded-xl p-5 border-2 border-[#004595]/10 hover:border-[#004595]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#004595]/10 hover:-translate-y-1 relative overflow-hidden"
+              >
+                <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                
+                <div class="relative flex flex-col items-center text-center">
+                  <!-- Photo or Avatar -->
+                  <div class="w-20 h-20 rounded-2xl overflow-hidden mb-4 shadow-lg ring-2 ring-[#004595]/20 group-hover:ring-4 group-hover:ring-[#004595]/40 transition-all">
+                    <img 
+                      v-if="person.photo_url" 
+                      :src="person.photo_url" 
+                      :alt="person.name"
+                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#002147] to-[#004595] group-hover:scale-110 transition-transform duration-300">
+                      <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                  </div>
+                  
+                  <h4 class="font-bold text-[#002147] text-base mb-2 group-hover:text-[#004595] transition-colors">{{ person.name }}</h4>
+                  
+                  <div v-if="person.description" class="text-[10px] text-[#00397a] mb-3 line-clamp-2 px-2">
+                    {{ person.description }}
+                  </div>
+                  
+                  <div class="w-full pt-3 border-t border-[#004595]/10 space-y-2">
+                    <div class="flex items-center justify-center gap-2 text-xs text-[#00397a]">
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                      </svg>
+                      <span class="font-medium">{{ person.phone }}</span>
+                    </div>
+                  </div>
+                  
+                  <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div class="p-1.5 bg-[#004595] rounded-lg shadow-lg">
+                      <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete Position Confirmation Modal -->
+      <div v-if="showDeleteConfirmModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[60] p-4" @click.self="cancelDeletePosition">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+          <!-- Modal Header -->
+          <div class="bg-gradient-to-r from-red-500 to-red-600 px-6 py-5">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl">
+                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-white">Confirm Delete Position</h3>
+            </div>
+          </div>
+          
+          <!-- Modal Body -->
+          <div class="p-6">
+            <div class="text-center mb-6">
+              <div class="inline-block p-4 bg-red-100 rounded-full mb-4">
+                <svg class="w-12 h-12 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <h4 class="text-lg font-bold text-gray-900 mb-2">Delete "{{ positionToDelete }}"?</h4>
+              <p class="text-gray-600 text-sm">
+                Are you sure you want to delete this position? This action cannot be undone.
+              </p>
+              <div v-if="officersByPosition[positionToDelete]?.length > 0" class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                <p class="text-xs text-amber-800 font-semibold">
+                  ⚠️ Warning: This will also delete {{ officersByPosition[positionToDelete].length }} officer{{ officersByPosition[positionToDelete].length !== 1 ? 's' : '' }} assigned to this position.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-3">
+              <button
+                @click="cancelDeletePosition"
+                class="flex-1 px-4 py-3 border-2 border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 transition-all font-semibold text-sm"
+              >
+                Cancel
+              </button>
+              <button
+                @click="deletePosition"
+                class="flex-1 px-4 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:shadow-lg transition-all font-semibold text-sm"
+              >
+                Delete Position
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </template>
 
@@ -1770,7 +1860,9 @@
     fullname: '',
     phone_number: '',
     position: '',
-    photo_url: ''
+    photo_url: '',
+    purok_number: '',
+    description: ''
   })
 
   // Position management
@@ -1780,17 +1872,23 @@
   })
   const positions = ref([])
   const submittingPosition = ref(false)
+  const showPositionOfficersModal = ref(false)
+  const selectedPosition = ref(null)
+  const showDeleteConfirmModal = ref(false)
+  const positionToDelete = ref(null)
 
   // Personnel details modal
   const showDetailsModal = ref(false)
   const selectedPersonnel = ref(null)
   const personnelPhotoInput = ref(null)
   const uploadingPhoto = ref(false)
+  
+  // Position menu state
+  const activePositionMenu = ref(null)
 
   // Computed property to get all personnel
   const allPersonnel = computed(() => personnel.value)
   const officers = computed(() => personnel.value.filter(p => p.type === 'Officer'))
-  const purokLeaders = computed(() => personnel.value.filter(p => p.type === 'Purok Leader'))
 
   // Group officers by position
   const officersByPosition = computed(() => {
@@ -1812,9 +1910,6 @@
   // Sorted personnel alphabetically by name
   const sortedOfficers = computed(() => {
     return [...officers.value].sort((a, b) => a.name.localeCompare(b.name))
-  })
-  const sortedPurokLeaders = computed(() => {
-    return [...purokLeaders.value].sort((a, b) => a.name.localeCompare(b.name))
   })
 
   const brgyInfo = computed(() => brgyFiesta.value ? [brgyFiesta.value] : []);
@@ -1923,8 +2018,10 @@
           name: member.BMfullname,
           position: member.position,
           phone: member.phone_number,
-          photo_url: '', // Temporarily disabled until column is added
-          type: member.position.includes('Purok') ? 'Purok Leader' : 'Officer'
+          photo_url: member.photo_url || '',
+          purok_number: member.purok_number || '',
+          description: member.description || '',
+          type: 'Officer'
         }))
       }
     } catch (error) {
@@ -1943,7 +2040,6 @@
         .from('BrgyMembers')
         .select('position')
         .eq('brgy_id', barangay_id.value)
-        .not('position', 'ilike', '%Purok%')
 
       if (error) throw error
       
@@ -1971,6 +2067,13 @@
     if (communityInfo.value) {
       fetchCaptainInfo()
     }
+    
+    // Close position menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (activePositionMenu.value && !e.target.closest('.position-menu-container')) {
+        activePositionMenu.value = null
+      }
+    })
   })
 
   const locationName = computed(() => (route.query.location || '').toString())
@@ -2093,7 +2196,7 @@
     }
   }
 
-  const addPersonnel = () => {
+  const addPersonnel = (position = '') => {
     if (!barangay_id.value) {
       alert('Cannot add personnel: Barangay not found')
       return
@@ -2102,8 +2205,10 @@
     personnelForm.value = {
       fullname: '',
       phone_number: '',
-      position: '',
-      photo_url: ''
+      position: position,
+      photo_url: '',
+      purok_number: '',
+      description: ''
     }
     showModal.value = true
   }
@@ -2115,7 +2220,9 @@
       fullname: person.name,
       phone_number: person.phone,
       position: person.position,
-      photo_url: person.photo_url || ''
+      photo_url: person.photo_url || '',
+      purok_number: person.purok_number || '',
+      description: person.description || ''
     }
     showModal.value = true
   }
@@ -2128,7 +2235,9 @@
       fullname: '',
       phone_number: '',
       position: '',
-      photo_url: ''
+      photo_url: '',
+      purok_number: '',
+      description: ''
     }
   }
 
@@ -2157,8 +2266,96 @@
     
     positions.value.push(positionForm.value.name)
     positions.value.sort()
-    alert('Position created successfully! You can now add officers to this role.')
     closePositionModal()
+    
+    // Open the position officers modal for the newly created position
+    selectedPosition.value = positionForm.value.name
+    showPositionOfficersModal.value = true
+  }
+
+  const openPositionOfficersModal = (position) => {
+    selectedPosition.value = position
+    showPositionOfficersModal.value = true
+  }
+
+  const closePositionOfficersModal = () => {
+    showPositionOfficersModal.value = false
+    selectedPosition.value = null
+  }
+
+  const officersForSelectedPosition = computed(() => {
+    if (!selectedPosition.value) return []
+    return personnel.value.filter(p => p.position === selectedPosition.value)
+  })
+
+  const addOfficerToPosition = () => {
+    closePositionOfficersModal()
+    addPersonnel(selectedPosition.value)
+  }
+
+  // Position menu toggle
+  const togglePositionMenu = (position) => {
+    if (activePositionMenu.value === position) {
+      activePositionMenu.value = null
+    } else {
+      activePositionMenu.value = position
+    }
+  }
+
+  // Delete position functionality
+  const confirmDeletePosition = (position) => {
+    activePositionMenu.value = null // Close the menu
+    positionToDelete.value = position
+    showDeleteConfirmModal.value = true
+  }
+
+  const cancelDeletePosition = () => {
+    positionToDelete.value = null
+    showDeleteConfirmModal.value = false
+  }
+
+  const deletePosition = async () => {
+    if (!positionToDelete.value) return
+    
+    try {
+      // Get all officers with this position
+      const officersInPosition = personnel.value.filter(p => p.position === positionToDelete.value)
+      
+      // Delete all officers with this position from database
+      if (officersInPosition.length > 0) {
+        const officerIds = officersInPosition.map(o => o.id)
+        
+        const { error: deleteError } = await supabase
+          .from('BrgyMembers')
+          .delete()
+          .in('id', officerIds)
+        
+        if (deleteError) throw deleteError
+        
+        // Remove from local personnel array
+        personnel.value = personnel.value.filter(p => !officerIds.includes(p.id))
+      }
+      
+      // Remove from positions array
+      positions.value = positions.value.filter(p => p !== positionToDelete.value)
+      
+      const deletedCount = officersInPosition.length
+      if (deletedCount > 0) {
+        alert(`Position "${positionToDelete.value}" and ${deletedCount} officer${deletedCount !== 1 ? 's' : ''} have been deleted successfully!`)
+      } else {
+        alert(`Position "${positionToDelete.value}" has been deleted successfully!`)
+      }
+      
+      cancelDeletePosition()
+      
+      // Close the position officers modal if it's open for the deleted position
+      if (selectedPosition.value === positionToDelete.value) {
+        closePositionOfficersModal()
+      }
+    } catch (error) {
+      console.error('Error deleting position:', error)
+      alert('Failed to delete position. Please try again.')
+    }
   }
 
   // Handle personnel photo upload
@@ -2226,7 +2423,9 @@
         name: selectedPersonnel.value.name,
         phone: selectedPersonnel.value.phone,
         position: selectedPersonnel.value.position,
-        photo_url: selectedPersonnel.value.photo_url || ''
+        photo_url: selectedPersonnel.value.photo_url || '',
+        purok_number: selectedPersonnel.value.purok_number || '',
+        description: selectedPersonnel.value.description || ''
       }
       
       closeDetailsModal()
@@ -2239,7 +2438,9 @@
           fullname: personnelData.name,
           phone_number: personnelData.phone,
           position: personnelData.position,
-          photo_url: personnelData.photo_url
+          photo_url: personnelData.photo_url,
+          purok_number: personnelData.purok_number,
+          description: personnelData.description
         }
         console.log('Opening edit modal with form:', personnelForm.value)
         showModal.value = true
@@ -2287,7 +2488,10 @@
           .update({
             BMfullname: personnelForm.value.fullname,
             phone_number: personnelForm.value.phone_number,
-            position: personnelForm.value.position
+            position: personnelForm.value.position,
+            photo_url: personnelForm.value.photo_url,
+            purok_number: personnelForm.value.purok_number || null,
+            description: personnelForm.value.description || null
           })
           .eq('id', editingPersonnelId.value)
           .select()
@@ -2295,7 +2499,6 @@
         if (error) throw error
 
         if (data && data[0]) {
-          const type = data[0].position.includes('Purok') ? 'Purok Leader' : 'Officer'
           const index = personnel.value.findIndex(p => p.id === editingPersonnelId.value)
           if (index !== -1) {
             personnel.value[index] = {
@@ -2303,8 +2506,10 @@
               name: data[0].BMfullname,
               position: data[0].position,
               phone: data[0].phone_number,
-              photo_url: '',
-              type,
+              photo_url: data[0].photo_url || '',
+              purok_number: data[0].purok_number || '',
+              description: data[0].description || '',
+              type: 'Officer',
             }
           }
           alert('Personnel updated successfully!')
@@ -2320,7 +2525,10 @@
               BMfullname: personnelForm.value.fullname,
               phone_number: personnelForm.value.phone_number,
               position: personnelForm.value.position,
-              brgy_id: barangay_id.value
+              brgy_id: barangay_id.value,
+              photo_url: personnelForm.value.photo_url,
+              purok_number: personnelForm.value.purok_number || null,
+              description: personnelForm.value.description || null
             }
           ])
           .select()
@@ -2328,14 +2536,15 @@
         if (error) throw error
 
         if (data && data[0]) {
-          const type = data[0].position.includes('Purok') ? 'Purok Leader' : 'Officer'
           personnel.value.push({
             id: data[0].id,
             name: data[0].BMfullname,
             position: data[0].position,
             phone: data[0].phone_number,
-            photo_url: '',
-            type,
+            photo_url: data[0].photo_url || '',
+            purok_number: data[0].purok_number || '',
+            description: data[0].description || '',
+            type: 'Officer',
           })
           alert('Personnel added successfully!')
           closeModal()
