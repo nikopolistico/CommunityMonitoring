@@ -1761,6 +1761,133 @@
           </div>
         </div>
       </div>
+
+      <!-- Custom Confirmation Modal -->
+      <Transition
+        enter-active-class="transition-all duration-300 ease-out"
+        enter-from-class="opacity-0 scale-95"
+        enter-to-class="opacity-100 scale-100"
+        leave-active-class="transition-all duration-200 ease-in"
+        leave-from-class="opacity-100 scale-100"
+        leave-to-class="opacity-0 scale-95"
+      >
+        <div
+          v-if="showConfirmModal"
+          class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100001] p-4"
+          @click.self="handleCancelConfirm"
+        >
+          <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden">
+              <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-20 -mt-20 animate-pulse"></div>
+              <div class="relative flex items-center gap-3">
+                <div class="p-3 bg-white/20 backdrop-blur-sm rounded-xl ring-2 ring-white/30">
+                  <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white">{{ confirmData.title }}</h3>
+              </div>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white">
+              <p class="text-[#002147] text-base font-medium mb-6 text-center">{{ confirmData.message }}</p>
+              
+              <div class="flex gap-3">
+                <button
+                  @click="handleCancelConfirm"
+                  class="flex-1 px-5 py-3 border-2 border-[#004595]/20 text-[#002147] rounded-xl hover:bg-[#f3f1ee] hover:border-[#004595]/40 transition-all font-bold text-sm"
+                >
+                  {{ confirmData.cancelText }}
+                </button>
+                <button
+                  @click="handleConfirm"
+                  class="flex-1 px-5 py-3 bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold text-sm"
+                >
+                  {{ confirmData.confirmText }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Transition>
+
+      <!-- Toast Notification -->
+      <Transition
+        enter-active-class="transition-all duration-500 ease-out"
+        enter-from-class="opacity-0 translate-y-[-100%]"
+        enter-to-class="opacity-100 translate-y-0"
+        leave-active-class="transition-all duration-300 ease-in"
+        leave-from-class="opacity-100 translate-y-0"
+        leave-to-class="opacity-0 translate-y-[-100%]"
+      >
+        <div
+          v-if="toast.show"
+          class="fixed top-6 left-1/2 -translate-x-1/2 z-[100000] max-w-md w-full px-4"
+        >
+          <div
+            :class="[
+              'rounded-2xl shadow-2xl overflow-hidden backdrop-blur-md border-2 transform hover:scale-[1.02] transition-all duration-300',
+              toast.type === 'success' 
+                ? 'bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] border-[#004595]/30' 
+                : toast.type === 'error'
+                ? 'bg-gradient-to-r from-red-500 via-red-600 to-red-700 border-red-400/30'
+                : 'bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 border-amber-400/30'
+            ]"
+          >
+            <div class="relative p-4">
+              <!-- Animated Background -->
+              <div class="absolute inset-0 bg-white/5 backdrop-blur-sm"></div>
+              <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-16 -mt-16 animate-pulse"></div>
+              
+              <div class="relative flex items-start gap-4">
+                <!-- Icon -->
+                <div class="flex-shrink-0">
+                  <div class="p-2 bg-white/20 backdrop-blur-sm rounded-xl ring-2 ring-white/30 shadow-lg">
+                    <!-- Success Icon -->
+                    <svg v-if="toast.type === 'success'" class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <!-- Error Icon -->
+                    <svg v-else-if="toast.type === 'error'" class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                    </svg>
+                    <!-- Warning Icon -->
+                    <svg v-else class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Content -->
+                <div class="flex-1 pt-0.5">
+                  <p class="text-white font-bold text-base tracking-wide leading-snug">{{ toast.message }}</p>
+                  <p v-if="toast.description" class="text-white/80 text-sm mt-1 font-medium">{{ toast.description }}</p>
+                </div>
+
+                <!-- Close Button -->
+                <button
+                  @click="hideToast"
+                  class="flex-shrink-0 p-1.5 hover:bg-white/20 rounded-lg transition-all duration-200"
+                >
+                  <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Progress Bar -->
+              <div class="absolute bottom-0 left-0 right-0 h-1 bg-white/20 overflow-hidden">
+                <div
+                  class="h-full bg-white/60 transition-all duration-300 ease-linear"
+                  :style="{ width: toast.progress + '%' }"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Transition>
     </div>
   </template>
 
@@ -1910,6 +2037,91 @@
   
   // Position menu state
   const activePositionMenu = ref(null)
+
+  // Custom confirmation modal state
+  const showConfirmModal = ref(false)
+  const confirmAction = ref(null)
+  const confirmData = ref({
+    title: '',
+    message: '',
+    confirmText: 'Confirm',
+    cancelText: 'Cancel'
+  })
+
+  // Toast notification state
+  const toast = ref({
+    show: false,
+    message: '',
+    description: '',
+    type: 'success', // 'success', 'error', 'warning'
+    progress: 100
+  })
+
+  let toastTimer = null
+  let progressTimer = null
+
+  // Toast helper functions
+  const showToast = (message, type = 'success', description = '', duration = 4000) => {
+    // Clear existing timers
+    if (toastTimer) clearTimeout(toastTimer)
+    if (progressTimer) clearInterval(progressTimer)
+    
+    toast.value = {
+      show: true,
+      message,
+      description,
+      type,
+      progress: 100
+    }
+
+    // Progress bar animation
+    const startTime = Date.now()
+    progressTimer = setInterval(() => {
+      const elapsed = Date.now() - startTime
+      const remaining = Math.max(0, 100 - (elapsed / duration) * 100)
+      toast.value.progress = remaining
+      
+      if (remaining <= 0) {
+        clearInterval(progressTimer)
+      }
+    }, 50)
+
+    // Auto hide
+    toastTimer = setTimeout(() => {
+      hideToast()
+    }, duration)
+  }
+
+  const hideToast = () => {
+    toast.value.show = false
+    if (toastTimer) clearTimeout(toastTimer)
+    if (progressTimer) clearInterval(progressTimer)
+  }
+
+  // Custom confirmation modal helper
+  const showConfirm = (title, message, onConfirm, confirmText = 'Confirm', cancelText = 'Cancel') => {
+    confirmData.value = {
+      title,
+      message,
+      confirmText,
+      cancelText
+    }
+    confirmAction.value = onConfirm
+    showConfirmModal.value = true
+  }
+
+  const handleConfirm = () => {
+    if (confirmAction.value) {
+      confirmAction.value()
+    }
+    showConfirmModal.value = false
+    confirmAction.value = null
+  }
+
+  const handleCancelConfirm = () => {
+    showConfirmModal.value = false
+    confirmAction.value = null
+  }
 
   // Computed property to get all personnel
   const allPersonnel = computed(() => personnel.value)
@@ -2134,7 +2346,7 @@
 
   const saveEdit = async () => {
     if (!captainId.value) {
-      alert('Cannot update: Captain ID not found')
+      showToast('Cannot update captain information', 'error', 'Captain ID not found')
       return
     }
 
@@ -2153,11 +2365,11 @@
       if (error) throw error
 
       isEditing.value = false
-      alert('Captain information updated successfully!')
+      showToast('Success!', 'success', 'Captain information updated successfully')
       await fetchCaptainInfo();
     } catch (error) {
       console.error('Error updating captain info:', error)
-      alert('Failed to update captain information. Please try again.')
+      showToast('Update Failed', 'error', 'Failed to update captain information. Please try again.')
     } finally {
       saving.value = false
     }
@@ -2173,18 +2385,18 @@
 
     // Validate file type
     if (!file.type.startsWith('image/')) {
-      alert('Please select an image file')
+      showToast('Invalid File Type', 'warning', 'Please select an image file')
       return
     }
 
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      alert('Image size should be less than 5MB')
+      showToast('File Too Large', 'warning', 'Image size should be less than 5MB')
       return
     }
 
     if (!captainId.value) {
-      alert('Cannot upload: Captain ID not found')
+      showToast('Upload Failed', 'error', 'Captain ID not found')
       return
     }
 
@@ -2214,16 +2426,16 @@
       // Update local data
       captainInfo.value.profileImage = imageUrl
 
-      alert('Profile image uploaded successfully!')
+      showToast('Success!', 'success', 'Profile image uploaded successfully')
     } catch (error) {
       console.error('Error uploading image:', error)
-      alert('Failed to upload image. Please try again.')
+      showToast('Upload Failed', 'error', 'Failed to upload image. Please try again.')
     }
   }
 
   const addPersonnel = (position = '') => {
     if (!barangay_id.value) {
-      alert('Cannot add personnel: Barangay not found')
+      showToast('Cannot Add Personnel', 'error', 'Barangay not found')
       return
     }
     isEditMode.value = false
@@ -2279,13 +2491,13 @@
 
   const submitPosition = async () => {
     if (!positionForm.value.name.trim()) {
-      alert('Please enter a position name')
+      showToast('Position Required', 'warning', 'Please enter a position name')
       return
     }
     
     // Check if position already exists
     if (positions.value.includes(positionForm.value.name)) {
-      alert('This position already exists')
+      showToast('Position Exists', 'warning', 'This position already exists')
       return
     }
     
@@ -2366,9 +2578,9 @@
       
       const deletedCount = officersInPosition.length
       if (deletedCount > 0) {
-        alert(`Position "${positionToDelete.value}" and ${deletedCount} officer${deletedCount !== 1 ? 's' : ''} have been deleted successfully!`)
+        showToast('Success!', 'success', `Position "${positionToDelete.value}" and ${deletedCount} officer${deletedCount !== 1 ? 's' : ''} have been deleted`)
       } else {
-        alert(`Position "${positionToDelete.value}" has been deleted successfully!`)
+        showToast('Success!', 'success', `Position "${positionToDelete.value}" has been deleted`)
       }
       
       cancelDeletePosition()
@@ -2379,7 +2591,7 @@
       }
     } catch (error) {
       console.error('Error deleting position:', error)
-      alert('Failed to delete position. Please try again.')
+      showToast('Delete Failed', 'error', 'Failed to delete position. Please try again.')
     }
   }
 
@@ -2390,13 +2602,13 @@
 
     // Validate file type
     if (!file.type.startsWith('image/')) {
-      alert('Please select an image file')
+      showToast('Invalid File Type', 'warning', 'Please select an image file')
       return
     }
 
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      alert('Image size should be less than 5MB')
+      showToast('File Too Large', 'warning', 'Image size should be less than 5MB')
       return
     }
 
@@ -2426,13 +2638,13 @@
 
       if (urlData?.publicUrl) {
         personnelForm.value.photo_url = urlData.publicUrl
-        alert('Photo uploaded successfully!')
+        showToast('Success!', 'success', 'Photo uploaded successfully')
       } else {
         throw new Error('Failed to get public URL')
       }
     } catch (error) {
       console.error('Error uploading photo:', error)
-      alert('Failed to upload photo. Please try again.')
+      showToast('Upload Failed', 'error', 'Failed to upload photo. Please try again.')
     } finally {
       uploadingPhoto.value = false
     }
@@ -2486,28 +2698,34 @@
   const deleteFromDetails = async () => {
     if (!selectedPersonnel.value) return
     
-    if (confirm(`Are you sure you want to delete ${selectedPersonnel.value.name}?`)) {
-      try {
-        const { error } = await supabase
-          .from('BrgyMembers')
-          .delete()
-          .eq('id', selectedPersonnel.value.id)
+    showConfirm(
+      'Delete Personnel',
+      `Are you sure you want to delete ${selectedPersonnel.value.name}?`,
+      async () => {
+        try {
+          const { error } = await supabase
+            .from('BrgyMembers')
+            .delete()
+            .eq('id', selectedPersonnel.value.id)
 
-        if (error) throw error
+          if (error) throw error
 
-        personnel.value = personnel.value.filter(p => p.id !== selectedPersonnel.value.id)
-        alert('Personnel deleted successfully!')
-        closeDetailsModal()
-      } catch (error) {
-        console.error('Error deleting personnel:', error)
-        alert('Failed to delete personnel. Please try again.')
-      }
-    }
+          personnel.value = personnel.value.filter(p => p.id !== selectedPersonnel.value.id)
+          showToast('Success!', 'success', 'Personnel deleted successfully')
+          closeDetailsModal()
+        } catch (error) {
+          console.error('Error deleting personnel:', error)
+          showToast('Delete Failed', 'error', 'Failed to delete personnel. Please try again.')
+        }
+      },
+      'Delete',
+      'Cancel'
+    )
   }
 
   const submitPersonnel = async () => {
     if (!barangay_id.value) {
-      alert('Cannot add personnel: Barangay not found')
+      showToast('Cannot Add Personnel', 'error', 'Barangay not found')
       return
     }
 
@@ -2547,7 +2765,7 @@
               type: 'Officer',
             }
           }
-          alert('Personnel updated successfully!')
+          showToast('Success!', 'success', 'Personnel updated successfully')
           closeModal()
           await fetchPositions()
         }
@@ -2581,38 +2799,45 @@
             description: data[0].description || '',
             type: 'Officer',
           })
-          alert('Personnel added successfully!')
+          showToast('Success!', 'success', 'Personnel added successfully')
           closeModal()
           await fetchPositions()
         }
       }
     } catch (error) {
       console.error('Error saving personnel:', error)
-      alert(`Failed to ${isEditMode.value ? 'update' : 'add'} personnel. Please try again.`)
+      showToast('Operation Failed', 'error', `Failed to ${isEditMode.value ? 'update' : 'add'} personnel. Please try again.`)
     } finally {
       submitting.value = false
     }
   }
 
   const removePersonnel = async (id) => {
-    if (!confirm('Are you sure you want to remove this personnel?')) {
-      return
-    }
+    const personToRemove = personnel.value.find(p => p.id === id)
+    if (!personToRemove) return
 
-    try {
-      const { error } = await supabase
-        .from('BrgyMembers')
-        .delete()
-        .eq('id', id)
+    showConfirm(
+      'Remove Personnel',
+      `Are you sure you want to remove ${personToRemove.name}?`,
+      async () => {
+        try {
+          const { error } = await supabase
+            .from('BrgyMembers')
+            .delete()
+            .eq('id', id)
 
-      if (error) throw error
+          if (error) throw error
 
-      personnel.value = personnel.value.filter(p => p.id !== id)
-      alert('Personnel removed successfully!')
-    } catch (error) {
-      console.error('Error removing personnel:', error)
-      alert('Failed to remove personnel. Please try again.')
-    }
+          personnel.value = personnel.value.filter(p => p.id !== id)
+          showToast('Success!', 'success', 'Personnel removed successfully')
+        } catch (error) {
+          console.error('Error removing personnel:', error)
+          showToast('Remove Failed', 'error', 'Failed to remove personnel. Please try again.')
+        }
+      },
+      'Remove',
+      'Cancel'
+    )
   }
 
   const goBack = () => {
