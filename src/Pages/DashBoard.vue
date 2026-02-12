@@ -45,20 +45,20 @@
                 </div>
 
                 <!-- Date and Time -->
-                <div class="flex flex-col gap-1 px-5 py-2.5 rounded-xl bg-white/15 backdrop-blur-md shadow-lg border border-white/25 hover:bg-white/20 transition-all duration-300">
-                  <div class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-white/90" fill="currentColor" viewBox="0 0 20 20">
+                <div class="flex flex-col gap-2 px-7 py-4 rounded-xl bg-white/15 backdrop-blur-md shadow-lg border border-white/25 hover:bg-white/20 transition-all duration-300">
+                  <div class="flex items-center gap-2.5">
+                    <svg class="w-6 h-6 text-white/90" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
                     </svg>
-                    <p class="text-xs font-semibold text-white/90 tracking-wide">
+                    <p class="text-base font-bold text-white/95 tracking-wide">
                       {{ currentDate }}
                     </p>
                   </div>
-                  <div class="flex items-center gap-2">
-                    <svg class="w-4 h-4 text-white/90" fill="currentColor" viewBox="0 0 20 20">
+                  <div class="flex items-center gap-2.5">
+                    <svg class="w-6 h-6 text-white/90" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-8.75V5a.75.75 0 10-1.5 0v4.5c0 .2.08.39.22.53l3 3a.75.75 0 101.06-1.06l-2.78-2.72z" clip-rule="evenodd"/>
                     </svg>
-                    <p class="text-sm font-bold text-white tracking-wider">
+                    <p class="text-lg font-extrabold text-white tracking-wider">
                       {{ currentTime }}
                     </p>
                   </div>
@@ -84,9 +84,10 @@
                   <h3 class="text-5xl font-extrabold text-[#002147] mb-2 group-hover:scale-105 transition-transform">{{ totalBarangays }}</h3>
                   <p class="text-sm text-[#00397a] font-semibold uppercase tracking-wide">Total Barangays</p>
                 </div>
-                <div class="flex items-center justify-center w-14 h-14 bg-[#004595]/10 rounded-lg group-hover:bg-[#004595]/20 transition-all duration-300">
-                  <svg class="w-7 h-7 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
+                  <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                   </svg>
                 </div>
               </div>
@@ -101,9 +102,11 @@
                   <h3 class="text-5xl font-extrabold text-[#002147] mb-2 group-hover:scale-105 transition-transform">{{ totalSchools }}</h3>
                   <p class="text-sm text-[#00397a] font-semibold uppercase tracking-wide">Total Schools</p>
                 </div>
-                <div class="flex items-center justify-center w-14 h-14 bg-[#00397a]/10 rounded-lg group-hover:bg-[#00397a]/20 transition-all duration-300">
-                  <svg class="w-7 h-7 text-[#00397a]" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-emerald-100 to-emerald-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
+                  <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
                   </svg>
                 </div>
               </div>
@@ -118,9 +121,14 @@
                   <h3 class="text-5xl font-extrabold text-[#002147] mb-2 group-hover:scale-105 transition-transform">{{ totalChurches }}</h3>
                   <p class="text-sm text-[#00397a] font-semibold uppercase tracking-wide">Total Churches</p>
                 </div>
-                <div class="flex items-center justify-center w-14 h-14 bg-[#002147]/10 rounded-lg group-hover:bg-[#002147]/20 transition-all duration-300">
-                  <svg class="w-7 h-7 text-[#002147]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+                <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-rose-100 to-rose-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
+                  <svg class="w-8 h-8 text-rose-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2L10 6H8v3H6v13h12V9h-2V6h-2L12 2z"/>
+                    <path d="M10 6h4v3h-4V6z"/>
+                    <path d="M8 11h8v2H8v-2z"/>
+                    <path d="M8 15h3v7H8v-7z"/>
+                    <path d="M13 15h3v7h-3v-7z"/>
+                    <rect x="11" y="0" width="2" height="3" fill="currentColor"/>
                   </svg>
                 </div>
               </div>
@@ -135,9 +143,10 @@
                   <h3 class="text-5xl font-extrabold text-[#002147] mb-2 group-hover:scale-105 transition-transform">{{ totalEstablishments }}</h3>
                   <p class="text-sm text-[#00397a] font-semibold uppercase tracking-wide">Total Establishments</p>
                 </div>
-                <div class="flex items-center justify-center w-14 h-14 bg-[#004595]/10 rounded-lg group-hover:bg-[#004595]/20 transition-all duration-300">
-                  <svg class="w-7 h-7 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd"/>
+                <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-amber-100 to-amber-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
+                  <svg class="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v3"/>
                   </svg>
                 </div>
               </div>
@@ -214,7 +223,7 @@
               <!-- Search Bar -->
               <div class="relative w-full sm:w-96">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg class="w-5 h-5 text-[#00397a]/60" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
                   </svg>
                 </div>
@@ -222,7 +231,7 @@
                   v-model="searchQuery"
                   type="text"
                   placeholder="Search barangay..."
-                  class="w-full pl-10 pr-4 py-2.5 border border-[#004595]/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595]/30 focus:border-[#004595] transition-all bg-[#f3f1ee]/30 text-[#002147] placeholder-[#00397a]/50"
+                  class="w-full pl-10 pr-4 py-2.5 border-2 border-[#004595]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-[#004595] transition-all bg-white text-[#002147] placeholder-[#00397a]/60 shadow-sm hover:border-[#004595]/50"
                 />
               </div>
             </div>
