@@ -1,512 +1,373 @@
 <template>
-  <div class="flex-1 flex flex-col bg-[#f3f1ee]">
-    <!-- Top Header -->
-    <header class="relative shadow-2xl overflow-hidden h-32 lg:sticky lg:top-0 lg:z-20">
-      <div
-        class="absolute inset-0 bg-cover bg-center"
-        :style="{ backgroundImage: `url(${headbk})` }"
-      ></div>
-      <div class="absolute inset-0 bg-linear-to-r from-[#002147]/60 to-[#004595]/50"></div>
-
-      <div class="relative z-10 p-3 lg:p-6">
-        <div class="max-w-6xl mx-auto">
-          <div class="flex items-center gap-2 lg:gap-3 mb-2 lg:mb-3">
-            <div class="p-1.5 lg:p-2 bg-white/20 backdrop-blur-sm rounded-lg shrink-0">
-              <svg class="w-5 h-5 lg:w-8 lg:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
-                />
+  <div class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 font-['Poppins']">
+    <!-- Header Banner -->
+    <div class="relative overflow-hidden bg-gradient-to-r from-[#002147] via-[#004595] to-[#00397a] p-6 shadow-2xl">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mr-48 -mt-48"></div>
+      <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-2xl -ml-32 -mb-32"></div>
+      
+      <div class="relative z-10 max-w-7xl mx-auto">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <div class="p-4 bg-white/20 backdrop-blur-sm rounded-2xl">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
-            <h1
-              class="text-lg sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight drop-shadow-lg"
-            >
-              Community Events Calendar
-            </h1>
+            <div>
+              <h1 class="text-3xl font-bold text-white tracking-tight">Community Events Calendar</h1>
+              <p class="text-blue-100 mt-1 font-medium">Manage and track barangay events efficiently</p>
+            </div>
           </div>
-
-          <p class="text-xs sm:text-sm text-[#e0e7ff] mb-2 lg:mb-3 lg:ml-14 font-medium">
-            Click on any date to add barangay events
-          </p>
+          
+          <!-- Quick Stats in Header -->
+          <div class="flex items-center gap-4">
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20">
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-amber-500/20 rounded-xl">
+                  <svg class="w-5 h-5 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs text-blue-100 font-medium">Pending</p>
+                  <p class="text-2xl font-bold text-white">{{ pendingEvents.length }}</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20">
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-green-500/20 rounded-xl">
+                  <svg class="w-5 h-5 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs text-blue-100 font-medium">Completed</p>
+                  <p class="text-2xl font-bold text-white">{{ doneEvents.length }}</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20">
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-purple-500/20 rounded-xl">
+                  <svg class="w-5 h-5 text-purple-300" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs text-blue-100 font-medium">Fiestas</p>
+                  <p class="text-2xl font-bold text-white">{{ selectedDateFiestas.length }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </header>
+    </div>
 
-    <!-- Calendar Container -->
-    <div class="flex-1 p-2 sm:p-4 lg:p-6 overflow-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
-        <!-- Left Side: Calendar -->
-        <div
-          class="bg-white rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden relative border-2 lg:border-4 border-white/50"
-        >
-          <!-- Custom Calendar -->
-          <div class="p-6 flex flex-col max-h-150">
-            <!-- Calendar Header -->
-            <div class="flex items-center justify-between mb-6 shrink-0">
-              <button @click="prevMonth" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 19l-7-7 7-7"
-                  ></path>
-                </svg>
-              </button>
-              <h2 class="text-2xl font-bold text-[#002147]">
-                {{ monthNames[currentDate.getMonth()] }} {{ currentDate.getFullYear() }}
-              </h2>
-              <button @click="nextMonth" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  ></path>
-                </svg>
-              </button>
+    <div class="flex min-h-[calc(100vh-140px)]">
+      <!-- Left Side: Calendar (50%) -->
+      <aside class="w-1/2 bg-gradient-to-b from-white via-[#f3f1ee]/30 to-white shadow-2xl border-r border-[#004595]/10">
+        <div class="p-8 h-full flex flex-col">
+          <!-- Calendar Section Title -->
+          <div class="mb-6">
+            <h2 class="text-2xl font-bold text-[#002147] mb-2">Select Event Date</h2>
+            <p class="text-gray-600">Click on any date to view or add events</p>
+          </div>
+
+          <!-- Calendar Navigation -->
+          <div class="bg-white rounded-2xl shadow-xl border border-[#004595]/10 overflow-hidden flex-shrink-0">
+            <div class="bg-gradient-to-r from-[#004595] to-[#00397a] px-6 py-4">
+              <div class="flex items-center justify-between">
+                <button @click="prevMonth" class="p-2 hover:bg-white/20 rounded-lg transition-all transform hover:scale-110">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <h2 class="text-2xl font-bold text-white">
+                  {{ monthNames[currentDate.getMonth()] }} {{ currentDate.getFullYear() }}
+                </h2>
+                <button @click="nextMonth" class="p-2 hover:bg-white/20 rounded-lg transition-all transform hover:scale-110">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
             </div>
-
+            
             <!-- Calendar Grid -->
-            <div class="flex-1 overflow-y-auto">
-              <div class="grid grid-cols-7 gap-1 min-h-100">
+            <div class="p-6">
+              <div class="grid grid-cols-7 gap-2">
                 <!-- Day Headers -->
-                <div
-                  v-for="day in ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']"
-                  :key="day"
-                  class="p-3 text-center font-semibold text-gray-600 border-b"
-                >
+                <div v-for="day in ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']" :key="day"
+                  class="p-3 text-center text-sm font-bold text-[#004595] uppercase">
                   {{ day }}
                 </div>
 
                 <!-- Calendar Days -->
-                <div
-                  v-for="day in calendarDays"
-                  :key="day.dateStr"
+                <div v-for="day in calendarDays" :key="day.dateStr"
                   :class="[
-                    'min-h-24 p-2 border cursor-pointer transition-colors relative',
-                    day.isCurrentMonth ? 'bg-white' : 'bg-gray-50 text-gray-400',
-                    day.isToday ? 'bg-blue-50 border-blue-200' : 'border-gray-200',
-                    day.hasEvents ? 'hover:bg-blue-50' : 'hover:bg-gray-50',
+                    'min-h-[4.5rem] p-3 border cursor-pointer transition-all duration-200 relative rounded-xl',
+                    day.isCurrentMonth ? 'bg-white hover:bg-blue-50' : 'bg-gray-50 text-gray-400 hover:bg-gray-100',
+                    day.isToday ? 'bg-blue-50 border-blue-400 shadow-lg ring-2 ring-blue-300' : 'border-gray-200',
+                    day.hasEvents ? 'border-l-4 border-l-purple-400' : '',
+                    selectedDate?.toDateString() === day.date.toDateString() ? 'ring-2 ring-blue-500 shadow-xl scale-105 bg-blue-100' : ''
                   ]"
-                  @click="selectDate(day)"
-                >
-                  <div
-                    :class="[
-                      'text-sm font-medium mb-1 flex items-center gap-1',
-                      day.isToday ? 'text-white' : 'text-gray-800',
-                    ]"
-                  >
-                    <span
-                      v-if="day.isToday"
-                      class="w-7 h-7 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 font-bold shadow-md"
-                    >
+                  @click="selectDate(day)">
+                  <div :class="['text-sm font-bold mb-1', day.isToday ? 'text-white' : 'text-gray-800']">
+                    <span v-if="day.isToday"
+                      class="w-7 h-7 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold shadow-lg mx-auto">
                       {{ day.date.getDate() }}
                     </span>
-                    <span v-else>
+                    <span v-else class="block text-center">
                       {{ day.date.getDate() }}
                     </span>
                   </div>
 
-                  <div class="space-y-1">
-                    <div
-                      v-for="event in day.events.slice(0, 2)"
-                      :key="event.id || event.patron"
-                      :class="[
-                        'text-xs px-1 py-0.5 rounded truncate font-medium',
-                        event.type === 'fiesta'
-                          ? 'bg-linear-to-r from-purple-500 to-pink-500 text-white'
-                          : event.status
-                            ? 'bg-linear-to-r from-green-500 to-emerald-500 text-white'
-                            : 'bg-linear-to-r from-amber-500 to-yellow-500 text-white',
-                      ]"
-                      :title="
-                        event.type === 'fiesta'
-                          ? event.patron + ' (Fiesta)'
-                          : event.title + (event.status ? ' (Done)' : ' (Pending)')
-                      "
-                    >
-                      {{
-                        event.type === 'fiesta'
-                          ? '🎉 ' + event.patron
-                          : (event.status ? '✓ ' : '⏱ ') + event.title
-                      }}
+                  <!-- Event indicators -->
+                  <div v-if="day.hasEvents" class="flex justify-center gap-1">
+                    <div v-for="i in Math.min(day.events.length, 3)" :key="i"
+                      class="w-2 h-2 rounded-full shadow-sm"
+                      :class="day.events[i-1]?.type === 'fiesta' ? 'bg-purple-500' : day.events[i-1]?.status ? 'bg-green-500' : 'bg-amber-500'">
                     </div>
-
-                    <div v-if="day.events.length > 2" class="text-xs text-gray-500 font-semibold">
-                      +{{ day.events.length - 2 }} more
-                    </div>
+                  </div>
+                  
+                  <!-- Event count badge -->
+                  <div v-if="day.events.length > 3" class="absolute top-1 right-1">
+                    <span class="inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full">
+                      {{ day.events.length }}
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Legend -->
+          <div class="mt-6 bg-white rounded-2xl shadow-lg border border-[#004595]/10 p-6">
+            <h3 class="text-sm font-bold text-[#002147] mb-4 uppercase tracking-wide">Legend</h3>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 bg-amber-500 rounded-full"></div>
+                <span class="text-sm text-gray-700 font-medium">Pending</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span class="text-sm text-gray-700 font-medium">Completed</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 bg-purple-500 rounded-full"></div>
+                <span class="text-sm text-gray-700 font-medium">Fiesta</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </aside>
 
-        <!-- Right Side: Barangay Events List -->
-        <div
-          class="bg-white rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden relative border-2 lg:border-4 border-white/50"
-        >
-          <div class="p-6 flex flex-col max-h-150">
-            <!-- Events Header -->
-            <div
-              class="mb-6 shrink-0 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"
-            >
+      <!-- Right Side: Events List (50%) -->
+      <main class="w-1/2 bg-gradient-to-br from-[#004595]/5 via-transparent to-[#00397a]/5 overflow-auto">
+        <div class="p-8 h-full flex flex-col">
+          <!-- Page Header -->
+          <div class="mb-6 flex-shrink-0">
+            <div class="flex items-center justify-between mb-4">
               <div>
-                <h3 class="text-xl font-bold text-[#002147] mb-2">
-                  {{
-                    selectedDate
-                      ? `Events on ${selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`
-                      : 'Select a Date'
-                  }}
-                </h3>
-                <p class="text-sm text-gray-600">
-                  {{
-                    selectedDate
-                      ? 'Events organized by Policer Officer:'
-                      : 'Click on a date in the calendar to view events'
-                  }}
+                <h2 class="text-2xl font-bold text-[#002147] mb-1">
+                  {{ selectedDate ? selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'Event Management' }}
+                </h2>
+                <p class="text-gray-600 font-medium">
+                  {{ selectedDate ? 'Manage events for this day' : 'Select a date to view events' }}
                 </p>
               </div>
-              <div class="flex flex-col gap-2">
-                <button
-                  @click="openAddModal"
-                  :disabled="!selectedDate"
-                  class="px-4 py-2 rounded-lg bg-linear-to-r from-[#004595] to-[#0056b3] text-white font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
-                >
-                  <span class="flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 4v16m8-8H4"
-                      />
+              <button @click="openAddModal" :disabled="!selectedDate"
+                class="px-6 py-3 rounded-xl bg-gradient-to-r from-[#004595] to-[#0056b3] text-white font-bold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Add Event
+              </button>
+            </div>
+
+            <!-- Barangay Filter -->
+            <div v-if="selectedDate" class="flex items-center gap-4 bg-white rounded-xl shadow-lg border border-[#004595]/10 p-4">
+              <label class="text-sm font-bold text-[#002147] uppercase tracking-wide whitespace-nowrap">Filter:</label>
+              <select v-model="barangaySearch"
+                class="flex-1 px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent transition-all font-medium">
+                <option value="">All Barangays</option>
+                <option v-for="brgy in barangayOptions" :key="brgy.id" :value="brgy.label">
+                  {{ brgy.label }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Status Filter Tabs -->
+          <div v-if="selectedDate && filteredBaseEvents.length > 0" class="mb-6 flex-shrink-0">
+            <div class="flex gap-2 bg-white p-2 rounded-xl shadow-lg border border-[#004595]/10">
+              <button @click="statusFilter = 'all'"
+                :class="[
+                  'flex-1 px-4 py-2.5 rounded-lg font-bold text-sm transition-all duration-300',
+                  statusFilter === 'all' ? 'bg-gradient-to-r from-[#004595] to-[#0056b3] text-white shadow-lg transform scale-105' : 'text-gray-600 hover:text-[#004595] hover:bg-gray-50'
+                ]">
+                All ({{ filteredBaseEvents.length }})
+              </button>
+              <button @click="statusFilter = 'pending'"
+                :class="[
+                  'flex-1 px-4 py-2.5 rounded-lg font-bold text-sm transition-all duration-300',
+                  statusFilter === 'pending' ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg transform scale-105' : 'text-gray-600 hover:text-amber-600 hover:bg-amber-50'
+                ]">
+                Pending ({{ pendingEvents.length }})
+              </button>
+              <button @click="statusFilter = 'done'"
+                :class="[
+                  'flex-1 px-4 py-2.5 rounded-lg font-bold text-sm transition-all duration-300',
+                  statusFilter === 'done' ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg transform scale-105' : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+                ]">
+                Done ({{ doneEvents.length }})
+              </button>
+            </div>
+          </div>
+
+          <!-- Events List Container -->
+          <div class="flex-1 overflow-hidden">
+            <div class="h-full bg-white rounded-2xl shadow-2xl border border-[#004595]/10 overflow-y-auto">
+              <div class="p-6">
+                <!-- Empty State - No Date Selected -->
+                <div v-if="!selectedDate" class="text-center py-20">
+                  <div class="w-24 h-24 bg-gradient-to-br from-blue-100 to-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
-                    Add Event
-                  </span>
-                </button>
-
-                <div class="flex items-center gap-2">
-                  <select
-                    v-model="barangaySearch"
-                    :disabled="!selectedDate"
-                    class="w-full sm:w-60 px-3 py-2 border-2 border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent transition-all disabled:bg-gray-100 disabled:cursor-not-allowed"
-                  >
-                    <option value="">All barangays</option>
-                    <option v-for="brgy in barangayOptions" :key="brgy.id" :value="brgy.label">
-                      {{ brgy.label }}
-                    </option>
-                  </select>
+                  </div>
+                  <h3 class="text-2xl font-bold text-[#002147] mb-3">No Date Selected</h3>
+                  <p class="text-gray-600 text-lg max-w-md mx-auto">Choose a date from the calendar on the left to view and manage events</p>
                 </div>
-              </div>
-            </div>
 
-            <!-- Status Filter Tabs -->
-            <div v-if="selectedDate && filteredBaseEvents.length > 0" class="mb-4 shrink-0">
-              <div class="flex gap-2 bg-gray-100 p-1 rounded-lg">
-                <button
-                  @click="statusFilter = 'all'"
-                  :class="[
-                    'flex-1 px-4 py-2 rounded-md font-semibold text-sm transition-all',
-                    statusFilter === 'all'
-                      ? 'bg-white text-[#004595] shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900',
-                  ]"
-                >
-                  All Events ({{ filteredBaseEvents.length }})
-                </button>
-                <button
-                  @click="statusFilter = 'pending'"
-                  :class="[
-                    'flex-1 px-4 py-2 rounded-md font-semibold text-sm transition-all',
-                    statusFilter === 'pending'
-                      ? 'bg-white text-amber-600 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900',
-                  ]"
-                >
-                  Pending ({{ pendingEvents.length }})
-                </button>
-                <button
-                  @click="statusFilter = 'done'"
-                  :class="[
-                    'flex-1 px-4 py-2 rounded-md font-semibold text-sm transition-all',
-                    statusFilter === 'done'
-                      ? 'bg-white text-green-600 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900',
-                  ]"
-                >
-                  Done ({{ doneEvents.length }})
-                </button>
-              </div>
-            </div>
-
-            <!-- Events List -->
-            <div class="flex-1 overflow-y-auto">
-              <div v-if="!selectedDate" class="text-center py-12">
-                <div
-                  class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                >
-                  <svg
-                    class="w-8 h-8 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    ></path>
-                  </svg>
+                <!-- Empty State - No Events -->
+                <div v-else-if="filteredBaseEvents.length === 0" class="text-center py-20">
+                  <div class="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                  </div>
+                  <h3 class="text-2xl font-bold text-[#002147] mb-3">No Events Scheduled</h3>
+                  <p class="text-gray-600 text-lg mb-6">There are no events for this date yet</p>
+                  <button @click="openAddModal"
+                    class="px-6 py-3 rounded-xl bg-gradient-to-r from-[#004595] to-[#0056b3] text-white font-bold hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+                    Add First Event
+                  </button>
                 </div>
-                <p class="text-gray-500 text-lg font-medium">No Date Selected</p>
-                <p class="text-gray-400 text-sm mt-1">
-                  Choose a date from the calendar to view events
-                </p>
-              </div>
 
-              <div v-else-if="filteredBaseEvents.length === 0" class="text-center py-12">
-                <div
-                  class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                >
-                  <svg
-                    class="w-8 h-8 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                    ></path>
-                  </svg>
-                </div>
-                <p class="text-gray-500 text-lg font-medium">No Events</p>
-                <p class="text-gray-400 text-sm mt-1">No events scheduled for this date</p>
-              </div>
-
-              <div v-else class="space-y-6">
-                <!-- Pending Events Section -->
-                <div v-if="statusFilter === 'all' || statusFilter === 'pending'">
+                <!-- Events List -->
+                <div v-else class="space-y-6">
+                  <!-- Pending Events Section -->
+                  <div v-if="statusFilter === 'all' || statusFilter === 'pending'">
                   <div v-if="pendingEvents.length > 0">
-                    <div class="flex items-center gap-2 mb-4 sticky top-0 bg-white py-2 z-10">
-                      <div
-                        class="w-1 h-6 bg-gradient-to-b from-amber-400 to-amber-600 rounded-full"
-                      ></div>
-                      <h4 class="text-lg font-bold text-amber-700">Pending Events</h4>
-                      <span
-                        class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full font-semibold"
-                      >
+                    <div class="flex items-center gap-3 mb-5">
+                      <div class="w-1.5 h-8 bg-gradient-to-b from-amber-400 to-amber-600 rounded-full"></div>
+                      <h4 class="text-xl font-bold text-amber-700">Pending Events</h4>
+                      <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full font-bold text-sm">
                         {{ pendingEvents.length }}
                       </span>
                     </div>
-                    <div class="space-y-3">
-                      <div
-                        v-for="event in pendingEvents"
-                        :key="event.id"
-                        class="event-card bg-gradient-to-br from-amber-50 to-yellow-50 border-l-4 border-amber-400 rounded-lg p-4 hover:shadow-md transition-all duration-300"
-                      >
-                        <div class="flex items-start justify-between">
-                          <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-2">
-                              <span
-                                class="inline-block w-2 h-2 bg-amber-500 rounded-full animate-pulse"
-                              ></span>
-                              <h5 class="font-bold text-[#002147] text-base">{{ event.title }}</h5>
-                              <span
-                                class="text-xs bg-amber-200 text-amber-800 px-2 py-1 rounded-full font-bold"
-                              >
-                                Pending
+                    <div class="space-y-4">
+                      <div v-for="event in pendingEvents" :key="event.id"
+                        class="event-card group bg-gradient-to-br from-amber-50 via-white to-yellow-50 border-2 border-amber-200 hover:border-amber-400 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="flex items-start justify-between gap-4">
+                          <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 mb-3 flex-wrap">
+                              <span class="inline-block w-2.5 h-2.5 bg-amber-500 rounded-full animate-pulse"></span>
+                              <h5 class="font-bold text-[#002147] text-lg">{{ event.title }}</h5>
+                              <span class="px-3 py-1 bg-gradient-to-r from-amber-400 to-amber-500 text-white rounded-full font-bold text-xs shadow-sm">
+                                ⏱ Pending
                               </span>
-                              <span
-                                v-if="event.event_time"
-                                class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-semibold flex items-center gap-1"
-                              >
-                                <svg
-                                  class="w-3 h-3"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                  />
+                              <span v-if="event.event_time"
+                                class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full font-semibold text-xs flex items-center gap-1.5">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 {{ formatTime(event.event_time) }}
                               </span>
                             </div>
-                            <p class="text-sm text-gray-700 mb-2 ml-4">
-                              {{ event.description }}
-                            </p>
-                            <div class="flex items-center gap-2 ml-4">
-                              <svg
-                                class="w-4 h-4 text-gray-500"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                                />
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                                />
+                            <p class="text-sm text-gray-700 mb-3 leading-relaxed">{{ event.description }}</p>
+                            <div class="flex items-center gap-2">
+                              <svg class="w-4 h-4 text-gray-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                               </svg>
-                              <span class="text-xs text-gray-600 font-medium">{{
-                                getBarangayLabel(event.brgy_id)
-                              }}</span>
+                              <span class="text-sm text-gray-600 font-medium">{{ getBarangayLabel(event.brgy_id) }}</span>
                             </div>
                           </div>
-                          <div class="ml-3 flex items-center gap-1">
-                            <button
-                              @click="markEventDone(event)"
-                              class="icon-btn text-green-600 hover:text-green-700 hover:bg-green-50"
-                              title="Mark as Done"
-                            >
-                              <svg
-                                class="w-5 h-5"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                                />
+                          <div class="flex items-center gap-2 shrink-0">
+                            <button @click="markEventDone(event)"
+                              class="p-2.5 rounded-xl text-green-600 hover:text-white hover:bg-green-600 transition-all duration-300 hover:shadow-lg group"
+                              title="Mark as Done">
+                              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
                             </button>
-                            <button
-                              @click="startEdit(event)"
-                              class="icon-btn text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-                              title="Edit"
-                            >
-                              <svg
-                                class="w-5 h-5"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                                />
+                            <button @click="startEdit(event)"
+                              class="p-2.5 rounded-xl text-blue-600 hover:text-white hover:bg-blue-600 transition-all duration-300 hover:shadow-lg"
+                              title="Edit Event">
+                              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                               </svg>
                             </button>
-                            <button
-                              @click="deleteEvent(event)"
-                              class="icon-btn text-red-600 hover:text-red-700 hover:bg-red-50"
-                              title="Delete"
-                            >
-                              <svg
-                                class="w-5 h-5"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                />
+                            <button @click="deleteEvent(event)"
+                              class="p-2.5 rounded-xl text-red-600 hover:text-white hover:bg-red-600 transition-all duration-300 hover:shadow-lg"
+                              title="Delete Event">
+                              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                               </svg>
                             </button>
                           </div>
                         </div>
 
-                        <div
-                          v-if="editingEventId === event.id"
-                          class="event-edit mt-3 bg-white p-4 rounded-lg border-2 border-blue-200"
-                        >
-                          <div class="grid grid-cols-1 gap-3">
+                        <div v-if="editingEventId === event.id"
+                          class="mt-5 bg-white border-2 border-blue-300 rounded-2xl p-6 shadow-xl">
+                          <h6 class="text-sm font-bold text-[#002147] mb-4 uppercase tracking-wide">Edit Event</h6>
+                          <div class="grid grid-cols-1 gap-4">
                             <div>
-                              <label class="block text-xs font-semibold text-gray-600 mb-1"
-                                >Barangay</label
-                              >
-                              <select
-                                v-model="editDraft.brgyId"
-                                class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-[#004595] focus:outline-none text-sm"
-                              >
+                              <label class="block text-sm font-bold text-gray-700 mb-2">Barangay</label>
+                              <select v-model="editDraft.brgyId"
+                                class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all font-medium">
                                 <option value="">Select barangay</option>
-                                <option
-                                  v-for="brgy in barangayOptions"
-                                  :key="brgy.id"
-                                  :value="brgy.id"
-                                >
+                                <option v-for="brgy in barangayOptions" :key="brgy.id" :value="brgy.id">
                                   {{ brgy.label }}
                                 </option>
                               </select>
                             </div>
                             <div>
-                              <label class="block text-xs font-semibold text-gray-600 mb-1"
-                                >Title</label
-                              >
-                              <input
-                                v-model="editDraft.title"
-                                type="text"
-                                class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-[#004595] focus:outline-none text-sm"
-                              />
+                              <label class="block text-sm font-bold text-gray-700 mb-2">Title</label>
+                              <input v-model="editDraft.title" type="text"
+                                class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all font-medium"
+                                placeholder="Event title" />
                             </div>
                             <div>
-                              <label class="block text-xs font-semibold text-gray-600 mb-1"
-                                >Description</label
-                              >
-                              <textarea
-                                v-model="editDraft.description"
-                                rows="3"
-                                class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-[#004595] focus:outline-none text-sm"
-                              ></textarea>
+                              <label class="block text-sm font-bold text-gray-700 mb-2">Description</label>
+                              <textarea v-model="editDraft.description" rows="3"
+                                class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all font-medium resize-none"
+                                placeholder="Event description..."></textarea>
                             </div>
                             <div>
-                              <label class="block text-xs font-semibold text-gray-600 mb-1"
-                                >Time (Optional)</label
-                              >
-                              <input
-                                v-model="editDraft.time"
-                                type="time"
-                                class="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-[#004595] focus:outline-none text-sm"
-                                @change="convertTo12Hour('edit')"
-                              />
-                              <p class="text-xs text-gray-500 mt-1">
-                                {{
-                                  editDraft.time
-                                    ? convertTimeTo12Hour(editDraft.time)
-                                    : 'No time set'
-                                }}
+                              <label class="block text-sm font-bold text-gray-700 mb-2">Time (Optional)</label>
+                              <input v-model="editDraft.time" type="time"
+                                class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all font-medium"
+                                @change="convertTo12Hour('edit')" />
+                              <p class="text-xs text-gray-500 mt-2 font-medium">
+                                {{ editDraft.time ? convertTimeTo12Hour(editDraft.time) : 'No time set' }}
                               </p>
                             </div>
                           </div>
 
-                          <div class="mt-3 flex justify-end gap-2">
-                            <button
-                              @click="cancelEdit"
-                              class="px-4 py-2 text-sm rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium transition-colors"
-                            >
+                          <div class="mt-5 flex justify-end gap-3">
+                            <button @click="cancelEdit"
+                              class="px-5 py-2.5 rounded-xl bg-gray-100 text-gray-700 hover:bg-gray-200 font-bold transition-all">
                               Cancel
                             </button>
-                            <button
-                              @click="saveEdit"
-                              :disabled="isUpdatingEvent"
-                              class="px-4 py-2 text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-medium transition-colors disabled:opacity-50"
-                            >
+                            <button @click="saveEdit" :disabled="isUpdatingEvent"
+                              class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:shadow-xl font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                               {{ isUpdatingEvent ? 'Saving...' : 'Save Changes' }}
                             </button>
                           </div>
@@ -519,114 +380,52 @@
                 <!-- Done Events Section -->
                 <div v-if="statusFilter === 'all' || statusFilter === 'done'">
                   <div v-if="doneEvents.length > 0">
-                    <div class="flex items-center gap-2 mb-4 sticky top-0 bg-white py-2 z-10">
-                      <div
-                        class="w-1 h-6 bg-gradient-to-b from-green-400 to-green-600 rounded-full"
-                      ></div>
-                      <h4 class="text-lg font-bold text-green-700">Completed Events</h4>
-                      <span
-                        class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-semibold"
-                      >
+                    <div class="flex items-center gap-3 mb-5 mt-8">
+                      <div class="w-1.5 h-8 bg-gradient-to-b from-green-400 to-green-600 rounded-full"></div>
+                      <h4 class="text-xl font-bold text-green-700">Completed Events</h4>
+                      <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full font-bold text-sm">
                         {{ doneEvents.length }}
                       </span>
                     </div>
-                    <div class="space-y-3">
-                      <div
-                        v-for="event in doneEvents"
-                        :key="event.id"
-                        class="event-card bg-gradient-to-br from-green-50 to-emerald-50 border-l-4 border-green-400 rounded-lg p-4 opacity-90 hover:opacity-100 transition-all duration-300"
-                      >
-                        <div class="flex items-start justify-between">
-                          <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-2">
-                              <svg
-                                class="w-5 h-5 text-green-600"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                              >
-                                <path
-                                  fill-rule="evenodd"
-                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clip-rule="evenodd"
-                                />
+                    <div class="space-y-4">
+                      <div v-for="event in doneEvents" :key="event.id"
+                        class="event-card bg-gradient-to-br from-green-50 via-white to-emerald-50 border-2 border-green-200 hover:border-green-400 rounded-2xl p-6 opacity-90 hover:opacity-100 hover:shadow-2xl transition-all duration-300">
+                        <div class="flex items-start justify-between gap-4">
+                          <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 mb-3 flex-wrap">
+                              <svg class="w-6 h-6 text-green-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                               </svg>
-                              <h5
-                                class="font-bold text-[#002147] text-base line-through decoration-green-600"
-                              >
+                              <h5 class="font-bold text-[#002147] text-lg line-through decoration-green-600 decoration-2">
                                 {{ event.title }}
                               </h5>
-                              <span
-                                class="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full font-bold"
-                              >
-                                ✓ Done
+                              <span class="px-3 py-1 bg-gradient-to-r from-green-400 to-green-500 text-white rounded-full font-bold text-xs shadow-sm">
+                                ✓ Completed
                               </span>
-                              <span
-                                v-if="event.event_time"
-                                class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full font-semibold flex items-center gap-1"
-                              >
-                                <svg
-                                  class="w-3 h-3"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                  />
+                              <span v-if="event.event_time"
+                                class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full font-semibold text-xs flex items-center gap-1.5">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 {{ formatTime(event.event_time) }}
                               </span>
                             </div>
-                            <p class="text-sm text-gray-600 mb-2 ml-7 line-through">
-                              {{ event.description }}
-                            </p>
-                            <div class="flex items-center gap-2 ml-7">
-                              <svg
-                                class="w-4 h-4 text-gray-500"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                                />
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                                />
+                            <p class="text-sm text-gray-600 mb-3 line-through leading-relaxed">{{ event.description }}</p>
+                            <div class="flex items-center gap-2">
+                              <svg class="w-4 h-4 text-gray-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                               </svg>
-                              <span class="text-xs text-gray-600 font-medium">{{
-                                getBarangayLabel(event.brgy_id)
-                              }}</span>
+                              <span class="text-sm text-gray-600 font-medium">{{ getBarangayLabel(event.brgy_id) }}</span>
                             </div>
                           </div>
-                          <div class="ml-3 flex items-center gap-2">
-                            <span class="text-xs text-gray-400 italic">Completed</span>
-                            <button
-                              @click="deleteEvent(event)"
-                              class="icon-btn text-red-600 hover:text-red-700 hover:bg-red-50"
-                              title="Delete"
-                            >
-                              <svg
-                                class="w-5 h-5"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                />
+                          <div class="flex items-center gap-3 shrink-0">
+                            <span class="text-xs text-green-600 italic font-semibold">✓ Done</span>
+                            <button @click="deleteEvent(event)"
+                              class="p-2.5 rounded-xl text-red-600 hover:text-white hover:bg-red-600 transition-all duration-300 hover:shadow-lg"
+                              title="Delete Event">
+                              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                               </svg>
                             </button>
                           </div>
@@ -637,63 +436,36 @@
                 </div>
 
                 <!-- Barangay Fiestas Section -->
-                <div v-if="selectedDate && selectedDateFiestas.length > 0" class="mt-6">
-                  <div class="flex items-center gap-2 mb-4 sticky top-0 bg-white py-2 z-10">
-                    <div
-                      class="w-1 h-6 bg-linear-to-b from-purple-400 to-purple-600 rounded-full"
-                    ></div>
-                    <h4 class="text-lg font-bold text-purple-700">Barangay Fiestas</h4>
-                    <span
-                      class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full font-semibold"
-                    >
+                <div v-if="selectedDate && selectedDateFiestas.length > 0" class="mt-8">
+                  <div class="flex items-center gap-3 mb-5">
+                    <div class="w-1.5 h-8 bg-gradient-to-b from-purple-400 to-purple-600 rounded-full"></div>
+                    <h4 class="text-xl font-bold text-purple-700">Barangay Fiestas</h4>
+                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full font-bold text-sm">
                       {{ selectedDateFiestas.length }}
                     </span>
                   </div>
-                  <div class="space-y-3">
-                    <div
-                      v-for="(fiesta, index) in selectedDateFiestas"
-                      :key="index"
-                      class="event-card bg-linear-to-br from-purple-50 to-pink-50 border-l-4 border-purple-400 rounded-lg p-4 hover:shadow-md transition-all duration-300"
-                    >
-                      <div class="flex items-start">
-                        <div class="flex-1">
-                          <div class="flex items-center gap-2 mb-2">
-                            <svg
-                              class="w-5 h-5 text-purple-600"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                              />
-                            </svg>
-                            <h5 class="font-bold text-[#002147] text-base">{{ fiesta.patron }}</h5>
-                            <span
-                              class="text-xs bg-purple-200 text-purple-800 px-2 py-1 rounded-full font-bold"
-                            >
-                              Fiesta
+                  <div class="space-y-4">
+                    <div v-for="(fiesta, index) in selectedDateFiestas" :key="index"
+                      class="event-card bg-gradient-to-br from-purple-50 via-white to-pink-50 border-2 border-purple-200 hover:border-purple-400 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300">
+                      <div class="flex items-start gap-4">
+                        <div class="p-3 bg-purple-100 rounded-xl shrink-0">
+                          <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+                          </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                          <div class="flex items-center gap-2 mb-3 flex-wrap">
+                            <h5 class="font-bold text-[#002147] text-lg">{{ fiesta.patron }}</h5>
+                            <span class="px-3 py-1 bg-gradient-to-r from-purple-400 to-purple-500 text-white rounded-full font-bold text-xs shadow-sm">
+                              🎉 Fiesta
                             </span>
                           </div>
-                          <p class="text-sm text-gray-700 mb-2 ml-7">
-                            {{ fiesta.brgyname }}
-                          </p>
-                          <div class="flex items-center gap-2 ml-7">
-                            <svg
-                              class="w-4 h-4 text-gray-500"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                              />
+                          <p class="text-sm text-gray-700 mb-3 font-medium">{{ fiesta.brgyname }}</p>
+                          <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-gray-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
-                            <span class="text-sm text-gray-600 font-medium">{{
-                              formatFiestaDate(fiesta.date)
-                            }}</span>
+                            <span class="text-sm text-gray-600 font-medium">{{ formatFiestaDate(fiesta.date) }}</span>
                           </div>
                         </div>
                       </div>
@@ -701,89 +473,53 @@
                   </div>
                 </div>
 
-                <!-- Empty state when filter shows no results -->
-                <div v-if="filteredEvents.length === 0" class="text-center py-12">
-                  <div
-                    class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                  >
-                    <svg
-                      class="w-8 h-8 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-                      />
-                    </svg>
+                  <!-- Empty state when filter shows no results -->
+                  <div v-if="filteredEvents.length === 0 && statusFilter !== 'all'" class="text-center py-16">
+                    <div class="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-50 rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg">
+                      <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                      </svg>
+                    </div>
+                    <p class="text-gray-500 text-xl font-bold mb-2">
+                      No {{ statusFilter === 'pending' ? 'pending' : statusFilter === 'done' ? 'completed' : '' }} events
+                    </p>
+                    <p class="text-gray-400">Try selecting a different filter or date</p>
                   </div>
-                  <p class="text-gray-500 text-lg font-medium">
-                    No
-                    {{
-                      statusFilter === 'pending'
-                        ? 'pending'
-                        : statusFilter === 'done'
-                          ? 'completed'
-                          : ''
-                    }}
-                    events
-                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
 
     <!-- Add Event Modal -->
-    <div
-      v-if="showAddModal"
-      class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-      @click="closeModal"
-    >
-      <div
-        class="bg-white rounded-2xl shadow-2xl max-w-xl w-full max-h-[80vh] overflow-y-auto"
-        @click.stop
-      >
-        <div class="p-6 border-b border-gray-200">
-          <div class="flex items-center justify-between">
-            <h3 class="text-xl font-bold text-[#002147]">
-              Add Event
-              {{
-                selectedDate
-                  ? `• ${selectedDate.toLocaleDateString('en-US', {
-                      weekday: 'long',
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}`
-                  : ''
-              }}
-            </h3>
-            <button @click="closeModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
+    <div v-if="showAddModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click="closeModal">
+      <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-hidden transform transition-all" @click.stop>
+        <!-- Modal Header -->
+        <div class="bg-gradient-to-r from-[#002147] via-[#004595] to-[#00397a] px-8 py-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+          <div class="relative z-10 flex items-center justify-between">
+            <div>
+              <h3 class="text-2xl font-bold text-white mb-1">Add New Event</h3>
+              <p class="text-blue-100 text-sm">
+                {{ selectedDate ? selectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : '' }}
+              </p>
+            </div>
+            <button @click="closeModal" class="p-2 hover:bg-white/20 rounded-xl transition-all transform hover:scale-110">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
         </div>
 
-        <div class="p-6 space-y-4">
+        <!-- Modal Body -->
+        <div class="p-8 space-y-5 overflow-y-auto max-h-[calc(85vh-140px)]">
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Barangay</label>
-            <select
-              v-model="newEvent.brgyId"
-              class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#004595] focus:outline-none transition-colors"
-            >
+            <label class="block text-sm font-bold text-[#002147] mb-2 uppercase tracking-wide">Barangay</label>
+            <select v-model="newEvent.brgyId"
+              class="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:border-[#004595] focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all font-medium text-gray-700">
               <option value="">Select barangay</option>
               <option v-for="brgy in barangayOptions" :key="brgy.id" :value="brgy.id">
                 {{ brgy.label }}
@@ -792,54 +528,36 @@
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Title</label>
-            <input
-              v-model="newEvent.title"
-              type="text"
-              class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#004595] focus:outline-none transition-colors"
-              placeholder="Event title"
-            />
+            <label class="block text-sm font-bold text-[#002147] mb-2 uppercase tracking-wide">Event Title</label>
+            <input v-model="newEvent.title" type="text"
+              class="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:border-[#004595] focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all font-medium text-gray-700"
+              placeholder="Enter event title..." />
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
-            <textarea
-              v-model="newEvent.description"
-              rows="4"
-              class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#004595] focus:outline-none transition-colors"
-              placeholder="Describe the event..."
-            ></textarea>
+            <label class="block text-sm font-bold text-[#002147] mb-2 uppercase tracking-wide">Description</label>
+            <textarea v-model="newEvent.description" rows="4"
+              class="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:border-[#004595] focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all font-medium text-gray-700 resize-none"
+              placeholder="Describe the event in detail..."></textarea>
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">Time (Optional)</label>
-            <input
-              v-model="newEvent.time"
-              type="time"
-              class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#004595] focus:outline-none transition-colors"
-              @change="convertTo12Hour('new')"
-            />
-            <p class="text-xs text-gray-500 mt-1">
-              {{
-                newEvent.time
-                  ? `Selected: ${convertTimeTo12Hour(newEvent.time)}`
-                  : 'Set event time for reminders'
-              }}
+            <label class="block text-sm font-bold text-[#002147] mb-2 uppercase tracking-wide">Time (Optional)</label>
+            <input v-model="newEvent.time" type="time"
+              class="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:border-[#004595] focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all font-medium text-gray-700"
+              @change="convertTo12Hour('new')" />
+            <p class="text-sm text-gray-500 mt-2 font-medium">
+              {{ newEvent.time ? `Selected: ${convertTimeTo12Hour(newEvent.time)}` : 'Set event time for notifications' }}
             </p>
           </div>
 
-          <div class="flex justify-end gap-3 pt-2">
-            <button
-              @click="closeModal"
-              class="px-4 py-2 rounded-lg border-2 border-gray-300 text-gray-700 font-semibold hover:bg-gray-100 transition-all"
-            >
+          <div class="flex justify-end gap-3 pt-4 border-t border-gray-200">
+            <button @click="closeModal"
+              class="px-6 py-3 rounded-xl border-2 border-gray-300 text-gray-700 font-bold hover:bg-gray-50 transition-all">
               Cancel
             </button>
-            <button
-              @click="saveEvent"
-              :disabled="isSavingEvent"
-              class="px-4 py-2 rounded-lg bg-[#004595] text-white font-semibold hover:bg-[#00397a] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
-            >
+            <button @click="saveEvent" :disabled="isSavingEvent"
+              class="px-6 py-3 rounded-xl bg-gradient-to-r from-[#004595] to-[#0056b3] text-white font-bold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
               {{ isSavingEvent ? 'Saving...' : 'Save Event' }}
             </button>
           </div>
@@ -1473,24 +1191,28 @@ onMounted(() => {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
 /* Ensure dropdown options are visible with proper styling */
 select option {
-  background-color: #002147;
-  color: white;
-  padding: 8px;
+  background-color: white;
+  color: #002147;
+  padding: 10px;
 }
 
 select option:hover {
-  background-color: #004595;
+  background-color: #f3f4f6;
 }
 
 select option:checked {
   background-color: #004595;
-  font-weight: bold;
+  color: white;
+  font-weight: 600;
 }
 
+/* Event card animations and effects */
 .event-card {
-  animation: event-fade-in 0.4s ease-out both;
+  animation: event-fade-in 0.5s ease-out both;
   position: relative;
   overflow: hidden;
 }
@@ -1502,71 +1224,29 @@ select option:checked {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  transition: left 0.5s;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s ease;
 }
 
 .event-card:hover::before {
   left: 100%;
 }
 
-.event-card:hover {
-  transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+/* Staggered animation delays */
+.event-card:nth-child(1) { animation-delay: 0.05s; }
+.event-card:nth-child(2) { animation-delay: 0.1s; }
+.event-card:nth-child(3) { animation-delay: 0.15s; }
+.event-card:nth-child(4) { animation-delay: 0.2s; }
+.event-card:nth-child(5) { animation-delay: 0.25s; }
+.event-card:nth-child(6) { animation-delay: 0.3s; }
+.event-card:nth-child(7) { animation-delay: 0.35s; }
+.event-card:nth-child(8) { animation-delay: 0.4s; }
 
-.event-card:nth-child(1) {
-  animation-delay: 0.05s;
-}
-.event-card:nth-child(2) {
-  animation-delay: 0.1s;
-}
-.event-card:nth-child(3) {
-  animation-delay: 0.15s;
-}
-.event-card:nth-child(4) {
-  animation-delay: 0.2s;
-}
-.event-card:nth-child(5) {
-  animation-delay: 0.25s;
-}
-.event-card:nth-child(6) {
-  animation-delay: 0.3s;
-}
-.event-card:nth-child(7) {
-  animation-delay: 0.35s;
-}
-.event-card:nth-child(8) {
-  animation-delay: 0.4s;
-}
-
-.icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  position: relative;
-}
-
-.icon-btn:hover:not(:disabled) {
-  transform: translateY(-2px) scale(1.1);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.icon-btn:active:not(:disabled) {
-  transform: translateY(0) scale(1);
-}
-
-.event-edit {
-  animation: edit-slide 0.3s ease-out;
-}
-
+/* Keyframe animations */
 @keyframes event-fade-in {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.95);
+    transform: translateY(20px) scale(0.95);
   }
   to {
     opacity: 1;
@@ -1574,22 +1254,8 @@ select option:checked {
   }
 }
 
-@keyframes edit-slide {
-  from {
-    opacity: 0;
-    max-height: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    max-height: 500px;
-    transform: translateY(0);
-  }
-}
-
 @keyframes pulse {
-  0%,
-  100% {
+  0%, 100% {
     opacity: 1;
   }
   50% {
@@ -1601,37 +1267,66 @@ select option:checked {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Scrollbar styling */
-.overflow-y-auto::-webkit-scrollbar {
-  width: 8px;
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
 
-.overflow-y-auto::-webkit-scrollbar-track {
-  background: #f1f1f1;
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
   border-radius: 10px;
 }
 
-.overflow-y-auto::-webkit-scrollbar-thumb {
-  background: #004595;
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #004595, #00397a);
   border-radius: 10px;
+  border: 2px solid #f1f5f9;
 }
 
-.overflow-y-auto::-webkit-scrollbar-thumb:hover {
-  background: #002147;
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #002147, #004595);
 }
 
+/* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .event-card,
-  .event-edit,
-  .icon-btn,
   .animate-pulse {
     animation: none;
   }
 
   .event-card:hover,
-  .icon-btn:hover,
   .event-card::before {
     transform: none;
+    transition: none;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #004595;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  aside,
+  button {
+    display: none;
+  }
+
+  .event-card {
+    page-break-inside: avoid;
+    border: 1px solid #000;
   }
 }
 </style>
