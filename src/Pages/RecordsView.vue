@@ -20,7 +20,7 @@
             <input
               v-model="searchQuery"
               type="text"
-              placeholder="Search by barangay name, captain, patron, or location..."
+              placeholder="Search by barangay name, captain, members, position, patron, or location..."
               class="w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent transition-all"
               @input="handleSearch"
             />
@@ -161,17 +161,25 @@
                 <p class="text-base font-bold text-[#002147] truncate">{{ record.cptfullname || 'Not assigned' }}</p>
               </div>
 
-              <!-- Members Info -->
-              <div class="bg-gradient-to-br from-green-50 to-transparent rounded-xl p-4 border border-green-200/50">
+              <!-- Members Info with Positions -->
+              <div class="bg-gradient-to-br from-green-50 to-transparent rounded-xl p-4 border border-green-200/50 col-span-2">
                 <div class="flex items-center gap-2 mb-2">
                   <div class="p-2 bg-green-600 rounded-lg">
                     <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                     </svg>
                   </div>
-                  <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Members</span>
+                  <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Barangay Officials</span>
                 </div>
-                <p class="text-base font-bold text-green-800 truncate">{{ record.bmfullname || 'No members listed' }}</p>
+                <div v-if="record.bmfullname" class="space-y-1">
+                  <p class="text-sm font-semibold text-green-800">{{ record.bmfullname }}</p>
+                  <p v-if="record.bmposition" class="text-xs text-green-600">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                      {{ record.bmposition }}
+                    </span>
+                  </p>
+                </div>
+                <p v-else class="text-base font-bold text-green-800">No members listed</p>
               </div>
 
               <!-- Patron Info -->
@@ -312,8 +320,23 @@
                     <p class="text-lg font-bold text-[#002147]">{{ selectedRecord?.cptfullname || 'Not assigned' }}</p>
                   </div>
                   <div class="bg-gradient-to-r from-green-50 to-transparent rounded-lg p-4 border border-green-200">
-                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Barangay Members</p>
-                    <p class="text-base font-semibold text-gray-800">{{ selectedRecord?.bmfullname || 'No members listed' }}</p>
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Barangay Officials</p>
+                    <div v-if="selectedRecord?.bmfullname" class="space-y-2">
+                      <div v-if="getMembersList(selectedRecord).length > 0" class="space-y-2">
+                        <div 
+                          v-for="(member, index) in getMembersList(selectedRecord)" 
+                          :key="index"
+                          class="flex items-center justify-between py-2 px-3 bg-white/50 rounded-lg hover:bg-white/80 transition-colors"
+                        >
+                          <span class="text-sm font-semibold text-gray-800">{{ member.name }}</span>
+                          <span class="text-sm font-medium text-green-700 bg-green-100 px-3 py-1 rounded-full">
+                            {{ member.position }}
+                          </span>
+                        </div>
+                      </div>
+                      <p v-else class="text-sm text-gray-400 italic">No positions assigned</p>
+                    </div>
+                    <p v-else class="text-base font-semibold text-gray-500">No members listed</p>
                   </div>
                 </div>
               </div>
@@ -591,6 +614,7 @@ const filteredRecords = computed(() => {
       (record.brgyname && record.brgyname.toLowerCase().includes(query)) ||
       (record.cptfullname && record.cptfullname.toLowerCase().includes(query)) ||
       (record.bmfullname && record.bmfullname.toLowerCase().includes(query)) ||
+      (record.bmposition && record.bmposition.toLowerCase().includes(query)) ||
       (record.patron && record.patron.toLowerCase().includes(query)) ||
       (record.date && record.date.toLowerCase().includes(query)) ||
       (record.schoolname && record.schoolname.toLowerCase().includes(query)) ||
@@ -619,6 +643,7 @@ const buildWorksheet = (rows, barangayLabel) => {
     'Barangay Name',
     'Captain (Cptfullname)',
     'Members (BMfullname)',
+    'Position/Role',
     'Patron',
     'Fiesta Date',
     'Schools',
@@ -631,6 +656,7 @@ const buildWorksheet = (rows, barangayLabel) => {
     record.brgyname || '',
     record.cptfullname || '',
     record.bmfullname || '',
+    record.bmposition || '',
     record.patron || '',
     record.date || '',
     record.schoolname || '',
@@ -641,8 +667,8 @@ const buildWorksheet = (rows, barangayLabel) => {
   const worksheet = XLSX.utils.aoa_to_sheet([titleRow, brgyRow, [], headerRow, ...dataRows])
 
   worksheet['!merges'] = [
-    { s: { r: 0, c: 0 }, e: { r: 0, c: 8 } },
-    { s: { r: 1, c: 0 }, e: { r: 1, c: 8 } }
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 9 } },
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 9 } }
   ]
 
   worksheet['A1'].s = {
@@ -737,21 +763,235 @@ const exportFromModal = () => {
   }
 }
 
-// Fetch records using the brgyrecords() function
+// Parse members and positions into an array of objects
+// position field in BrgyMembers table contains the actual role (e.g., "Purok Chairman", "Kagawad", etc.)
+const getMembersList = (record) => {
+  if (!record) return []
+  
+  // If we have the members array directly from the database (direct fetch mode)
+  if (record.members && Array.isArray(record.members) && record.members.length > 0) {
+    return record.members.map(member => ({
+      name: member.BMfullname || 'Unknown',
+      position: member.position || 'No position assigned' // This gets the actual role from the position field
+    }))
+  }
+  
+  // Fallback: Parse from comma-separated strings (RPC function mode)
+  if (!record.bmfullname) return []
+  
+  const names = record.bmfullname.split(',').map(name => name.trim()).filter(Boolean)
+  const positions = record.bmposition 
+    ? record.bmposition.split(',').map(pos => pos.trim()).filter(Boolean)
+    : []
+  
+  // Match names with their positions (roles) from the position field
+  return names.map((name, index) => ({
+    name: name,
+    position: positions[index] || 'No position assigned'
+  }))
+}
+
+// Fetch records with members from BrgyMembers table
 const fetchBarangays = async () => {
   loading.value = true
   try {
-    const { data, error } = await supabase.rpc('brgyrecords')
+    // First try using the RPC function
+    console.log('Attempting to fetch using RPC function...')
+    const { data: rpcData, error: rpcError } = await supabase.rpc('brgyrecords')
     
-    if (error) throw error
-    
-    if (data) {
-      console.log('Fetched records:', data)
-      records.value = data
+    if (rpcError) {
+      console.warn('RPC function error:', rpcError.message)
+      console.log('Falling back to direct table fetch...')
+      
+      // Fallback: Fetch barangays with their captain - using exact schema
+      const { data: barangays, error: brgyError } = await supabase
+        .from('Barangays')
+        .select('*')
+        .order('brgyname', { ascending: true })
+      
+      if (brgyError) {
+        console.error('Barangays fetch error:', brgyError)
+        throw new Error(`Failed to fetch barangays: ${brgyError.message}`)
+      }
+      
+      console.log('Fetched barangays:', barangays)
+      
+      // Fetch all captains
+      const captainIds = barangays.map(b => b.cpt_id).filter(Boolean)
+      const { data: captains, error: captainsError } = await supabase
+        .from('BrgyCaptain')
+        .select('id, Cptfullname')
+        .in('id', captainIds)
+      
+      if (captainsError) {
+        console.error('Captains fetch error:', captainsError)
+      }
+      
+      console.log('Fetched captains:', captains)
+      
+      // Create captain lookup map
+      const captainMap = {}
+      if (captains) {
+        captains.forEach(captain => {
+          captainMap[captain.id] = captain.Cptfullname
+        })
+      }
+      
+      // Fetch members for all barangays
+      const barangayIds = barangays.map(b => b.id)
+      const { data: members, error: membersError } = await supabase
+        .from('BrgyMembers')
+        .select('id, BMfullname, position, brgy_id')
+        .in('brgy_id', barangayIds)
+      
+      if (membersError) {
+        console.error('Members fetch error:', membersError)
+      }
+      
+      console.log('Fetched members:', members)
+      
+      // Fetch fiestas (patron saints and dates)
+      const { data: fiestas, error: fiestasError } = await supabase
+        .from('BrgyFiesta')
+        .select('id, patron, date, brgy_id')
+        .in('brgy_id', barangayIds)
+        .eq('active', true)
+      
+      if (fiestasError) {
+        console.error('Fiestas fetch error:', fiestasError)
+      }
+      
+      console.log('Fetched fiestas:', fiestas)
+      
+      // Fetch schools
+      const { data: schools, error: schoolsError } = await supabase
+        .from('Schools')
+        .select('id, schoolName, brgy_id')
+        .in('brgy_id', barangayIds)
+      
+      if (schoolsError) {
+        console.error('Schools fetch error:', schoolsError)
+      }
+      
+      console.log('Fetched schools:', schools)
+      
+      // Fetch churches
+      const { data: churches, error: churchesError } = await supabase
+        .from('Church')
+        .select('id, churchName, brgy_id')
+        .in('brgy_id', barangayIds)
+      
+      if (churchesError) {
+        console.error('Churches fetch error:', churchesError)
+      }
+      
+      console.log('Fetched churches:', churches)
+      
+      // Fetch establishments
+      const { data: establishments, error: establishmentsError } = await supabase
+        .from('Establishments')
+        .select('id, establishmentName, brgy_id')
+        .in('brgy_id', barangayIds)
+      
+      if (establishmentsError) {
+        console.error('Establishments fetch error:', establishmentsError)
+      }
+      
+      console.log('Fetched establishments:', establishments)
+      
+      // Group all data by barangay
+      const membersByBrgy = {}
+      const fiestasByBrgy = {}
+      const schoolsByBrgy = {}
+      const churchesByBrgy = {}
+      const establishmentsByBrgy = {}
+      
+      if (members) {
+        members.forEach(member => {
+          if (!membersByBrgy[member.brgy_id]) {
+            membersByBrgy[member.brgy_id] = []
+          }
+          membersByBrgy[member.brgy_id].push(member)
+        })
+      }
+      
+      if (fiestas) {
+        fiestas.forEach(fiesta => {
+          if (!fiestasByBrgy[fiesta.brgy_id]) {
+            fiestasByBrgy[fiesta.brgy_id] = []
+          }
+          fiestasByBrgy[fiesta.brgy_id].push(fiesta)
+        })
+      }
+      
+      if (schools) {
+        schools.forEach(school => {
+          if (!schoolsByBrgy[school.brgy_id]) {
+            schoolsByBrgy[school.brgy_id] = []
+          }
+          schoolsByBrgy[school.brgy_id].push(school.schoolName)
+        })
+      }
+      
+      if (churches) {
+        churches.forEach(church => {
+          if (!churchesByBrgy[church.brgy_id]) {
+            churchesByBrgy[church.brgy_id] = []
+          }
+          churchesByBrgy[church.brgy_id].push(church.churchName)
+        })
+      }
+      
+      if (establishments) {
+        establishments.forEach(establishment => {
+          if (!establishmentsByBrgy[establishment.brgy_id]) {
+            establishmentsByBrgy[establishment.brgy_id] = []
+          }
+          establishmentsByBrgy[establishment.brgy_id].push(establishment.establishmentName)
+        })
+      }
+      
+      // Transform the data to match the expected format
+      records.value = barangays.map(brgy => {
+        const brgyMembers = membersByBrgy[brgy.id] || []
+        const brgyFiestas = fiestasByBrgy[brgy.id] || []
+        const brgySchools = schoolsByBrgy[brgy.id] || []
+        const brgyChurches = churchesByBrgy[brgy.id] || []
+        const brgyEstablishments = establishmentsByBrgy[brgy.id] || []
+        
+        // Get the first (active) fiesta for patron and date
+        const primaryFiesta = brgyFiestas[0] || {}
+        
+        return {
+          brgyname: brgy.brgyname || '',
+          cptfullname: captainMap[brgy.cpt_id] || 'Not assigned',
+          bmfullname: brgyMembers.map(m => m.BMfullname).filter(Boolean).join(', ') || '',
+          bmposition: brgyMembers.map(m => m.position).filter(Boolean).join(', ') || '',
+          patron: primaryFiesta.patron || 'Not specified',
+          date: primaryFiesta.date || '',
+          schoolname: brgySchools.join(', ') || 'No schools listed',
+          churchname: brgyChurches.join(', ') || 'No churches listed',
+          establishmentname: brgyEstablishments.join(', ') || 'No establishments listed',
+          members: brgyMembers // Store raw members array for detailed view
+        }
+      })
+      
+      console.log('Transformed records:', records.value)
+      console.log(`Successfully loaded ${records.value.length} barangay records`)
+    } else {
+      // Use RPC data if available
+      console.log('RPC function succeeded, data:', rpcData)
+      if (rpcData && rpcData.length > 0) {
+        records.value = rpcData
+        console.log(`Successfully loaded ${records.value.length} records from RPC`)
+      } else {
+        console.warn('RPC returned no data')
+        records.value = []
+      }
     }
   } catch (error) {
     console.error('Error fetching records:', error)
-    alert('Failed to load records. Please refresh the page.')
+    showToast('Failed to Load Records', 'error', error.message || 'Please check console for details')
   } finally {
     loading.value = false
   }
