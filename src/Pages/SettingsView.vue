@@ -320,6 +320,71 @@
         </div>
       </div>
     </div>
+
+    <!-- Toast Notification -->
+    <Transition
+      enter-active-class="transition-all duration-500 ease-out"
+      enter-from-class="opacity-0 translate-y-[-100%]"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition-all duration-300 ease-in"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 translate-y-[-100%]"
+    >
+      <div
+        v-if="toast.show"
+        class="fixed top-6 left-1/2 -translate-x-1/2 z-[100000] max-w-md w-full px-4"
+      >
+        <div
+          :class="[
+            'rounded-2xl shadow-2xl border-2 overflow-hidden transform transition-all',
+            toast.type === 'success' ? 'bg-gradient-to-r from-green-500 to-emerald-600 border-green-400' :
+            toast.type === 'error' ? 'bg-gradient-to-r from-red-500 to-rose-600 border-red-400' :
+            'bg-gradient-to-r from-amber-500 to-orange-600 border-amber-400'
+          ]"
+        >
+          <div class="p-4">
+            <div class="flex items-start gap-3">
+              <!-- Icon -->
+              <div class="flex-shrink-0 mt-0.5">
+                <svg v-if="toast.type === 'success'" class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <svg v-else-if="toast.type === 'error'" class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                </svg>
+                <svg v-else class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              
+              <!-- Content -->
+              <div class="flex-1 min-w-0">
+                <h3 class="text-base font-bold text-white">{{ toast.message }}</h3>
+                <p v-if="toast.description" class="text-sm text-white/90 mt-0.5">{{ toast.description }}</p>
+              </div>
+              
+              <!-- Close Button -->
+              <button
+                @click="hideToast"
+                class="flex-shrink-0 text-white/80 hover:text-white transition-colors"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Progress Bar -->
+          <div class="h-1 bg-white/20">
+            <div
+              class="h-full bg-white transition-all duration-100 ease-linear"
+              :style="{ width: `${toast.progress}%` }"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -349,6 +414,56 @@ const settings = ref({
 const editingField = ref(null)
 const fileInput = ref(null)
 const originalValue = ref('')
+
+// Toast notification state
+const toast = ref({
+  show: false,
+  message: '',
+  description: '',
+  type: 'success', // 'success', 'error', 'warning'
+  progress: 100
+})
+
+let toastTimer = null
+let progressTimer = null
+
+// Toast helper functions
+const showToast = (message, type = 'success', description = '', duration = 4000) => {
+  // Clear existing timers
+  if (toastTimer) clearTimeout(toastTimer)
+  if (progressTimer) clearInterval(progressTimer)
+  
+  toast.value = {
+    show: true,
+    message,
+    description,
+    type,
+    progress: 100
+  }
+
+  // Progress bar animation
+  const startTime = Date.now()
+  progressTimer = setInterval(() => {
+    const elapsed = Date.now() - startTime
+    const remaining = Math.max(0, 100 - (elapsed / duration) * 100)
+    toast.value.progress = remaining
+    
+    if (remaining <= 0) {
+      clearInterval(progressTimer)
+    }
+  }, 50)
+
+  // Auto hide
+  toastTimer = setTimeout(() => {
+    hideToast()
+  }, duration)
+}
+
+const hideToast = () => {
+  toast.value.show = false
+  if (toastTimer) clearTimeout(toastTimer)
+  if (progressTimer) clearInterval(progressTimer)
+}
 
 // Fetch admin data from Supabase
 const fetchAdminData = async () => {
@@ -385,7 +500,7 @@ const editField = (field) => {
 // Save individual field
 const saveField = async (field) => {
   if (!adminProfile.value.id) {
-    alert('Admin profile not loaded')
+    showToast('Cannot Update', 'error', 'Admin profile not loaded')
     return
   }
 
@@ -400,11 +515,11 @@ const saveField = async (field) => {
 
     if (error) throw error
 
-    alert(`${field.replace('_', ' ')} updated successfully!`)
+    showToast('Success!', 'success', `${field.replace('_', ' ')} updated successfully!`)
     editingField.value = null
   } catch (error) {
     console.error(`Error updating ${field}:`, error)
-    alert(`Failed to update ${field}`)
+    showToast('Update Failed', 'error', `Failed to update ${field}`)
     // Restore original value on error
     adminProfile.value[field] = originalValue.value
   }
@@ -422,13 +537,13 @@ const handleImageUpload = async (event) => {
 
   // Validate file type
   if (!file.type.startsWith('image/')) {
-    alert('Please select an image file')
+    showToast('Invalid File Type', 'warning', 'Please select an image file')
     return
   }
 
   // Validate file size (max 5MB)
   if (file.size > 5 * 1024 * 1024) {
-    alert('Image size should be less than 5MB')
+    showToast('File Too Large', 'warning', 'Image size should be less than 5MB')
     return
   }
 
@@ -474,21 +589,21 @@ const handleImageUpload = async (event) => {
     }
 
     adminProfile.value.profile_picture = imageUrl
-    alert('Profile picture updated successfully!')
+    showToast('Success!', 'success', 'Profile picture updated successfully!')
   } catch (error) {
     console.error('Error uploading image:', error)
-    alert(`Failed to upload profile picture: ${error.message}`)
+    showToast('Upload Failed', 'error', `Failed to upload profile picture: ${error.message}`)
   }
 }
 
 const saveSettings = async () => {
   if (!adminProfile.value.id) {
-    alert('Admin profile not loaded')
+    showToast('Cannot Update', 'error', 'Admin profile not loaded')
     return
   }
 
   if (!settings.value.password) {
-    alert('Please enter a new password')
+    showToast('Password Required', 'warning', 'Please enter a new password')
     return
   }
 
@@ -504,11 +619,11 @@ const saveSettings = async () => {
 
     if (error) throw error
 
-    alert('Password updated successfully!')
+    showToast('Success!', 'success', 'Password updated successfully!')
     settings.value.password = '' // Clear password field
   } catch (error) {
     console.error('Error saving password:', error)
-    alert('Failed to update password')
+    showToast('Update Failed', 'error', 'Failed to update password')
   }
 }
 
@@ -523,16 +638,16 @@ const resetSettings = () => {
       theme: 'light',
       language: 'en',
     }
-    alert('Settings reset')
+    showToast('Settings Reset', 'success', 'All settings have been reset to default')
   }
 }
 
 const changePassword = () => {
-  alert('Use the Account Settings section to change your password')
+  showToast('Password Change', 'warning', 'Use the Account Settings section to change your password')
 }
 
 const enableTwoFactor = () => {
-  alert('Two-factor authentication setup - to be implemented')
+  showToast('Coming Soon', 'warning', 'Two-factor authentication setup will be available soon')
 }
 
 onMounted(() => {
