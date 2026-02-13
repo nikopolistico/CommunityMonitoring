@@ -157,15 +157,86 @@
                   v-model="settings.password"
                   type="password"
                   class="w-full px-4 py-3 rounded-lg border-2 border-green-200 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-100 transition-all duration-200 text-sm"
-                  placeholder="Enter new password (leave blank to keep current)"
+                  placeholder="Enter new password"
+                  @input="validatePassword"
                 />
+                
+                <!-- Password Requirements -->
+                <div v-if="settings.password" class="mt-3 space-y-2 p-3 bg-white/70 rounded-lg border border-green-200/50">
+                  <p class="text-xs font-semibold text-gray-700 mb-2">Password Requirements:</p>
+                  <div class="space-y-1.5">
+                    <div class="flex items-center gap-2 text-xs">
+                      <svg :class="passwordValidation.minLength ? 'text-green-600' : 'text-gray-400'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span :class="passwordValidation.minLength ? 'text-green-700 font-semibold' : 'text-gray-600'">
+                        At least 8 characters
+                      </span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                      <svg :class="passwordValidation.hasUpperCase ? 'text-green-600' : 'text-gray-400'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span :class="passwordValidation.hasUpperCase ? 'text-green-700 font-semibold' : 'text-gray-600'">
+                        One uppercase letter (A-Z)
+                      </span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                      <svg :class="passwordValidation.hasLowerCase ? 'text-green-600' : 'text-gray-400'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span :class="passwordValidation.hasLowerCase ? 'text-green-700 font-semibold' : 'text-gray-600'">
+                        One lowercase letter (a-z)
+                      </span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                      <svg :class="passwordValidation.hasNumber ? 'text-green-600' : 'text-gray-400'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span :class="passwordValidation.hasNumber ? 'text-green-700 font-semibold' : 'text-gray-600'">
+                        One number (0-9)
+                      </span>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                      <svg :class="passwordValidation.hasSpecial ? 'text-green-600' : 'text-gray-400'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span :class="passwordValidation.hasSpecial ? 'text-green-700 font-semibold' : 'text-gray-600'">
+                        One special character (!@#$%^&*)
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <!-- Password Strength Indicator -->
+                  <div class="mt-3 pt-3 border-t border-green-200/50">
+                    <div class="flex items-center justify-between mb-1.5">
+                      <span class="text-xs font-semibold text-gray-700">Password Strength:</span>
+                      <span :class="[
+                        'text-xs font-bold',
+                        passwordStrength === 'Weak' ? 'text-red-600' :
+                        passwordStrength === 'Medium' ? 'text-yellow-600' :
+                        passwordStrength === 'Strong' ? 'text-green-600' : 'text-gray-500'
+                      ]">{{ passwordStrength }}</span>
+                    </div>
+                    <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div 
+                        :class="[
+                          'h-full transition-all duration-300',
+                          passwordStrength === 'Weak' ? 'bg-red-500 w-1/3' :
+                          passwordStrength === 'Medium' ? 'bg-yellow-500 w-2/3' :
+                          passwordStrength === 'Strong' ? 'bg-green-500 w-full' : 'bg-gray-300 w-0'
+                        ]"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
               </div>
               
               <!-- Save Button -->
               <div class="flex justify-end">
                 <button
                   @click="saveSettings"
-                  :disabled="!settings.password"
+                  :disabled="!isPasswordValid"
                   class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#004595] to-[#002147] text-white text-sm font-semibold hover:from-[#00397a] hover:to-[#001935] transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 flex items-center gap-2"
                 >
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -368,6 +439,18 @@ const editingField = ref(null)
 const fileInput = ref(null)
 const originalValue = ref('')
 
+// Password validation state
+const passwordValidation = ref({
+  minLength: false,
+  hasUpperCase: false,
+  hasLowerCase: false,
+  hasNumber: false,
+  hasSpecial: false
+})
+
+const passwordStrength = ref('')
+const isPasswordValid = ref(false)
+
 // Toast notification state
 const toast = ref({
   show: false,
@@ -400,13 +483,9 @@ const showToast = (message, type = 'success', description = '', duration = 4000)
     const elapsed = Date.now() - startTime
     const remaining = Math.max(0, 100 - (elapsed / duration) * 100)
     toast.value.progress = remaining
-    
-    if (remaining <= 0) {
-      clearInterval(progressTimer)
-    }
-  }, 50)
+  }, 100)
 
-  // Auto hide
+  // Auto hide after duration
   toastTimer = setTimeout(() => {
     hideToast()
   }, duration)
@@ -416,6 +495,37 @@ const hideToast = () => {
   toast.value.show = false
   if (toastTimer) clearTimeout(toastTimer)
   if (progressTimer) clearInterval(progressTimer)
+}
+
+// Password validation function
+const validatePassword = () => {
+  const password = settings.value.password
+  
+  // Check each requirement
+  passwordValidation.value = {
+    minLength: password.length >= 8,
+    hasUpperCase: /[A-Z]/.test(password),
+    hasLowerCase: /[a-z]/.test(password),
+    hasNumber: /[0-9]/.test(password),
+    hasSpecial: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+  }
+  
+  // Calculate password strength
+  const validCount = Object.values(passwordValidation.value).filter(v => v).length
+  
+  if (validCount === 5) {
+    passwordStrength.value = 'Strong'
+    isPasswordValid.value = true
+  } else if (validCount >= 3) {
+    passwordStrength.value = 'Medium'
+    isPasswordValid.value = false
+  } else if (validCount >= 1) {
+    passwordStrength.value = 'Weak'
+    isPasswordValid.value = false
+  } else {
+    passwordStrength.value = ''
+    isPasswordValid.value = false
+  }
 }
 
 // Fetch admin data from Supabase
@@ -520,35 +630,37 @@ const handleImageUpload = async (event) => {
       throw uploadError
     }
 
-    console.log('Upload successful:', uploadData)
-
-    // Get public URL
-    const { data: urlData } = supabase.storage
+    // Get the public URL of the uploaded image
+    const { data: { publicUrl } } = supabase.storage
       .from('administrator')
       .getPublicUrl(filePath)
 
-    const imageUrl = urlData.publicUrl
-    console.log('Image URL:', imageUrl)
-
-    // Update database
+    // Update profile picture URL in database
     const { error: updateError } = await supabase
       .from('Administrator')
-      .update({ profile_picture: imageUrl })
+      .update({ profile_picture: publicUrl })
       .eq('id', adminProfile.value.id)
 
     if (updateError) {
-      console.error('Database update error:', updateError)
+      console.error('Update error:', updateError)
       throw updateError
     }
 
-    adminProfile.value.profile_picture = imageUrl
+    // Update local state
+    adminProfile.value.profile_picture = publicUrl
     showToast('Success!', 'success', 'Profile picture updated successfully!')
   } catch (error) {
     console.error('Error uploading image:', error)
-    showToast('Upload Failed', 'error', `Failed to upload profile picture: ${error.message}`)
+    showToast('Upload Failed', 'error', 'Failed to upload profile picture')
+  } finally {
+    // Clear the file input
+    if (fileInput.value) {
+      fileInput.value.value = ''
+    }
   }
 }
 
+// Save settings (password update)
 const saveSettings = async () => {
   if (!adminProfile.value.id) {
     showToast('Cannot Update', 'error', 'Admin profile not loaded')
@@ -560,23 +672,44 @@ const saveSettings = async () => {
     return
   }
 
-  try {
-    const updates = {
-      password: settings.value.password
-    }
+  // Validate all password requirements
+  if (!isPasswordValid.value) {
+    showToast('Invalid Password', 'error', 'Password must meet all requirements')
+    return
+  }
 
-    const { error } = await supabase
-      .from('Administrator')
-      .update(updates)
-      .eq('id', adminProfile.value.id)
+  try {
+    // Update password using Supabase Auth (this is the correct way)
+    const { data, error } = await supabase.auth.updateUser({
+      password: settings.value.password
+    })
 
     if (error) throw error
 
-    showToast('Success!', 'success', 'Password updated successfully!')
+    showToast('Success!', 'success', 'Password updated successfully! Please use your new password on next login.')
     settings.value.password = '' // Clear password field
+    
+    // Reset validation state
+    passwordValidation.value = {
+      minLength: false,
+      hasUpperCase: false,
+      hasLowerCase: false,
+      hasNumber: false,
+      hasSpecial: false
+    }
+    passwordStrength.value = ''
+    isPasswordValid.value = false
   } catch (error) {
     console.error('Error saving password:', error)
-    showToast('Update Failed', 'error', 'Failed to update password')
+    
+    // Handle specific error cases
+    if (error.message?.includes('New password should be different')) {
+      showToast('Same Password', 'warning', 'Please choose a different password')
+    } else if (error.message?.includes('Password should be at least')) {
+      showToast('Invalid Password', 'warning', error.message)
+    } else {
+      showToast('Update Failed', 'error', 'Failed to update password. Please try again.')
+    }
   }
 }
 
