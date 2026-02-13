@@ -390,6 +390,130 @@
         </div>
       </div>
     </Transition>
+
+    <!-- Toast Notification -->
+    <Transition
+      enter-active-class="transition-all duration-500 ease-out"
+      enter-from-class="opacity-0 translate-y-[-100%]"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition-all duration-300 ease-in"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 translate-y-[-100%]"
+    >
+      <div
+        v-if="toast.show"
+        class="fixed top-6 left-1/2 -translate-x-1/2 z-[100000] max-w-md w-full px-4"
+      >
+        <div
+          :class="[
+            'rounded-2xl shadow-2xl border-2 p-5 backdrop-blur-sm',
+            toast.type === 'success' ? 'bg-green-50/95 border-green-200' : 
+            toast.type === 'error' ? 'bg-red-50/95 border-red-200' : 
+            'bg-blue-50/95 border-blue-200'
+          ]"
+        >
+          <div class="flex items-start gap-4">
+            <!-- Icon -->
+            <div
+              :class="[
+                'flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center',
+                toast.type === 'success' ? 'bg-green-100' : 
+                toast.type === 'error' ? 'bg-red-100' : 
+                'bg-blue-100'
+              ]"
+            >
+              <svg
+                v-if="toast.type === 'success'"
+                class="w-6 h-6 text-green-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <svg
+                v-else-if="toast.type === 'error'"
+                class="w-6 h-6 text-red-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <svg
+                v-else
+                class="w-6 h-6 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 pt-0.5">
+              <h3
+                :class="[
+                  'font-bold text-base mb-1',
+                  toast.type === 'success' ? 'text-green-800' : 
+                  toast.type === 'error' ? 'text-red-800' : 
+                  'text-blue-800'
+                ]"
+              >
+                {{ toast.message }}
+              </h3>
+              <p
+                v-if="toast.description"
+                :class="[
+                  'text-sm',
+                  toast.type === 'success' ? 'text-green-700' : 
+                  toast.type === 'error' ? 'text-red-700' : 
+                  'text-blue-700'
+                ]"
+              >
+                {{ toast.description }}
+              </p>
+            </div>
+
+            <!-- Close Button -->
+            <button
+              @click="hideToast"
+              :class="[
+                'flex-shrink-0 p-1 rounded-lg transition-colors',
+                toast.type === 'success' ? 'hover:bg-green-100 text-green-600' : 
+                toast.type === 'error' ? 'hover:bg-red-100 text-red-600' : 
+                'hover:bg-blue-100 text-blue-600'
+              ]"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Progress Bar -->
+          <div
+            :class="[
+              'mt-3 h-1 rounded-full overflow-hidden',
+              toast.type === 'success' ? 'bg-green-200' : 
+              toast.type === 'error' ? 'bg-red-200' : 
+              'bg-blue-200'
+            ]"
+          >
+            <div
+              :class="[
+                'h-full transition-all duration-100 ease-linear',
+                toast.type === 'success' ? 'bg-green-600' : 
+                toast.type === 'error' ? 'bg-red-600' : 
+                'bg-blue-600'
+              ]"
+              :style="{ width: `${toast.progress}%` }"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -403,6 +527,56 @@ const loading = ref(false)
 const showDetailsModal = ref(false)
 const selectedRecord = ref(null)
 const searchQuery = ref('')
+
+// Toast notification state
+const toast = ref({
+  show: false,
+  message: '',
+  description: '',
+  type: 'success', // 'success', 'error', 'info'
+  progress: 100
+})
+
+let toastTimer = null
+let progressTimer = null
+
+// Toast helper functions
+const showToast = (message, type = 'success', description = '', duration = 2000) => {
+  // Clear existing timers
+  if (toastTimer) clearTimeout(toastTimer)
+  if (progressTimer) clearInterval(progressTimer)
+  
+  toast.value = {
+    show: true,
+    message,
+    description,
+    type,
+    progress: 100
+  }
+
+  // Progress bar animation
+  const startTime = Date.now()
+  progressTimer = setInterval(() => {
+    const elapsed = Date.now() - startTime
+    const remaining = Math.max(0, 100 - (elapsed / duration) * 100)
+    toast.value.progress = remaining
+    
+    if (remaining <= 0) {
+      clearInterval(progressTimer)
+    }
+  }, 50)
+
+  // Auto hide
+  toastTimer = setTimeout(() => {
+    hideToast()
+  }, duration)
+}
+
+const hideToast = () => {
+  toast.value.show = false
+  if (toastTimer) clearTimeout(toastTimer)
+  if (progressTimer) clearInterval(progressTimer)
+}
 
 // Computed property for filtered records
 const filteredRecords = computed(() => {
@@ -503,14 +677,28 @@ const buildWorksheet = (rows, barangayLabel) => {
 
 const exportRecordsToExcel = (rows, filename, barangayLabel) => {
   if (!rows || rows.length === 0) {
-    alert('No records to export')
+    showToast('No Records to Export', 'error', 'There are no records available to export')
     return
   }
 
-  const worksheet = buildWorksheet(rows, barangayLabel)
-  const workbook = XLSX.utils.book_new()
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Records')
-  XLSX.writeFile(workbook, filename)
+  try {
+    const worksheet = buildWorksheet(rows, barangayLabel)
+    const workbook = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Records')
+    XLSX.writeFile(workbook, filename)
+    
+    // Show success toast
+    const recordCount = rows.length
+    showToast(
+      'Export Successful!',
+      'success',
+      `${recordCount} record${recordCount !== 1 ? 's' : ''} exported to ${filename}`,
+      2000
+    )
+  } catch (error) {
+    console.error('Export error:', error)
+    showToast('Export Failed', 'error', 'Failed to export records. Please try again.')
+  }
 }
 
 const exportToExcel = () => {
