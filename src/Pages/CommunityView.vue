@@ -1682,6 +1682,16 @@
                   
                   <h4 class="font-bold text-[#002147] text-base mb-2 group-hover:text-[#004595] transition-colors">{{ person.name }}</h4>
                   
+                  <!-- Purok Number Badge (for Purok Chairman) -->
+                  <div v-if="person.purok_number" class="mb-3">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-[#004595] to-[#0056b3] text-white text-xs font-bold rounded-full shadow-md">
+                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                      </svg>
+                      Purok {{ person.purok_number }}
+                    </span>
+                  </div>
+                  
                   <div v-if="person.description" class="text-[10px] text-[#00397a] mb-3 line-clamp-2 px-2">
                     {{ person.description }}
                   </div>
