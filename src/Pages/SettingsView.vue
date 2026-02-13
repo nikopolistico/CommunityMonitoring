@@ -420,24 +420,47 @@ const handleImageUpload = async (event) => {
   const file = event.target.files[0]
   if (!file) return
 
+  // Validate file type
+  if (!file.type.startsWith('image/')) {
+    alert('Please select an image file')
+    return
+  }
+
+  // Validate file size (max 5MB)
+  if (file.size > 5 * 1024 * 1024) {
+    alert('Image size should be less than 5MB')
+    return
+  }
+
   try {
     const fileExt = file.name.split('.').pop()
-    const fileName = `${adminProfile.value.id}-${Date.now()}.${fileExt}`
-    const filePath = `admin-profiles/${fileName}`
+    const fileName = `admin_${adminProfile.value.id}_${Date.now()}.${fileExt}`
+    const filePath = fileName
 
-    // Upload image to Supabase Storage
-    const { error: uploadError } = await supabase.storage
-      .from('profiles')
-      .upload(filePath, file)
+    console.log('Uploading to bucket: administrator, path:', filePath)
 
-    if (uploadError) throw uploadError
+    // Upload image to Supabase Storage (using 'administrator' bucket)
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from('administrator')
+      .upload(filePath, file, {
+        cacheControl: '3600',
+        upsert: false
+      })
+
+    if (uploadError) {
+      console.error('Upload error:', uploadError)
+      throw uploadError
+    }
+
+    console.log('Upload successful:', uploadData)
 
     // Get public URL
     const { data: urlData } = supabase.storage
-      .from('profiles')
+      .from('administrator')
       .getPublicUrl(filePath)
 
     const imageUrl = urlData.publicUrl
+    console.log('Image URL:', imageUrl)
 
     // Update database
     const { error: updateError } = await supabase
@@ -445,13 +468,16 @@ const handleImageUpload = async (event) => {
       .update({ profile_picture: imageUrl })
       .eq('id', adminProfile.value.id)
 
-    if (updateError) throw updateError
+    if (updateError) {
+      console.error('Database update error:', updateError)
+      throw updateError
+    }
 
     adminProfile.value.profile_picture = imageUrl
     alert('Profile picture updated successfully!')
   } catch (error) {
     console.error('Error uploading image:', error)
-    alert('Failed to upload profile picture')
+    alert(`Failed to upload profile picture: ${error.message}`)
   }
 }
 
