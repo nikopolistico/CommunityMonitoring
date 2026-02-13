@@ -14,14 +14,14 @@
               <div class="mt-8">
                 <div class="flex items-center gap-2 lg:gap-3 mb-2 lg:mb-3">
                   <h1
-                    class="text-lg sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight drop-shadow-lg"
+                    class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight drop-shadow-lg"
                   >
                     Butuan City Police Station 1
                   </h1>
                 </div>
 
                 <div>
-                  <p class="text-xs sm:text-sm text-[#e0e7ff] mb-1 ms-9 font-medium">
+                  <p class="text-sm sm:text-base lg:text-lg text-[#e0e7ff] mb-1 ms-9 font-medium">
                     Community monitoring across 28 barangays
                   </p>
                 </div>
