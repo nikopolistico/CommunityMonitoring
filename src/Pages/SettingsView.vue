@@ -195,29 +195,6 @@
           </div>
 
           <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white space-y-3">
-            <div class="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50/50 to-pink-50/50 rounded-xl border border-purple-100/50 hover:border-purple-300/50 hover:shadow-sm transition-all duration-300">
-              <div class="flex items-center gap-3">
-                <div class="p-2 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg">
-                  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                  </svg>
-                </div>
-                <div>
-                  <h3 class="font-semibold text-[#002147] text-sm">Email Notifications</h3>
-                  <p class="text-xs text-gray-600">Receive notifications via email</p>
-                </div>
-              </div>
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input
-                  v-model="settings.emailNotifications"
-                  type="checkbox"
-                  class="sr-only peer"
-                />
-                <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-purple-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-purple-500 peer-checked:to-purple-600 shadow-sm"></div>
-              </label>
-            </div>
-
             <div class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50/50 to-cyan-50/50 rounded-xl border border-blue-100/50 hover:border-blue-300/50 hover:shadow-sm transition-all duration-300">
               <div class="flex items-center gap-3">
                 <div class="p-2 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg">
@@ -237,28 +214,6 @@
                   class="sr-only peer"
                 />
                 <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-blue-500 peer-checked:to-cyan-600 shadow-sm"></div>
-              </label>
-            </div>
-
-            <div class="flex items-center justify-between p-4 bg-gradient-to-r from-pink-50/50 to-rose-50/50 rounded-xl border border-pink-100/50 hover:border-pink-300/50 hover:shadow-sm transition-all duration-300">
-              <div class="flex items-center gap-3">
-                <div class="p-2 bg-gradient-to-br from-pink-500 to-rose-600 rounded-lg">
-                  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                  </svg>
-                </div>
-                <div>
-                  <h3 class="font-semibold text-[#002147] text-sm">SMS Notifications</h3>
-                  <p class="text-xs text-gray-600">Receive notifications via SMS</p>
-                </div>
-              </div>
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input
-                  v-model="settings.smsNotifications"
-                  type="checkbox"
-                  class="sr-only peer"
-                />
-                <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-pink-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-pink-500 peer-checked:to-rose-600 shadow-sm"></div>
               </label>
             </div>
           </div>
@@ -404,9 +359,7 @@ const adminProfile = ref({
 const settings = ref({
   username: '',
   password: '',
-  emailNotifications: true,
   pushNotifications: true,
-  smsNotifications: false,
   theme: 'light',
   language: 'en',
 })
@@ -632,9 +585,7 @@ const resetSettings = () => {
     settings.value = {
       username: adminProfile.value.username,
       password: '',
-      emailNotifications: true,
       pushNotifications: true,
-      smsNotifications: false,
       theme: 'light',
       language: 'en',
     }
