@@ -726,16 +726,21 @@ const fetchBarangays = async () => {
     
     if (data) {
       barangayOptions.value = data.map(item => {
-        // Convert brgyname to kebab-case for value
+        // Convert brgyname to URL-safe kebab-case for value
+        // Preserve original structure by encoding the actual database name
         const value = item.brgyname
           .toLowerCase()
-          .replace(/\s+/g, '-')
-          .replace(/[^\w-]/g, '')
+          .trim()
+          .replace(/\s+/g, '-')           // Convert spaces to hyphens
+          .replace(/[^\w\s-]/g, '')       // Remove special chars except hyphens
+          .replace(/--+/g, '-')           // Replace multiple hyphens with single
+          .replace(/^-+|-+$/g, '')        // Trim hyphens from start/end
         
         return {
           id: item.id,
           value: value,
-          label: item.brgyname
+          label: item.brgyname,
+          dbName: item.brgyname  // Store original database name
         }
       })
     }
