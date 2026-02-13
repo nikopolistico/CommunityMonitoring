@@ -1920,53 +1920,132 @@
     loadingBarangay.value = true
     
     try {
-      // Convert kebab-case to Title Case for display
-      const displayName = barangayName.value
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ')
+      console.log('🔍 Looking for barangay from param:', barangayName.value)
       
-      console.log('🔍 Looking for barangay:', displayName, '(from param:', barangayName.value + ')')
+      // Generate multiple search patterns
+      const searchPatterns = [
+        // Original kebab-case converted to URL-friendly version (e.g., "bit-os")
+        barangayName.value,
+        // Title Case with spaces (e.g., "Bit Os")
+        barangayName.value.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+        // Title Case with hyphens (e.g., "Bit-Os")
+        barangayName.value.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('-'),
+        // All lowercase with spaces (e.g., "bit os")
+        barangayName.value.replace(/-/g, ' '),
+        // All lowercase with hyphens (e.g., "bit-os")
+        barangayName.value,
+        // UPPERCASE with spaces (e.g., "BIT OS")
+        barangayName.value.replace(/-/g, ' ').toUpperCase(),
+      ]
       
-      // Try to fetch from database
-      const { data, error } = await supabase
-        .from('Barangays')
-        .select('*')
-        .ilike('brgyname', displayName)
-        .single()
+      console.log('🔍 Trying patterns:', searchPatterns)
+      
+      let data = null
+      let error = null
+      
+      // Try each pattern until we find a match
+      for (const pattern of searchPatterns) {
+        const result = await supabase
+          .from('Barangays')
+          .select('*')
+          .ilike('brgyname', pattern)
+          .maybeSingle()
+        
+        if (result.data) {
+          data = result.data
+          console.log('✅ Found match with pattern:', pattern, '→ Database name:', data.brgyname)
+          break
+        }
+        
+        if (result.error && result.error.code !== 'PGRST116') {
+          error = result.error
+          break
+        }
+      }
+      
+      // If still not found, try a wildcard search (last resort)
+      if (!data && !error) {
+        console.log('🔍 Trying wildcard search...')
+        const wildcardPattern = `%${barangayName.value.replace(/-/g, '%')}%`
+        const result = await supabase
+          .from('Barangays')
+          .select('*')
+          .ilike('brgyname', wildcardPattern)
+          .limit(1)
+          .maybeSingle()
+        
+        if (result.data) {
+          data = result.data
+          console.log('✅ Found via wildcard:', data.brgyname)
+        } else {
+          // Final attempt: Get all barangays and do client-side fuzzy match
+          console.log('🔍 Trying client-side fuzzy match...')
+          const { data: allBarangays } = await supabase
+            .from('Barangays')
+            .select('*')
+          
+          if (allBarangays && allBarangays.length > 0) {
+            // Try to find a match by comparing URL-safe versions
+            const urlSafeParam = barangayName.value.toLowerCase().replace(/[^\w-]/g, '')
+            const match = allBarangays.find(b => {
+              const urlSafeName = b.brgyname
+                .toLowerCase()
+                .trim()
+                .replace(/\s+/g, '-')
+                .replace(/[^\w\s-]/g, '')
+                .replace(/--+/g, '-')
+                .replace(/^-+|-+$/g, '')
+              return urlSafeName === urlSafeParam || 
+                     urlSafeName.includes(urlSafeParam) ||
+                     urlSafeParam.includes(urlSafeName)
+            })
+            
+            if (match) {
+              data = match
+              console.log('✅ Found via fuzzy match:', data.brgyname)
+            } else {
+              console.log('❌ Available barangays:', allBarangays.map(b => b.brgyname).join(', '))
+            }
+          }
+        }
+      }
       
       if (error && error.code !== 'PGRST116') {
         console.error('Database error:', error)
       }
       
+      // Use the actual name from database if found, otherwise use displayName
+      const displayName = barangayName.value.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+      const actualName = data?.brgyname || displayName
+      
       // Create barangay info structure
       communityInfo.value = {
-        name: displayName,
+        name: actualName,
         dbData: data,
         center: { lat: 8.9475, lng: 125.5279 },
         markers: [{
-          name: `${displayName} Barangay Center`,
+          name: `${actualName} Barangay Center`,
           type: 'barangay',
           coordinates: { lat: 8.9475, lng: 125.5279 },
         }],
         schools: [
-          `${displayName} Elementary School`,
-          `${displayName} Integrated School`,
-          `${displayName} Senior High School`,
+          `${actualName} Elementary School`,
+          `${actualName} Integrated School`,
+          `${actualName} Senior High School`,
         ],
         churches: [
-          `${displayName} Parish Church`,
-          `${displayName} Chapel`,
-          `${displayName} Christian Fellowship`,
+          `${actualName} Parish Church`,
+          `${actualName} Chapel`,
+          `${actualName} Christian Fellowship`,
         ],
         businesses: [
-          `${displayName} Public Market`,
-          `${displayName} Commercial Center`,
-          `${displayName} Cooperative Store`,
+          `${actualName} Public Market`,
+          `${actualName} Commercial Center`,
+          `${actualName} Cooperative Store`,
         ],
       }
       
-      console.log('✅ Barangay info loaded:', displayName)
+      console.log('✅ Barangay info loaded:', actualName, data ? '(from database)' : '(default data)')
     } catch (err) {
       console.error('Error fetching barangay:', err)
     } finally {
@@ -2168,17 +2247,25 @@
     
     loadingCaptain.value = true
     try {
+      // Use the exact barangay name from communityInfo which comes from the database
+      const barangayNameToSearch = communityInfo.value.name
+      
       // First, get the barangay details including cpt_id and id
       const { data: barangayData, error: barangayError } = await supabase
         .from('Barangays')
         .select('id, cpt_id, brgyname')
-        .ilike('brgyname', communityInfo.value.name)
-        .single()
+        .ilike('brgyname', barangayNameToSearch)
+        .maybeSingle()
 
-      if (barangayError) throw barangayError
+      if (barangayError && barangayError.code !== 'PGRST116') throw barangayError
       
       if (barangayData) {
         barangay_id.value = barangayData.id
+        
+        // Update communityInfo with the exact database name to ensure consistency
+        if (barangayData.brgyname && communityInfo.value.name !== barangayData.brgyname) {
+          communityInfo.value.name = barangayData.brgyname
+        }
         
         if (barangayData.cpt_id) {
           // Then fetch the captain details using cpt_id
@@ -2186,10 +2273,10 @@
             .from('BrgyCaptain')
             .select('*')
             .eq('id', barangayData.cpt_id)
-            .single()
+            .maybeSingle()
 
           console.log('Fetched captain data:', captainData)  
-          if (captainError) throw captainError
+          if (captainError && captainError.code !== 'PGRST116') throw captainError
           
           if (captainData) {
             captainId.value = captainData.id
@@ -2200,21 +2287,56 @@
               officeHours: captainData.office_hours || '',
               profileImage: captainData.profile_image || ''
             }
+          } else {
+            // No captain assigned yet, initialize empty
+            captainId.value = null
+            captainInfo.value = {
+              name: '',
+              phone: '',
+              email: '',
+              officeHours: '',
+              profileImage: ''
+            }
+          }
+        } else {
+          // No captain assigned yet, initialize empty
+          captainId.value = null
+          captainInfo.value = {
+            name: '',
+            phone: '',
+            email: '',
+            officeHours: '',
+            profileImage: ''
           }
         }
         
         // Fetch personnel for this barangay
         await fetchPersonnel()
         await fetchPositions()
-        await getBrgyFiestaDetails(barangay_id.value);
+        await getBrgyFiestaDetails(barangay_id.value)
+      } else {
+        // Barangay not found in database
+        console.warn('⚠️ Barangay not found in database:', communityInfo.value.name)
+        barangay_id.value = null
+        captainId.value = null
+        captainInfo.value = {
+          name: '',
+          phone: '',
+          email: '',
+          officeHours: '',
+          profileImage: ''
+        }
       }
     } catch (error) {
       console.error('Error fetching captain info:', error)
+      barangay_id.value = null
+      captainId.value = null
       captainInfo.value = {
         name: '',
         phone: '',
         email: '',
-        officeHours: ''
+        officeHours: '',
+        profileImage: ''
       }
     } finally {
       loadingCaptain.value = false
