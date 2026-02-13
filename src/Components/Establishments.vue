@@ -755,21 +755,73 @@ const fetchBarangayId = async () => {
 	if (!barangayName.value) return
 	
 	try {
-		const { data, error } = await supabase
-			.from('Barangays')
-			.select('id')
-			.ilike('brgyname', barangayName.value.replace(/-/g, ' '))
-			.single()
+		// Convert kebab-case to Title Case for primary search
+		const displayName = barangayName.value
+			.split('-')
+			.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+			.join(' ')
 		
-		if (error) throw error
+		console.log('🔍 Looking for barangay:', displayName, '(from param:', barangayName.value + ')')
+		
+		// Try primary search with Title Case
+		let { data, error } = await supabase
+			.from('Barangays')
+			.select('id, brgyname')
+			.ilike('brgyname', displayName)
+			.maybeSingle()
+		
+		// If not found, try alternative patterns
+		if (!data && !error) {
+			// Try with simple space replacement
+			const altPattern1 = barangayName.value.replace(/-/g, ' ')
+			const { data: altData1 } = await supabase
+				.from('Barangays')
+				.select('id, brgyname')
+				.ilike('brgyname', altPattern1)
+				.maybeSingle()
+			
+			if (altData1) {
+				data = altData1
+			}
+		}
+		
+		// If still not found, try partial matching
+		if (!data && !error) {
+			// Get all barangays and find the best match
+			const { data: allBarangays } = await supabase
+				.from('Barangays')
+				.select('id, brgyname')
+			
+			if (allBarangays && allBarangays.length > 0) {
+				// Create normalized version for comparison
+				const normalizedParam = barangayName.value.toLowerCase().replace(/[^a-z0-9]/g, '')
+				
+				const match = allBarangays.find(brgy => {
+					const normalizedBrgy = brgy.brgyname.toLowerCase().replace(/[^a-z0-9]/g, '')
+					return normalizedBrgy === normalizedParam
+				})
+				
+				if (match) {
+					data = match
+				}
+			}
+		}
+		
+		if (error && error.code !== 'PGRST116') {
+			throw error
+		}
 		
 		if (data) {
 			barangayId.value = data.id
-			console.log('Barangay ID:', barangayId.value)
+			console.log('✅ Barangay found:', data.brgyname, '(ID:', data.id + ')')
 			await fetchEstablishments()
+		} else {
+			console.warn('⚠️ Barangay not found in database:', barangayName.value)
+			barangayId.value = null
 		}
 	} catch (error) {
-		console.error('Error fetching barangay ID:', error)
+		console.error('❌ Error fetching barangay ID:', error)
+		barangayId.value = null
 	}
 }
 
@@ -967,31 +1019,41 @@ const addItem = async () => {
 		if (!estId) {
 			throw new Error('Establishment insert did not return an id.')
 		}
-		const managerPayload = {
-			est_id: estId,
-			manager_fullname: newManagerName.value.trim() || null,
-			managerContact: newManagerContact.value.trim() || null,
-			manager_email: newManagerEmail.value.trim() || null
+		
+		// Only insert manager if at least the name is provided (required field)
+		const managerName = newManagerName.value.trim()
+		if (managerName) {
+			const managerPayload = {
+				est_id: estId,
+				manager_fullname: managerName,
+				managerContact: newManagerContact.value.trim() || null,
+				manager_email: newManagerEmail.value.trim() || null
+			}
+
+			const { error: managerError } = await supabase
+				.from('EstablishmentManager')
+				.insert([managerPayload])
+
+			if (managerError) throw managerError
 		}
-		const ownerPayload = {
-			est_id: estId,
-			Ownerfullname: newOwnerName.value.trim() || null,
-			OwnerNumber: newOwnerContact.value.trim() || null,
-			profile_image: imageUrl,
-			OwnerEmail: newOwnerEmail.value.trim() || null
+
+		// Only insert owner if at least the name is provided
+		const ownerName = newOwnerName.value.trim()
+		if (ownerName) {
+			const ownerPayload = {
+				est_id: estId,
+				Ownerfullname: ownerName,
+				OwnerNumber: newOwnerContact.value.trim() || null,
+				profile_image: imageUrl,
+				OwnerEmail: newOwnerEmail.value.trim() || null
+			}
+
+			const { error: ownerError } = await supabase
+				.from('EstablishmentOwner')
+				.insert([ownerPayload])
+
+			if (ownerError) throw ownerError
 		}
-
-		const { error: managerError } = await supabase
-			.from('EstablishmentManager')
-			.insert([managerPayload])
-
-		if (managerError) throw managerError
-
-		const { error: ownerError } = await supabase
-			.from('EstablishmentOwner')
-			.insert([ownerPayload])
-
-		if (ownerError) throw ownerError
 		
 		if (data && data.length > 0) {
 			items.value.push(data[0])
