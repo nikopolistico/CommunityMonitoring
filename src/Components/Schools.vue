@@ -498,6 +498,121 @@
 				<h1 class="text-2xl font-bold text-gray-800 mb-2">Barangay Not Found</h1>
 				<p class="text-gray-600">Return to the dashboard and select a valid barangay.</p>
 			</section>
+
+			<!-- Toast Notification -->
+			<Transition
+				enter-active-class="transition-all duration-300 ease-out"
+				enter-from-class="translate-y-[-100%] opacity-0"
+				enter-to-class="translate-y-0 opacity-100"
+				leave-active-class="transition-all duration-200 ease-in"
+				leave-from-class="translate-y-0 opacity-100"
+				leave-to-class="translate-y-[-100%] opacity-0"
+			>
+				<div
+					v-if="toast.show"
+					class="fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-md px-4 z-[100000]"
+				>
+					<div
+						class="rounded-2xl shadow-2xl overflow-hidden"
+						:class="{
+							'bg-gradient-to-r from-green-500 to-emerald-600': toast.type === 'success',
+							'bg-gradient-to-r from-red-500 to-rose-600': toast.type === 'error',
+							'bg-gradient-to-r from-yellow-500 to-amber-600': toast.type === 'warning',
+							'bg-gradient-to-r from-blue-500 to-indigo-600': toast.type === 'info'
+						}"
+					>
+						<div class="p-4 flex items-start gap-3">
+							<!-- Icon -->
+							<div class="flex-shrink-0 mt-0.5">
+								<!-- Success Icon -->
+								<svg
+									v-if="toast.type === 'success'"
+									class="w-6 h-6 text-white"
+									fill="currentColor"
+									viewBox="0 0 20 20"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+								<!-- Error Icon -->
+								<svg
+									v-else-if="toast.type === 'error'"
+									class="w-6 h-6 text-white"
+									fill="currentColor"
+									viewBox="0 0 20 20"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+								<!-- Warning Icon -->
+								<svg
+									v-else-if="toast.type === 'warning'"
+									class="w-6 h-6 text-white"
+									fill="currentColor"
+									viewBox="0 0 20 20"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+								<!-- Info Icon -->
+								<svg
+									v-else
+									class="w-6 h-6 text-white"
+									fill="currentColor"
+									viewBox="0 0 20 20"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+							</div>
+
+							<!-- Message Content -->
+							<div class="flex-1 pt-0.5">
+								<p class="font-bold text-white text-sm leading-tight">
+									{{ toast.message }}
+								</p>
+								<p v-if="toast.description" class="text-white/90 text-xs mt-1 leading-snug">
+									{{ toast.description }}
+								</p>
+							</div>
+
+							<!-- Close Button -->
+							<button
+								@click="hideToast"
+								class="flex-shrink-0 ml-2 p-1 hover:bg-white/20 rounded-lg transition-colors"
+							>
+								<svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+									<path
+										fill-rule="evenodd"
+										d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+							</button>
+						</div>
+
+						<!-- Progress Bar -->
+						<div class="h-1 bg-black/20">
+							<div
+								class="h-full bg-white/50 transition-all duration-100 ease-linear"
+								:style="{ width: `${toast.progress}%` }"
+							></div>
+						</div>
+					</div>
+				</div>
+			</Transition>
 		</div>
 	</div>
 </template>
@@ -550,6 +665,56 @@ const loading = ref(false)
 const showAddModal = ref(false)
 const searchQuery = ref('')
 const uploadingPhoto = ref(false)
+
+// Toast notification state
+const toast = ref({
+	show: false,
+	message: '',
+	description: '',
+	type: 'success', // 'success', 'error', 'warning', 'info'
+	progress: 100
+})
+
+let toastTimer = null
+let progressTimer = null
+
+const showToast = (message, type = 'success', description = '', duration = 4000) => {
+	// Clear existing timers
+	if (toastTimer) clearTimeout(toastTimer)
+	if (progressTimer) clearInterval(progressTimer)
+	
+	// Set toast data
+	toast.value = {
+		show: true,
+		message,
+		description,
+		type,
+		progress: 100
+	}
+	
+	// Animate progress bar
+	const startTime = Date.now()
+	progressTimer = setInterval(() => {
+		const elapsed = Date.now() - startTime
+		const remaining = Math.max(0, 100 - (elapsed / duration) * 100)
+		toast.value.progress = remaining
+		
+		if (remaining <= 0) {
+			clearInterval(progressTimer)
+		}
+	}, 10)
+	
+	// Auto hide after duration
+	toastTimer = setTimeout(() => {
+		hideToast()
+	}, duration)
+}
+
+const hideToast = () => {
+	toast.value.show = false
+	if (toastTimer) clearTimeout(toastTimer)
+	if (progressTimer) clearInterval(progressTimer)
+}
 
 const filteredItems = computed(() => {
 	if (!searchQuery.value.trim()) {
@@ -699,7 +864,7 @@ const handleEditImageChange = async (event, itemId) => {
 	if (!file) return
 	
 	if (file.size > 5 * 1024 * 1024) {
-		alert('File size must be less than 5MB')
+		showToast('File Too Large', 'warning', 'Image size should be less than 5MB')
 		return
 	}
 	
@@ -740,7 +905,7 @@ const handleEditImageChange = async (event, itemId) => {
 		
 	} catch (error) {
 		console.error('Error uploading image:', error)
-		alert(`Failed to upload image: ${error?.message || 'Please try again.'}`)
+		showToast('Upload Failed', 'error', error?.message || 'Failed to upload image. Please try again.')
 	} finally {
 		uploadingPhoto.value = false
 	}
@@ -768,11 +933,11 @@ const addItem = async () => {
 	const name = newName.value.trim()
 	const address = newAddress.value.trim()
 	if (!name) {
-		alert('Please enter a school name')
+		showToast('School Name Required', 'warning', 'Please enter a school name')
 		return
 	}
 	if (!barangayId.value) {
-		alert('Barangay not found')
+		showToast('Barangay Not Found', 'error', 'Could not find the barangay. Please try again.')
 		return
 	}
 	
@@ -837,9 +1002,10 @@ const addItem = async () => {
 			items.value.push(data[0])
 		}
 		closeAddModal()
+		showToast('Success!', 'success', 'School added successfully')
 	} catch (error) {
 		console.error('Error adding school:', error)
-		alert(`Failed to add school: ${error?.message || 'Please try again.'}`)
+		showToast('Add Failed', 'error', error?.message || 'Failed to add school. Please try again.')
 	} finally {
 		loading.value = false
 		uploadingPhoto.value = false
@@ -945,9 +1111,10 @@ const saveEdit = async () => {
 		editingPrincipalName.value = ''
 		editingPrincipalContact.value = ''
 		editImagePreview.value = ''
+		showToast('Success!', 'success', 'School updated successfully')
 	} catch (error) {
 		console.error('Error updating school:', error)
-		alert('Failed to update school. Please try again.')
+		showToast('Update Failed', 'error', 'Failed to update school. Please try again.')
 	} finally {
 		loading.value = false
 	}
@@ -987,9 +1154,10 @@ const deleteItem = async (id) => {
 			editingId.value = null
 			editingName.value = ''
 		}
+		showToast('Success!', 'success', 'School deleted successfully')
 	} catch (error) {
 		console.error('Error deleting school:', error)
-		alert('Failed to delete school. Please try again.')
+		showToast('Delete Failed', 'error', 'Failed to delete school. Please try again.')
 	} finally {
 		loading.value = false
 	}
