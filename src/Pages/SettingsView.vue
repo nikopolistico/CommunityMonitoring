@@ -99,28 +99,38 @@
             <!-- Admin Info Cards -->
             <div class="grid md:grid-cols-2 gap-4">
               <!-- Email Card -->
-              <div class="p-4 bg-gradient-to-br from-white to-blue-50/30 rounded-xl border border-[#004595]/10 hover:border-[#004595]/20 hover:shadow-md transition-all duration-300">
-                <div class="flex items-center gap-2.5 mb-2">
-                  <div class="p-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg">
-                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                    </svg>
+              <div class="p-4 bg-gradient-to-br from-white to-blue-50/30 rounded-xl border border-[#004595]/10 hover:border-[#004595]/20 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('email')">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2.5">
+                    <div class="p-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg">
+                      <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                      </svg>
+                    </div>
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Email Address</p>
                   </div>
-                  <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Email Address</p>
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-colors" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                  </svg>
                 </div>
                 <p class="text-sm font-semibold text-[#002147] break-all">{{ adminProfile.email || 'Not set' }}</p>
               </div>
 
               <!-- Badge Card -->
-              <div class="p-4 bg-gradient-to-br from-white to-purple-50/30 rounded-xl border border-[#004595]/10 hover:border-purple-300/50 hover:shadow-md transition-all duration-300">
-                <div class="flex items-center gap-2.5 mb-2">
-                  <div class="p-2 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg">
-                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z" clip-rule="evenodd"/>
-                    </svg>
+              <div class="p-4 bg-gradient-to-br from-white to-purple-50/30 rounded-xl border border-[#004595]/10 hover:border-purple-300/50 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('badge_number')">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2.5">
+                    <div class="p-2 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg">
+                      <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Badge Number</p>
                   </div>
-                  <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Badge Number</p>
+                  <svg class="w-4 h-4 text-gray-400 group-hover:text-purple-600 transition-colors" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                  </svg>
                 </div>
                 <p class="text-sm font-semibold text-[#002147]">{{ adminProfile.badge_number || 'Not set' }}</p>
               </div>
@@ -347,6 +357,102 @@
       </div>
     </div>
 
+    <!-- Edit Modal -->
+    <Transition
+      enter-active-class="transition-all duration-300 ease-out"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="transition-all duration-200 ease-in"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0"
+    >
+      <div
+        v-if="editModal.show"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[90000] flex items-center justify-center p-4"
+        @click.self="closeEditModal"
+      >
+        <Transition
+          enter-active-class="transition-all duration-300 ease-out"
+          enter-from-class="opacity-0 scale-95 translate-y-4"
+          enter-to-class="opacity-100 scale-100 translate-y-0"
+          leave-active-class="transition-all duration-200 ease-in"
+          leave-from-class="opacity-100 scale-100 translate-y-0"
+          leave-to-class="opacity-0 scale-95 translate-y-4"
+        >
+          <div
+            v-if="editModal.show"
+            class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden"
+            @click.stop
+          >
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-[#004595] to-[#00397a] px-6 py-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="p-2 bg-white/10 backdrop-blur-sm rounded-lg">
+                    <svg v-if="editModal.field === 'email'" class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                    </svg>
+                    <svg v-else class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl font-bold text-white">
+                    Edit {{ editModal.field === 'email' ? 'Email Address' : 'Badge Number' }}
+                  </h3>
+                </div>
+                <button
+                  @click="closeEditModal"
+                  class="text-white/80 hover:text-white transition-colors p-1 hover:bg-white/10 rounded-lg"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6">
+              <div class="mb-4">
+                <label class="text-sm font-semibold text-gray-700 mb-2 block">
+                  {{ editModal.field === 'email' ? 'Email Address' : 'Badge Number' }}
+                </label>
+                <input
+                  v-model="editModal.value"
+                  :type="editModal.field === 'email' ? 'email' : 'text'"
+                  :placeholder="editModal.field === 'email' ? 'Enter email address' : 'Enter badge number'"
+                  class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all duration-200 text-sm"
+                  @keyup.enter="saveEditModal"
+                  @keyup.escape="closeEditModal"
+                  ref="editModalInput"
+                />
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex gap-3 justify-end">
+                <button
+                  @click="closeEditModal"
+                  class="px-4 py-2.5 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:bg-gray-50 transition-all duration-200 text-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                  @click="saveEditModal"
+                  class="px-4 py-2.5 rounded-lg bg-gradient-to-r from-[#004595] to-[#00397a] text-white font-semibold hover:from-[#00397a] hover:to-[#002147] transition-all duration-200 shadow-md hover:shadow-lg text-sm flex items-center gap-2"
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </Transition>
+      </div>
+    </Transition>
+
     <!-- Toast Notification -->
     <Transition
       enter-active-class="transition-all duration-500 ease-out"
@@ -438,6 +544,14 @@ const settings = ref({
 const editingField = ref(null)
 const fileInput = ref(null)
 const originalValue = ref('')
+const editModalInput = ref(null)
+
+// Edit modal state
+const editModal = ref({
+  show: false,
+  field: '',
+  value: ''
+})
 
 // Password validation state
 const passwordValidation = ref({
@@ -554,22 +668,52 @@ const fetchAdminData = async () => {
   }
 }
 
-// Edit field
-const editField = (field) => {
-  originalValue.value = adminProfile.value[field]
-  editingField.value = field
+// Edit modal functions
+const openEditModal = (field) => {
+  editModal.value = {
+    show: true,
+    field: field,
+    value: adminProfile.value[field] || ''
+  }
+  
+  // Focus input after modal opens
+  setTimeout(() => {
+    editModalInput.value?.focus()
+  }, 100)
 }
 
-// Save individual field
-const saveField = async (field) => {
+const closeEditModal = () => {
+  editModal.value = {
+    show: false,
+    field: '',
+    value: ''
+  }
+}
+
+const saveEditModal = async () => {
   if (!adminProfile.value.id) {
     showToast('Cannot Update', 'error', 'Admin profile not loaded')
     return
   }
 
+  // Validate email format if editing email
+  if (editModal.value.field === 'email') {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(editModal.value.value)) {
+      showToast('Invalid Email', 'warning', 'Please enter a valid email address')
+      return
+    }
+  }
+
+  // Validate badge number is not empty
+  if (editModal.value.field === 'badge_number' && !editModal.value.value.trim()) {
+    showToast('Invalid Badge Number', 'warning', 'Badge number cannot be empty')
+    return
+  }
+
   try {
     const updates = {}
-    updates[field] = adminProfile.value[field]
+    updates[editModal.value.field] = editModal.value.value
 
     const { error } = await supabase
       .from('Administrator')
@@ -578,13 +722,15 @@ const saveField = async (field) => {
 
     if (error) throw error
 
-    showToast('Success!', 'success', `${field.replace('_', ' ')} updated successfully!`)
-    editingField.value = null
+    // Update local state
+    adminProfile.value[editModal.value.field] = editModal.value.value
+    
+    const fieldName = editModal.value.field === 'email' ? 'Email Address' : 'Badge Number'
+    showToast('Success!', 'success', `${fieldName} updated successfully!`)
+    closeEditModal()
   } catch (error) {
-    console.error(`Error updating ${field}:`, error)
-    showToast('Update Failed', 'error', `Failed to update ${field}`)
-    // Restore original value on error
-    adminProfile.value[field] = originalValue.value
+    console.error(`Error updating ${editModal.value.field}:`, error)
+    showToast('Update Failed', 'error', `Failed to update ${editModal.value.field === 'email' ? 'email address' : 'badge number'}`)
   }
 }
 
