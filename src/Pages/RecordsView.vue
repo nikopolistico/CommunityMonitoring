@@ -18,15 +18,19 @@
         <div class="flex flex-col md:flex-row gap-4">
           <div class="flex-1">
             <input
+              v-model="searchQuery"
               type="text"
-              placeholder="Search records..."
+              placeholder="Search by barangay name, captain, patron, or location..."
               class="w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent transition-all"
+              @input="handleSearch"
             />
           </div>
           <button
-            class="px-6 py-3 bg-gradient-to-r from-[#004595] to-[#00397a] text-white rounded-xl hover:from-[#002147] hover:to-[#004595] transition-all duration-300 shadow-lg hover:shadow-xl font-medium"
+            @click="clearSearch"
+            v-if="searchQuery"
+            class="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl font-medium"
           >
-            Search
+            Clear
           </button>
           <button
             @click="exportToExcel"
@@ -38,6 +42,13 @@
             Export to Excel
           </button>
         </div>
+        
+        <!-- Search Results Summary -->
+        <div v-if="searchQuery" class="mt-4 text-sm text-gray-600">
+          Found <span class="font-bold text-[#004595]">{{ filteredRecords.length }}</span> 
+          {{ filteredRecords.length === 1 ? 'result' : 'results' }} 
+          for "<span class="font-semibold">{{ searchQuery }}</span>"
+        </div>
       </div>
 
       <!-- Records Grid/Cards -->
@@ -46,6 +57,24 @@
           <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-[#004595]"></div>
           <p class="text-xl font-semibold text-gray-700">Loading records...</p>
           <p class="text-sm text-gray-500">Please wait while we fetch the data</p>
+        </div>
+      </div>
+
+      <div v-else-if="filteredRecords.length === 0 && searchQuery" class="bg-gradient-to-br from-white to-[#f3f1ee]/30 rounded-2xl shadow-xl p-20 text-center border border-[#004595]/10">
+        <div class="flex flex-col items-center gap-4">
+          <div class="p-6 bg-amber-500/10 rounded-full">
+            <svg class="w-20 h-20 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800">No Results Found</h3>
+          <p class="text-gray-600">No barangay records match your search for "<span class="font-semibold">{{ searchQuery }}</span>"</p>
+          <button
+            @click="clearSearch"
+            class="mt-4 px-6 py-2.5 bg-gradient-to-r from-[#004595] to-[#00397a] text-white rounded-xl hover:from-[#002147] hover:to-[#004595] transition-all duration-300 shadow-lg hover:shadow-xl font-medium"
+          >
+            Clear Search
+          </button>
         </div>
       </div>
 
@@ -64,7 +93,7 @@
       <!-- Records Cards Grid -->
       <div v-else class="space-y-4">
         <div 
-          v-for="(record, index) in records" 
+          v-for="(record, index) in filteredRecords" 
           :key="index" 
           class="bg-white rounded-2xl shadow-lg shadow-[#004595]/5 hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-300 overflow-hidden border border-[#004595]/10 transform hover:scale-[1.01] cursor-pointer"
           @click="viewRecordDetails(record)"
@@ -367,12 +396,46 @@
 <script setup>
 import { supabase } from '@/lib/supabase';
 import * as XLSX from 'xlsx-js-style';
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 const records = ref([])
 const loading = ref(false)
 const showDetailsModal = ref(false)
 const selectedRecord = ref(null)
+const searchQuery = ref('')
+
+// Computed property for filtered records
+const filteredRecords = computed(() => {
+  if (!searchQuery.value.trim()) {
+    return records.value
+  }
+  
+  const query = searchQuery.value.toLowerCase().trim()
+  
+  return records.value.filter(record => {
+    return (
+      (record.brgyname && record.brgyname.toLowerCase().includes(query)) ||
+      (record.cptfullname && record.cptfullname.toLowerCase().includes(query)) ||
+      (record.bmfullname && record.bmfullname.toLowerCase().includes(query)) ||
+      (record.patron && record.patron.toLowerCase().includes(query)) ||
+      (record.date && record.date.toLowerCase().includes(query)) ||
+      (record.schoolname && record.schoolname.toLowerCase().includes(query)) ||
+      (record.churchname && record.churchname.toLowerCase().includes(query)) ||
+      (record.establishmentname && record.establishmentname.toLowerCase().includes(query))
+    )
+  })
+})
+
+// Handle search input
+const handleSearch = () => {
+  // The filtering is automatically handled by the computed property
+  // This function can be used for additional logic if needed
+}
+
+// Clear search
+const clearSearch = () => {
+  searchQuery.value = ''
+}
 
 const buildWorksheet = (rows, barangayLabel) => {
   const titleRow = ['BCPS - 1']
@@ -451,10 +514,11 @@ const exportRecordsToExcel = (rows, filename, barangayLabel) => {
 }
 
 const exportToExcel = () => {
+  const dataToExport = searchQuery.value ? filteredRecords.value : records.value
   exportRecordsToExcel(
-    records.value,
+    dataToExport,
     `Barangay_Records_${new Date().toISOString().split('T')[0]}.xlsx`,
-    'All Barangays'
+    searchQuery.value ? `Search Results: ${searchQuery.value}` : 'All Barangays'
   )
 }
 
