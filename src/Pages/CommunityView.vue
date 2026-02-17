@@ -918,100 +918,111 @@
               <article
                 v-for="brgy in brgyInfo"
                 :key="brgy.araw"
-                class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-500 border-2 border-[#004595]/10 hover:border-[#004595]/30 hover:-translate-y-1"
+                class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-500 border-2 border-[#004595]/10 hover:border-[#004595]/30"
               >
-                <div class="grid lg:grid-cols-5 gap-0">
-                  <!-- Image Section -->
-                  <div class="lg:col-span-2 relative overflow-hidden">
-                    <div class="aspect-[4/3] lg:aspect-auto lg:h-full relative">
-                      <img 
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
-                        :src="brgy.brgy_images" 
-                        alt="Barangay Image" 
-                      />
-                      <div class="absolute inset-0 bg-gradient-to-t from-[#002147]/80 via-[#002147]/30 to-transparent"></div>
-                      
-                      <!-- Floating Badge on Image -->
-                      <div class="absolute top-4 left-4 z-10">
-                        <div class="px-4 py-2 bg-white/95 backdrop-blur-sm rounded-xl shadow-lg border border-white/50">
-                          <div class="flex items-center gap-2">
-                            <svg class="w-4 h-4 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
-                              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                            </svg>
-                            <span class="text-[#002147] font-bold text-xs uppercase tracking-wide">{{ brgy.araw }}</span>
-                          </div>
+                <!-- Large Image at Top -->
+                <div class="relative overflow-hidden bg-gradient-to-br from-[#f3f1ee]/30 to-white">
+                  <div class="relative w-full">
+                    <img 
+                      class="w-full h-auto object-contain max-h-[600px] group-hover:scale-[1.02] transition-transform duration-700" 
+                      :src="brgy.brgy_images" 
+                      alt="Barangay Image" 
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#002147]/40 via-transparent to-transparent pointer-events-none"></div>
+                    
+                    <!-- Floating Badge on Image -->
+                    <div class="absolute top-6 left-6 z-10">
+                      <div class="px-5 py-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-white/50">
+                        <div class="flex items-center gap-3">
+                          <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                          </svg>
+                          <span class="text-[#002147] font-bold text-sm uppercase tracking-wide">{{ brgy.araw }}</span>
                         </div>
                       </div>
                     </div>
+
+                    <!-- Edit Button on Image -->
+                    <button
+                      @click="startEditHistory(brgy)"
+                      class="absolute top-6 right-6 z-10 px-4 py-2.5 bg-white/95 hover:bg-white backdrop-blur-sm rounded-xl shadow-xl border border-white/50 transition-all duration-300 hover:scale-105 group/btn"
+                    >
+                      <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-[#004595] group-hover/btn:text-[#002147] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                        </svg>
+                        <span class="text-[#002147] font-bold text-sm">Edit</span>
+                      </div>
+                    </button>
                   </div>
+                </div>
                   
-                  <!-- Info Section -->
-                  <div class="lg:col-span-3 p-8 bg-gradient-to-br from-white to-[#f3f1ee]/20">
-                    <!-- Section Title -->
-                    <div class="mb-6 pb-4 border-b-2 border-[#004595]/10">
-                      <div class="flex items-center gap-2 mb-2">
-                        <div class="h-1.5 w-1.5 rounded-full bg-[#004595]"></div>
-                        <div class="h-1.5 w-1.5 rounded-full bg-[#00397a]"></div>
-                        <div class="h-1.5 w-1.5 rounded-full bg-[#002147]"></div>
+                <!-- Details Section Below Image -->
+                <div class="p-8 bg-gradient-to-br from-white to-[#f3f1ee]/20">
+                  <!-- Section Title -->
+                  <div class="mb-6 pb-4 border-b-2 border-[#004595]/10">
+                    <div class="flex items-center gap-2 mb-2">
+                      <div class="h-1.5 w-1.5 rounded-full bg-[#004595]"></div>
+                      <div class="h-1.5 w-1.5 rounded-full bg-[#00397a]"></div>
+                      <div class="h-1.5 w-1.5 rounded-full bg-[#002147]"></div>
+                    </div>
+                    <h2 class="text-2xl font-bold text-[#002147] tracking-tight">Community Details</h2>
+                  </div>
+
+                  <!-- Details Grid -->
+                  <div class="space-y-5">
+                    <!-- Patron Saint -->
+                    <div class="group/item relative overflow-hidden rounded-2xl p-5 bg-gradient-to-r from-[#004595]/5 via-[#004595]/10 to-transparent border-l-4 border-[#004595] hover:border-[#00397a] hover:shadow-lg hover:shadow-[#004595]/5 transition-all duration-300">
+                      <div class="flex items-start gap-4">
+                        <div class="shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#002147] to-[#004595] shadow-lg flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                          </svg>
+                        </div>
+                        <div class="flex-1">
+                          <p class="text-xs font-bold text-[#00397a] uppercase tracking-wider mb-1.5 flex items-center gap-2">
+                            Patron Saint
+                            <span class="h-px flex-1 bg-[#004595]/20"></span>
+                          </p>
+                          <p class="text-xl font-bold text-[#002147] group-hover/item:text-[#004595] transition-colors">{{ brgy.patron }}</p>
+                        </div>
                       </div>
-                      <h2 class="text-2xl font-bold text-[#002147] tracking-tight">Community Details</h2>
                     </div>
 
-                    <!-- Details Grid -->
-                    <div class="space-y-5">
-                      <!-- Patron Saint -->
-                      <div class="group/item relative overflow-hidden rounded-2xl p-5 bg-gradient-to-r from-[#004595]/5 via-[#004595]/10 to-transparent border-l-4 border-[#004595] hover:border-[#00397a] hover:shadow-lg hover:shadow-[#004595]/5 transition-all duration-300">
-                        <div class="flex items-start gap-4">
-                          <div class="shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#002147] to-[#004595] shadow-lg flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
-                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
-                            </svg>
-                          </div>
-                          <div class="flex-1">
-                            <p class="text-xs font-bold text-[#00397a] uppercase tracking-wider mb-1.5 flex items-center gap-2">
-                              Patron Saint
-                              <span class="h-px flex-1 bg-[#004595]/20"></span>
-                            </p>
-                            <p class="text-xl font-bold text-[#002147] group-hover/item:text-[#004595] transition-colors">{{ brgy.patron }}</p>
-                          </div>
+                    <!-- Fiesta Date -->
+                    <div class="group/item relative overflow-hidden rounded-2xl p-5 bg-gradient-to-r from-[#00397a]/5 via-[#00397a]/10 to-transparent border-l-4 border-[#00397a] hover:border-[#004595] hover:shadow-lg hover:shadow-[#00397a]/5 transition-all duration-300">
+                      <div class="flex items-start gap-4">
+                        <div class="shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#00397a] to-[#004595] shadow-lg flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
+                          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                          </svg>
+                        </div>
+                        <div class="flex-1">
+                          <p class="text-xs font-bold text-[#00397a] uppercase tracking-wider mb-1.5 flex items-center gap-2">
+                            Fiesta Celebration
+                            <span class="h-px flex-1 bg-[#00397a]/20"></span>
+                          </p>
+                          <p class="text-xl font-bold text-[#002147] group-hover/item:text-[#00397a] transition-colors">{{ brgy.date }}</p>
                         </div>
                       </div>
+                    </div>
 
-                      <!-- Fiesta Date -->
-                      <div class="group/item relative overflow-hidden rounded-2xl p-5 bg-gradient-to-r from-[#00397a]/5 via-[#00397a]/10 to-transparent border-l-4 border-[#00397a] hover:border-[#004595] hover:shadow-lg hover:shadow-[#00397a]/5 transition-all duration-300">
-                        <div class="flex items-start gap-4">
-                          <div class="shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#00397a] to-[#004595] shadow-lg flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
-                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                    <!-- History -->
+                    <div v-if="brgy.brgy_history" class="relative overflow-hidden rounded-2xl p-8 bg-white border-2 border-[#004595]/10 shadow-sm hover:shadow-xl hover:shadow-[#004595]/5 hover:border-[#004595]/30 transition-all duration-300">
+                      <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-20 -mt-20"></div>
+                      
+                      <div class="relative">
+                        <div class="flex items-center gap-4 mb-6 pb-4 border-b-2 border-[#004595]/20">
+                          <div class="p-3 bg-[#004595]/10 rounded-xl">
+                            <svg class="w-7 h-7 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/>
                             </svg>
                           </div>
-                          <div class="flex-1">
-                            <p class="text-xs font-bold text-[#00397a] uppercase tracking-wider mb-1.5 flex items-center gap-2">
-                              Fiesta Celebration
-                              <span class="h-px flex-1 bg-[#00397a]/20"></span>
-                            </p>
-                            <p class="text-xl font-bold text-[#002147] group-hover/item:text-[#00397a] transition-colors">{{ brgy.date }}</p>
+                          <div>
+                            <p class="text-sm font-bold text-[#00397a] uppercase tracking-wider">Barangay History</p>
                           </div>
                         </div>
-                      </div>
-
-                      <!-- History -->
-                      <div v-if="brgy.brgy_history" class="relative overflow-hidden rounded-2xl p-6 bg-white border-2 border-[#004595]/10 shadow-sm hover:shadow-xl hover:shadow-[#004595]/5 hover:border-[#004595]/30 transition-all duration-300">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-16 -mt-16"></div>
-                        
-                        <div class="relative">
-                          <div class="flex items-center gap-3 mb-4 pb-3 border-b border-[#004595]/10">
-                            <div class="p-2 bg-[#004595]/10 rounded-lg">
-                              <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/>
-                              </svg>
-                            </div>
-                            <div>
-                              <p class="text-xs font-bold text-[#00397a] uppercase tracking-wider">Barangay History</p>
-                            </div>
-                          </div>
-                          <p class="text-sm text-[#002147] leading-relaxed font-medium">{{ brgy.brgy_history }}</p>
-                        </div>
+                        <p class="text-lg text-[#002147] leading-loose font-medium whitespace-pre-line">{{ brgy.brgy_history }}</p>
                       </div>
                     </div>
                   </div>
@@ -1898,6 +1909,134 @@
           </div>
         </div>
       </Transition>
+
+      <!-- Edit History Modal -->
+      <div v-if="showHistoryModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" style="z-index: 100000;" @click.self="closeHistoryModal">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto transform transition-all">
+          <!-- Modal Header -->
+          <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden sticky top-0 z-10">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-2xl -mr-32 -mt-32 animate-pulse"></div>
+            <div class="relative flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-white/20 backdrop-blur-sm rounded-xl ring-2 ring-white/30">
+                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                  </svg>
+                </div>
+                <h3 class="text-xl font-bold text-white">Edit Barangay Information</h3>
+              </div>
+              <button @click="closeHistoryModal" class="p-2 hover:bg-white/20 rounded-lg transition-all">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="p-6 space-y-6">
+            <!-- Image Upload Section -->
+            <div class="space-y-3">
+              <label class="block text-sm font-bold text-[#002147] uppercase tracking-wide">Barangay Image</label>
+              <div class="relative">
+                <div v-if="historyForm.brgy_images" class="relative w-full aspect-[21/9] rounded-xl overflow-hidden border-2 border-[#004595]/20 mb-3">
+                  <img :src="historyForm.brgy_images" alt="Preview" class="w-full h-full object-cover" />
+                  <button
+                    @click="removeHistoryImage"
+                    class="absolute top-3 right-3 p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                  </button>
+                </div>
+                <input
+                  ref="historyImageInput"
+                  type="file"
+                  accept="image/*"
+                  @change="handleHistoryImageUpload"
+                  class="hidden"
+                />
+                <button
+                  @click="triggerHistoryImageUpload"
+                  :disabled="uploadingHistoryImage"
+                  class="w-full px-4 py-3 border-2 border-dashed border-[#004595]/30 rounded-xl hover:border-[#004595] hover:bg-[#004595]/5 transition-all text-[#002147] font-semibold flex items-center justify-center gap-2"
+                >
+                  <svg v-if="!uploadingHistoryImage" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                  <svg v-else class="animate-spin w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span>{{ uploadingHistoryImage ? 'Uploading...' : (historyForm.brgy_images ? 'Change Image' : 'Upload Image') }}</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Day Field -->
+            <div class="space-y-2">
+              <label class="block text-sm font-bold text-[#002147] uppercase tracking-wide">Day/Occasion</label>
+              <input
+                v-model="historyForm.araw"
+                type="text"
+                placeholder="e.g., Foundation Day"
+                class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/20 transition-all outline-none"
+              />
+            </div>
+
+            <!-- Patron Saint Field -->
+            <div class="space-y-2">
+              <label class="block text-sm font-bold text-[#002147] uppercase tracking-wide">Patron Saint</label>
+              <input
+                v-model="historyForm.patron"
+                type="text"
+                placeholder="Enter patron saint name"
+                class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/20 transition-all outline-none"
+              />
+            </div>
+
+            <!-- Fiesta Date Field -->
+            <div class="space-y-2">
+              <label class="block text-sm font-bold text-[#002147] uppercase tracking-wide">Fiesta Celebration Date</label>
+              <input
+                v-model="historyForm.date"
+                type="text"
+                placeholder="e.g., January 15"
+                class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/20 transition-all outline-none"
+              />
+            </div>
+
+            <!-- History Field -->
+            <div class="space-y-2">
+              <label class="block text-sm font-bold text-[#002147] uppercase tracking-wide">Barangay History</label>
+              <textarea
+                v-model="historyForm.brgy_history"
+                rows="6"
+                placeholder="Enter the barangay's history and background"
+                class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/20 transition-all outline-none resize-none"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="px-6 py-4 bg-[#f3f1ee]/30 border-t border-[#004595]/10 flex gap-3 sticky bottom-0">
+            <button
+              @click="closeHistoryModal"
+              class="flex-1 px-5 py-3 border-2 border-[#004595]/20 text-[#002147] rounded-xl hover:bg-[#f3f1ee] hover:border-[#004595]/40 transition-all font-bold"
+            >
+              Cancel
+            </button>
+            <button
+              @click="saveHistoryEdit"
+              :disabled="savingHistory"
+              class="flex-1 px-5 py-3 bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {{ savingHistory ? 'Saving...' : 'Save Changes' }}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </template>
 
@@ -2104,6 +2243,19 @@
     photo_url: '',
     purok_number: '',
     description: ''
+  })
+
+  // History edit modal
+  const showHistoryModal = ref(false)
+  const savingHistory = ref(false)
+  const uploadingHistoryImage = ref(false)
+  const historyImageInput = ref(null)
+  const historyForm = ref({
+    araw: '',
+    brgy_images: '',
+    patron: '',
+    date: '',
+    brgy_history: ''
   })
 
   // Position management
@@ -2978,6 +3130,126 @@
       return
     }
     router.push({ name: 'dashboard' })
+  }
+
+  // History Edit Functions
+  const startEditHistory = (brgy) => {
+    historyForm.value = {
+      araw: brgy.araw || '',
+      brgy_images: brgy.brgy_images || '',
+      patron: brgy.patron || '',
+      date: brgy.date || '',
+      brgy_history: brgy.brgy_history || ''
+    }
+    showHistoryModal.value = true
+  }
+
+  const closeHistoryModal = () => {
+    showHistoryModal.value = false
+    historyForm.value = {
+      araw: '',
+      brgy_images: '',
+      patron: '',
+      date: '',
+      brgy_history: ''
+    }
+  }
+
+  const triggerHistoryImageUpload = () => {
+    historyImageInput.value?.click()
+  }
+
+  const handleHistoryImageUpload = async (event) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      showToast('Invalid File Type', 'warning', 'Please select an image file')
+      return
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('File Too Large', 'warning', 'Image size should be less than 5MB')
+      return
+    }
+
+    uploadingHistoryImage.value = true
+    try {
+      // Upload to Supabase storage
+      const fileExt = file.name.split('.').pop()
+      const fileName = `history_${barangay_id.value}_${Date.now()}.${fileExt}`
+      const filePath = fileName
+
+      const { error: uploadError } = await supabase.storage
+        .from('BarangayImages')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: false
+        })
+
+      if (uploadError) {
+        console.error('Upload error:', uploadError)
+        throw uploadError
+      }
+
+      // Get public URL
+      const { data: urlData } = supabase.storage
+        .from('BarangayImages')
+        .getPublicUrl(filePath)
+
+      if (urlData?.publicUrl) {
+        historyForm.value.brgy_images = urlData.publicUrl
+        showToast('Success!', 'success', 'Image uploaded successfully')
+      } else {
+        throw new Error('Failed to get public URL')
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error)
+      showToast('Upload Failed', 'error', 'Failed to upload image. Please try again.')
+    } finally {
+      uploadingHistoryImage.value = false
+    }
+  }
+
+  const removeHistoryImage = () => {
+    historyForm.value.brgy_images = ''
+  }
+
+  const saveHistoryEdit = async () => {
+    if (!barangay_id.value) {
+      showToast('Cannot Update', 'error', 'Barangay not found')
+      return
+    }
+
+    savingHistory.value = true
+    try {
+      // Update the barangay information using RPC or direct update
+      const { error } = await supabase
+        .from('BrgyFiesta')
+        .update({
+          araw: historyForm.value.araw,
+          brgy_images: historyForm.value.brgy_images,
+          patron: historyForm.value.patron,
+          date: historyForm.value.date,
+          brgy_history: historyForm.value.brgy_history
+        })
+        .eq('brgy_id', barangay_id.value)
+
+      if (error) throw error
+
+      // Refresh the data
+      await getBrgyFiestaDetails(barangay_id.value)
+      
+      showToast('Success!', 'success', 'Barangay information updated successfully')
+      closeHistoryModal()
+    } catch (error) {
+      console.error('Error updating history:', error)
+      showToast('Update Failed', 'error', 'Failed to update information. Please try again.')
+    } finally {
+      savingHistory.value = false
+    }
   }
 
   const setActiveTab = (tab) => {
