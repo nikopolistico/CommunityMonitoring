@@ -4,18 +4,20 @@
   >
     <!-- Header Banner -->
     <div
-      class="relative overflow-hidden bg-gradient-to-r from-[#002147] via-[#004595] to-[#00397a] p-6 shadow-2xl"
+      class="relative overflow-hidden bg-gradient-to-r from-[#002147] via-[#004595] to-[#00397a] p-3 xs:p-4 sm:p-6 shadow-2xl"
     >
       <div
-        class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mr-48 -mt-48"
+        class="absolute top-0 right-0 w-48 h-48 xs:w-64 xs:h-64 sm:w-96 sm:h-96 bg-white/10 rounded-full blur-3xl -mr-24 xs:-mr-32 sm:-mr-48 -mt-24 xs:-mt-32 sm:-mt-48"
       ></div>
       <div
-        class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-2xl -ml-32 -mb-32"
+        class="absolute bottom-0 left-0 w-40 h-40 xs:w-48 xs:h-48 sm:w-64 sm:h-64 bg-white/5 rounded-full blur-2xl -ml-20 xs:-ml-24 sm:-ml-32 -mb-20 xs:-mb-24 sm:-mb-32"
       ></div>
 
       <div class="relative z-10 max-w-7xl mx-auto">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-4">
+        <div
+          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4"
+        >
+          <div class="flex items-center gap-2 sm:gap-4">
             <div class="p-2 sm:p-4 bg-white/20 backdrop-blur-sm rounded-2xl">
               <svg
                 class="w-6 sm:w-10 h-6 sm:h-10 text-white"
@@ -32,7 +34,7 @@
               </svg>
             </div>
             <div>
-              <h1 class="text-xl sm:text-3xl font-bold text-white tracking-tight">
+              <h1 class="text-lg sm:text-3xl font-bold text-white tracking-tight">
                 Community Events Calendar
               </h1>
               <p class="text-xs sm:text-sm text-blue-100 mt-1 font-medium">
@@ -42,12 +44,14 @@
           </div>
 
           <!-- Quick Stats in Header -->
-          <div class="flex items-center gap-4">
-            <div class="bg-white/10 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20">
-              <div class="flex items-center gap-3">
-                <div class="p-2 bg-amber-500/20 rounded-xl">
+          <div class="flex flex-row items-center gap-2 sm:gap-3 overflow-x-auto pb-2">
+            <div
+              class="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-2xl px-3 sm:px-6 py-2 sm:py-3 border border-white/20 flex-shrink-0"
+            >
+              <div class="flex items-center gap-2 sm:gap-3">
+                <div class="p-1 sm:p-2 bg-amber-500/20 rounded-lg sm:rounded-xl">
                   <svg
-                    class="w-5 h-5 text-amber-300"
+                    class="w-4 sm:w-5 h-4 sm:h-5 text-amber-300"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -61,17 +65,19 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="text-xs text-blue-100 font-medium">Pending</p>
-                  <p class="text-2xl font-bold text-white">{{ pendingEvents.length }}</p>
+                  <p class="text-xs font-medium text-blue-100 hidden sm:block">Pending</p>
+                  <p class="text-lg sm:text-2xl font-bold text-white">{{ pendingEvents.length }}</p>
                 </div>
               </div>
             </div>
 
-            <div class="bg-white/10 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20">
-              <div class="flex items-center gap-3">
-                <div class="p-2 bg-green-500/20 rounded-xl">
+            <div
+              class="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-2xl px-3 sm:px-6 py-2 sm:py-3 border border-white/20 flex-shrink-0"
+            >
+              <div class="flex items-center gap-2 sm:gap-3">
+                <div class="p-1 sm:p-2 bg-green-500/20 rounded-lg sm:rounded-xl">
                   <svg
-                    class="w-5 h-5 text-green-300"
+                    class="w-4 sm:w-5 h-4 sm:h-5 text-green-300"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -85,24 +91,32 @@
                   </svg>
                 </div>
                 <div>
-                  <p class="text-xs text-blue-100 font-medium">Completed</p>
-                  <p class="text-2xl font-bold text-white">{{ doneEvents.length }}</p>
+                  <p class="text-xs font-medium text-blue-100 hidden sm:block">Completed</p>
+                  <p class="text-lg sm:text-2xl font-bold text-white">{{ doneEvents.length }}</p>
                 </div>
               </div>
             </div>
 
-            <div class="bg-white/10 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/20">
-              <div class="flex items-center gap-3">
-                <div class="p-2 bg-purple-500/20 rounded-xl">
-                  <svg class="w-5 h-5 text-purple-300" fill="currentColor" viewBox="0 0 20 20">
+            <div
+              class="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-2xl px-3 sm:px-6 py-2 sm:py-3 border border-white/20 flex-shrink-0"
+            >
+              <div class="flex items-center gap-2 sm:gap-3">
+                <div class="p-1 sm:p-2 bg-purple-500/20 rounded-lg sm:rounded-xl">
+                  <svg
+                    class="w-4 sm:w-5 h-4 sm:h-5 text-purple-300"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
                     <path
                       d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                     />
                   </svg>
                 </div>
                 <div>
-                  <p class="text-xs text-blue-100 font-medium">Fiestas</p>
-                  <p class="text-2xl font-bold text-white">{{ selectedDateFiestas.length }}</p>
+                  <p class="text-xs font-medium text-blue-100 hidden sm:block">Fiestas</p>
+                  <p class="text-lg sm:text-2xl font-bold text-white">
+                    {{ selectedDateFiestas.length }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -391,7 +405,7 @@
           </div>
 
           <!-- Events List Container -->
-          <div class="flex-1 overflow-hidden">
+          <div class="max-h-[600px] overflow-y-auto flex-1 overflow-hidden">
             <div
               class="h-full bg-white rounded-2xl shadow-2xl border border-[#004595]/10 overflow-y-auto"
             >
