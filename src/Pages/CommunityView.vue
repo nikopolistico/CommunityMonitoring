@@ -920,9 +920,10 @@
                 :key="brgy.araw"
                 class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-500 border-2 border-[#004595]/10 hover:border-[#004595]/30"
               >
-                <!-- Large Image at Top -->
+                <!-- Large Image at Top OR Add Image Button -->
                 <div class="relative overflow-hidden bg-gradient-to-br from-[#f3f1ee]/30 to-white">
-                  <div class="relative w-full">
+                  <!-- Image Section (when image exists) -->
+                  <div v-if="brgy.brgy_images" class="relative w-full">
                     <img 
                       class="w-full h-auto object-contain max-h-[600px] group-hover:scale-[1.02] transition-transform duration-700" 
                       :src="brgy.brgy_images" 
@@ -954,6 +955,47 @@
                         <span class="text-[#002147] font-bold text-sm">Edit</span>
                       </div>
                     </button>
+                  </div>
+
+                  <!-- Add Image Section (when no image) -->
+                  <div v-else class="relative w-full py-20 px-8">
+                    <div class="flex flex-col items-center justify-center text-center space-y-6">
+                      <!-- Icon -->
+                      <div class="w-32 h-32 rounded-2xl bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-[#004595]/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                      </div>
+
+                      <!-- Text -->
+                      <div>
+                        <h3 class="text-xl font-bold text-[#002147] mb-2">No Image Added</h3>
+                        <p class="text-sm text-[#00397a] font-medium">Add a barangay image to showcase your community</p>
+                      </div>
+
+                      <!-- Add Image Button -->
+                      <button
+                        @click="startEditHistory(brgy)"
+                        class="px-6 py-3 bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold flex items-center gap-3"
+                      >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        <span>Add History Image</span>
+                      </button>
+
+                      <!-- Badge if day exists -->
+                      <div v-if="brgy.araw" class="absolute top-6 left-6">
+                        <div class="px-5 py-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-[#004595]/20">
+                          <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-[#002147] font-bold text-sm uppercase tracking-wide">{{ brgy.araw }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                   
@@ -1031,19 +1073,67 @@
             </div>
 
             <!-- Empty State -->
-            <div v-else class="bg-white rounded-2xl shadow-md p-12 text-center border-2 border-[#004595]/10">
-              <div class="inline-block p-8 bg-gradient-to-br from-[#f3f1ee] to-white rounded-3xl mb-6 shadow-inner">
-                <svg class="w-20 h-20 text-[#004595]/30" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              <h3 class="text-2xl font-bold text-[#002147] mb-3">No Information Available</h3>
-              <p class="text-[#00397a] font-medium">Barangay information has not been added yet.</p>
-              <div class="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-[#f3f1ee] rounded-lg text-sm text-[#00397a] font-semibold">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
-                </svg>
-                Check back later for updates
+            <div v-else class="bg-white rounded-2xl shadow-xl p-16 text-center border-2 border-[#004595]/20">
+              <div class="max-w-2xl mx-auto">
+                <!-- Icon -->
+                <div class="inline-block p-10 bg-gradient-to-br from-[#004595]/10 via-[#00397a]/5 to-transparent rounded-3xl mb-8 shadow-inner">
+                  <svg class="w-24 h-24 text-[#004595]/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                </div>
+
+                <!-- Text Content -->
+                <h3 class="text-3xl font-bold text-[#002147] mb-4">No Barangay History Yet</h3>
+                <p class="text-lg text-[#00397a] font-medium mb-3">
+                  Share your barangay's story, patron saint, and fiesta celebration details with the community.
+                </p>
+                <p class="text-sm text-[#00397a]/80 mb-8">
+                  Click the button below to add historical information, images, and cultural details.
+                </p>
+
+                <!-- Add History Button -->
+                <button
+                  @click="addNewHistory"
+                  class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] text-white rounded-xl hover:shadow-2xl hover:shadow-[#004595]/30 hover:scale-105 transition-all duration-300 font-bold text-base"
+                >
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                  </svg>
+                  <span>Add Barangay History</span>
+                </button>
+
+                <!-- Features List -->
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div class="p-4 bg-[#f3f1ee]/50 rounded-xl">
+                    <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-[#004595] to-[#00397a] rounded-lg flex items-center justify-center">
+                      <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                      </svg>
+                    </div>
+                    <p class="text-sm font-bold text-[#002147]">Upload Images</p>
+                    <p class="text-xs text-[#00397a] mt-1">Add photos of your barangay</p>
+                  </div>
+
+                  <div class="p-4 bg-[#f3f1ee]/50 rounded-xl">
+                    <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-[#004595] to-[#00397a] rounded-lg flex items-center justify-center">
+                      <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                    <p class="text-sm font-bold text-[#002147]">Patron Saint</p>
+                    <p class="text-xs text-[#00397a] mt-1">Share your patron saint</p>
+                  </div>
+
+                  <div class="p-4 bg-[#f3f1ee]/50 rounded-xl">
+                    <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-[#004595] to-[#00397a] rounded-lg flex items-center justify-center">
+                      <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                    <p class="text-sm font-bold text-[#002147]">Fiesta Details</p>
+                    <p class="text-xs text-[#00397a] mt-1">Add celebration dates</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -2390,7 +2480,18 @@
     return [...officers.value].sort((a, b) => a.name.localeCompare(b.name))
   })
 
-  const brgyInfo = computed(() => brgyFiesta.value ? [brgyFiesta.value] : []);
+  const brgyInfo = computed(() => {
+    if (!brgyFiesta.value) return [];
+    
+    // Check if there's any actual data (not just empty strings)
+    const hasData = brgyFiesta.value.araw || 
+                    brgyFiesta.value.brgy_images || 
+                    brgyFiesta.value.brgy_history || 
+                    brgyFiesta.value.patron || 
+                    brgyFiesta.value.date;
+    
+    return hasData ? [brgyFiesta.value] : [];
+  });
   const landmarks = computed(() => {
     if (!communityInfo.value) return []
     return [
@@ -2508,14 +2609,58 @@
   const getBrgyFiestaDetails = async (barangay_id) => {
     if (!barangay_id) return;
     try {
+      console.log('Fetching brgy fiesta details for barangay_id:', barangay_id);
+      
+      // Fetch data from Barangays table (araw, brgy_images, brgy_history)
+      const { data: barangayData, error: barangayError } = await supabase
+        .from('Barangays')
+        .select('araw, brgy_images, brgy_history')
+        .eq('id', barangay_id)
+        .single();
 
-      const { data, error } = await supabase.rpc("brgyinformation", { p_brgy_id: barangay_id });
-      if (error) throw error;
-      console.log("Brgy Fiesta Data:", data); // [{ araw, brgy_images, patron, date }]
-      // e.g., map to state if needed:
-      brgyFiesta.value = data?.[0] ?? null;
+      if (barangayError) {
+        console.error('Error fetching Barangays data:', barangayError);
+        throw barangayError;
+      }
+
+      console.log('Barangays data:', barangayData);
+
+      // Fetch data from BrgyFiesta table (patron, date)
+      const { data: fiestaData, error: fiestaError } = await supabase
+        .from('BrgyFiesta')
+        .select('patron, date')
+        .eq('brgy_id', barangay_id)
+        .maybeSingle();
+
+      if (fiestaError && fiestaError.code !== 'PGRST116') {
+        console.error('Error fetching BrgyFiesta data:', fiestaError);
+      }
+
+      console.log('BrgyFiesta data:', fiestaData);
+      
+      // Combine both data sources - only if there's actual data
+      const hasData = barangayData?.araw || 
+                      barangayData?.brgy_images || 
+                      barangayData?.brgy_history || 
+                      fiestaData?.patron || 
+                      fiestaData?.date;
+      
+      if (hasData) {
+        brgyFiesta.value = {
+          araw: barangayData?.araw || '',
+          brgy_images: barangayData?.brgy_images || '',
+          brgy_history: barangayData?.brgy_history || '',
+          patron: fiestaData?.patron || '',
+          date: fiestaData?.date || ''
+        };
+      } else {
+        brgyFiesta.value = null;
+      }
+
+      console.log("Combined Brgy Fiesta Data:", brgyFiesta.value);
     } catch (err) {
-      console.error("Error fetching data:", err);
+      console.error("Error fetching brgy fiesta details:", err);
+      brgyFiesta.value = null;
     }
   };
 
@@ -3144,6 +3289,17 @@
     showHistoryModal.value = true
   }
 
+  const addNewHistory = () => {
+    historyForm.value = {
+      araw: '',
+      brgy_images: '',
+      patron: '',
+      date: '',
+      brgy_history: ''
+    }
+    showHistoryModal.value = true
+  }
+
   const closeHistoryModal = () => {
     showHistoryModal.value = false
     historyForm.value = {
@@ -3219,34 +3375,102 @@
 
   const saveHistoryEdit = async () => {
     if (!barangay_id.value) {
-      showToast('Cannot Update', 'error', 'Barangay not found')
+      showToast('Cannot Save', 'error', 'Barangay not found')
       return
     }
 
+    console.log('Saving history with barangay_id:', barangay_id.value);
+    console.log('History form data:', historyForm.value);
+
     savingHistory.value = true
     try {
-      // Update the barangay information using RPC or direct update
-      const { error } = await supabase
-        .from('BrgyFiesta')
-        .update({
-          araw: historyForm.value.araw,
-          brgy_images: historyForm.value.brgy_images,
-          patron: historyForm.value.patron,
-          date: historyForm.value.date,
-          brgy_history: historyForm.value.brgy_history
-        })
-        .eq('brgy_id', barangay_id.value)
-
-      if (error) throw error
-
-      // Refresh the data
-      await getBrgyFiestaDetails(barangay_id.value)
+      // Update Barangays table (araw, brgy_images, brgy_history)
+      const barangayUpdateData = {
+        araw: historyForm.value.araw,
+        brgy_images: historyForm.value.brgy_images,
+        brgy_history: historyForm.value.brgy_history
+      };
       
-      showToast('Success!', 'success', 'Barangay information updated successfully')
+      console.log('Updating Barangays table with:', barangayUpdateData);
+      
+      const { data: barangayResult, error: barangayError } = await supabase
+        .from('Barangays')
+        .update(barangayUpdateData)
+        .eq('id', barangay_id.value)
+        .select();
+
+      if (barangayError) {
+        console.error('Error updating Barangays:', barangayError);
+        throw barangayError;
+      }
+
+      console.log('Barangays update result:', barangayResult);
+
+      // Check if BrgyFiesta record exists
+      const { data: existingFiesta, error: checkError } = await supabase
+        .from('BrgyFiesta')
+        .select('*')
+        .eq('brgy_id', barangay_id.value)
+        .maybeSingle()
+
+      if (checkError && checkError.code !== 'PGRST116') throw checkError
+
+      console.log('Existing BrgyFiesta record:', existingFiesta);
+
+      // Update or Insert BrgyFiesta table (patron, date)
+      const fiestaData = {
+        patron: historyForm.value.patron,
+        date: historyForm.value.date
+      }
+
+      console.log('Fiesta data to save:', fiestaData);
+
+      if (existingFiesta) {
+        // Update existing fiesta record
+        console.log('Updating existing fiesta record');
+        const { data: fiestaResult, error: fiestaError } = await supabase
+          .from('BrgyFiesta')
+          .update(fiestaData)
+          .eq('brgy_id', barangay_id.value)
+          .select();
+
+        if (fiestaError) {
+          console.error('Error updating BrgyFiesta:', fiestaError);
+          throw fiestaError;
+        }
+        
+        console.log('BrgyFiesta update result:', fiestaResult);
+      } else {
+        // Insert new fiesta record
+        console.log('Inserting new fiesta record');
+        const { data: fiestaResult, error: fiestaError } = await supabase
+          .from('BrgyFiesta')
+          .insert([{
+            ...fiestaData,
+            brgy_id: barangay_id.value
+          }])
+          .select();
+
+        if (fiestaError) {
+          console.error('Error inserting BrgyFiesta:', fiestaError);
+          throw fiestaError;
+        }
+        
+        console.log('BrgyFiesta insert result:', fiestaResult);
+      }
+
+      // Refresh the data - wait a moment for DB to commit changes
+      console.log('Waiting for database commit...');
+      await new Promise(resolve => setTimeout(resolve, 300))
+      console.log('Refreshing brgy fiesta details...');
+      await getBrgyFiestaDetails(barangay_id.value)
+      console.log('After refresh, brgyFiesta.value:', brgyFiesta.value);
+      
+      showToast('Success!', 'success', 'Barangay information saved successfully')
       closeHistoryModal()
     } catch (error) {
-      console.error('Error updating history:', error)
-      showToast('Update Failed', 'error', 'Failed to update information. Please try again.')
+      console.error('Error saving history:', error)
+      showToast('Save Failed', 'error', 'Failed to save information. Please try again.')
     } finally {
       savingHistory.value = false
     }
