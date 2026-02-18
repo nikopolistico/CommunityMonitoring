@@ -3437,6 +3437,25 @@
     console.log('History form data:', historyForm.value);
 
     savingHistory.value = true
+    
+    // OPTIMISTIC UPDATE: Immediately update the UI before database save
+    // This gives instant feedback to the user without waiting for Supabase
+    console.log('🚀 Applying optimistic update to UI...');
+    const optimisticData = {
+      araw: historyForm.value.araw,
+      brgy_images: historyForm.value.supabaseImageUrl || historyForm.value.brgy_images,
+      brgy_history: historyForm.value.brgy_history,
+      patron: historyForm.value.patron,
+      date: historyForm.value.date
+    };
+    
+    // Store the old data in case we need to rollback on error
+    const previousData = brgyFiesta.value ? { ...brgyFiesta.value } : null;
+    
+    // Update UI immediately
+    brgyFiesta.value = optimisticData;
+    console.log('✅ UI updated optimistically - user sees changes instantly!');
+    
     try {
       let finalImageUrl = ''
       
@@ -3613,19 +3632,34 @@
       await getBrgyFiestaDetails(barangay_id.value)
       console.log('📊 After refresh, brgyFiesta.value:', JSON.stringify(brgyFiesta.value, null, 2));
       console.log('🖼️ Image in brgyFiesta:', brgyFiesta.value?.brgy_images || '(no image)');
+      console.log('📝 History in brgyFiesta:', brgyFiesta.value?.brgy_history ? '(has text)' : '(no history)');
       
-      // WORKAROUND: If refresh didn't get the image but we know it was uploaded, manually update
-      if (!brgyFiesta.value?.brgy_images && finalImageUrl) {
-        console.log('⚠️ Applying workaround: Manually updating brgyFiesta with uploaded image');
+      // WORKAROUND: If refresh didn't get the data we just saved, manually update the UI
+      // This ensures immediate display without relying on Supabase fetch
+      const needsWorkaround = 
+        (!brgyFiesta.value?.brgy_images && finalImageUrl) ||
+        (!brgyFiesta.value?.brgy_history && historyForm.value.brgy_history) ||
+        (!brgyFiesta.value?.araw && historyForm.value.araw) ||
+        (!brgyFiesta.value?.patron && historyForm.value.patron) ||
+        (!brgyFiesta.value?.date && historyForm.value.date);
+      
+      if (needsWorkaround) {
+        console.log('⚠️ Applying workaround: Manually updating brgyFiesta with saved data');
+        console.log('   Reason: Some fields are missing after database refresh');
+        
+        // Merge the form data with any existing data from database
         brgyFiesta.value = {
-          ...brgyFiesta.value,
-          araw: historyForm.value.araw,
-          brgy_images: finalImageUrl,
-          brgy_history: historyForm.value.brgy_history,
-          patron: historyForm.value.patron,
-          date: historyForm.value.date
+          araw: historyForm.value.araw || brgyFiesta.value?.araw || '',
+          brgy_images: finalImageUrl || brgyFiesta.value?.brgy_images || '',
+          brgy_history: historyForm.value.brgy_history || brgyFiesta.value?.brgy_history || '',
+          patron: historyForm.value.patron || brgyFiesta.value?.patron || '',
+          date: historyForm.value.date || brgyFiesta.value?.date || ''
         };
-        console.log('✅ Manually updated brgyFiesta.value');
+        
+        console.log('✅ Manually updated brgyFiesta.value with all fields');
+        console.log('   Updated data:', JSON.stringify(brgyFiesta.value, null, 2));
+      } else {
+        console.log('✅ All data loaded from database successfully');
       }
       
       // Clean up blob URLs after successful save
@@ -3637,7 +3671,14 @@
       showToast('Success!', 'success', 'Barangay information saved successfully')
       closeHistoryModal()
     } catch (error) {
-      console.error('Error saving history:', error)
+      console.error('❌ Error saving history:', error)
+      
+      // ROLLBACK: Restore previous data if save failed
+      if (previousData) {
+        console.log('⏪ Rolling back optimistic update due to error');
+        brgyFiesta.value = previousData;
+      }
+      
       showToast('Save Failed', 'error', 'Failed to save information. Please try again.')
     } finally {
       savingHistory.value = false
