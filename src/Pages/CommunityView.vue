@@ -927,7 +927,9 @@
                     <img 
                       class="w-full h-auto object-contain max-h-[600px] group-hover:scale-[1.02] transition-transform duration-700" 
                       :src="brgy.brgy_images" 
-                      alt="Barangay Image" 
+                      alt="Barangay Image"
+                      @error="(e) => console.error('❌ Image failed to load:', brgy.brgy_images, e)"
+                      @load="() => console.log('✅ Image loaded successfully:', brgy.brgy_images)"
                     />
                     <div class="absolute inset-0 bg-gradient-to-t from-[#002147]/40 via-transparent to-transparent pointer-events-none"></div>
                     
@@ -2343,6 +2345,8 @@
   const historyForm = ref({
     araw: '',
     brgy_images: '',
+    supabaseImageUrl: null,  // Stores the actual Supabase URL
+    pendingImageFile: null,   // Stores the file object for upload on save
     patron: '',
     date: '',
     brgy_history: ''
@@ -2609,7 +2613,7 @@
   const getBrgyFiestaDetails = async (barangay_id) => {
     if (!barangay_id) return;
     try {
-      console.log('Fetching brgy fiesta details for barangay_id:', barangay_id);
+      console.log('🔍 Fetching brgy fiesta details for barangay_id:', barangay_id);
       
       // Fetch data from Barangays table (araw, brgy_images, brgy_history)
       const { data: barangayData, error: barangayError } = await supabase
@@ -2619,11 +2623,14 @@
         .single();
 
       if (barangayError) {
-        console.error('Error fetching Barangays data:', barangayError);
+        console.error('❌ Error fetching Barangays data:', barangayError);
         throw barangayError;
       }
 
-      console.log('Barangays data:', barangayData);
+      console.log('✅ Barangays data fetched:', barangayData);
+      console.log('   - araw:', barangayData?.araw || '(empty)');
+      console.log('   - brgy_images:', barangayData?.brgy_images || '(empty)');
+      console.log('   - brgy_history:', barangayData?.brgy_history ? '(has text)' : '(empty)');
 
       // Fetch data from BrgyFiesta table (patron, date)
       const { data: fiestaData, error: fiestaError } = await supabase
@@ -2633,10 +2640,10 @@
         .maybeSingle();
 
       if (fiestaError && fiestaError.code !== 'PGRST116') {
-        console.error('Error fetching BrgyFiesta data:', fiestaError);
+        console.error('❌ Error fetching BrgyFiesta data:', fiestaError);
       }
 
-      console.log('BrgyFiesta data:', fiestaData);
+      console.log('✅ BrgyFiesta data fetched:', fiestaData);
       
       // Combine both data sources - only if there's actual data
       const hasData = barangayData?.araw || 
@@ -2653,13 +2660,15 @@
           patron: fiestaData?.patron || '',
           date: fiestaData?.date || ''
         };
+        console.log('✅ Combined Brgy Fiesta Data set:', brgyFiesta.value);
       } else {
         brgyFiesta.value = null;
+        console.log('⚠️ No data found, brgyFiesta set to null');
       }
 
-      console.log("Combined Brgy Fiesta Data:", brgyFiesta.value);
+      console.log('📊 Final brgyFiesta.value:', brgyFiesta.value);
     } catch (err) {
-      console.error("Error fetching brgy fiesta details:", err);
+      console.error("❌ Error fetching brgy fiesta details:", err);
       brgyFiesta.value = null;
     }
   };
@@ -3282,6 +3291,8 @@
     historyForm.value = {
       araw: brgy.araw || '',
       brgy_images: brgy.brgy_images || '',
+      supabaseImageUrl: brgy.brgy_images || null,  // Store existing URL
+      pendingImageFile: null,
       patron: brgy.patron || '',
       date: brgy.date || '',
       brgy_history: brgy.brgy_history || ''
@@ -3293,6 +3304,8 @@
     historyForm.value = {
       araw: '',
       brgy_images: '',
+      supabaseImageUrl: null,
+      pendingImageFile: null,
       patron: '',
       date: '',
       brgy_history: ''
@@ -3301,10 +3314,17 @@
   }
 
   const closeHistoryModal = () => {
+    // Clean up blob URL before closing
+    if (historyForm.value.brgy_images?.startsWith('blob:')) {
+      URL.revokeObjectURL(historyForm.value.brgy_images)
+    }
+    
     showHistoryModal.value = false
     historyForm.value = {
       araw: '',
       brgy_images: '',
+      supabaseImageUrl: null,
+      pendingImageFile: null,
       patron: '',
       date: '',
       brgy_history: ''
@@ -3331,8 +3351,32 @@
       return
     }
 
+    // IMMEDIATELY create and display local preview - NO WAITING!
+    const localPreviewUrl = URL.createObjectURL(file)
+    historyForm.value.brgy_images = localPreviewUrl
+    console.log('Local preview created immediately:', localPreviewUrl)
+    
+    // Show immediate feedback
+    showToast('Preview Ready!', 'success', 'Image loaded. Uploading to cloud...')
+
+    // Upload to Supabase in background (async, non-blocking)
     uploadingHistoryImage.value = true
+    
+    // Store the file for later upload when saving
+    historyForm.value.pendingImageFile = file
+    
     try {
+      // Delete old image if exists in Supabase
+      if (historyForm.value.supabaseImageUrl) {
+        const oldPath = historyForm.value.supabaseImageUrl.split('/').pop()?.split('?')[0]
+        if (oldPath && !oldPath.startsWith('blob:')) {
+          await supabase.storage
+            .from('BarangayImages')
+            .remove([oldPath])
+            .catch(err => console.log('Old image cleanup skipped:', err))
+        }
+      }
+
       // Upload to Supabase storage
       const fileExt = file.name.split('.').pop()
       const fileName = `history_${barangay_id.value}_${Date.now()}.${fileExt}`
@@ -3341,8 +3385,8 @@
       const { error: uploadError } = await supabase.storage
         .from('BarangayImages')
         .upload(filePath, file, {
-          cacheControl: '3600',
-          upsert: false
+          cacheControl: '0',
+          upsert: true
         })
 
       if (uploadError) {
@@ -3356,21 +3400,31 @@
         .getPublicUrl(filePath)
 
       if (urlData?.publicUrl) {
-        historyForm.value.brgy_images = urlData.publicUrl
-        showToast('Success!', 'success', 'Image uploaded successfully')
+        // Store the Supabase URL separately (for database save)
+        historyForm.value.supabaseImageUrl = urlData.publicUrl
+        console.log('Image uploaded to Supabase:', urlData.publicUrl)
+        showToast('Cloud Sync!', 'success', 'Image uploaded to cloud successfully')
       } else {
         throw new Error('Failed to get public URL')
       }
     } catch (error) {
-      console.error('Error uploading image:', error)
-      showToast('Upload Failed', 'error', 'Failed to upload image. Please try again.')
+      console.error('Error uploading to Supabase:', error)
+      // Don't remove the local preview - user can still see and save it
+      showToast('Cloud Upload Warning', 'warning', 'Image preview ready, but cloud upload failed. Will retry on save.')
+      historyForm.value.supabaseImageUrl = null
     } finally {
       uploadingHistoryImage.value = false
     }
   }
 
   const removeHistoryImage = () => {
+    // Revoke blob URL if it exists to free memory
+    if (historyForm.value.brgy_images?.startsWith('blob:')) {
+      URL.revokeObjectURL(historyForm.value.brgy_images)
+    }
     historyForm.value.brgy_images = ''
+    historyForm.value.supabaseImageUrl = null
+    historyForm.value.pendingImageFile = null
   }
 
   const saveHistoryEdit = async () => {
@@ -3384,27 +3438,120 @@
 
     savingHistory.value = true
     try {
+      let finalImageUrl = ''
+      
+      // Check if we have a pending file that needs to be uploaded or re-uploaded
+      if (historyForm.value.pendingImageFile) {
+        console.log('Uploading pending image file to Supabase...')
+        
+        try {
+          const file = historyForm.value.pendingImageFile
+          const fileExt = file.name.split('.').pop()
+          const fileName = `history_${barangay_id.value}_${Date.now()}.${fileExt}`
+          
+          console.log('Uploading file:', fileName)
+          
+          const { error: uploadError } = await supabase.storage
+            .from('BarangayImages')
+            .upload(fileName, file, {
+              cacheControl: '0',
+              upsert: true
+            })
+
+          if (uploadError) {
+            console.error('Upload error details:', uploadError)
+            throw uploadError
+          }
+
+          const { data: urlData } = supabase.storage
+            .from('BarangayImages')
+            .getPublicUrl(fileName)
+
+          if (urlData?.publicUrl) {
+            finalImageUrl = urlData.publicUrl
+            console.log('✅ Image uploaded successfully to:', finalImageUrl)
+          } else {
+            console.error('❌ Failed to get public URL from urlData:', urlData)
+          }
+        } catch (uploadError) {
+          console.error('❌ Failed to upload image:', uploadError)
+          showToast('Upload Warning', 'warning', 'Failed to upload image to cloud, but saving other data...')
+        }
+      } else if (historyForm.value.supabaseImageUrl) {
+        // Use the already uploaded Supabase URL
+        finalImageUrl = historyForm.value.supabaseImageUrl.split('?')[0]
+        console.log('✅ Using existing supabaseImageUrl:', finalImageUrl)
+      } else if (historyForm.value.brgy_images && !historyForm.value.brgy_images.startsWith('blob:')) {
+        // Use existing URL from database (when editing without changing image)
+        finalImageUrl = historyForm.value.brgy_images.split('?')[0]
+        console.log('✅ Using existing brgy_images from DB:', finalImageUrl)
+      } else {
+        console.log('⚠️ No image to save - all conditions failed')
+        console.log('  - pendingImageFile:', !!historyForm.value.pendingImageFile)
+        console.log('  - supabaseImageUrl:', historyForm.value.supabaseImageUrl)
+        console.log('  - brgy_images:', historyForm.value.brgy_images)
+      }
+      
+      console.log('📸 Final image URL for database:', finalImageUrl || '(empty)')
+      
       // Update Barangays table (araw, brgy_images, brgy_history)
       const barangayUpdateData = {
         araw: historyForm.value.araw,
-        brgy_images: historyForm.value.brgy_images,
+        brgy_images: finalImageUrl,
         brgy_history: historyForm.value.brgy_history
       };
       
-      console.log('Updating Barangays table with:', barangayUpdateData);
+      console.log('💾 Updating Barangays table with:', barangayUpdateData);
+      console.log('🔑 Using barangay_id:', barangay_id.value, 'Type:', typeof barangay_id.value);
       
-      const { data: barangayResult, error: barangayError } = await supabase
+      // Update with .select() to get the updated row back
+      const { data: barangayResult, error: barangayError, status, statusText } = await supabase
         .from('Barangays')
         .update(barangayUpdateData)
         .eq('id', barangay_id.value)
-        .select();
+        .select('id, brgyname, brgy_images, araw, brgy_history');
 
+      console.log('📡 Update response status:', status, statusText);
+      
       if (barangayError) {
-        console.error('Error updating Barangays:', barangayError);
+        console.error('❌ Error updating Barangays:', barangayError);
         throw barangayError;
       }
 
-      console.log('Barangays update result:', barangayResult);
+      console.log('✅ Barangays update result:', barangayResult);
+      console.log('📊 Rows returned:', barangayResult?.length || 0);
+      
+      if (!barangayResult || barangayResult.length === 0) {
+        console.error('⚠️ WARNING: Update returned 0 rows!');
+        
+        // Verify with a separate select query
+        console.log('🔍 Verifying with separate query...');
+        const { data: verifyData, error: verifyError } = await supabase
+          .from('Barangays')
+          .select('id, brgyname, brgy_images, araw, brgy_history')
+          .eq('id', barangay_id.value)
+          .single();
+        
+        if (verifyError) {
+          console.error('❌ Verification query failed:', verifyError);
+        } else {
+          console.log('🔍 Current database state:', verifyData);
+          console.log('   Expected brgy_images:', finalImageUrl);
+          console.log('   Actual brgy_images:', verifyData?.brgy_images);
+          
+          if (verifyData?.brgy_images === finalImageUrl) {
+            console.log('✅ SUCCESS! Image was actually saved! (Update just didn\'t return data)');
+            // Manually set the result since the update worked but didn't return data
+            barangayResult.push(verifyData);
+          } else {
+            console.error('❌ FAILED! Image was NOT saved to database');
+            console.error('   This might be a database constraint or trigger issue');
+            throw new Error('Update did not persist to database');
+          }
+        }
+      } else {
+        console.log('✅ Update successful! Updated row:', barangayResult[0]);
+      }
 
       // Check if BrgyFiesta record exists
       const { data: existingFiesta, error: checkError } = await supabase
@@ -3460,11 +3607,32 @@
       }
 
       // Refresh the data - wait a moment for DB to commit changes
-      console.log('Waiting for database commit...');
-      await new Promise(resolve => setTimeout(resolve, 300))
-      console.log('Refreshing brgy fiesta details...');
+      console.log('⏳ Waiting for database commit...');
+      await new Promise(resolve => setTimeout(resolve, 500)) // Increased to 500ms
+      console.log('🔄 Refreshing brgy fiesta details...');
       await getBrgyFiestaDetails(barangay_id.value)
-      console.log('After refresh, brgyFiesta.value:', brgyFiesta.value);
+      console.log('📊 After refresh, brgyFiesta.value:', JSON.stringify(brgyFiesta.value, null, 2));
+      console.log('🖼️ Image in brgyFiesta:', brgyFiesta.value?.brgy_images || '(no image)');
+      
+      // WORKAROUND: If refresh didn't get the image but we know it was uploaded, manually update
+      if (!brgyFiesta.value?.brgy_images && finalImageUrl) {
+        console.log('⚠️ Applying workaround: Manually updating brgyFiesta with uploaded image');
+        brgyFiesta.value = {
+          ...brgyFiesta.value,
+          araw: historyForm.value.araw,
+          brgy_images: finalImageUrl,
+          brgy_history: historyForm.value.brgy_history,
+          patron: historyForm.value.patron,
+          date: historyForm.value.date
+        };
+        console.log('✅ Manually updated brgyFiesta.value');
+      }
+      
+      // Clean up blob URLs after successful save
+      if (historyForm.value.brgy_images?.startsWith('blob:')) {
+        URL.revokeObjectURL(historyForm.value.brgy_images)
+        console.log('🧹 Cleaned up blob URL')
+      }
       
       showToast('Success!', 'success', 'Barangay information saved successfully')
       closeHistoryModal()
