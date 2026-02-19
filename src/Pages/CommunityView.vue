@@ -1169,42 +1169,29 @@
                 class="group relative overflow-hidden rounded-2xl border-2 border-[#004595]/10 hover:border-[#004595]/40 bg-white shadow-md hover:shadow-xl hover:shadow-[#004595]/10 transition-all duration-300 cursor-pointer hover:-translate-y-1"
                 role="button"
                 tabindex="0"
-                @click="goToSchools"
-                @keyup.enter="goToSchools"
-                @keyup.space="goToSchools"
+                @click="openLandmarkModal('schools')"
+                @keyup.enter="openLandmarkModal('schools')"
+                @keyup.space="openLandmarkModal('schools')"
               >
                 <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
                 
-                <div class="p-6 relative">
-                  <div class="flex flex-col items-center text-center mb-4">
-                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#002147] to-[#004595] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
-                      <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <div class="p-8 relative">
+                  <div class="flex flex-col items-center text-center">
+                    <div class="w-24 h-24 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#002147] to-[#004595] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-6">
+                      <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
                       </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-[#002147] mb-1 group-hover:text-[#004595] transition-colors">Schools</h3>
-                    <p class="text-sm text-[#00397a] font-semibold px-4 py-1 bg-[#004595]/10 rounded-lg">{{ communityInfo.schools?.length || 0 }} Institutions</p>
-                  </div>
-                  
-                  <div class="space-y-2 mb-4 max-h-48 overflow-y-auto">
-                    <div
-                      v-for="school in communityInfo.schools"
-                      :key="school"
-                      class="flex items-start gap-2 py-2 px-3 rounded-lg bg-[#f3f1ee]/50 hover:bg-[#f3f1ee] transition-colors"
-                    >
-                      <svg class="w-4 h-4 text-[#004595] mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                      </svg>
-                      <span class="text-sm font-medium text-[#002147]">{{ school }}</span>
-                    </div>
-                  </div>
-                  
-                  <div class="pt-3 border-t border-[#004595]/10">
-                    <div class="flex items-center justify-between text-sm">
-                      <span class="text-[#00397a] font-bold">View Details</span>
-                      <svg class="w-5 h-5 text-[#004595] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-                      </svg>
+                    <h3 class="text-3xl font-bold text-[#002147] mb-3 group-hover:text-[#004595] transition-colors">Schools</h3>
+                    <p class="text-base text-[#00397a] font-semibold px-5 py-2 bg-[#004595]/10 rounded-lg mb-6">{{ communityInfo.schools?.length || 0 }} Institutions</p>
+                    
+                    <div class="w-full pt-4 border-t border-[#004595]/10">
+                      <div class="flex items-center justify-center gap-2 text-[#00397a] font-bold">
+                        <span>View Details</span>
+                        <svg class="w-5 h-5 text-[#004595] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1215,42 +1202,29 @@
                 class="group relative overflow-hidden rounded-2xl border-2 border-[#00397a]/10 hover:border-[#00397a]/40 bg-white shadow-md hover:shadow-xl hover:shadow-[#00397a]/10 transition-all duration-300 cursor-pointer hover:-translate-y-1"
                 role="button"
                 tabindex="0"
-                @click="goToChurches"
-                @keyup.enter="goToChurches"
-                @keyup.space="goToChurches"
+                @click="openLandmarkModal('churches')"
+                @keyup.enter="openLandmarkModal('churches')"
+                @keyup.space="openLandmarkModal('churches')"
               >
                 <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#00397a]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
                 
-                <div class="p-6 relative">
-                  <div class="flex flex-col items-center text-center mb-4">
-                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#00397a] to-[#004595] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
-                      <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <div class="p-8 relative">
+                  <div class="flex flex-col items-center text-center">
+                    <div class="w-24 h-24 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#00397a] to-[#004595] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-6">
+                      <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
                       </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-[#002147] mb-1 group-hover:text-[#00397a] transition-colors">Churches</h3>
-                    <p class="text-sm text-[#00397a] font-semibold px-4 py-1 bg-[#00397a]/10 rounded-lg">{{ communityInfo.churches?.length || 0 }} Places of Worship</p>
-                  </div>
-                  
-                  <div class="space-y-2 mb-4 max-h-48 overflow-y-auto">
-                    <div
-                      v-for="church in communityInfo.churches"
-                      :key="church"
-                      class="flex items-start gap-2 py-2 px-3 rounded-lg bg-[#f3f1ee]/50 hover:bg-[#f3f1ee] transition-colors"
-                    >
-                      <svg class="w-4 h-4 text-[#00397a] mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                      </svg>
-                      <span class="text-sm font-medium text-[#002147]">{{ church }}</span>
-                    </div>
-                  </div>
-                  
-                  <div class="pt-3 border-t border-[#00397a]/10">
-                    <div class="flex items-center justify-between text-sm">
-                      <span class="text-[#00397a] font-bold">View Details</span>
-                      <svg class="w-5 h-5 text-[#00397a] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-                      </svg>
+                    <h3 class="text-3xl font-bold text-[#002147] mb-3 group-hover:text-[#00397a] transition-colors">Churches</h3>
+                    <p class="text-base text-[#00397a] font-semibold px-5 py-2 bg-[#00397a]/10 rounded-lg mb-6">{{ communityInfo.churches?.length || 0 }} Places of Worship</p>
+                    
+                    <div class="w-full pt-4 border-t border-[#00397a]/10">
+                      <div class="flex items-center justify-center gap-2 text-[#00397a] font-bold">
+                        <span>View Details</span>
+                        <svg class="w-5 h-5 text-[#00397a] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1261,42 +1235,29 @@
                 class="group relative overflow-hidden rounded-2xl border-2 border-[#002147]/10 hover:border-[#002147]/40 bg-white shadow-md hover:shadow-xl hover:shadow-[#002147]/10 transition-all duration-300 cursor-pointer hover:-translate-y-1"
                 role="button"
                 tabindex="0"
-                @click="goToEstablishments"
-                @keyup.enter="goToEstablishments"
-                @keyup.space="goToEstablishments"
+                @click="openLandmarkModal('businesses')"
+                @keyup.enter="openLandmarkModal('businesses')"
+                @keyup.space="openLandmarkModal('businesses')"
               >
                 <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#002147]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
                 
-                <div class="p-6 relative">
-                  <div class="flex flex-col items-center text-center mb-4">
-                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#002147] to-[#00397a] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
-                      <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <div class="p-8 relative">
+                  <div class="flex flex-col items-center text-center">
+                    <div class="w-24 h-24 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#002147] to-[#00397a] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-6">
+                      <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd"/>
                       </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-[#002147] mb-1 group-hover:text-[#00397a] transition-colors">Businesses</h3>
-                    <p class="text-sm text-[#00397a] font-semibold px-4 py-1 bg-[#002147]/10 rounded-lg">{{ communityInfo.businesses?.length || 0 }} Establishments</p>
-                  </div>
-                  
-                  <div class="space-y-2 mb-4 max-h-48 overflow-y-auto">
-                    <div
-                      v-for="business in communityInfo.businesses"
-                      :key="business"
-                      class="flex items-start gap-2 py-2 px-3 rounded-lg bg-[#f3f1ee]/50 hover:bg-[#f3f1ee] transition-colors"
-                    >
-                      <svg class="w-4 h-4 text-[#002147] mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                      </svg>
-                      <span class="text-sm font-medium text-[#002147]">{{ business }}</span>
-                    </div>
-                  </div>
-                  
-                  <div class="pt-3 border-t border-[#002147]/10">
-                    <div class="flex items-center justify-between text-sm">
-                      <span class="text-[#00397a] font-bold">View Details</span>
-                      <svg class="w-5 h-5 text-[#002147] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-                      </svg>
+                    <h3 class="text-3xl font-bold text-[#002147] mb-3 group-hover:text-[#00397a] transition-colors">Businesses</h3>
+                    <p class="text-base text-[#00397a] font-semibold px-5 py-2 bg-[#002147]/10 rounded-lg mb-6">{{ communityInfo.businesses?.length || 0 }} Establishments</p>
+                    
+                    <div class="w-full pt-4 border-t border-[#002147]/10">
+                      <div class="flex items-center justify-center gap-2 text-[#00397a] font-bold">
+                        <span>View Details</span>
+                        <svg class="w-5 h-5 text-[#002147] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1307,13 +1268,13 @@
             <div class="bg-gradient-to-br from-white to-[#f3f1ee]/30 rounded-xl p-5 border border-[#004595]/10 shadow-sm">
               <div class="flex items-start gap-3">
                 <div class="p-2 bg-[#004595]/10 rounded-lg">
-                  <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-6 h-6 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                   </svg>
                 </div>
                 <div>
-                  <p class="text-sm font-bold text-[#002147] mb-1">Information Note</p>
-                  <p class="text-xs text-[#00397a] font-medium">Click on any category card to view detailed information and location maps. Sample data is shown for demonstration purposes.</p>
+                  <p class="text-base font-bold text-[#002147] mb-1">Information Note</p>
+                  <p class="text-sm text-[#00397a] font-medium">Click on any category card to view detailed information and location maps. Sample data is shown for demonstration purposes.</p>
                 </div>
               </div>
             </div>
@@ -1738,6 +1699,84 @@
           
           <!-- Modal Body -->
           <div class="flex-1 overflow-y-auto p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white">
+            <!-- Search and Sort Controls -->
+            <div class="mb-6 space-y-4">
+              <!-- Search Bar -->
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <svg class="w-5 h-5 text-[#00397a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                  </svg>
+                </div>
+                <input
+                  v-model="officerSearchQuery"
+                  type="text"
+                  placeholder="Search by name, phone, purok, or description..."
+                  class="w-full pl-12 pr-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/20 transition-all outline-none text-[#002147] font-medium placeholder:text-[#00397a]/50"
+                />
+                <!-- Clear Search Button -->
+                <button
+                  v-if="officerSearchQuery"
+                  @click="officerSearchQuery = ''"
+                  class="absolute inset-y-0 right-0 pr-4 flex items-center text-[#00397a] hover:text-[#002147] transition-colors"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Sort Options -->
+              <div class="flex items-center gap-3">
+                <label class="text-sm font-bold text-[#002147] flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h7a1 1 0 100-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM15 8a1 1 0 10-2 0v5.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L15 13.586V8z"/>
+                  </svg>
+                  Sort by:
+                </label>
+                <div class="flex gap-2">
+                  <button
+                    @click="officerSortBy = 'firstname'"
+                    :class="[
+                      'px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300',
+                      officerSortBy === 'firstname'
+                        ? 'bg-gradient-to-r from-[#002147] to-[#004595] text-white shadow-lg'
+                        : 'bg-white text-[#002147] border-2 border-[#004595]/20 hover:border-[#004595]/40'
+                    ]"
+                  >
+                    First Name
+                  </button>
+                  <button
+                    @click="officerSortBy = 'lastname'"
+                    :class="[
+                      'px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300',
+                      officerSortBy === 'lastname'
+                        ? 'bg-gradient-to-r from-[#002147] to-[#004595] text-white shadow-lg'
+                        : 'bg-white text-[#002147] border-2 border-[#004595]/20 hover:border-[#004595]/40'
+                    ]"
+                  >
+                    Last Name
+                  </button>
+                  <button
+                    @click="officerSortBy = 'alphabetical'"
+                    :class="[
+                      'px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300',
+                      officerSortBy === 'alphabetical'
+                        ? 'bg-gradient-to-r from-[#002147] to-[#004595] text-white shadow-lg'
+                        : 'bg-white text-[#002147] border-2 border-[#004595]/20 hover:border-[#004595]/40'
+                    ]"
+                  >
+                    A-Z
+                  </button>
+                </div>
+              </div>
+
+              <!-- Results Count -->
+              <div v-if="officerSearchQuery" class="text-sm text-[#00397a] font-semibold">
+                Found {{ officersForSelectedPosition.length }} officer{{ officersForSelectedPosition.length !== 1 ? 's' : '' }}
+              </div>
+            </div>
+
             <div v-if="officersForSelectedPosition.length === 0" class="text-center py-16">
               <div class="inline-block p-8 bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 rounded-3xl mb-6 relative">
                 <div class="absolute inset-0 bg-gradient-to-br from-[#004595]/20 to-transparent rounded-3xl blur-xl"></div>
@@ -1745,9 +1784,14 @@
                   <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-[#002147] mb-3">No Officers Yet</h3>
-              <p class="text-[#00397a] font-medium mb-6">Add officers to this position to get started</p>
+              <h3 class="text-xl font-bold text-[#002147] mb-3">
+                {{ officerSearchQuery ? 'No Officers Found' : 'No Officers Yet' }}
+              </h3>
+              <p class="text-[#00397a] font-medium mb-6">
+                {{ officerSearchQuery ? 'Try adjusting your search criteria' : 'Add officers to this position to get started' }}
+              </p>
               <button
+                v-if="!officerSearchQuery"
                 @click="addOfficerToPosition"
                 class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#002147] to-[#004595] text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold"
               >
@@ -1755,6 +1799,16 @@
                   <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
                 </svg>
                 Add First Officer
+              </button>
+              <button
+                v-else
+                @click="officerSearchQuery = ''"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#002147] to-[#004595] text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+                Clear Search
               </button>
             </div>
             
@@ -1795,16 +1849,16 @@
                     </span>
                   </div>
                   
-                  <div v-if="person.description" class="text-[10px] text-[#00397a] mb-3 line-clamp-2 px-2">
+                  <div v-if="person.description" class="text-sm text-[#00397a] font-bold mb-3 line-clamp-2 px-2">
                     {{ person.description }}
                   </div>
                   
                   <div class="w-full pt-3 border-t border-[#004595]/10 space-y-2">
-                    <div class="flex items-center justify-center gap-2 text-xs text-[#00397a]">
+                    <div class="flex items-center justify-center gap-2 text-sm text-[#00397a]">
                       <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                       </svg>
-                      <span class="font-medium">{{ person.phone }}</span>
+                      <span class="font-bold">{{ person.phone }}</span>
                     </div>
                   </div>
                   
@@ -2129,6 +2183,91 @@
           </div>
         </div>
       </div>
+
+      <!-- Landmark Details Modal -->
+      <div v-if="showLandmarkModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" style="z-index: 100000;" @click.self="closeLandmarkModal">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden transform transition-all">
+          <!-- Modal Header -->
+          <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-2xl -mr-32 -mt-32 animate-pulse"></div>
+            <div class="relative flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-white/20 backdrop-blur-sm rounded-xl">
+                  <svg v-if="selectedLandmarkType === 'schools'" class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                  </svg>
+                  <svg v-else-if="selectedLandmarkType === 'churches'" class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+                  </svg>
+                  <svg v-else class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-white">{{ landmarkModalTitle }}</h3>
+                  <p class="text-white/80 text-sm font-medium">{{ selectedLandmarkItems.length }} {{ selectedLandmarkType === 'schools' ? 'Institutions' : selectedLandmarkType === 'churches' ? 'Places of Worship' : 'Establishments' }}</p>
+                </div>
+              </div>
+              <button
+                @click="closeLandmarkModal"
+                class="p-2 hover:bg-white/20 rounded-lg transition-all"
+              >
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="overflow-y-auto max-h-[calc(90vh-140px)] p-6">
+            <div v-if="selectedLandmarkItems.length === 0" class="text-center py-16">
+              <div class="inline-block p-8 bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 rounded-3xl mb-6">
+                <svg class="w-16 h-16 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-[#002147] mb-3">No {{ landmarkModalTitle }} Found</h3>
+              <p class="text-[#00397a] font-medium">There are currently no {{ selectedLandmarkType }} listed in this barangay.</p>
+            </div>
+
+            <div v-else class="space-y-3">
+              <div
+                v-for="(item, index) in selectedLandmarkItems"
+                :key="index"
+                class="group bg-gradient-to-br from-white to-[#f3f1ee]/30 rounded-xl p-4 border-2 border-[#004595]/10 hover:border-[#004595]/40 transition-all duration-300 hover:shadow-lg"
+              >
+                <div class="flex items-start gap-4">
+                  <div class="flex-shrink-0">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#002147] to-[#004595] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <span class="text-white font-bold text-lg">{{ index + 1 }}</span>
+                    </div>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h4 class="text-base font-bold text-[#002147] mb-1 group-hover:text-[#004595] transition-colors">{{ item }}</h4>
+                    <p class="text-sm text-[#00397a] font-medium">{{ communityInfo.name }}</p>
+                  </div>
+                  <div class="flex-shrink-0">
+                    <svg class="w-5 h-5 text-[#004595] opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="px-6 py-4 bg-[#f3f1ee]/30 border-t border-[#004595]/10 flex gap-3">
+            <button
+              @click="closeLandmarkModal"
+              class="flex-1 px-5 py-3 border-2 border-[#004595]/20 text-[#002147] rounded-xl hover:bg-[#f3f1ee] hover:border-[#004595]/40 transition-all font-bold"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </template>
 
@@ -2352,6 +2491,18 @@
     brgy_history: ''
   })
 
+  // Landmark Details Modal
+  const showLandmarkModal = ref(false)
+  const selectedLandmarkType = ref('') // 'schools', 'churches', 'businesses'
+  const selectedLandmarkItems = ref([])
+  
+  const landmarkModalTitle = computed(() => {
+    if (selectedLandmarkType.value === 'schools') return 'Schools'
+    if (selectedLandmarkType.value === 'churches') return 'Churches'
+    if (selectedLandmarkType.value === 'businesses') return 'Business Establishments'
+    return ''
+  })
+
   // Position management
   const showPositionModal = ref(false)
   const positionForm = ref({
@@ -2372,6 +2523,10 @@
   
   // Position menu state
   const activePositionMenu = ref(null)
+  
+  // Search and sort state for officers in position
+  const officerSearchQuery = ref('')
+  const officerSortBy = ref('firstname') // 'firstname', 'lastname', 'alphabetical'
 
   // Custom confirmation modal state
   const showConfirmModal = ref(false)
@@ -2956,11 +3111,49 @@
   const closePositionOfficersModal = () => {
     showPositionOfficersModal.value = false
     selectedPosition.value = null
+    // Reset search and sort
+    officerSearchQuery.value = ''
+    officerSortBy.value = 'firstname'
   }
 
   const officersForSelectedPosition = computed(() => {
     if (!selectedPosition.value) return []
-    return personnel.value.filter(p => p.position === selectedPosition.value)
+    let officers = personnel.value.filter(p => p.position === selectedPosition.value)
+    
+    // Apply search filter
+    if (officerSearchQuery.value.trim()) {
+      const searchLower = officerSearchQuery.value.toLowerCase().trim()
+      officers = officers.filter(officer => 
+        officer.name.toLowerCase().includes(searchLower) ||
+        (officer.phone && officer.phone.toLowerCase().includes(searchLower)) ||
+        (officer.purok_number && officer.purok_number.toString().includes(searchLower)) ||
+        (officer.description && officer.description.toLowerCase().includes(searchLower))
+      )
+    }
+    
+    // Apply sorting
+    if (officerSortBy.value === 'firstname') {
+      // Sort by first name (first word of full name)
+      officers = officers.sort((a, b) => {
+        const firstNameA = a.name.split(' ')[0].toLowerCase()
+        const firstNameB = b.name.split(' ')[0].toLowerCase()
+        return firstNameA.localeCompare(firstNameB)
+      })
+    } else if (officerSortBy.value === 'lastname') {
+      // Sort by last name (last word of full name)
+      officers = officers.sort((a, b) => {
+        const wordsA = a.name.split(' ')
+        const wordsB = b.name.split(' ')
+        const lastNameA = wordsA[wordsA.length - 1].toLowerCase()
+        const lastNameB = wordsB[wordsB.length - 1].toLowerCase()
+        return lastNameA.localeCompare(lastNameB)
+      })
+    } else if (officerSortBy.value === 'alphabetical') {
+      // Sort by full name alphabetically
+      officers = officers.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
+    }
+    
+    return officers
   })
 
   const addOfficerToPosition = () => {
@@ -3702,5 +3895,26 @@
   const goToEstablishments = () => {
     if (!barangayName.value) return
     router.push({ name: 'establishments', params: { barangayName: barangayName.value } })
+  }
+
+  // Landmark Modal Functions
+  const openLandmarkModal = (type) => {
+    selectedLandmarkType.value = type
+    
+    if (type === 'schools') {
+      selectedLandmarkItems.value = communityInfo.value?.schools || []
+    } else if (type === 'churches') {
+      selectedLandmarkItems.value = communityInfo.value?.churches || []
+    } else if (type === 'businesses') {
+      selectedLandmarkItems.value = communityInfo.value?.businesses || []
+    }
+    
+    showLandmarkModal.value = true
+  }
+
+  const closeLandmarkModal = () => {
+    showLandmarkModal.value = false
+    selectedLandmarkType.value = ''
+    selectedLandmarkItems.value = []
   }
   </script>
