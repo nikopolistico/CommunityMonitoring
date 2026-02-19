@@ -1169,9 +1169,9 @@
                 class="group relative overflow-hidden rounded-2xl border-2 border-[#004595]/10 hover:border-[#004595]/40 bg-white shadow-md hover:shadow-xl hover:shadow-[#004595]/10 transition-all duration-300 cursor-pointer hover:-translate-y-1"
                 role="button"
                 tabindex="0"
-                @click="openLandmarkModal('schools')"
-                @keyup.enter="openLandmarkModal('schools')"
-                @keyup.space="openLandmarkModal('schools')"
+                @click="goToSchools"
+                @keyup.enter="goToSchools"
+                @keyup.space="goToSchools"
               >
                 <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
                 
@@ -1183,12 +1183,26 @@
                       </svg>
                     </div>
                     <h3 class="text-3xl font-bold text-[#002147] mb-3 group-hover:text-[#004595] transition-colors">Schools</h3>
-                    <p class="text-base text-[#00397a] font-semibold px-5 py-2 bg-[#004595]/10 rounded-lg mb-6">{{ communityInfo.schools?.length || 0 }} Institutions</p>
+                    <p class="text-base text-[#00397a] font-semibold px-5 py-2 bg-[#004595]/10 rounded-lg mb-6">{{ landmarksCount.schools }} Institutions</p>
                     
-                    <div class="w-full pt-4 border-t border-[#004595]/10">
-                      <div class="flex items-center justify-center gap-2 text-[#00397a] font-bold">
-                        <span>View Details</span>
-                        <svg class="w-5 h-5 text-[#004595] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="w-full pt-4 border-t border-[#004595]/10 flex items-center justify-between gap-3">
+                      <button
+                        @click.stop="openLandmarkModal('schools')"
+                        class="flex-1 flex items-center justify-center gap-2 text-[#00397a] font-bold hover:text-[#004595] transition-colors"
+                      >
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                          <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-sm">Quick View</span>
+                      </button>
+                      <div class="w-px h-8 bg-[#004595]/20"></div>
+                      <div class="flex-1 flex items-center justify-center gap-2 text-[#00397a] font-bold">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-sm">Manage</span>
+                        <svg class="w-4 h-4 text-[#004595] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                         </svg>
                       </div>
@@ -1202,9 +1216,9 @@
                 class="group relative overflow-hidden rounded-2xl border-2 border-[#00397a]/10 hover:border-[#00397a]/40 bg-white shadow-md hover:shadow-xl hover:shadow-[#00397a]/10 transition-all duration-300 cursor-pointer hover:-translate-y-1"
                 role="button"
                 tabindex="0"
-                @click="openLandmarkModal('churches')"
-                @keyup.enter="openLandmarkModal('churches')"
-                @keyup.space="openLandmarkModal('churches')"
+                @click="goToChurches"
+                @keyup.enter="goToChurches"
+                @keyup.space="goToChurches"
               >
                 <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#00397a]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
                 
@@ -1216,12 +1230,26 @@
                       </svg>
                     </div>
                     <h3 class="text-3xl font-bold text-[#002147] mb-3 group-hover:text-[#00397a] transition-colors">Churches</h3>
-                    <p class="text-base text-[#00397a] font-semibold px-5 py-2 bg-[#00397a]/10 rounded-lg mb-6">{{ communityInfo.churches?.length || 0 }} Places of Worship</p>
+                    <p class="text-base text-[#00397a] font-semibold px-5 py-2 bg-[#00397a]/10 rounded-lg mb-6">{{ landmarksCount.churches }} Places of Worship</p>
                     
-                    <div class="w-full pt-4 border-t border-[#00397a]/10">
-                      <div class="flex items-center justify-center gap-2 text-[#00397a] font-bold">
-                        <span>View Details</span>
-                        <svg class="w-5 h-5 text-[#00397a] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="w-full pt-4 border-t border-[#00397a]/10 flex items-center justify-between gap-3">
+                      <button
+                        @click.stop="openLandmarkModal('churches')"
+                        class="flex-1 flex items-center justify-center gap-2 text-[#00397a] font-bold hover:text-[#00397a] transition-colors"
+                      >
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                          <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-sm">Quick View</span>
+                      </button>
+                      <div class="w-px h-8 bg-[#00397a]/20"></div>
+                      <div class="flex-1 flex items-center justify-center gap-2 text-[#00397a] font-bold">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-sm">Manage</span>
+                        <svg class="w-4 h-4 text-[#00397a] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                         </svg>
                       </div>
@@ -1235,9 +1263,9 @@
                 class="group relative overflow-hidden rounded-2xl border-2 border-[#002147]/10 hover:border-[#002147]/40 bg-white shadow-md hover:shadow-xl hover:shadow-[#002147]/10 transition-all duration-300 cursor-pointer hover:-translate-y-1"
                 role="button"
                 tabindex="0"
-                @click="openLandmarkModal('businesses')"
-                @keyup.enter="openLandmarkModal('businesses')"
-                @keyup.space="openLandmarkModal('businesses')"
+                @click="goToEstablishments"
+                @keyup.enter="goToEstablishments"
+                @keyup.space="goToEstablishments"
               >
                 <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#002147]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
                 
@@ -1249,12 +1277,26 @@
                       </svg>
                     </div>
                     <h3 class="text-3xl font-bold text-[#002147] mb-3 group-hover:text-[#00397a] transition-colors">Businesses</h3>
-                    <p class="text-base text-[#00397a] font-semibold px-5 py-2 bg-[#002147]/10 rounded-lg mb-6">{{ communityInfo.businesses?.length || 0 }} Establishments</p>
+                    <p class="text-base text-[#00397a] font-semibold px-5 py-2 bg-[#002147]/10 rounded-lg mb-6">{{ landmarksCount.establishments }} Establishments</p>
                     
-                    <div class="w-full pt-4 border-t border-[#002147]/10">
-                      <div class="flex items-center justify-center gap-2 text-[#00397a] font-bold">
-                        <span>View Details</span>
-                        <svg class="w-5 h-5 text-[#002147] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="w-full pt-4 border-t border-[#002147]/10 flex items-center justify-between gap-3">
+                      <button
+                        @click.stop="openLandmarkModal('businesses')"
+                        class="flex-1 flex items-center justify-center gap-2 text-[#00397a] font-bold hover:text-[#002147] transition-colors"
+                      >
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                          <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-sm">Quick View</span>
+                      </button>
+                      <div class="w-px h-8 bg-[#002147]/20"></div>
+                      <div class="flex-1 flex items-center justify-center gap-2 text-[#00397a] font-bold">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-sm">Manage</span>
+                        <svg class="w-4 h-4 text-[#002147] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                         </svg>
                       </div>
@@ -2244,8 +2286,13 @@
                     </div>
                   </div>
                   <div class="flex-1 min-w-0">
-                    <h4 class="text-base font-bold text-[#002147] mb-1 group-hover:text-[#004595] transition-colors">{{ item }}</h4>
-                    <p class="text-sm text-[#00397a] font-medium">{{ communityInfo.name }}</p>
+                    <h4 class="text-base font-bold text-[#002147] mb-1 group-hover:text-[#004595] transition-colors">{{ item.name }}</h4>
+                    <div class="flex items-start gap-2 mt-2">
+                      <svg class="w-4 h-4 text-[#00397a] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                      </svg>
+                      <p class="text-sm text-[#00397a] font-medium">{{ item.address || 'No address provided' }}</p>
+                    </div>
                   </div>
                   <div class="flex-shrink-0">
                     <svg class="w-5 h-5 text-[#004595] opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
@@ -2651,17 +2698,57 @@
     
     return hasData ? [brgyFiesta.value] : [];
   });
-  const landmarks = computed(() => {
-    if (!communityInfo.value) return []
-    return [
-      ...(communityInfo.value.schools || []),
-      ...(communityInfo.value.churches || []),
-      ...(communityInfo.value.businesses || [])
-    ]
+  
+  // Landmarks count - real data from database
+  const landmarksCount = ref({
+    schools: 0,
+    churches: 0,
+    establishments: 0
   })
+  
   const totalOfficers = computed(() => officers.value.length)
-  const totalLandmarks = computed(() => landmarks.value.length)
+  const totalLandmarks = computed(() => {
+    return landmarksCount.value.schools + landmarksCount.value.churches + landmarksCount.value.establishments
+  })
   const totalHistory = computed(() => brgyInfo.value.filter(item => item?.brgy_history).length)
+
+  // Fetch landmarks count from database
+  const fetchLandmarksCount = async () => {
+    if (!barangay_id.value) return
+    
+    try {
+      // Fetch schools count
+      const { count: schoolsCount, error: schoolsError } = await supabase
+        .from('Schools')
+        .select('*', { count: 'exact', head: true })
+        .eq('brgy_id', barangay_id.value)
+      
+      if (schoolsError) throw schoolsError
+      landmarksCount.value.schools = schoolsCount || 0
+
+      // Fetch churches count
+      const { count: churchesCount, error: churchesError } = await supabase
+        .from('Church')
+        .select('*', { count: 'exact', head: true })
+        .eq('brgy_id', barangay_id.value)
+      
+      if (churchesError) throw churchesError
+      landmarksCount.value.churches = churchesCount || 0
+
+      // Fetch establishments count
+      const { count: establishmentsCount, error: establishmentsError } = await supabase
+        .from('Establishments')
+        .select('*', { count: 'exact', head: true })
+        .eq('brgy_id', barangay_id.value)
+      
+      if (establishmentsError) throw establishmentsError
+      landmarksCount.value.establishments = establishmentsCount || 0
+
+      console.log('Landmarks count:', landmarksCount.value)
+    } catch (error) {
+      console.error('Error fetching landmarks count:', error)
+    }
+  }
 
   // Fetch Barangay Captain information
   const fetchCaptainInfo = async () => {
@@ -2736,6 +2823,7 @@
         await fetchPersonnel()
         await fetchPositions()
         await getBrgyFiestaDetails(barangay_id.value)
+        await fetchLandmarksCount()
       } else {
         // Barangay not found in database
         console.warn('⚠️ Barangay not found in database:', communityInfo.value.name)
@@ -3898,18 +3986,64 @@
   }
 
   // Landmark Modal Functions
-  const openLandmarkModal = (type) => {
+  const openLandmarkModal = async (type) => {
     selectedLandmarkType.value = type
-    
-    if (type === 'schools') {
-      selectedLandmarkItems.value = communityInfo.value?.schools || []
-    } else if (type === 'churches') {
-      selectedLandmarkItems.value = communityInfo.value?.churches || []
-    } else if (type === 'businesses') {
-      selectedLandmarkItems.value = communityInfo.value?.businesses || []
-    }
-    
+    selectedLandmarkItems.value = []
     showLandmarkModal.value = true
+    
+    if (!barangay_id.value) {
+      console.error('No barangay ID available')
+      return
+    }
+
+    try {
+      if (type === 'schools') {
+        // Fetch schools from the Schools table
+        const { data, error } = await supabase
+          .from('Schools')
+          .select('schoolName, schoolAddress')
+          .eq('brgy_id', barangay_id.value)
+          .order('schoolName', { ascending: true })
+
+        if (error) throw error
+        
+        selectedLandmarkItems.value = data.map(school => ({
+          name: school.schoolName,
+          address: school.schoolAddress
+        }))
+      } else if (type === 'churches') {
+        // Fetch churches from the Church table
+        const { data, error } = await supabase
+          .from('Church')
+          .select('churchName, churchAddress')
+          .eq('brgy_id', barangay_id.value)
+          .order('churchName', { ascending: true })
+
+        if (error) throw error
+        
+        selectedLandmarkItems.value = data.map(church => ({
+          name: church.churchName,
+          address: church.churchAddress
+        }))
+      } else if (type === 'businesses') {
+        // Fetch establishments from the Establishments table
+        const { data, error } = await supabase
+          .from('Establishments')
+          .select('establishmentName, establishmentAddress')
+          .eq('brgy_id', barangay_id.value)
+          .order('establishmentName', { ascending: true })
+
+        if (error) throw error
+        
+        selectedLandmarkItems.value = data.map(establishment => ({
+          name: establishment.establishmentName,
+          address: establishment.establishmentAddress
+        }))
+      }
+    } catch (error) {
+      console.error(`Error fetching ${type}:`, error)
+      showToast('Load Failed', 'error', `Failed to load ${type}. Please try again.`)
+    }
   }
 
   const closeLandmarkModal = () => {
