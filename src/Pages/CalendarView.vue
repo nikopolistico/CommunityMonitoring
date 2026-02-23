@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 font-['Poppins']"
+    class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-['Poppins']"
   >
     <!-- Header Banner -->
     <div
@@ -128,22 +128,22 @@
     <div class="flex flex-col lg:flex-row min-h-[calc(100vh-140px)]">
       <!-- Left Side: Calendar -->
       <aside
-        class="w-full lg:w-1/2 bg-gradient-to-b from-white via-[#f3f1ee]/30 to-white shadow-2xl lg:border-r border-b lg:border-b-0 border-[#004595]/10"
+        class="w-full lg:w-1/2 bg-gradient-to-b from-white via-[#f3f1ee]/30 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 shadow-2xl lg:border-r border-b lg:border-b-0 border-[#004595]/10 dark:border-gray-700"
       >
         <div class="p-4 sm:p-6 md:p-8 h-full flex flex-col">
           <!-- Calendar Section Title -->
           <div class="mb-4 sm:mb-6">
-            <h2 class="text-lg sm:text-2xl font-bold text-[#002147] mb-1 sm:mb-2">
+            <h2 class="text-lg sm:text-2xl font-bold text-[#002147] dark:text-white mb-1 sm:mb-2">
               Select Event Date
             </h2>
-            <p class="text-sm sm:text-base text-gray-600">
+            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">
               Click on any date to view or add events
             </p>
           </div>
 
           <!-- Calendar Navigation -->
           <div
-            class="bg-white rounded-2xl shadow-xl border border-[#004595]/10 overflow-hidden flex-shrink-0"
+            class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-[#004595]/10 dark:border-gray-700 overflow-hidden flex-shrink-0"
           >
             <div class="bg-gradient-to-r from-[#004595] to-[#00397a] px-4 sm:px-6 py-3 sm:py-4">
               <div class="flex items-center justify-between gap-2">

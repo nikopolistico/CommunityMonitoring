@@ -6,3 +6,260 @@
 * {
   font-family: 'Poppins', sans-serif;
 }
+
+/* Dark Mode Styles */
+.dark {
+  color-scheme: dark;
+}
+
+:root.dark,
+.dark {
+  --bg-main: #1a1a2e;
+  --bg-secondary: #1e293b;
+  --text-primary: #e8e8e8;
+  --text-secondary: #cbd5e1;
+  --border-color: #334155;
+}
+
+/* Dark mode body and backgrounds */
+.dark body,
+.dark .bg-\[\#f3f1ee\],
+.dark .bg-\[\#eeeff3\] {
+  background: linear-gradient(to bottom right, #0f172a, #1e293b, #334155) !important;
+  color: #e8e8e8;
+}
+
+.dark .min-h-screen {
+  background: linear-gradient(to bottom right, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95), rgba(51, 65, 85, 0.95));
+}
+
+/* Dark mode for white cards and containers */
+.dark .bg-white {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+/* Dark mode gradients */
+.dark .bg-gradient-to-br.from-\[\#002147\],
+.dark .bg-gradient-to-r.from-\[\#002147\],
+.dark .bg-linear-to-b.from-\[\#002147\] {
+  background: linear-gradient(to bottom right, #1e3a5f, #2d4a6f) !important;
+}
+
+/* Dark mode text colors */
+.dark .text-\[\#002147\],
+.dark .text-\[\#00397a\],
+.dark .text-\[\#004595\] {
+  color: #e8e8e8 !important;
+}
+
+.dark .text-gray-600 {
+  color: #cbd5e1 !important;
+}
+
+.dark .text-gray-700 {
+  color: #e2e8f0 !important;
+}
+
+.dark .text-gray-500 {
+  color: #94a3b8 !important;
+}
+
+.dark .text-gray-800 {
+  color: #f1f5f9 !important;
+}
+
+.dark .text-gray-900 {
+  color: #f8fafc !important;
+}
+
+/* Dark mode borders */
+.dark .border-\[\#004595\]\/10,
+.dark .border-\[\#004595\]\/20,
+.dark .border-\[\#004595\]\/30 {
+  border-color: rgba(148, 163, 184, 0.2) !important;
+}
+
+.dark .border-gray-200,
+.dark .border-gray-300 {
+  border-color: #475569 !important;
+}
+
+/* Dark mode inputs and selects */
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: #334155 !important;
+  color: #e8e8e8 !important;
+  border-color: #475569 !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: #60a5fa !important;
+  background-color: #374151 !important;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3) !important;
+}
+
+/* Dark mode buttons */
+.dark button:not(.bg-gradient-to-r):not(.bg-gradient-to-br):not([class*="from-"]) {
+  background-color: #334155;
+  color: #e8e8e8;
+}
+
+.dark button:hover:not(.bg-gradient-to-r):not(.bg-gradient-to-br):not([class*="from-"]) {
+  background-color: #475569;
+}
+
+/* Dark mode shadows */
+.dark .shadow-xl,
+.dark .shadow-2xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark .shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark .shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Dark mode hover effects */
+.dark .hover\:bg-white\/10:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .hover\:bg-gray-50:hover,
+.dark .hover\:bg-gray-100:hover {
+  background-color: #374151 !important;
+}
+
+/* Dark mode for specific components */
+.dark .bg-\[\#e0e7ff\] {
+  background-color: #1e3a5f !important;
+}
+
+.dark .text-\[\#e0e7ff\] {
+  color: #cbd5e1 !important;
+}
+
+/* Dark mode for backdrop effects */
+.dark .backdrop-blur-md,
+.dark .backdrop-blur-sm {
+  background-color: rgba(30, 41, 59, 0.5) !important;
+}
+
+/* Dark mode for modals and overlays */
+.dark .bg-black\/50 {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Dark mode for navigation sidebar */
+.dark aside {
+  background: linear-gradient(to bottom, #1e3a5f, #2d4a6f) !important;
+}
+
+/* Dark mode for stat cards with colored accents */
+.dark .bg-purple-50,
+.dark .bg-blue-50,
+.dark .bg-green-50,
+.dark .bg-yellow-50,
+.dark .bg-red-50,
+.dark .bg-indigo-50,
+.dark .bg-pink-50,
+.dark .bg-orange-50 {
+  background-color: rgba(51, 65, 85, 0.5) !important;
+}
+
+.dark .bg-purple-100,
+.dark .bg-blue-100,
+.dark .bg-green-100,
+.dark .bg-yellow-100,
+.dark .bg-red-100,
+.dark .bg-indigo-100,
+.dark .bg-pink-100,
+.dark .bg-orange-100 {
+  background-color: rgba(51, 65, 85, 0.7) !important;
+}
+
+/* Dark mode for tables */
+.dark table {
+  background-color: #1e293b;
+  color: #e8e8e8;
+}
+
+.dark th {
+  background-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+.dark tr:hover {
+  background-color: #374151 !important;
+}
+
+.dark td {
+  border-color: #475569 !important;
+}
+
+/* Dark mode scrollbars (webkit browsers) */
+.dark ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 5px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Dark mode for calendar and date pickers */
+.dark .calendar-day {
+  background-color: #334155;
+  color: #e8e8e8;
+}
+
+.dark .calendar-day:hover {
+  background-color: #475569;
+}
+
+.dark .calendar-day.selected {
+  background-color: #3b82f6 !important;
+}
+
+/* Dark mode for badges and tags */
+.dark .badge,
+.dark .tag {
+  background-color: #334155;
+  color: #e8e8e8;
+}
+
+/* Smooth transitions for theme switching */
+*,
+*::before,
+*::after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Override transitions for certain elements */
+button,
+a,
+input,
+select,
+textarea {
+  transition: all 0.2s ease;
+}

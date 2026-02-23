@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-1 flex flex-col bg-[#f3f1ee]">
+  <div class="flex-1 flex flex-col bg-[#f3f1ee] dark:bg-gray-900">
     <!-- Top Header -->
       <header class="relative shadow-2xl overflow-hidden h-48">
         <div
@@ -16,13 +16,13 @@
                   <h1
                     class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight drop-shadow-lg"
                   >
-                    Butuan City Police Station 1
+                    {{ t('policeStationTitle') }}
                   </h1>
                 </div>
 
                 <div>
                   <p class="text-sm sm:text-base lg:text-lg text-[#e0e7ff] mb-1 ms-9 font-medium">
-                    Community monitoring across 28 barangays
+                    {{ t('communityMonitoring') }}
                   </p>
                 </div>
               </div>
@@ -76,13 +76,13 @@
           <!-- Left Side Stats (2x2 Grid) -->
           <div class="lg:col-span-2 grid grid-cols-2 gap-4">
             <!-- Total Barangays Card -->
-            <div class="relative bg-white rounded-xl shadow-lg p-6 border border-[#004595]/10 hover:border-[#004595]/30 hover:shadow-2xl transition-all duration-300 group overflow-hidden">
-              <div class="absolute top-0 right-0 w-32 h-32 bg-[#004595]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
-              <div class="absolute bottom-0 left-0 w-24 h-24 bg-[#00397a]/5 rounded-full -ml-12 -mb-12 group-hover:scale-150 transition-transform duration-500"></div>
+            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-2xl transition-all duration-300 group overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+              <div class="absolute bottom-0 left-0 w-24 h-24 bg-[#00397a]/5 dark:bg-blue-400/10 rounded-full -ml-12 -mb-12 group-hover:scale-150 transition-transform duration-500"></div>
               <div class="relative z-10 flex items-start justify-between">
                 <div>
-                  <h3 class="text-5xl font-extrabold text-[#002147] mb-2 group-hover:scale-105 transition-transform">{{ totalBarangays }}</h3>
-                  <p class="text-sm text-[#00397a] font-semibold uppercase tracking-wide">Total Barangays</p>
+                  <h3 class="text-5xl font-extrabold text-[#002147] dark:text-white mb-2 group-hover:scale-105 transition-transform">{{ totalBarangays }}</h3>
+                  <p class="text-sm text-[#00397a] dark:text-gray-300 font-semibold uppercase tracking-wide">{{ t('totalBarangays') }}</p>
                 </div>
                 <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
                   <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,13 +94,13 @@
             </div>
 
             <!-- Total Schools Card -->
-            <div class="relative bg-white rounded-xl shadow-lg p-6 border border-[#004595]/10 hover:border-[#004595]/30 hover:shadow-2xl transition-all duration-300 group overflow-hidden">
-              <div class="absolute top-0 right-0 w-32 h-32 bg-[#00397a]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
-              <div class="absolute bottom-0 left-0 w-24 h-24 bg-[#004595]/5 rounded-full -ml-12 -mb-12 group-hover:scale-150 transition-transform duration-500"></div>
+            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-2xl transition-all duration-300 group overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-[#00397a]/5 dark:bg-emerald-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+              <div class="absolute bottom-0 left-0 w-24 h-24 bg-[#004595]/5 dark:bg-emerald-400/10 rounded-full -ml-12 -mb-12 group-hover:scale-150 transition-transform duration-500"></div>
               <div class="relative z-10 flex items-start justify-between">
                 <div>
-                  <h3 class="text-5xl font-extrabold text-[#002147] mb-2 group-hover:scale-105 transition-transform">{{ totalSchools }}</h3>
-                  <p class="text-sm text-[#00397a] font-semibold uppercase tracking-wide">Total Schools</p>
+                  <h3 class="text-5xl font-extrabold text-[#002147] dark:text-white mb-2 group-hover:scale-105 transition-transform">{{ totalSchools }}</h3>
+                  <p class="text-sm text-[#00397a] dark:text-gray-300 font-semibold uppercase tracking-wide">{{ t('totalSchools') }}</p>
                 </div>
                 <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-emerald-100 to-emerald-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
                   <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,13 +113,13 @@
             </div>
 
             <!-- Total Church Card -->
-            <div class="relative bg-white rounded-xl shadow-lg p-6 border border-[#004595]/10 hover:border-[#004595]/30 hover:shadow-2xl transition-all duration-300 group overflow-hidden">
-              <div class="absolute top-0 right-0 w-32 h-32 bg-[#002147]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
-              <div class="absolute bottom-0 left-0 w-24 h-24 bg-[#004595]/5 rounded-full -ml-12 -mb-12 group-hover:scale-150 transition-transform duration-500"></div>
+            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-2xl transition-all duration-300 group overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-[#002147]/5 dark:bg-rose-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+              <div class="absolute bottom-0 left-0 w-24 h-24 bg-[#004595]/5 dark:bg-rose-400/10 rounded-full -ml-12 -mb-12 group-hover:scale-150 transition-transform duration-500"></div>
               <div class="relative z-10 flex items-start justify-between">
                 <div>
-                  <h3 class="text-5xl font-extrabold text-[#002147] mb-2 group-hover:scale-105 transition-transform">{{ totalChurches }}</h3>
-                  <p class="text-sm text-[#00397a] font-semibold uppercase tracking-wide">Total Churches</p>
+                  <h3 class="text-5xl font-extrabold text-[#002147] dark:text-white mb-2 group-hover:scale-105 transition-transform">{{ totalChurches }}</h3>
+                  <p class="text-sm text-[#00397a] dark:text-gray-300 font-semibold uppercase tracking-wide">{{ t('totalChurches') }}</p>
                 </div>
                 <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-rose-100 to-rose-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
                   <svg class="w-8 h-8 text-rose-600" fill="currentColor" viewBox="0 0 24 24">
@@ -135,13 +135,13 @@
             </div>
 
             <!-- Total Establishment Card -->
-            <div class="relative bg-white rounded-xl shadow-lg p-6 border border-[#004595]/10 hover:border-[#004595]/30 hover:shadow-2xl transition-all duration-300 group overflow-hidden">
-              <div class="absolute top-0 right-0 w-32 h-32 bg-[#004595]/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
-              <div class="absolute bottom-0 left-0 w-24 h-24 bg-[#002147]/5 rounded-full -ml-12 -mb-12 group-hover:scale-150 transition-transform duration-500"></div>
+            <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-2xl transition-all duration-300 group overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-[#004595]/5 dark:bg-amber-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+              <div class="absolute bottom-0 left-0 w-24 h-24 bg-[#002147]/5 dark:bg-amber-400/10 rounded-full -ml-12 -mb-12 group-hover:scale-150 transition-transform duration-500"></div>
               <div class="relative z-10 flex items-start justify-between">
                 <div>
-                  <h3 class="text-5xl font-extrabold text-[#002147] mb-2 group-hover:scale-105 transition-transform">{{ totalEstablishments }}</h3>
-                  <p class="text-sm text-[#00397a] font-semibold uppercase tracking-wide">Total Establishments</p>
+                  <h3 class="text-5xl font-extrabold text-[#002147] dark:text-white mb-2 group-hover:scale-105 transition-transform">{{ totalEstablishments }}</h3>
+                  <p class="text-sm text-[#00397a] dark:text-gray-300 font-semibold uppercase tracking-wide">{{ t('totalEstablishments') }}</p>
                 </div>
                 <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-amber-100 to-amber-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
                   <svg class="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,11 +154,11 @@
           </div>
 
           <!-- Right Side Weather Card -->
-          <div class="relative bg-white rounded-xl shadow-lg p-6 border border-[#004595]/10 flex flex-col items-center justify-center hover:border-[#004595]/30 hover:shadow-2xl transition-all duration-300 group overflow-hidden">
-            <div class="absolute top-0 right-0 w-40 h-40 bg-[#004595]/5 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-500"></div>
-            <div class="absolute bottom-0 left-0 w-32 h-32 bg-[#00397a]/5 rounded-full -ml-16 -mb-16 group-hover:scale-150 transition-transform duration-500"></div>
+          <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 flex flex-col items-center justify-center hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-2xl transition-all duration-300 group overflow-hidden">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-500"></div>
+            <div class="absolute bottom-0 left-0 w-32 h-32 bg-[#00397a]/5 dark:bg-blue-400/10 rounded-full -ml-16 -mb-16 group-hover:scale-150 transition-transform duration-500"></div>
             <div class="relative z-10 w-full">
-              <h2 class="text-3xl font-bold text-[#002147] mb-4 text-center group-hover:scale-105 transition-transform">Weather</h2>
+              <h2 class="text-3xl font-bold text-[#002147] dark:text-white mb-4 text-center group-hover:scale-105 transition-transform">{{ t('weather') }}</h2>
               <div class="flex items-center justify-center mb-4">
                 <!-- Sunny -->
                 <div v-if="weatherIcon === 'sunny'" class="relative">
@@ -196,34 +196,34 @@
                 </svg>
               </div>
               <div class="text-center">
-                <p class="text-4xl font-extrabold text-[#002147] group-hover:scale-105 transition-transform mb-2">{{ currentTemperature }}°C</p>
-                <p class="text-[#00397a] font-semibold text-base">{{ weatherCondition }}</p>
+                <p class="text-4xl font-extrabold text-[#002147] dark:text-white group-hover:scale-105 transition-transform mb-2">{{ currentTemperature }}°C</p>
+                <p class="text-[#00397a] dark:text-gray-300 font-semibold text-base">{{ weatherCondition }}</p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Barangay List -->
-        <div class="relative bg-white rounded-xl shadow-lg p-6 border border-[#004595]/10 overflow-hidden">
-          <div class="absolute top-0 right-0 w-64 h-64 bg-[#004595]/5 rounded-full -mr-32 -mt-32"></div>
-          <div class="absolute bottom-0 left-0 w-48 h-48 bg-[#00397a]/5 rounded-full -ml-24 -mb-24"></div>
+        <div class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 overflow-hidden">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-32 -mt-32"></div>
+          <div class="absolute bottom-0 left-0 w-48 h-48 bg-[#00397a]/5 dark:bg-blue-400/10 rounded-full -ml-24 -mb-24"></div>
           
           <div class="relative z-10">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
               <div class="flex items-center gap-3">
-                <div class="flex items-center justify-center w-12 h-12 bg-[#004595]/10 rounded-lg">
-                  <svg class="w-6 h-6 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                <div class="flex items-center justify-center w-12 h-12 bg-[#004595]/10 dark:bg-blue-500/20 rounded-lg">
+                  <svg class="w-6 h-6 text-[#004595] dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
                     <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
                   </svg>
                 </div>
-                <h3 class="text-2xl font-bold text-[#002147]">List of Barangays</h3>
+                <h3 class="text-2xl font-bold text-[#002147] dark:text-white">List of Barangays</h3>
               </div>
               
               <!-- Search Bar -->
               <div class="relative w-full sm:w-96">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-5 h-5 text-[#004595] dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
                   </svg>
                 </div>
@@ -231,7 +231,7 @@
                   v-model="searchQuery"
                   type="text"
                   placeholder="Search barangay..."
-                  class="w-full pl-10 pr-4 py-2.5 border-2 border-[#004595]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-[#004595] transition-all bg-white text-[#002147] placeholder-[#00397a]/60 shadow-sm hover:border-[#004595]/50"
+                  class="w-full pl-10 pr-4 py-2.5 border-2 border-[#004595]/30 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-[#004595] transition-all bg-white dark:bg-gray-700 text-[#002147] dark:text-white placeholder-[#00397a]/60 dark:placeholder-gray-400 shadow-sm hover:border-[#004595]/50"
                 />
               </div>
             </div>
@@ -243,14 +243,14 @@
                 class="relative group"
                 @click="navigateToBarangay(option.value)"
               >
-                <div class="relative p-4 bg-gradient-to-br from-white to-[#f3f1ee] rounded-lg border border-[#004595]/10 hover:border-[#004595] hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden h-full flex flex-col items-center justify-center min-h-[100px]">
+                <div class="relative p-4 bg-gradient-to-br from-white to-[#f3f1ee] dark:from-gray-700 dark:to-gray-800 rounded-lg border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595] dark:hover:border-blue-500 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden h-full flex flex-col items-center justify-center min-h-[100px]">
                   <!-- Decorative Circle -->
-                  <div class="absolute top-0 right-0 w-16 h-16 bg-[#004595]/5 rounded-full -mr-8 -mt-8 group-hover:scale-150 group-hover:bg-[#004595]/10 transition-all duration-500"></div>
+                  <div class="absolute top-0 right-0 w-16 h-16 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-8 -mt-8 group-hover:scale-150 group-hover:bg-[#004595]/10 dark:group-hover:bg-blue-500/20 transition-all duration-500"></div>
                   
                   <!-- Icon -->
                   <div class="relative z-10 mb-2">
-                    <div class="flex items-center justify-center w-10 h-10 bg-[#004595]/10 rounded-lg group-hover:bg-[#004595] group-hover:scale-110 transition-all duration-300">
-                      <svg class="w-5 h-5 text-[#004595] group-hover:text-white transition-colors duration-300" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="flex items-center justify-center w-10 h-10 bg-[#004595]/10 dark:bg-blue-500/20 rounded-lg group-hover:bg-[#004595] group-hover:scale-110 transition-all duration-300">
+                      <svg class="w-5 h-5 text-[#004595] dark:text-blue-400 group-hover:text-white transition-colors duration-300" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
                       </svg>
                     </div>
@@ -258,7 +258,7 @@
                   
                   <!-- Text -->
                   <div class="relative z-10 text-center">
-                    <span class="text-xs font-semibold text-[#002147] group-hover:text-[#004595] transition-colors duration-300 block leading-tight">{{ option.label }}</span>
+                    <span class="text-xs font-semibold text-[#002147] dark:text-white group-hover:text-[#004595] dark:group-hover:text-blue-400 transition-colors duration-300 block leading-tight">{{ option.label }}</span>
                   </div>
                   
                   <!-- Hover Indicator -->
@@ -268,13 +268,13 @@
             </div>
             
             <div v-if="filteredBarangays.length === 0" class="text-center py-12">
-              <div class="inline-flex items-center justify-center w-16 h-16 bg-[#004595]/10 rounded-full mb-4">
-                <svg class="w-8 h-8 text-[#00397a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-[#004595]/10 dark:bg-blue-500/20 rounded-full mb-4">
+                <svg class="w-8 h-8 text-[#00397a] dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
               </div>
-              <p class="font-semibold text-[#002147]">No barangay found</p>
-              <p class="text-sm text-[#00397a] mt-1">Try searching with a different keyword</p>
+              <p class="font-semibold text-[#002147] dark:text-white">No barangay found</p>
+              <p class="text-sm text-[#00397a] dark:text-gray-400 mt-1">Try searching with a different keyword</p>
             </div>
           </div>
         </div>
@@ -288,7 +288,7 @@
         @click="closeNotificationModal"
       >
         <div 
-          class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-hidden transform transition-all animate-modal-slide"
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-hidden transform transition-all animate-modal-slide"
           @click.stop
         >
           <!-- Modal Header -->
@@ -455,10 +455,12 @@
 <script setup>
 import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useGlobal } from '@/composables/useGlobal'
 import headbk from '@/assets/landing.jpg'
 import { supabase } from '@/lib/supabase'
 
 const router = useRouter()
+const { t } = useGlobal()
 
 const barangayOptions = ref([])
 const loading = ref(false)

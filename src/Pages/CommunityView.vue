@@ -1,8 +1,8 @@
     <template>
-      <div class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 font-['Poppins']">
+      <div class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-['Poppins']">
         <div class="flex min-h-screen">
           <!-- Enhanced Blue Sidebar -->
-          <aside class="w-full max-w-sm bg-gradient-to-b from-white via-[#f3f1ee]/30 to-white shadow-2xl border-r border-[#004595]/10">
+          <aside class="w-full max-w-sm bg-gradient-to-b from-white via-[#f3f1ee]/30 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 shadow-2xl border-r border-[#004595]/10 dark:border-gray-700">
             <div class="p-6 space-y-6">
               <!-- Enhanced Back Button -->
               <button
@@ -45,7 +45,7 @@
                     'w-full inline-flex items-center gap-3 rounded-xl px-5 py-3.5 text-sm font-semibold transition-all duration-300 tracking-wide',
                     activeTab === 'dashboard' 
                       ? 'bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] text-white shadow-lg shadow-[#004595]/30 scale-[1.02]' 
-                      : 'bg-white text-[#002147] hover:bg-gradient-to-r hover:from-[#004595]/10 hover:to-[#00397a]/10 border border-[#004595]/20 hover:border-[#004595]/40 hover:shadow-md'
+                      : 'bg-white dark:bg-gray-700 text-[#002147] dark:text-white hover:bg-gradient-to-r hover:from-[#004595]/10 hover:to-[#00397a]/10 dark:hover:from-gray-600 dark:hover:to-gray-600 border border-[#004595]/20 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-gray-500 hover:shadow-md'
                   ]"
                   @click="setActiveTab('dashboard')"
                 >
@@ -65,7 +65,7 @@
                     'w-full inline-flex items-center gap-3 rounded-xl px-5 py-3.5 text-sm font-semibold transition-all duration-300 tracking-wide',
                     activeTab === 'officers' 
                       ? 'bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] text-white shadow-lg shadow-[#004595]/30 scale-[1.02]' 
-                      : 'bg-white text-[#002147] hover:bg-gradient-to-r hover:from-[#004595]/10 hover:to-[#00397a]/10 border border-[#004595]/20 hover:border-[#004595]/40 hover:shadow-md'
+                      : 'bg-white dark:bg-gray-700 text-[#002147] dark:text-white hover:bg-gradient-to-r hover:from-[#004595]/10 hover:to-[#00397a]/10 dark:hover:from-gray-600 dark:hover:to-gray-600 border border-[#004595]/20 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-gray-500 hover:shadow-md'
                   ]"
                   @click="setActiveTab('officers')"
                 >
@@ -85,7 +85,7 @@
                     'w-full inline-flex items-center gap-3 rounded-xl px-5 py-3.5 text-sm font-semibold transition-all duration-300 tracking-wide',
                     activeTab === 'landmarks' 
                       ? 'bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] text-white shadow-lg shadow-[#004595]/30 scale-[1.02]' 
-                      : 'bg-white text-[#002147] hover:bg-gradient-to-r hover:from-[#004595]/10 hover:to-[#00397a]/10 border border-[#004595]/20 hover:border-[#004595]/40 hover:shadow-md'
+                      : 'bg-white dark:bg-gray-700 text-[#002147] dark:text-white hover:bg-gradient-to-r hover:from-[#004595]/10 hover:to-[#00397a]/10 dark:hover:from-gray-600 dark:hover:to-gray-600 border border-[#004595]/20 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-gray-500 hover:shadow-md'
                   ]"
                   @click="setActiveTab('landmarks')"
                 >
@@ -105,7 +105,7 @@
                     'w-full inline-flex items-center gap-3 rounded-xl px-5 py-3.5 text-sm font-semibold transition-all duration-300 tracking-wide',
                     activeTab === 'history' 
                       ? 'bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] text-white shadow-lg shadow-[#004595]/30 scale-[1.02]' 
-                      : 'bg-white text-[#002147] hover:bg-gradient-to-r hover:from-[#004595]/10 hover:to-[#00397a]/10 border border-[#004595]/20 hover:border-[#004595]/40 hover:shadow-md'
+                      : 'bg-white dark:bg-gray-700 text-[#002147] dark:text-white hover:bg-gradient-to-r hover:from-[#004595]/10 hover:to-[#00397a]/10 dark:hover:from-gray-600 dark:hover:to-gray-600 border border-[#004595]/20 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-gray-500 hover:shadow-md'
                   ]"
                   @click="setActiveTab('history')"
                 >
@@ -130,7 +130,7 @@
                 <!-- Dashboard Section -->
                 <section v-if="activeTab === 'dashboard'" id="dashboard-section" class="space-y-6">
                   <!-- Page Header with Barangay Name -->
-                  <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10">
+                  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
                     <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-6 relative overflow-hidden">
                       <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
                       <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24"></div>
@@ -150,7 +150,7 @@
                   </div>
 
                   <!-- Statistics Cards -->
-                  <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#004595]/10">
+                  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border border-[#004595]/10 dark:border-gray-700">
                     <div class="bg-gradient-to-r from-[#002147] to-[#004595] px-6 py-4 relative overflow-hidden">
                       <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
                       <div class="relative flex items-center justify-between">
@@ -168,10 +168,10 @@
                       </div>
                     </div>
                     
-                    <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/20 to-white">
+                    <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/20 to-white dark:from-gray-900/20 dark:to-gray-800">
                       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <!-- Officers Card -->
-                        <div class="group cursor-pointer bg-white rounded-xl p-6 border-2 border-[#004595]/10 hover:border-[#002147]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#002147]/10 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="group cursor-pointer bg-white dark:bg-gray-700 rounded-xl p-6 border-2 border-[#004595]/10 dark:border-gray-600 hover:border-[#002147]/40 dark:hover:border-gray-500 transition-all duration-300 hover:shadow-xl hover:shadow-[#002147]/10 hover:-translate-y-1 relative overflow-hidden">
                           <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#002147]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
                           
                           <div class="relative">
@@ -185,12 +185,12 @@
                                 <span class="text-4xl font-bold bg-gradient-to-br from-[#002147] to-[#004595] bg-clip-text text-transparent">{{ totalOfficers }}</span>
                               </div>
                             </div>
-                            <h3 class="text-sm font-bold text-[#002147] uppercase tracking-wider mb-1">Barangay Officers</h3>
-                            <p class="text-xs text-[#00397a] font-medium">Community personnel & leaders</p>
+                            <h3 class="text-sm font-bold text-[#002147] dark:text-white uppercase tracking-wider mb-1">Barangay Officers</h3>
+                            <p class="text-xs text-[#00397a] dark:text-gray-400 font-medium">Community personnel & leaders</p>
                             
-                            <div class="mt-4 pt-3 border-t border-[#004595]/10">
+                            <div class="mt-4 pt-3 border-t border-[#004595]/10 dark:border-gray-600">
                               <div class="flex items-center justify-between text-xs">
-                                <span class="text-[#00397a] font-semibold">View Details</span>
+                                <span class="text-[#00397a] dark:text-gray-400 font-semibold">View Details</span>
                                 <svg class="w-4 h-4 text-[#004595] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                                 </svg>
@@ -200,7 +200,7 @@
                         </div>
 
                         <!-- Landmarks Card -->
-                        <div class="group cursor-pointer bg-white rounded-xl p-6 border-2 border-[#00397a]/10 hover:border-[#00397a]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#00397a]/10 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="group cursor-pointer bg-white dark:bg-gray-700 rounded-xl p-6 border-2 border-[#00397a]/10 dark:border-gray-600 hover:border-[#00397a]/40 dark:hover:border-gray-500 transition-all duration-300 hover:shadow-xl hover:shadow-[#00397a]/10 hover:-translate-y-1 relative overflow-hidden">
                           <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#00397a]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
                           
                           <div class="relative">
@@ -214,12 +214,12 @@
                                 <span class="text-4xl font-bold bg-gradient-to-br from-[#00397a] to-[#004595] bg-clip-text text-transparent">{{ totalLandmarks }}</span>
                               </div>
                             </div>
-                            <h3 class="text-sm font-bold text-[#002147] uppercase tracking-wider mb-1">Community Landmarks</h3>
-                            <p class="text-xs text-[#00397a] font-medium">Notable locations & places</p>
+                            <h3 class="text-sm font-bold text-[#002147] dark:text-white uppercase tracking-wider mb-1">Community Landmarks</h3>
+                            <p class="text-xs text-[#00397a] dark:text-gray-400 font-medium">Notable locations & places</p>
                             
-                            <div class="mt-4 pt-3 border-t border-[#00397a]/10">
+                            <div class="mt-4 pt-3 border-t border-[#00397a]/10 dark:border-gray-600">
                               <div class="flex items-center justify-between text-xs">
-                                <span class="text-[#00397a] font-semibold">Explore Map</span>
+                                <span class="text-[#00397a] dark:text-gray-400 font-semibold">Explore Map</span>
                                 <svg class="w-4 h-4 text-[#00397a] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                                 </svg>
@@ -229,7 +229,7 @@
                         </div>
 
                         <!-- History Card -->
-                        <div class="group cursor-pointer bg-white rounded-xl p-6 border-2 border-[#004595]/10 hover:border-[#004595]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#004595]/10 hover:-translate-y-1 relative overflow-hidden">
+                        <div class="group cursor-pointer bg-white dark:bg-gray-700 rounded-xl p-6 border-2 border-[#004595]/10 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-gray-500 transition-all duration-300 hover:shadow-xl hover:shadow-[#004595]/10 hover:-translate-y-1 relative overflow-hidden">
                           <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
                           
                           <div class="relative">
@@ -243,12 +243,12 @@
                                 <span class="text-4xl font-bold bg-gradient-to-br from-[#004595] to-[#002147] bg-clip-text text-transparent">{{ totalHistory }}</span>
                               </div>
                             </div>
-                            <h3 class="text-sm font-bold text-[#002147] uppercase tracking-wider mb-1">Historical Records</h3>
-                            <p class="text-xs text-[#00397a] font-medium">Heritage & cultural data</p>
+                            <h3 class="text-sm font-bold text-[#002147] dark:text-white uppercase tracking-wider mb-1">Historical Records</h3>
+                            <p class="text-xs text-[#00397a] dark:text-gray-400 font-medium">Heritage & cultural data</p>
                             
-                            <div class="mt-4 pt-3 border-t border-[#004595]/10">
+                            <div class="mt-4 pt-3 border-t border-[#004595]/10 dark:border-gray-600">
                               <div class="flex items-center justify-between text-xs">
-                                <span class="text-[#00397a] font-semibold">Read More</span>
+                                <span class="text-[#00397a] dark:text-gray-400 font-semibold">Read More</span>
                                 <svg class="w-4 h-4 text-[#004595] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                                 </svg>
@@ -261,7 +261,7 @@
                   </div>
 
                   <!-- Captain Information Card -->
-                  <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10 hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-300">
+                  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10 dark:border-gray-700 hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-300">
                     <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden">
                       <div class="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -mr-20 -mt-20"></div>
                       <div class="flex items-center justify-between gap-3 relative">
@@ -355,29 +355,29 @@
 
                       <!-- Captain Information Grid -->
                       <div v-if="!isEditing" class="grid md:grid-cols-2 gap-4">
-                        <div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md hover:shadow-[#004595]/10 transition-all border border-[#004595]/10">
+                        <div class="flex items-center gap-3 p-4 bg-white dark:bg-gray-700 rounded-xl shadow-sm hover:shadow-md hover:shadow-[#004595]/10 transition-all border border-[#004595]/10 dark:border-gray-600">
                           <div class="p-2 bg-gradient-to-br from-[#002147] to-[#004595] rounded-lg">
                             <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                               <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                             </svg>
                           </div>
                           <div>
-                            <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Name</p>
-                            <p class="font-semibold text-[#002147]">{{ captainInfo.name || 'Not available' }}</p>
+                            <p class="text-xs text-[#00397a] dark:text-gray-400 font-bold uppercase tracking-wide">Name</p>
+                            <p class="font-semibold text-[#002147] dark:text-white">{{ captainInfo.name || 'Not available' }}</p>
                           </div>
                         </div>
-                        <div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md hover:shadow-[#004595]/10 transition-all border border-[#004595]/10">
+                        <div class="flex items-center gap-3 p-4 bg-white dark:bg-gray-700 rounded-xl shadow-sm hover:shadow-md hover:shadow-[#004595]/10 transition-all border border-[#004595]/10 dark:border-gray-600">
                           <div class="p-2 bg-gradient-to-br from-[#00397a] to-[#004595] rounded-lg">
                             <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                             </svg>
                           </div>
                           <div>
-                            <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Phone</p>
-                            <p class="font-semibold text-[#002147]">{{ captainInfo.phone || 'Not available' }}</p>
+                            <p class="text-xs text-[#00397a] dark:text-gray-400 font-bold uppercase tracking-wide">Phone</p>
+                            <p class="font-semibold text-[#002147] dark:text-white">{{ captainInfo.phone || 'Not available' }}</p>
                           </div>
                         </div>
-                        <div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md hover:shadow-[#004595]/10 transition-all border border-[#004595]/10">
+                        <div class="flex items-center gap-3 p-4 bg-white dark:bg-gray-700 rounded-xl shadow-sm hover:shadow-md hover:shadow-[#004595]/10 transition-all border border-[#004595]/10 dark:border-gray-600">
                           <div class="p-2 bg-gradient-to-br from-[#004595] to-[#00397a] rounded-lg">
                             <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
@@ -385,19 +385,19 @@
                             </svg>
                           </div>
                           <div>
-                            <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Email</p>
-                            <p class="font-semibold text-[#002147] text-sm break-all">{{ captainInfo.email || 'Not available' }}</p>
+                            <p class="text-xs text-[#00397a] dark:text-gray-400 font-bold uppercase tracking-wide">Email</p>
+                            <p class="font-semibold text-[#002147] dark:text-white text-sm break-all">{{ captainInfo.email || 'Not available' }}</p>
                           </div>
                         </div>
-                        <div class="flex items-center gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md hover:shadow-[#004595]/10 transition-all border border-[#004595]/10">
+                        <div class="flex items-center gap-3 p-4 bg-white dark:bg-gray-700 rounded-xl shadow-sm hover:shadow-md hover:shadow-[#004595]/10 transition-all border border-[#004595]/10 dark:border-gray-600">
                           <div class="p-2 bg-gradient-to-br from-[#002147] to-[#00397a] rounded-lg">
                             <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
                             </svg>
                           </div>
                           <div>
-                            <p class="text-xs text-[#00397a] font-bold uppercase tracking-wide">Office Hours</p>
-                            <p class="font-semibold text-[#002147]">{{ captainInfo.officeHours || 'Not available' }}</p>
+                            <p class="text-xs text-[#00397a] dark:text-gray-400 font-bold uppercase tracking-wide">Office Hours</p>
+                            <p class="font-semibold text-[#002147] dark:text-white">{{ captainInfo.officeHours || 'Not available' }}</p>
                           </div>
                         </div>
                       </div>
@@ -405,7 +405,7 @@
                       <!-- Edit Form -->
                       <div v-else class="space-y-4">
                         <div>
-                          <label class="block text-sm font-bold text-[#002147] mb-2">Full Name</label>
+                          <label class="block text-sm font-bold text-[#002147] dark:text-white mb-2">Full Name</label>
                           <input
                             v-model="editForm.name"
                             type="text"
@@ -486,7 +486,7 @@
           </div>
 
           <!-- Barangay Captain Profile Card -->
-          <div v-if="activeTab === 'overview'" class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 hover:shadow-3xl transition-all duration-300">
+          <div v-if="activeTab === 'overview'" class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-3xl transition-all duration-300">
             <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-8 py-6">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
@@ -545,7 +545,7 @@
                 <div class="shrink-0">
                   <div class="relative group">
                     <div
-                      class="w-50 h-50 bg-linear-to-br from-[#004595] to-[#00397a] rounded-2xl flex items-center justify-center shadow-lg ring-4 ring-[#004595]/20 overflow-hidden"
+                      class="w-50 h-50 bg-linear-to-br from-[#004595] to-[#00397a] rounded-2xl flex items-center justify-center shadow-lg ring-4 ring-[#004595]/20 dark:ring-blue-400/20 overflow-hidden"
                     >
                       <img
                         v-if="captainInfo.profileImage"
@@ -584,7 +584,7 @@
                 <div class="flex-1 space-y-4">
                   <div>
                     <div v-if="!isEditing">
-                      <h3 class="text-2xl font-bold text-[#002147]">
+                      <h3 class="text-2xl font-bold text-[#002147] dark:text-white">
                         {{ loadingCaptain ? 'Loading...' : (captainInfo.name || 'No name available') }}
                       </h3>
                     </div>
@@ -593,16 +593,16 @@
                         v-model="editForm.name"
                         type="text"
                         placeholder="Captain Full Name"
-                        class="text-2xl font-bold text-[#002147] border-2 border-[#004595] rounded-lg px-3 py-1 w-full focus:outline-none focus:ring-2 focus:ring-[#004595]"
+                        class="text-2xl font-bold text-[#002147] dark:text-white dark:bg-gray-700 border-2 border-[#004595] dark:border-blue-400 rounded-lg px-3 py-1 w-full focus:outline-none focus:ring-2 focus:ring-[#004595] dark:focus:ring-blue-400"
                       />
                     </div>
-                    <p class="text-sm text-gray-600 font-medium mt-1">Barangay Captain</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 font-medium mt-1">Barangay Captain</p>
                   </div>
 
                   <div class="grid md:grid-cols-2 gap-4">
                     <!-- Contact Info -->
                     <div class="space-y-3">
-                      <div class="flex items-center gap-3 p-3 bg-[#f3f1ee] rounded-lg">
+                      <div class="flex items-center gap-3 p-3 bg-[#f3f1ee] dark:bg-gray-700 rounded-lg">
                         <div class="p-2 bg-[#004595] rounded-lg">
                           <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path
@@ -611,19 +611,19 @@
                           </svg>
                         </div>
                         <div class="flex-1">
-                          <p class="text-xs text-gray-600 font-medium">Phone</p>
-                          <p v-if="!isEditing" class="text-sm font-bold text-[#002147]">{{ captainInfo.phone || 'No phone available' }}</p>
+                          <p class="text-xs text-gray-600 dark:text-gray-300 font-medium">Phone</p>
+                          <p v-if="!isEditing" class="text-sm font-bold text-[#002147] dark:text-white">{{ captainInfo.phone || 'No phone available' }}</p>
                           <input
                             v-else
                             v-model="editForm.phone"
                             type="text"
                             placeholder="Phone Number"
-                            class="text-sm font-bold text-[#002147] border-2 border-[#004595] rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-[#004595]"
+                            class="text-sm font-bold text-[#002147] dark:text-white dark:bg-gray-600 border-2 border-[#004595] dark:border-blue-400 rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-[#004595] dark:focus:ring-blue-400"
                           />
                         </div>
                       </div>
 
-                      <div class="flex items-center gap-3 p-3 bg-[#f3f1ee] rounded-lg">
+                      <div class="flex items-center gap-3 p-3 bg-[#f3f1ee] dark:bg-gray-700 rounded-lg">
                         <div class="p-2 bg-[#004595] rounded-lg">
                           <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path
@@ -633,8 +633,8 @@
                           </svg>
                         </div>
                         <div class="flex-1">
-                          <p class="text-xs text-gray-600 font-medium">Email</p>
-                          <p v-if="!isEditing" class="text-sm font-bold text-[#002147]">
+                          <p class="text-xs text-gray-600 dark:text-gray-300 font-medium">Email</p>
+                          <p v-if="!isEditing" class="text-sm font-bold text-[#002147] dark:text-white">
                             {{ captainInfo.email || 'No email available' }}
                           </p>
                           <input
@@ -642,14 +642,14 @@
                             v-model="editForm.email"
                             type="email"
                             placeholder="Email Address"
-                            class="text-sm font-bold text-[#002147] border-2 border-[#004595] rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-[#004595]"
+                            class="text-sm font-bold text-[#002147] dark:text-white dark:bg-gray-600 border-2 border-[#004595] dark:border-blue-400 rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-[#004595] dark:focus:ring-blue-400"
                           />
                         </div>
                       </div>
                     </div>
 
                     <div class="space-y-3">
-                      <div class="flex items-center gap-3 p-3 bg-[#f3f1ee] rounded-lg">
+                      <div class="flex items-center gap-3 p-3 bg-[#f3f1ee] dark:bg-gray-700 rounded-lg">
                         <div class="p-2 bg-[#004595] rounded-lg">
                           <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path
@@ -660,12 +660,12 @@
                           </svg>
                         </div>
                         <div>
-                          <p class="text-xs text-gray-600 font-medium">Office Hours</p>
-                          <p class="text-sm font-bold text-[#002147]">{{ captainInfo.officeHours }}</p>
+                          <p class="text-xs text-gray-600 dark:text-gray-300 font-medium">Office Hours</p>
+                          <p class="text-sm font-bold text-[#002147] dark:text-white">{{ captainInfo.officeHours }}</p>
                         </div>
                       </div>
 
-                      <div class="flex items-center gap-3 p-3 bg-[#f3f1ee] rounded-lg">
+                      <div class="flex items-center gap-3 p-3 bg-[#f3f1ee] dark:bg-gray-700 rounded-lg">
                         <div class="p-2 bg-[#004595] rounded-lg">
                           <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path
@@ -676,8 +676,8 @@
                           </svg>
                         </div>
                         <div>
-                          <p class="text-xs text-gray-600 font-medium">Barangay Hall</p>
-                          <p class="text-sm font-bold text-[#002147]">
+                          <p class="text-xs text-gray-600 dark:text-gray-300 font-medium">Barangay Hall</p>
+                          <p class="text-sm font-bold text-[#002147] dark:text-white">
                             {{ communityInfo.name }}, Butuan City
                           </p>
                         </div>
@@ -692,7 +692,7 @@
           <!-- Barangay Personnel Section -->
           <div v-if="activeTab === 'officers'" class="space-y-6">
             <!-- Page Header with Stats -->
-            <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
               <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-6 relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
                 <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24"></div>
@@ -722,7 +722,7 @@
                     </button>
                     <button
                       @click="addPersonnel"
-                      class="group flex items-center gap-2 px-6 py-3 bg-white text-[#002147] rounded-xl hover:bg-[#f3f1ee] transition-all duration-300 font-bold text-sm shadow-lg hover:shadow-xl hover:scale-105"
+                      class="group flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-700 text-[#002147] dark:text-white rounded-xl hover:bg-[#f3f1ee] dark:hover:bg-gray-600 transition-all duration-300 font-bold text-sm shadow-lg hover:shadow-xl hover:scale-105"
                     >
                       <svg class="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
@@ -767,15 +767,15 @@
             </div>
 
             <!-- Empty State -->
-            <div v-if="allPersonnel.length === 0" class="bg-gradient-to-br from-white to-[#f3f1ee]/30 rounded-2xl shadow-lg p-16 text-center border border-[#004595]/10">
-              <div class="inline-block p-8 bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 rounded-3xl mb-6 relative">
+            <div v-if="allPersonnel.length === 0" class="bg-gradient-to-br from-white to-[#f3f1ee]/30 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg p-16 text-center border border-[#004595]/10 dark:border-gray-700">
+              <div class="inline-block p-8 bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 dark:from-blue-500/10 dark:to-transparent rounded-3xl mb-6 relative">
                 <div class="absolute inset-0 bg-gradient-to-br from-[#004595]/20 to-transparent rounded-3xl blur-xl"></div>
-                <svg class="w-20 h-20 text-[#004595]/40 relative" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-20 h-20 text-[#004595]/40 dark:text-blue-400/40 relative" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
                 </svg>
               </div>
-              <h3 class="text-2xl font-bold text-[#002147] mb-3">No Personnel Records Found</h3>
-              <p class="text-[#00397a] font-medium mb-6">Start building your barangay team directory</p>
+              <h3 class="text-2xl font-bold text-[#002147] dark:text-white mb-3">No Personnel Records Found</h3>
+              <p class="text-[#00397a] dark:text-gray-400 font-medium mb-6">Start building your barangay team directory</p>
               <button
                 @click="addPersonnel"
                 class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#002147] to-[#004595] text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold"
@@ -790,7 +790,7 @@
             <!-- Personnel Grid -->
             <div v-else class="space-y-6">
               <!-- Position Buttons Grid -->
-              <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#004595]/10">
+              <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border border-[#004595]/10 dark:border-gray-700">
                 <div class="bg-gradient-to-r from-[#002147] to-[#004595] px-6 py-4">
                   <h3 class="text-xl font-bold text-white flex items-center gap-2">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
@@ -802,14 +802,14 @@
                   <p class="text-xs text-white/80 font-medium mt-1">Click on a position to view and manage officers</p>
                 </div>
                 
-                <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/20 to-white">
+                <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/20 to-white dark:from-gray-900/20 dark:to-gray-800">
                   <div v-if="uniquePositions.length === 0" class="text-center py-12">
-                    <div class="inline-block p-4 bg-[#004595]/5 rounded-2xl mb-3">
-                      <svg class="w-12 h-12 text-[#004595]/30" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="inline-block p-4 bg-[#004595]/5 dark:bg-blue-500/10 rounded-2xl mb-3">
+                      <svg class="w-12 h-12 text-[#004595]/30 dark:text-blue-400/40" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                       </svg>
                     </div>
-                    <p class="text-[#00397a] font-semibold mb-4">No positions created yet</p>
+                    <p class="text-[#00397a] dark:text-gray-400 font-semibold mb-4">No positions created yet</p>
                     <button
                       @click="openPositionModal"
                       class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#002147] to-[#004595] text-white rounded-xl hover:shadow-lg transition-all duration-300 font-semibold text-sm"
@@ -825,7 +825,7 @@
                     <div
                       v-for="position in uniquePositions"
                       :key="position"
-                      class="group bg-white rounded-xl p-6 border-2 border-[#004595]/10 hover:border-[#004595]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#004595]/10 hover:-translate-y-1 relative overflow-hidden"
+                      class="group bg-white dark:bg-gray-700 rounded-xl p-6 border-2 border-[#004595]/10 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-gray-500 transition-all duration-300 hover:shadow-xl hover:shadow-[#004595]/10 hover:-translate-y-1 relative overflow-hidden"
                     >
                       <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
                       
@@ -834,10 +834,10 @@
                         <div class="relative">
                           <button
                             @click.stop="togglePositionMenu(position)"
-                            class="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                            :class="{ 'bg-gray-100': activePositionMenu === position }"
+                            class="p-2 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg transition-colors"
+                            :class="{ 'bg-gray-100 dark:bg-gray-600': activePositionMenu === position }"
                           >
-                            <svg class="w-5 h-5 text-[#00397a]" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-5 h-5 text-[#00397a] dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
                             </svg>
                           </button>
@@ -845,7 +845,7 @@
                           <!-- Dropdown Menu -->
                           <div
                             v-if="activePositionMenu === position"
-                            class="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-1 z-20"
+                            class="absolute right-0 mt-1 w-48 bg-white dark:bg-gray-700 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 py-1 z-20"
                           >
                             <button
                               @click.stop="confirmDeletePosition(position)"
@@ -867,17 +867,17 @@
                               <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                             </svg>
                           </div>
-                          <div class="px-3 py-1.5 bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 rounded-lg border border-[#004595]/20 mr-8">
-                            <span class="text-sm font-bold text-[#002147]">{{ officersByPosition[position]?.length || 0 }}</span>
+                          <div class="px-3 py-1.5 bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 dark:from-blue-500/20 dark:to-transparent rounded-lg border border-[#004595]/20 dark:border-blue-800/30 mr-8">
+                            <span class="text-sm font-bold text-[#002147] dark:text-white">{{ officersByPosition[position]?.length || 0 }}</span>
                           </div>
                         </div>
                         
-                        <h4 class="font-bold text-[#002147] text-lg mb-2 group-hover:text-[#004595] transition-colors line-clamp-2">{{ position }}</h4>
-                        <p class="text-xs text-[#00397a] font-medium mb-4">
+                        <h4 class="font-bold text-[#002147] dark:text-white text-lg mb-2 group-hover:text-[#004595] dark:group-hover:text-blue-400 transition-colors line-clamp-2">{{ position }}</h4>
+                        <p class="text-xs text-[#00397a] dark:text-gray-400 font-medium mb-4">
                           {{ (officersByPosition[position]?.length || 0) }} officer{{ (officersByPosition[position]?.length || 0) !== 1 ? 's' : '' }} assigned
                         </p>
                         
-                        <div class="flex items-center gap-2 text-xs font-semibold text-[#004595] group-hover:text-[#002147] transition-colors">
+                        <div class="flex items-center gap-2 text-xs font-semibold text-[#004595] dark:text-blue-400 group-hover:text-[#002147] dark:group-hover:text-white transition-colors">
                           <span>View Officers</span>
                           <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
@@ -894,7 +894,7 @@
           <!-- Barangay Information Section -->
           <div v-if="activeTab === 'history'" id="history-section" class="space-y-6">
             <!-- Page Header -->
-            <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
               <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-6 relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
                 <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24"></div>
@@ -918,10 +918,10 @@
               <article
                 v-for="brgy in brgyInfo"
                 :key="brgy.araw"
-                class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-500 border-2 border-[#004595]/10 hover:border-[#004595]/30"
+                class="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-500 border-2 border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600"
               >
                 <!-- Large Image at Top OR Add Image Button -->
-                <div class="relative overflow-hidden bg-gradient-to-br from-[#f3f1ee]/30 to-white">
+                <div class="relative overflow-hidden bg-gradient-to-br from-[#f3f1ee]/30 to-white dark:from-gray-900/30 dark:to-gray-800">
                   <!-- Image Section (when image exists) -->
                   <div v-if="brgy.brgy_images" class="relative w-full">
                     <img 
@@ -935,12 +935,12 @@
                     
                     <!-- Floating Badge on Image -->
                     <div class="absolute top-6 left-6 z-10">
-                      <div class="px-5 py-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-white/50">
+                      <div class="px-5 py-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-xl shadow-xl border border-white/50 dark:border-gray-700">
                         <div class="flex items-center gap-3">
-                          <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                          <svg class="w-5 h-5 text-[#004595] dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
                           </svg>
-                          <span class="text-[#002147] font-bold text-sm uppercase tracking-wide">{{ brgy.araw }}</span>
+                          <span class="text-[#002147] dark:text-white font-bold text-sm uppercase tracking-wide">{{ brgy.araw }}</span>
                         </div>
                       </div>
                     </div>
@@ -948,13 +948,13 @@
                     <!-- Edit Button on Image -->
                     <button
                       @click="startEditHistory(brgy)"
-                      class="absolute top-6 right-6 z-10 px-4 py-2.5 bg-white/95 hover:bg-white backdrop-blur-sm rounded-xl shadow-xl border border-white/50 transition-all duration-300 hover:scale-105 group/btn"
+                      class="absolute top-6 right-6 z-10 px-4 py-2.5 bg-white/95 dark:bg-gray-800/95 hover:bg-white dark:hover:bg-gray-700 backdrop-blur-sm rounded-xl shadow-xl border border-white/50 dark:border-gray-700 transition-all duration-300 hover:scale-105 group/btn"
                     >
                       <div class="flex items-center gap-2">
-                        <svg class="w-5 h-5 text-[#004595] group-hover/btn:text-[#002147] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 text-[#004595] dark:text-blue-400 group-hover/btn:text-[#002147] dark:group-hover/btn:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                         </svg>
-                        <span class="text-[#002147] font-bold text-sm">Edit</span>
+                        <span class="text-[#002147] dark:text-white font-bold text-sm">Edit</span>
                       </div>
                     </button>
                   </div>
@@ -963,16 +963,16 @@
                   <div v-else class="relative w-full py-20 px-8">
                     <div class="flex flex-col items-center justify-center text-center space-y-6">
                       <!-- Icon -->
-                      <div class="w-32 h-32 rounded-2xl bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 flex items-center justify-center">
-                        <svg class="w-16 h-16 text-[#004595]/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div class="w-32 h-32 rounded-2xl bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 dark:from-blue-500/10 dark:to-transparent flex items-center justify-center">
+                        <svg class="w-16 h-16 text-[#004595]/40 dark:text-blue-400/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
                       </div>
 
                       <!-- Text -->
                       <div>
-                        <h3 class="text-xl font-bold text-[#002147] mb-2">No Image Added</h3>
-                        <p class="text-sm text-[#00397a] font-medium">Add a barangay image to showcase your community</p>
+                        <h3 class="text-xl font-bold text-[#002147] dark:text-white mb-2">No Image Added</h3>
+                        <p class="text-sm text-[#00397a] dark:text-gray-400 font-medium">Add a barangay image to showcase your community</p>
                       </div>
 
                       <!-- Add Image Button -->
@@ -988,12 +988,12 @@
 
                       <!-- Badge if day exists -->
                       <div v-if="brgy.araw" class="absolute top-6 left-6">
-                        <div class="px-5 py-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-[#004595]/20">
+                        <div class="px-5 py-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-xl shadow-xl border border-[#004595]/20 dark:border-gray-700">
                           <div class="flex items-center gap-3">
-                            <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-5 h-5 text-[#004595] dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                               <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
                             </svg>
-                            <span class="text-[#002147] font-bold text-sm uppercase tracking-wide">{{ brgy.araw }}</span>
+                            <span class="text-[#002147] dark:text-white font-bold text-sm uppercase tracking-wide">{{ brgy.araw }}</span>
                           </div>
                         </div>
                       </div>
@@ -1002,21 +1002,21 @@
                 </div>
                   
                 <!-- Details Section Below Image -->
-                <div class="p-8 bg-gradient-to-br from-white to-[#f3f1ee]/20">
+                <div class="p-8 bg-gradient-to-br from-white to-[#f3f1ee]/20 dark:from-gray-800 dark:to-gray-900/20">
                   <!-- Section Title -->
-                  <div class="mb-6 pb-4 border-b-2 border-[#004595]/10">
+                  <div class="mb-6 pb-4 border-b-2 border-[#004595]/10 dark:border-gray-700">
                     <div class="flex items-center gap-2 mb-2">
-                      <div class="h-1.5 w-1.5 rounded-full bg-[#004595]"></div>
-                      <div class="h-1.5 w-1.5 rounded-full bg-[#00397a]"></div>
-                      <div class="h-1.5 w-1.5 rounded-full bg-[#002147]"></div>
+                      <div class="h-1.5 w-1.5 rounded-full bg-[#004595] dark:bg-blue-400"></div>
+                      <div class="h-1.5 w-1.5 rounded-full bg-[#00397a] dark:bg-blue-500"></div>
+                      <div class="h-1.5 w-1.5 rounded-full bg-[#002147] dark:bg-blue-600"></div>
                     </div>
-                    <h2 class="text-2xl font-bold text-[#002147] tracking-tight">Community Details</h2>
+                    <h2 class="text-2xl font-bold text-[#002147] dark:text-white tracking-tight">Community Details</h2>
                   </div>
 
                   <!-- Details Grid -->
                   <div class="space-y-5">
                     <!-- Patron Saint -->
-                    <div class="group/item relative overflow-hidden rounded-2xl p-5 bg-gradient-to-r from-[#004595]/5 via-[#004595]/10 to-transparent border-l-4 border-[#004595] hover:border-[#00397a] hover:shadow-lg hover:shadow-[#004595]/5 transition-all duration-300">
+                    <div class="group/item relative overflow-hidden rounded-2xl p-5 bg-gradient-to-r from-[#004595]/5 via-[#004595]/10 to-transparent dark:from-blue-500/10 dark:via-blue-500/20 dark:to-transparent border-l-4 border-[#004595] dark:border-blue-400 hover:border-[#00397a] dark:hover:border-blue-300 hover:shadow-lg hover:shadow-[#004595]/5 transition-all duration-300">
                       <div class="flex items-start gap-4">
                         <div class="shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#002147] to-[#004595] shadow-lg flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                           <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -1024,17 +1024,17 @@
                           </svg>
                         </div>
                         <div class="flex-1">
-                          <p class="text-xs font-bold text-[#00397a] uppercase tracking-wider mb-1.5 flex items-center gap-2">
+                          <p class="text-xs font-bold text-[#00397a] dark:text-gray-400 uppercase tracking-wider mb-1.5 flex items-center gap-2">
                             Patron Saint
-                            <span class="h-px flex-1 bg-[#004595]/20"></span>
+                            <span class="h-px flex-1 bg-[#004595]/20 dark:bg-gray-700"></span>
                           </p>
-                          <p class="text-xl font-bold text-[#002147] group-hover/item:text-[#004595] transition-colors">{{ brgy.patron }}</p>
+                          <p class="text-xl font-bold text-[#002147] dark:text-white group-hover/item:text-[#004595] dark:group-hover/item:text-blue-400 transition-colors">{{ brgy.patron }}</p>
                         </div>
                       </div>
                     </div>
 
                     <!-- Fiesta Date -->
-                    <div class="group/item relative overflow-hidden rounded-2xl p-5 bg-gradient-to-r from-[#00397a]/5 via-[#00397a]/10 to-transparent border-l-4 border-[#00397a] hover:border-[#004595] hover:shadow-lg hover:shadow-[#00397a]/5 transition-all duration-300">
+                    <div class="group/item relative overflow-hidden rounded-2xl p-5 bg-gradient-to-r from-[#00397a]/5 via-[#00397a]/10 to-transparent dark:from-blue-600/10 dark:via-blue-600/20 dark:to-transparent border-l-4 border-[#00397a] dark:border-blue-500 hover:border-[#004595] dark:hover:border-blue-400 hover:shadow-lg hover:shadow-[#00397a]/5 transition-all duration-300">
                       <div class="flex items-start gap-4">
                         <div class="shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#00397a] to-[#004595] shadow-lg flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300">
                           <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -1042,31 +1042,31 @@
                           </svg>
                         </div>
                         <div class="flex-1">
-                          <p class="text-xs font-bold text-[#00397a] uppercase tracking-wider mb-1.5 flex items-center gap-2">
+                          <p class="text-xs font-bold text-[#00397a] dark:text-gray-400 uppercase tracking-wider mb-1.5 flex items-center gap-2">
                             Fiesta Celebration
-                            <span class="h-px flex-1 bg-[#00397a]/20"></span>
+                            <span class="h-px flex-1 bg-[#00397a]/20 dark:bg-gray-700"></span>
                           </p>
-                          <p class="text-xl font-bold text-[#002147] group-hover/item:text-[#00397a] transition-colors">{{ brgy.date }}</p>
+                          <p class="text-xl font-bold text-[#002147] dark:text-white group-hover/item:text-[#00397a] dark:group-hover/item:text-blue-400 transition-colors">{{ brgy.date }}</p>
                         </div>
                       </div>
                     </div>
 
                     <!-- History -->
-                    <div v-if="brgy.brgy_history" class="relative overflow-hidden rounded-2xl p-8 bg-white border-2 border-[#004595]/10 shadow-sm hover:shadow-xl hover:shadow-[#004595]/5 hover:border-[#004595]/30 transition-all duration-300">
-                      <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-20 -mt-20"></div>
+                    <div v-if="brgy.brgy_history" class="relative overflow-hidden rounded-2xl p-8 bg-white dark:bg-gray-700 border-2 border-[#004595]/10 dark:border-gray-600 shadow-sm hover:shadow-xl hover:shadow-[#004595]/5 hover:border-[#004595]/30 dark:hover:border-gray-500 transition-all duration-300">
+                      <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#004595]/5 to-transparent dark:from-blue-500/10 dark:to-transparent rounded-full -mr-20 -mt-20"></div>
                       
                       <div class="relative">
-                        <div class="flex items-center gap-4 mb-6 pb-4 border-b-2 border-[#004595]/20">
-                          <div class="p-3 bg-[#004595]/10 rounded-xl">
-                            <svg class="w-7 h-7 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                        <div class="flex items-center gap-4 mb-6 pb-4 border-b-2 border-[#004595]/20 dark:border-gray-600">
+                          <div class="p-3 bg-[#004595]/10 dark:bg-blue-500/20 rounded-xl">
+                            <svg class="w-7 h-7 text-[#004595] dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                               <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/>
                             </svg>
                           </div>
                           <div>
-                            <p class="text-sm font-bold text-[#00397a] uppercase tracking-wider">Barangay History</p>
+                            <p class="text-sm font-bold text-[#00397a] dark:text-gray-400 uppercase tracking-wider">Barangay History</p>
                           </div>
                         </div>
-                        <p class="text-lg text-[#002147] leading-loose font-medium whitespace-pre-line">{{ brgy.brgy_history }}</p>
+                        <p class="text-lg text-[#002147] dark:text-gray-300 leading-loose font-medium whitespace-pre-line">{{ brgy.brgy_history }}</p>
                       </div>
                     </div>
                   </div>
@@ -1075,21 +1075,21 @@
             </div>
 
             <!-- Empty State -->
-            <div v-else class="bg-white rounded-2xl shadow-xl p-16 text-center border-2 border-[#004595]/20">
+            <div v-else class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-16 text-center border-2 border-[#004595]/20 dark:border-gray-700">
               <div class="max-w-2xl mx-auto">
                 <!-- Icon -->
-                <div class="inline-block p-10 bg-gradient-to-br from-[#004595]/10 via-[#00397a]/5 to-transparent rounded-3xl mb-8 shadow-inner">
-                  <svg class="w-24 h-24 text-[#004595]/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="inline-block p-10 bg-gradient-to-br from-[#004595]/10 via-[#00397a]/5 to-transparent dark:from-blue-500/10 dark:via-blue-600/5 dark:to-transparent rounded-3xl mb-8 shadow-inner">
+                  <svg class="w-24 h-24 text-[#004595]/40 dark:text-blue-400/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                   </svg>
                 </div>
 
                 <!-- Text Content -->
-                <h3 class="text-3xl font-bold text-[#002147] mb-4">No Barangay History Yet</h3>
-                <p class="text-lg text-[#00397a] font-medium mb-3">
+                <h3 class="text-3xl font-bold text-[#002147] dark:text-white mb-4">No Barangay History Yet</h3>
+                <p class="text-lg text-[#00397a] dark:text-gray-400 font-medium mb-3">
                   Share your barangay's story, patron saint, and fiesta celebration details with the community.
                 </p>
-                <p class="text-sm text-[#00397a]/80 mb-8">
+                <p class="text-sm text-[#00397a]/80 dark:text-gray-500 mb-8">
                   Click the button below to add historical information, images, and cultural details.
                 </p>
 
@@ -1307,16 +1307,16 @@
             </div>
 
             <!-- Info Card -->
-            <div class="bg-gradient-to-br from-white to-[#f3f1ee]/30 rounded-xl p-5 border border-[#004595]/10 shadow-sm">
+            <div class="bg-gradient-to-br from-white dark:from-gray-800 to-[#f3f1ee]/30 dark:to-gray-700/30 rounded-xl p-5 border border-[#004595]/10 dark:border-gray-600 shadow-sm">
               <div class="flex items-start gap-3">
-                <div class="p-2 bg-[#004595]/10 rounded-lg">
-                  <svg class="w-6 h-6 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                <div class="p-2 bg-[#004595]/10 dark:bg-blue-500/20 rounded-lg">
+                  <svg class="w-6 h-6 text-[#004595] dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                   </svg>
                 </div>
                 <div>
-                  <p class="text-base font-bold text-[#002147] mb-1">Information Note</p>
-                  <p class="text-sm text-[#00397a] font-medium">Click on any category card to view detailed information and location maps. Sample data is shown for demonstration purposes.</p>
+                  <p class="text-base font-bold text-[#002147] dark:text-white mb-1">Information Note</p>
+                  <p class="text-sm text-[#00397a] dark:text-gray-300 font-medium">Click on any category card to view detailed information and location maps. Sample data is shown for demonstration purposes.</p>
                 </div>
               </div>
             </div>
@@ -1345,7 +1345,7 @@
 
       <!-- Add Personnel Modal -->
       <div v-if="showModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" style="z-index: 100000;" @click.self="closeModal">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-hidden transform transition-all">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-hidden transform transition-all">
           <!-- Modal Header -->
           <div class="bg-gradient-to-r from-[#002147] to-[#00397a] px-4 py-3">
             <div class="flex items-center justify-between">
@@ -1419,54 +1419,54 @@
                     />
                   </div>
                 </div>
-                <p class="text-[9px] text-[#00397a] text-center -mt-1 mb-2">Click photo to upload (Max 5MB)</p>
+                <p class="text-[9px] text-[#00397a] dark:text-gray-400 text-center -mt-1 mb-2">Click photo to upload (Max 5MB)</p>
 
                 <!-- Form Fields in 2 Columns -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div class="md:col-span-2">
-                    <label class="block text-xs font-semibold text-[#002147] mb-1">Full Name</label>
+                    <label class="block text-xs font-semibold text-[#002147] dark:text-white mb-1">Full Name</label>
                     <input
                       v-model="personnelForm.fullname"
                       type="text"
                       required
-                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
+                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:border-[#004595] dark:focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-[#004595]/20 dark:focus:ring-blue-400/20 transition-all text-sm"
                       placeholder="Enter full name"
                     />
                   </div>
 
                   <div>
-                    <label class="block text-xs font-semibold text-[#002147] mb-1">Phone Number</label>
+                    <label class="block text-xs font-semibold text-[#002147] dark:text-white mb-1">Phone Number</label>
                     <input
                       v-model="personnelForm.phone_number"
                       type="text"
                       required
-                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
+                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:border-[#004595] dark:focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-[#004595]/20 dark:focus:ring-blue-400/20 transition-all text-sm"
                       placeholder="Enter phone number"
                     />
                   </div>
 
                   <div>
-                    <label class="block text-xs font-semibold text-[#002147] mb-1">Purok <span class="text-gray-400 text-[10px]">(Optional)</span></label>
+                    <label class="block text-xs font-semibold text-[#002147] dark:text-white mb-1">Purok <span class="text-gray-400 text-[10px]">(Optional)</span></label>
                     <input
                       v-model="personnelForm.purok_number"
                       type="text"
-                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
+                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:border-[#004595] dark:focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-[#004595]/20 dark:focus:ring-blue-400/20 transition-all text-sm"
                       placeholder="e.g., 1, 2, 3A"
                     />
                   </div>
 
                   <div class="md:col-span-2">
-                    <label class="block text-xs font-semibold text-[#002147] mb-1">Position / Role</label>
+                    <label class="block text-xs font-semibold text-[#002147] dark:text-white mb-1">Position / Role</label>
                     <select
                       v-model="personnelForm.position"
                       required
-                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm bg-white"
+                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:border-[#004595] dark:focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-[#004595]/20 dark:focus:ring-blue-400/20 transition-all text-sm bg-white"
                     >
                       <option value="" disabled>Select a position</option>
                       <option v-if="positions.length === 0" value="" disabled>No positions available - Create one first</option>
                       <option v-for="pos in positions" :key="pos" :value="pos">{{ pos }}</option>
                     </select>
-                    <p class="text-[9px] text-[#00397a] mt-1 flex items-center gap-1">
+                    <p class="text-[9px] text-[#00397a] dark:text-gray-400 mt-1 flex items-center gap-1">
                       <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                       </svg>
@@ -1476,11 +1476,11 @@
 
                   <!-- Description Field (Optional) -->
                   <div class="md:col-span-2">
-                    <label class="block text-xs font-semibold text-[#002147] mb-1">Description <span class="text-gray-400 text-[10px]">(Optional)</span></label>
+                    <label class="block text-xs font-semibold text-[#002147] dark:text-white mb-1">Description <span class="text-gray-400 text-[10px]">(Optional)</span></label>
                     <textarea
                       v-model="personnelForm.description"
                       rows="2"
-                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm resize-none"
+                      class="w-full px-3 py-2 border-2 border-[#f3f1ee] dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:border-[#004595] dark:focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-[#004595]/20 dark:focus:ring-blue-400/20 transition-all text-sm resize-none"
                       placeholder="Brief description or responsibilities..."
                     ></textarea>
                   </div>
@@ -1491,7 +1491,7 @@
                   <button
                     type="button"
                     @click="closeModal"
-                    class="flex-1 px-4 py-2 border-2 border-[#f3f1ee] text-[#002147] rounded-lg hover:bg-[#f3f1ee] transition-all font-semibold text-sm"
+                    class="flex-1 px-4 py-2 border-2 border-[#f3f1ee] dark:border-gray-600 text-[#002147] dark:text-white rounded-lg hover:bg-[#f3f1ee] dark:hover:bg-gray-700 transition-all font-semibold text-sm"
                   >
                     Cancel
                   </button>
@@ -1511,7 +1511,7 @@
 
       <!-- Create Position Modal -->
       <div v-if="showPositionModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closePositionModal">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
           <!-- Modal Header -->
           <div class="bg-gradient-to-r from-[#002147] to-[#00397a] px-6 py-5">
             <div class="flex items-center gap-3">
@@ -1528,15 +1528,15 @@
           <!-- Modal Body -->
           <form @submit.prevent="submitPosition" class="p-6 space-y-5">
             <div>
-              <label class="block text-sm font-bold text-[#002147] mb-2">Position Name</label>
+              <label class="block text-sm font-bold text-[#002147] dark:text-white mb-2">Position Name</label>
               <input
                 v-model="positionForm.name"
                 type="text"
                 required
-                class="w-full px-4 py-3 border-2 border-[#f3f1ee] rounded-xl focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all text-sm"
+                class="w-full px-4 py-3 border-2 border-[#f3f1ee] dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl focus:border-[#004595] dark:focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-[#004595]/20 dark:focus:ring-blue-400/20 transition-all text-sm"
                 placeholder="e.g., SK Chairman, Secretary, Treasurer"
               />
-              <p class="text-xs text-[#00397a] mt-2 flex items-start gap-1">
+              <p class="text-xs text-[#00397a] dark:text-gray-400 mt-2 flex items-start gap-1">
                 <svg class="w-3 h-3 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                 </svg>
@@ -1546,17 +1546,17 @@
 
             <!-- Existing Positions -->
             <div v-if="positions.length > 0">
-              <label class="block text-sm font-bold text-[#002147] mb-2">Existing Positions</label>
-              <div class="max-h-40 overflow-y-auto space-y-1 p-3 bg-[#f3f1ee]/50 rounded-xl">
+              <label class="block text-sm font-bold text-[#002147] dark:text-white mb-2">Existing Positions</label>
+              <div class="max-h-40 overflow-y-auto space-y-1 p-3 bg-[#f3f1ee]/50 dark:bg-gray-700/50 rounded-xl">
                 <div
                   v-for="pos in positions"
                   :key="pos"
-                  class="flex items-center gap-2 px-3 py-2 bg-white rounded-lg text-sm"
+                  class="flex items-center gap-2 px-3 py-2 bg-white dark:bg-gray-700 rounded-lg text-sm"
                 >
-                  <svg class="w-4 h-4 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-4 h-4 text-[#004595] dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                   </svg>
-                  <span class="font-medium text-[#002147]">{{ pos }}</span>
+                  <span class="font-medium text-[#002147] dark:text-white">{{ pos }}</span>
                 </div>
               </div>
             </div>
@@ -1565,7 +1565,7 @@
               <button
                 type="button"
                 @click="closePositionModal"
-                class="flex-1 px-4 py-3 border-2 border-[#f3f1ee] text-[#002147] rounded-xl hover:bg-[#f3f1ee] transition-all font-semibold text-sm"
+                class="flex-1 px-4 py-3 border-2 border-[#f3f1ee] dark:border-gray-600 text-[#002147] dark:text-white rounded-xl hover:bg-[#f3f1ee] dark:hover:bg-gray-700 transition-all font-semibold text-sm"
               >
                 Cancel
               </button>
@@ -1583,7 +1583,7 @@
 
       <!-- Personnel Details Modal -->
       <div v-if="showDetailsModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" style="z-index: 99999;" @click.self="closeDetailsModal">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
           <!-- Modal Header -->
           <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-5 py-4 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
@@ -1617,11 +1617,11 @@
           </div>
           
           <!-- Modal Body -->
-          <div class="p-4 bg-gradient-to-br from-[#f3f1ee]/30 to-white space-y-3">
+          <div class="p-4 bg-gradient-to-br from-[#f3f1ee]/30 dark:from-gray-900/30 to-white dark:to-gray-800 space-y-3">
             <!-- Personal Information -->
-            <div class="bg-white rounded-xl p-4 shadow-sm border border-[#004595]/10">
-              <h4 class="text-xs font-bold text-[#002147] uppercase tracking-wide mb-3 flex items-center gap-2">
-                <svg class="w-4 h-4 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+            <div class="bg-white dark:bg-gray-700 rounded-xl p-4 shadow-sm border border-[#004595]/10 dark:border-gray-600">
+              <h4 class="text-xs font-bold text-[#002147] dark:text-white uppercase tracking-wide mb-3 flex items-center gap-2">
+                <svg class="w-4 h-4 text-[#004595] dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                 </svg>
                 Personal Information
@@ -1629,47 +1629,47 @@
               
               <div class="space-y-2.5">
                 <!-- Full Name -->
-                <div class="p-2.5 bg-[#f3f1ee]/50 rounded-lg">
-                  <p class="text-[9px] text-[#00397a] font-bold uppercase tracking-wide mb-0.5">Full Name</p>
-                  <p class="text-[#002147] font-semibold text-sm">{{ selectedPersonnel?.name }}</p>
+                <div class="p-2.5 bg-[#f3f1ee]/50 dark:bg-gray-600/50 rounded-lg">
+                  <p class="text-[9px] text-[#00397a] dark:text-gray-300 font-bold uppercase tracking-wide mb-0.5">Full Name</p>
+                  <p class="text-[#002147] dark:text-white font-semibold text-sm">{{ selectedPersonnel?.name }}</p>
                 </div>
 
                 <!-- Phone Number -->
-                <div class="flex items-center gap-2.5 p-2.5 bg-[#f3f1ee]/50 rounded-lg">
+                <div class="flex items-center gap-2.5 p-2.5 bg-[#f3f1ee]/50 dark:bg-gray-600/50 rounded-lg">
                   <div class="p-1.5 bg-gradient-to-br from-[#002147] to-[#004595] rounded-lg flex-shrink-0">
                     <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                     </svg>
                   </div>
                   <div class="flex-1 min-w-0">
-                    <p class="text-[9px] text-[#00397a] font-bold uppercase tracking-wide">Phone Number</p>
-                    <p class="text-[#002147] font-semibold text-sm truncate">{{ selectedPersonnel?.phone }}</p>
+                    <p class="text-[9px] text-[#00397a] dark:text-gray-300 font-bold uppercase tracking-wide">Phone Number</p>
+                    <p class="text-[#002147] dark:text-white font-semibold text-sm truncate">{{ selectedPersonnel?.phone }}</p>
                   </div>
                 </div>
 
                 <!-- Purok -->
-                <div class="p-2.5 bg-[#f3f1ee]/50 rounded-lg">
-                  <p class="text-[9px] text-[#00397a] font-bold uppercase tracking-wide mb-0.5">Purok <span class="text-gray-400">(Optional)</span></p>
-                  <p class="text-[#002147] font-semibold text-sm">{{ selectedPersonnel?.purok_number || 'Not specified' }}</p>
+                <div class="p-2.5 bg-[#f3f1ee]/50 dark:bg-gray-600/50 rounded-lg">
+                  <p class="text-[9px] text-[#00397a] dark:text-gray-300 font-bold uppercase tracking-wide mb-0.5">Purok <span class="text-gray-400">(Optional)</span></p>
+                  <p class="text-[#002147] dark:text-white font-semibold text-sm">{{ selectedPersonnel?.purok_number || 'Not specified' }}</p>
                 </div>
 
                 <!-- Position / Role -->
-                <div class="flex items-center gap-2.5 p-2.5 bg-[#f3f1ee]/50 rounded-lg">
+                <div class="flex items-center gap-2.5 p-2.5 bg-[#f3f1ee]/50 dark:bg-gray-600/50 rounded-lg">
                   <div class="p-1.5 bg-gradient-to-br from-[#00397a] to-[#004595] rounded-lg flex-shrink-0">
                     <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
                     </svg>
                   </div>
                   <div class="flex-1 min-w-0">
-                    <p class="text-[9px] text-[#00397a] font-bold uppercase tracking-wide">Position / Role</p>
-                    <p class="text-[#002147] font-semibold text-sm truncate">{{ selectedPersonnel?.position }}</p>
+                    <p class="text-[9px] text-[#00397a] dark:text-gray-300 font-bold uppercase tracking-wide">Position / Role</p>
+                    <p class="text-[#002147] dark:text-white font-semibold text-sm truncate">{{ selectedPersonnel?.position }}</p>
                   </div>
                 </div>
 
                 <!-- Description -->
-                <div v-if="selectedPersonnel?.description" class="p-2.5 bg-[#f3f1ee]/50 rounded-lg">
-                  <p class="text-[9px] text-[#00397a] font-bold uppercase tracking-wide mb-0.5">Description <span class="text-gray-400">(Optional)</span></p>
-                  <p class="text-[#002147] font-medium text-xs leading-relaxed">{{ selectedPersonnel?.description }}</p>
+                <div v-if="selectedPersonnel?.description" class="p-2.5 bg-[#f3f1ee]/50 dark:bg-gray-600/50 rounded-lg">
+                  <p class="text-[9px] text-[#00397a] dark:text-gray-300 font-bold uppercase tracking-wide mb-0.5">Description <span class="text-gray-400">(Optional)</span></p>
+                  <p class="text-[#002147] dark:text-white font-medium text-xs leading-relaxed">{{ selectedPersonnel?.description }}</p>
                 </div>
               </div>
             </div>
@@ -1701,7 +1701,7 @@
 
       <!-- Position Officers Modal -->
       <div v-if="showPositionOfficersModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closePositionOfficersModal">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all max-h-[90vh] flex flex-col">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all max-h-[90vh] flex flex-col">
           <!-- Modal Header -->
           <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
@@ -1740,13 +1740,13 @@
           </div>
           
           <!-- Modal Body -->
-          <div class="flex-1 overflow-y-auto p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white">
+          <div class="flex-1 overflow-y-auto p-6 bg-gradient-to-br from-[#f3f1ee]/30 dark:from-gray-900/30 to-white dark:to-gray-800">
             <!-- Search and Sort Controls -->
             <div class="mb-6 space-y-4">
               <!-- Search Bar -->
               <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <svg class="w-5 h-5 text-[#00397a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-5 h-5 text-[#00397a] dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                   </svg>
                 </div>
@@ -1754,13 +1754,13 @@
                   v-model="officerSearchQuery"
                   type="text"
                   placeholder="Search by name, phone, purok, or description..."
-                  class="w-full pl-12 pr-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/20 transition-all outline-none text-[#002147] font-medium placeholder:text-[#00397a]/50"
+                  class="w-full pl-12 pr-4 py-3 border-2 border-[#004595]/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl focus:border-[#004595] dark:focus:border-blue-400 focus:ring-2 focus:ring-[#004595]/20 dark:focus:ring-blue-400/20 transition-all outline-none font-medium placeholder:text-[#00397a]/50 dark:placeholder:text-gray-400"
                 />
                 <!-- Clear Search Button -->
                 <button
                   v-if="officerSearchQuery"
                   @click="officerSearchQuery = ''"
-                  class="absolute inset-y-0 right-0 pr-4 flex items-center text-[#00397a] hover:text-[#002147] transition-colors"
+                  class="absolute inset-y-0 right-0 pr-4 flex items-center text-[#00397a] dark:text-gray-400 hover:text-[#002147] dark:hover:text-white transition-colors"
                 >
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
@@ -1770,7 +1770,7 @@
 
               <!-- Sort Options -->
               <div class="flex items-center gap-3">
-                <label class="text-sm font-bold text-[#002147] flex items-center gap-2">
+                <label class="text-sm font-bold text-[#002147] dark:text-white flex items-center gap-2">
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M3 3a1 1 0 000 2h11a1 1 0 100-2H3zM3 7a1 1 0 000 2h7a1 1 0 100-2H3zM3 11a1 1 0 100 2h4a1 1 0 100-2H3zM15 8a1 1 0 10-2 0v5.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L15 13.586V8z"/>
                   </svg>
@@ -1783,7 +1783,7 @@
                       'px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300',
                       officerSortBy === 'firstname'
                         ? 'bg-gradient-to-r from-[#002147] to-[#004595] text-white shadow-lg'
-                        : 'bg-white text-[#002147] border-2 border-[#004595]/20 hover:border-[#004595]/40'
+                        : 'bg-white dark:bg-gray-700 text-[#002147] dark:text-white border-2 border-[#004595]/20 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-gray-500'
                     ]"
                   >
                     First Name
@@ -1794,7 +1794,7 @@
                       'px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300',
                       officerSortBy === 'lastname'
                         ? 'bg-gradient-to-r from-[#002147] to-[#004595] text-white shadow-lg'
-                        : 'bg-white text-[#002147] border-2 border-[#004595]/20 hover:border-[#004595]/40'
+                        : 'bg-white dark:bg-gray-700 text-[#002147] dark:text-white border-2 border-[#004595]/20 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-gray-500'
                     ]"
                   >
                     Last Name
@@ -1805,7 +1805,7 @@
                       'px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300',
                       officerSortBy === 'alphabetical'
                         ? 'bg-gradient-to-r from-[#002147] to-[#004595] text-white shadow-lg'
-                        : 'bg-white text-[#002147] border-2 border-[#004595]/20 hover:border-[#004595]/40'
+                        : 'bg-white dark:bg-gray-700 text-[#002147] dark:text-white border-2 border-[#004595]/20 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-gray-500'
                     ]"
                   >
                     A-Z
@@ -1814,22 +1814,22 @@
               </div>
 
               <!-- Results Count -->
-              <div v-if="officerSearchQuery" class="text-sm text-[#00397a] font-semibold">
+              <div v-if="officerSearchQuery" class="text-sm text-[#00397a] dark:text-gray-300 font-semibold">
                 Found {{ officersForSelectedPosition.length }} officer{{ officersForSelectedPosition.length !== 1 ? 's' : '' }}
               </div>
             </div>
 
             <div v-if="officersForSelectedPosition.length === 0" class="text-center py-16">
-              <div class="inline-block p-8 bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 rounded-3xl mb-6 relative">
+              <div class="inline-block p-8 bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 dark:from-gray-700/50 dark:to-gray-600/30 rounded-3xl mb-6 relative">
                 <div class="absolute inset-0 bg-gradient-to-br from-[#004595]/20 to-transparent rounded-3xl blur-xl"></div>
-                <svg class="w-16 h-16 text-[#004595]/40 relative" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-16 h-16 text-[#004595]/40 dark:text-gray-500 relative" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-[#002147] mb-3">
+              <h3 class="text-xl font-bold text-[#002147] dark:text-white mb-3">
                 {{ officerSearchQuery ? 'No Officers Found' : 'No Officers Yet' }}
               </h3>
-              <p class="text-[#00397a] font-medium mb-6">
+              <p class="text-[#00397a] dark:text-gray-400 font-medium mb-6">
                 {{ officerSearchQuery ? 'Try adjusting your search criteria' : 'Add officers to this position to get started' }}
               </p>
               <button
@@ -1859,13 +1859,13 @@
                 v-for="person in officersForSelectedPosition"
                 :key="person.id"
                 @click="viewPersonnelDetails(person)"
-                class="group cursor-pointer bg-white rounded-xl p-5 border-2 border-[#004595]/10 hover:border-[#004595]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#004595]/10 hover:-translate-y-1 relative overflow-hidden"
+                class="group cursor-pointer bg-white dark:bg-gray-700 rounded-xl p-5 border-2 border-[#004595]/10 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-blue-400 transition-all duration-300 hover:shadow-xl hover:shadow-[#004595]/10 dark:hover:shadow-blue-400/10 hover:-translate-y-1 relative overflow-hidden"
               >
-                <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#004595]/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
+                <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#004595]/5 dark:from-blue-400/5 to-transparent rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
                 
                 <div class="relative flex flex-col items-center text-center">
                   <!-- Photo or Avatar -->
-                  <div class="w-20 h-20 rounded-2xl overflow-hidden mb-4 shadow-lg ring-2 ring-[#004595]/20 group-hover:ring-4 group-hover:ring-[#004595]/40 transition-all">
+                  <div class="w-20 h-20 rounded-2xl overflow-hidden mb-4 shadow-lg ring-2 ring-[#004595]/20 dark:ring-gray-600 group-hover:ring-4 group-hover:ring-[#004595]/40 dark:group-hover:ring-blue-400/40 transition-all">
                     <img 
                       v-if="person.photo_url" 
                       :src="person.photo_url" 
@@ -1879,7 +1879,7 @@
                     </div>
                   </div>
                   
-                  <h4 class="font-bold text-[#002147] text-base mb-2 group-hover:text-[#004595] transition-colors">{{ person.name }}</h4>
+                  <h4 class="font-bold text-[#002147] dark:text-white text-base mb-2 group-hover:text-[#004595] dark:group-hover:text-blue-400 transition-colors">{{ person.name }}</h4>
                   
                   <!-- Purok Number Badge (for Purok Chairman) -->
                   <div v-if="person.purok_number" class="mb-3">
@@ -1891,12 +1891,12 @@
                     </span>
                   </div>
                   
-                  <div v-if="person.description" class="text-sm text-[#00397a] font-bold mb-3 line-clamp-2 px-2">
+                  <div v-if="person.description" class="text-sm text-[#00397a] dark:text-gray-300 font-bold mb-3 line-clamp-2 px-2">
                     {{ person.description }}
                   </div>
                   
-                  <div class="w-full pt-3 border-t border-[#004595]/10 space-y-2">
-                    <div class="flex items-center justify-center gap-2 text-sm text-[#00397a]">
+                  <div class="w-full pt-3 border-t border-[#004595]/10 dark:border-gray-600 space-y-2">
+                    <div class="flex items-center justify-center gap-2 text-sm text-[#00397a] dark:text-gray-300">
                       <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                       </svg>
@@ -1921,7 +1921,7 @@
 
       <!-- Delete Position Confirmation Modal -->
       <div v-if="showDeleteConfirmModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[60] p-4" @click.self="cancelDeletePosition">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
           <!-- Modal Header -->
           <div class="bg-gradient-to-r from-red-500 to-red-600 px-6 py-5">
             <div class="flex items-center gap-3">
@@ -1937,17 +1937,17 @@
           <!-- Modal Body -->
           <div class="p-6">
             <div class="text-center mb-6">
-              <div class="inline-block p-4 bg-red-100 rounded-full mb-4">
-                <svg class="w-12 h-12 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+              <div class="inline-block p-4 bg-red-100 dark:bg-red-900/30 rounded-full mb-4">
+                <svg class="w-12 h-12 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/>
                 </svg>
               </div>
-              <h4 class="text-lg font-bold text-gray-900 mb-2">Delete "{{ positionToDelete }}"?</h4>
-              <p class="text-gray-600 text-sm">
+              <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Delete "{{ positionToDelete }}"?</h4>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">
                 Are you sure you want to delete this position? This action cannot be undone.
               </p>
-              <div v-if="officersByPosition[positionToDelete]?.length > 0" class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                <p class="text-xs text-amber-800 font-semibold">
+              <div v-if="officersByPosition[positionToDelete]?.length > 0" class="mt-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg">
+                <p class="text-xs text-amber-800 dark:text-amber-300 font-semibold">
                   ⚠️ Warning: This will also delete {{ officersByPosition[positionToDelete].length }} officer{{ officersByPosition[positionToDelete].length !== 1 ? 's' : '' }} assigned to this position.
                 </p>
               </div>
@@ -1956,7 +1956,7 @@
             <div class="flex gap-3">
               <button
                 @click="cancelDeletePosition"
-                class="flex-1 px-4 py-3 border-2 border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 transition-all font-semibold text-sm"
+                class="flex-1 px-4 py-3 border-2 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all font-semibold text-sm"
               >
                 Cancel
               </button>
@@ -1985,7 +1985,7 @@
           class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100001] p-4"
           @click.self="handleCancelConfirm"
         >
-          <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
             <!-- Modal Header -->
             <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden">
               <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-20 -mt-20 animate-pulse"></div>
@@ -2000,13 +2000,13 @@
             </div>
             
             <!-- Modal Body -->
-            <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white">
-              <p class="text-[#002147] text-base font-medium mb-6 text-center">{{ confirmData.message }}</p>
+            <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 dark:from-gray-900/30 to-white dark:to-gray-800">
+              <p class="text-[#002147] dark:text-white text-base font-medium mb-6 text-center">{{ confirmData.message }}</p>
               
               <div class="flex gap-3">
                 <button
                   @click="handleCancelConfirm"
-                  class="flex-1 px-5 py-3 border-2 border-[#004595]/20 text-[#002147] rounded-xl hover:bg-[#f3f1ee] hover:border-[#004595]/40 transition-all font-bold text-sm"
+                  class="flex-1 px-5 py-3 border-2 border-[#004595]/20 dark:border-gray-600 text-[#002147] dark:text-white rounded-xl hover:bg-[#f3f1ee] dark:hover:bg-gray-700 hover:border-[#004595]/40 dark:hover:border-gray-500 transition-all font-bold text-sm"
                 >
                   {{ confirmData.cancelText }}
                 </button>
@@ -2100,7 +2100,7 @@
 
       <!-- Edit History Modal -->
       <div v-if="showHistoryModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" style="z-index: 100000;" @click.self="closeHistoryModal">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto transform transition-all">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto transform transition-all">
           <!-- Modal Header -->
           <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden sticky top-0 z-10">
             <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-2xl -mr-32 -mt-32 animate-pulse"></div>
@@ -2125,9 +2125,9 @@
           <div class="p-6 space-y-6">
             <!-- Image Upload Section -->
             <div class="space-y-3">
-              <label class="block text-sm font-bold text-[#002147] uppercase tracking-wide">Barangay Image</label>
+              <label class="block text-sm font-bold text-[#002147] dark:text-white uppercase tracking-wide">Barangay Image</label>
               <div class="relative">
-                <div v-if="historyForm.brgy_images" class="relative w-full aspect-[21/9] rounded-xl overflow-hidden border-2 border-[#004595]/20 mb-3">
+                <div v-if="historyForm.brgy_images" class="relative w-full aspect-[21/9] rounded-xl overflow-hidden border-2 border-[#004595]/20 dark:border-gray-600 mb-3">
                   <img :src="historyForm.brgy_images" alt="Preview" class="w-full h-full object-cover" />
                   <button
                     @click="removeHistoryImage"
@@ -2148,7 +2148,7 @@
                 <button
                   @click="triggerHistoryImageUpload"
                   :disabled="uploadingHistoryImage"
-                  class="w-full px-4 py-3 border-2 border-dashed border-[#004595]/30 rounded-xl hover:border-[#004595] hover:bg-[#004595]/5 transition-all text-[#002147] font-semibold flex items-center justify-center gap-2"
+                  class="w-full px-4 py-3 border-2 border-dashed border-[#004595]/30 dark:border-gray-600 rounded-xl hover:border-[#004595] dark:hover:border-blue-400 hover:bg-[#004595]/5 dark:hover:bg-gray-700 transition-all text-[#002147] dark:text-white font-semibold flex items-center justify-center gap-2"
                 >
                   <svg v-if="!uploadingHistoryImage" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -2164,54 +2164,54 @@
 
             <!-- Day Field -->
             <div class="space-y-2">
-              <label class="block text-sm font-bold text-[#002147] uppercase tracking-wide">Day/Occasion</label>
+              <label class="block text-sm font-bold text-[#002147] dark:text-white uppercase tracking-wide">Day/Occasion</label>
               <input
                 v-model="historyForm.araw"
                 type="text"
                 placeholder="e.g., Foundation Day"
-                class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/20 transition-all outline-none"
+                class="w-full px-4 py-3 border-2 border-[#004595]/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl focus:border-[#004595] dark:focus:border-blue-400 focus:ring-2 focus:ring-[#004595]/20 dark:focus:ring-blue-400/20 transition-all outline-none"
               />
             </div>
 
             <!-- Patron Saint Field -->
             <div class="space-y-2">
-              <label class="block text-sm font-bold text-[#002147] uppercase tracking-wide">Patron Saint</label>
+              <label class="block text-sm font-bold text-[#002147] dark:text-white uppercase tracking-wide">Patron Saint</label>
               <input
                 v-model="historyForm.patron"
                 type="text"
                 placeholder="Enter patron saint name"
-                class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/20 transition-all outline-none"
+                class="w-full px-4 py-3 border-2 border-[#004595]/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl focus:border-[#004595] dark:focus:border-blue-400 focus:ring-2 focus:ring-[#004595]/20 dark:focus:ring-blue-400/20 transition-all outline-none"
               />
             </div>
 
             <!-- Fiesta Date Field -->
             <div class="space-y-2">
-              <label class="block text-sm font-bold text-[#002147] uppercase tracking-wide">Fiesta Celebration Date</label>
+              <label class="block text-sm font-bold text-[#002147] dark:text-white uppercase tracking-wide">Fiesta Celebration Date</label>
               <input
                 v-model="historyForm.date"
                 type="text"
                 placeholder="e.g., January 15"
-                class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/20 transition-all outline-none"
+                class="w-full px-4 py-3 border-2 border-[#004595]/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl focus:border-[#004595] dark:focus:border-blue-400 focus:ring-2 focus:ring-[#004595]/20 dark:focus:ring-blue-400/20 transition-all outline-none"
               />
             </div>
 
             <!-- History Field -->
             <div class="space-y-2">
-              <label class="block text-sm font-bold text-[#002147] uppercase tracking-wide">Barangay History</label>
+              <label class="block text-sm font-bold text-[#002147] dark:text-white uppercase tracking-wide">Barangay History</label>
               <textarea
                 v-model="historyForm.brgy_history"
                 rows="6"
                 placeholder="Enter the barangay's history and background"
-                class="w-full px-4 py-3 border-2 border-[#004595]/20 rounded-xl focus:border-[#004595] focus:ring-2 focus:ring-[#004595]/20 transition-all outline-none resize-none"
+                class="w-full px-4 py-3 border-2 border-[#004595]/20 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl focus:border-[#004595] dark:focus:border-blue-400 focus:ring-2 focus:ring-[#004595]/20 dark:focus:ring-blue-400/20 transition-all outline-none resize-none"
               ></textarea>
             </div>
           </div>
 
           <!-- Modal Footer -->
-          <div class="px-6 py-4 bg-[#f3f1ee]/30 border-t border-[#004595]/10 flex gap-3 sticky bottom-0">
+          <div class="px-6 py-4 bg-[#f3f1ee]/30 dark:bg-gray-900/30 border-t border-[#004595]/10 dark:border-gray-700 flex gap-3 sticky bottom-0">
             <button
               @click="closeHistoryModal"
-              class="flex-1 px-5 py-3 border-2 border-[#004595]/20 text-[#002147] rounded-xl hover:bg-[#f3f1ee] hover:border-[#004595]/40 transition-all font-bold"
+              class="flex-1 px-5 py-3 border-2 border-[#004595]/20 dark:border-gray-600 text-[#002147] dark:text-white rounded-xl hover:bg-[#f3f1ee] dark:hover:bg-gray-700 hover:border-[#004595]/40 dark:hover:border-gray-500 transition-all font-bold"
             >
               Cancel
             </button>
@@ -2228,7 +2228,7 @@
 
       <!-- Landmark Details Modal -->
       <div v-if="showLandmarkModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" style="z-index: 100000;" @click.self="closeLandmarkModal">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden transform transition-all">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden transform transition-all">
           <!-- Modal Header -->
           <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-2xl -mr-32 -mt-32 animate-pulse"></div>
@@ -2262,22 +2262,22 @@
           </div>
 
           <!-- Modal Body -->
-          <div class="overflow-y-auto max-h-[calc(90vh-140px)] p-6">
+          <div class="overflow-y-auto max-h-[calc(90vh-140px)] p-6 dark:bg-gray-800">
             <div v-if="selectedLandmarkItems.length === 0" class="text-center py-16">
-              <div class="inline-block p-8 bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 rounded-3xl mb-6">
-                <svg class="w-16 h-16 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+              <div class="inline-block p-8 bg-gradient-to-br from-[#004595]/10 to-[#00397a]/5 dark:from-gray-700/50 dark:to-gray-600/30 rounded-3xl mb-6">
+                <svg class="w-16 h-16 text-[#004595] dark:text-gray-500" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-[#002147] mb-3">No {{ landmarkModalTitle }} Found</h3>
-              <p class="text-[#00397a] font-medium">There are currently no {{ selectedLandmarkType }} listed in this barangay.</p>
+              <h3 class="text-xl font-bold text-[#002147] dark:text-white mb-3">No {{ landmarkModalTitle }} Found</h3>
+              <p class="text-[#00397a] dark:text-gray-400 font-medium">There are currently no {{ selectedLandmarkType }} listed in this barangay.</p>
             </div>
 
             <div v-else class="space-y-3">
               <div
                 v-for="(item, index) in selectedLandmarkItems"
                 :key="index"
-                class="group bg-gradient-to-br from-white to-[#f3f1ee]/30 rounded-xl p-4 border-2 border-[#004595]/10 hover:border-[#004595]/40 transition-all duration-300 hover:shadow-lg"
+                class="group bg-gradient-to-br from-white dark:from-gray-700 to-[#f3f1ee]/30 dark:to-gray-700/30 rounded-xl p-4 border-2 border-[#004595]/10 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-blue-400 transition-all duration-300 hover:shadow-lg"
               >
                 <div class="flex items-start gap-4">
                   <div class="flex-shrink-0">
@@ -2286,16 +2286,16 @@
                     </div>
                   </div>
                   <div class="flex-1 min-w-0">
-                    <h4 class="text-base font-bold text-[#002147] mb-1 group-hover:text-[#004595] transition-colors">{{ item.name }}</h4>
+                    <h4 class="text-base font-bold text-[#002147] dark:text-white mb-1 group-hover:text-[#004595] dark:group-hover:text-blue-400 transition-colors">{{ item.name }}</h4>
                     <div class="flex items-start gap-2 mt-2">
-                      <svg class="w-4 h-4 text-[#00397a] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <svg class="w-4 h-4 text-[#00397a] dark:text-gray-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
                       </svg>
-                      <p class="text-sm text-[#00397a] font-medium">{{ item.address || 'No address provided' }}</p>
+                      <p class="text-sm text-[#00397a] dark:text-gray-300 font-medium">{{ item.address || 'No address provided' }}</p>
                     </div>
                   </div>
                   <div class="flex-shrink-0">
-                    <svg class="w-5 h-5 text-[#004595] opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-5 h-5 text-[#004595] dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
                     </svg>
                   </div>
@@ -2305,10 +2305,10 @@
           </div>
 
           <!-- Modal Footer -->
-          <div class="px-6 py-4 bg-[#f3f1ee]/30 border-t border-[#004595]/10 flex gap-3">
+          <div class="px-6 py-4 bg-[#f3f1ee]/30 dark:bg-gray-900/30 border-t border-[#004595]/10 dark:border-gray-700 flex gap-3">
             <button
               @click="closeLandmarkModal"
-              class="flex-1 px-5 py-3 border-2 border-[#004595]/20 text-[#002147] rounded-xl hover:bg-[#f3f1ee] hover:border-[#004595]/40 transition-all font-bold"
+              class="flex-1 px-5 py-3 border-2 border-[#004595]/20 dark:border-gray-600 text-[#002147] dark:text-white rounded-xl hover:bg-[#f3f1ee] dark:hover:bg-gray-700 hover:border-[#004595]/40 dark:hover:border-gray-500 transition-all font-bold"
             >
               Close
             </button>

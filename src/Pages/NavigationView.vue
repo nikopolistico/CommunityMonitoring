@@ -1,10 +1,10 @@
 
 <template>
-  <div class="flex h-screen bg-[#eeeff3]">
+  <div class="flex h-screen bg-[#eeeff3] dark:bg-gray-900">
     <!-- Left Sidebar Navigation -->
     <aside
       :class="[
-        'w-64 bg-linear-to-b from-[#002147] to-[#00397a] text-white flex flex-col shadow-2xl transition-transform duration-300 z-40',
+        'w-64 bg-linear-to-b from-[#002147] to-[#00397a] dark:from-gray-800 dark:to-gray-900 text-white flex flex-col shadow-2xl transition-transform duration-300 z-40',
         'lg:relative lg:translate-x-0',
         sidebarOpen
           ? 'fixed inset-y-0 left-0 translate-x-0'
@@ -59,7 +59,7 @@
                   />
                 </svg>
               </div>
-              <span class="font-semibold">Dashboard</span>
+              <span class="font-semibold">{{ t('dashboard') }}</span>
             </a>
           </li>
           <li>
@@ -84,7 +84,7 @@
                   />
                 </svg>
               </div>
-              <span class="font-semibold">Calendar</span>
+              <span class="font-semibold">{{ t('calendar') }}</span>
             </a>
           </li>
           <li>
@@ -109,7 +109,7 @@
                   />
                 </svg>
               </div>
-              <span class="font-semibold">Records</span>
+              <span class="font-semibold">{{ t('records') }}</span>
             </a>
           </li>
           <li>
@@ -134,24 +134,24 @@
                   />
                 </svg>
               </div>
-              <span class="font-semibold">Settings</span>
+              <span class="font-semibold">{{ t('settings') }}</span>
             </a>
           </li>
         </ul>
       </nav>
 
       <!-- Logout Button -->
-      <div class="p-4 border-t border-white/10">
+      <div class="p-4 border-t border-white/10 dark:border-gray-700">
         <button
           @click="showLogoutModal = true"
           :disabled="isLoggingOut"
-          class="w-full flex items-center justify-center p-3.5 rounded-xl bg-white hover:bg-[#f3f1ee] text-[#002147] border-2 border-white/30 hover:border-white transition-all duration-300 font-bold shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none group relative overflow-hidden"
+          class="w-full flex items-center justify-center p-3.5 rounded-xl bg-white dark:bg-gray-700 hover:bg-[#f3f1ee] dark:hover:bg-gray-600 text-[#002147] dark:text-white border-2 border-white/30 dark:border-gray-600 hover:border-white dark:hover:border-gray-500 transition-all duration-300 font-bold shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none group relative overflow-hidden"
         >
           <!-- Shimmer Effect -->
           <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#004595]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
           
           <!-- Loading Spinner -->
-          <svg v-if="isLoggingOut" class="animate-spin w-5 h-5 mr-2.5 relative z-10 text-[#004595]" fill="none" viewBox="0 0 24 24">
+          <svg v-if="isLoggingOut" class="animate-spin w-5 h-5 mr-2.5 relative z-10 text-[#004595] dark:text-blue-400" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
@@ -165,7 +165,7 @@
             />
           </svg>
           
-          <span class="relative z-10 tracking-wide text-sm font-bold">{{ isLoggingOut ? 'Signing Out...' : 'Sign Out' }}</span>
+          <span class="relative z-10 tracking-wide text-sm font-bold">{{ isLoggingOut ? t('loggingOut') : t('logout') }}</span>
         </button>
       </div>
     </aside>
@@ -189,19 +189,19 @@
           <!-- Success Message -->
           <div class="text-center space-y-5">
             <div class="space-y-2">
-              <h3 class="text-3xl font-extrabold text-[#002147] tracking-tight">Successfully Signed Out</h3>
+              <h3 class="text-3xl font-extrabold text-[#002147] tracking-tight">{{ t('logoutSuccess') }}</h3>
               <div class="w-24 h-1 bg-gradient-to-r from-transparent via-[#004595] to-transparent rounded-full mx-auto"></div>
             </div>
             
             <div class="bg-white/70 backdrop-blur-sm rounded-xl p-5 border border-[#004595]/10 shadow-sm">
               <p class="text-[#00397a] text-lg font-semibold mb-2">
-                Session Ended
+                {{ t('sessionEnded') }}
               </p>
               <div class="flex items-center justify-center gap-2 text-[#00397a]/70 text-sm">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
                 </svg>
-                <span class="font-medium">Your session has been securely ended</span>
+                <span class="font-medium">{{ t('sessionEndedMessage') }}</span>
               </div>
             </div>
             
@@ -212,7 +212,7 @@
                 <div class="loading-shimmer absolute top-0 left-0 h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
               </div>
               <p class="text-[#00397a]/70 text-xs mt-3 font-semibold tracking-wide">
-                Redirecting to login page...
+                {{ t('redirecting') }}
               </p>
             </div>
           </div>
@@ -223,7 +223,7 @@
     <!-- Logout Confirmation Modal -->
     <Transition name="modal-fade">
       <div v-if="showLogoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-[#002147]/80 via-[#00397a]/70 to-[#004595]/80 backdrop-blur-md">
-        <div class="bg-gradient-to-br from-[#f3f1ee] to-white rounded-3xl shadow-2xl max-w-md w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20 relative overflow-hidden">
+        <div class="bg-gradient-to-br from-[#f3f1ee] to-white dark:from-gray-800 dark:to-gray-900 rounded-3xl shadow-2xl max-w-md w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20 dark:border-gray-700 relative overflow-hidden">
           
           <!-- Decorative Background Elements -->
           <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#004595]/10 to-transparent rounded-full blur-3xl"></div>
@@ -242,8 +242,8 @@
           
           <!-- Message -->
           <div class="text-center mb-8 relative z-10">
-            <h3 class="text-3xl font-bold bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] bg-clip-text text-transparent mb-3">Sign Out</h3>
-            <p class="text-[#002147]/70 text-base leading-relaxed">Are you sure you want to end your session?</p>
+            <h3 class="text-3xl font-bold bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] bg-clip-text text-transparent dark:from-blue-400 dark:via-blue-300 dark:to-blue-500 mb-3">{{ t('signOut') }}</h3>
+            <p class="text-[#002147]/70 dark:text-gray-300 text-base leading-relaxed">{{ t('confirmLogout') }}</p>
           </div>
           
           <!-- Buttons -->
@@ -251,10 +251,10 @@
             <button
               @click="showLogoutModal = false"
               :disabled="isLoggingOut"
-              class="flex-1 px-6 py-3.5 bg-gradient-to-br from-white to-[#f3f1ee] hover:from-[#f3f1ee] hover:to-white text-[#002147] font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none border-2 border-[#004595]/20 hover:border-[#004595]/40 relative overflow-hidden group"
+              class="flex-1 px-6 py-3.5 bg-gradient-to-br from-white to-[#f3f1ee] dark:from-gray-700 dark:to-gray-800 hover:from-[#f3f1ee] hover:to-white dark:hover:from-gray-600 dark:hover:to-gray-700 text-[#002147] dark:text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none border-2 border-[#004595]/20 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-gray-500 relative overflow-hidden group"
             >
               <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#004595]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-              <span class="relative z-10">Cancel</span>
+              <span class="relative z-10">{{ t('cancel') }}</span>
             </button>
             <button
               @click="confirmLogout"
@@ -268,7 +268,7 @@
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              <span class="relative z-10">{{ isLoggingOut ? 'Signing Out...' : 'Confirm' }}</span>
+              <span class="relative z-10">{{ isLoggingOut ? t('loggingOut') : t('confirm') }}</span>
             </button>
           </div>
         </div>
@@ -324,12 +324,14 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { supabase } from '@/lib/supabase'
+import { useGlobal } from '@/composables/useGlobal'
 import DashBoard from './DashBoard.vue'
 import CalendarView from './CalendarView.vue'
 import RecordsView from './RecordsView.vue'
 import SettingsView from './SettingsView.vue'
 
 const router = useRouter()
+const { t } = useGlobal()
 const sidebarOpen = ref(false)
 const activeView = ref('dashboard')
 const showLogoutModal = ref(false)
