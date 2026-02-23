@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 font-['Poppins']">
+  <div class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-['Poppins']">
     <div class="mx-auto max-w-7xl px-8 py-10">
       <!-- Header Banner -->
       <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#002147] via-[#004595] to-[#00397a] p-10 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.01] mb-8">
@@ -29,7 +29,7 @@
       <!-- Settings Sections -->
       <div class="space-y-6">
         <!-- Administrator Profile Section -->
-        <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
           <div class="bg-gradient-to-r from-[#004595] to-[#00397a] px-6 py-4">
             <div class="flex items-center gap-3">
               <div class="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl">
@@ -48,9 +48,9 @@
             </div>
           </div>
           
-          <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white">
+          <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
             <!-- Profile Picture -->
-            <div class="flex items-center gap-6 mb-6 p-5 bg-gradient-to-r from-blue-50/50 to-indigo-50/50 rounded-xl border border-[#004595]/10">
+            <div class="flex items-center gap-6 mb-6 p-5 bg-gradient-to-r from-blue-50/50 to-indigo-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-[#004595]/10 dark:border-gray-600">
               <div class="relative group flex-shrink-0">
                 <div class="w-24 h-24 bg-gradient-to-br from-[#004595] to-[#00397a] rounded-full flex items-center justify-center shadow-lg overflow-hidden transition-all duration-300">
                   <img
@@ -85,9 +85,9 @@
                 />
               </div>
               <div class="flex-1 min-w-0">
-                <h3 class="text-xl font-bold text-[#002147] mb-1 truncate">{{ adminProfile.username || 'Administrator' }}</h3>
-                <p class="text-gray-600 text-sm mb-2">System Administrator</p>
-                <div class="flex items-center gap-2 text-xs text-gray-500">
+                <h3 class="text-xl font-bold text-[#002147] dark:text-white mb-1 truncate">{{ adminProfile.username || 'Administrator' }}</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">System Administrator</p>
+                <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                   <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
                   </svg>
@@ -99,7 +99,7 @@
             <!-- Admin Info Cards -->
             <div class="grid md:grid-cols-2 gap-4">
               <!-- Email Card -->
-              <div class="p-4 bg-gradient-to-br from-white to-blue-50/30 rounded-xl border border-[#004595]/10 hover:border-[#004595]/20 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('email')">
+              <div class="p-4 bg-gradient-to-br from-white to-blue-50/30 dark:from-gray-700 dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595]/20 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('email')">
                 <div class="flex items-center justify-between mb-2">
                   <div class="flex items-center gap-2.5">
                     <div class="p-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg">
@@ -108,17 +108,17 @@
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                       </svg>
                     </div>
-                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Email Address</p>
+                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Email Address</p>
                   </div>
-                  <svg class="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-colors" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-blue-600 transition-colors" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
                   </svg>
                 </div>
-                <p class="text-sm font-semibold text-[#002147] break-all">{{ adminProfile.email || 'Not set' }}</p>
+                <p class="text-sm font-semibold text-[#002147] dark:text-white break-all">{{ adminProfile.email || 'Not set' }}</p>
               </div>
 
               <!-- Badge Card -->
-              <div class="p-4 bg-gradient-to-br from-white to-purple-50/30 rounded-xl border border-[#004595]/10 hover:border-purple-300/50 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('badge_number')">
+              <div class="p-4 bg-gradient-to-br from-white to-purple-50/30 dark:from-gray-700 dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-purple-300/50 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('badge_number')">
                 <div class="flex items-center justify-between mb-2">
                   <div class="flex items-center gap-2.5">
                     <div class="p-2 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg">
@@ -126,20 +126,20 @@
                         <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z" clip-rule="evenodd"/>
                       </svg>
                     </div>
-                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Badge Number</p>
+                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Badge Number</p>
                   </div>
-                  <svg class="w-4 h-4 text-gray-400 group-hover:text-purple-600 transition-colors" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-purple-600 transition-colors" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
                   </svg>
                 </div>
-                <p class="text-sm font-semibold text-[#002147]">{{ adminProfile.badge_number || 'Not set' }}</p>
+                <p class="text-sm font-semibold text-[#002147] dark:text-white">{{ adminProfile.badge_number || 'Not set' }}</p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Account Settings -->
-        <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
           <div class="bg-gradient-to-r from-[#004595] to-[#00397a] px-6 py-4">
             <div class="flex items-center gap-3">
               <div class="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl">
@@ -154,10 +154,10 @@
             </div>
           </div>
           
-          <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white">
-            <div class="p-5 bg-gradient-to-br from-green-50/50 to-emerald-50/50 rounded-xl border border-green-200/50">
+          <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
+            <div class="p-5 bg-gradient-to-br from-green-50/50 to-emerald-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-green-200/50 dark:border-gray-600">
               <div class="mb-4">
-                <label class="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
                   <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd"/>
                   </svg>
@@ -166,20 +166,20 @@
                 <input
                   v-model="settings.password"
                   type="password"
-                  class="w-full px-4 py-3 rounded-lg border-2 border-green-200 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-100 transition-all duration-200 text-sm"
+                  class="w-full px-4 py-3 rounded-lg border-2 border-green-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-100 transition-all duration-200 text-sm"
                   placeholder="Enter new password"
                   @input="validatePassword"
                 />
                 
                 <!-- Password Requirements -->
-                <div v-if="settings.password" class="mt-3 space-y-2 p-3 bg-white/70 rounded-lg border border-green-200/50">
-                  <p class="text-xs font-semibold text-gray-700 mb-2">Password Requirements:</p>
+                <div v-if="settings.password" class="mt-3 space-y-2 p-3 bg-white/70 dark:bg-gray-800/70 rounded-lg border border-green-200/50 dark:border-gray-600/50">
+                  <p class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-2">Password Requirements:</p>
                   <div class="space-y-1.5">
                     <div class="flex items-center gap-2 text-xs">
                       <svg :class="passwordValidation.minLength ? 'text-green-600' : 'text-gray-400'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                       </svg>
-                      <span :class="passwordValidation.minLength ? 'text-green-700 font-semibold' : 'text-gray-600'">
+                      <span :class="passwordValidation.minLength ? 'text-green-700 font-semibold' : 'text-gray-600 dark:text-gray-400'">
                         At least 8 characters
                       </span>
                     </div>
@@ -187,7 +187,7 @@
                       <svg :class="passwordValidation.hasUpperCase ? 'text-green-600' : 'text-gray-400'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                       </svg>
-                      <span :class="passwordValidation.hasUpperCase ? 'text-green-700 font-semibold' : 'text-gray-600'">
+                      <span :class="passwordValidation.hasUpperCase ? 'text-green-700 font-semibold' : 'text-gray-600 dark:text-gray-400'">
                         One uppercase letter (A-Z)
                       </span>
                     </div>
@@ -195,7 +195,7 @@
                       <svg :class="passwordValidation.hasLowerCase ? 'text-green-600' : 'text-gray-400'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                       </svg>
-                      <span :class="passwordValidation.hasLowerCase ? 'text-green-700 font-semibold' : 'text-gray-600'">
+                      <span :class="passwordValidation.hasLowerCase ? 'text-green-700 font-semibold' : 'text-gray-600 dark:text-gray-400'">
                         One lowercase letter (a-z)
                       </span>
                     </div>
@@ -203,7 +203,7 @@
                       <svg :class="passwordValidation.hasNumber ? 'text-green-600' : 'text-gray-400'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                       </svg>
-                      <span :class="passwordValidation.hasNumber ? 'text-green-700 font-semibold' : 'text-gray-600'">
+                      <span :class="passwordValidation.hasNumber ? 'text-green-700 font-semibold' : 'text-gray-600 dark:text-gray-400'">
                         One number (0-9)
                       </span>
                     </div>
@@ -211,16 +211,16 @@
                       <svg :class="passwordValidation.hasSpecial ? 'text-green-600' : 'text-gray-400'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                       </svg>
-                      <span :class="passwordValidation.hasSpecial ? 'text-green-700 font-semibold' : 'text-gray-600'">
+                      <span :class="passwordValidation.hasSpecial ? 'text-green-700 font-semibold' : 'text-gray-600 dark:text-gray-400'">
                         One special character (!@#$%^&*)
                       </span>
                     </div>
                   </div>
                   
                   <!-- Password Strength Indicator -->
-                  <div class="mt-3 pt-3 border-t border-green-200/50">
+                  <div class="mt-3 pt-3 border-t border-green-200/50 dark:border-gray-600/50">
                     <div class="flex items-center justify-between mb-1.5">
-                      <span class="text-xs font-semibold text-gray-700">Password Strength:</span>
+                      <span class="text-xs font-semibold text-gray-700 dark:text-gray-200">Password Strength:</span>
                       <span :class="[
                         'text-xs font-bold',
                         passwordStrength === 'Weak' ? 'text-red-600' :
@@ -260,7 +260,7 @@
         </div>
 
         <!-- Notification Settings -->
-        <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
           <div class="bg-gradient-to-r from-[#004595] to-[#00397a] px-6 py-4">
             <div class="flex items-center gap-3">
               <div class="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl">
@@ -275,8 +275,8 @@
             </div>
           </div>
 
-          <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white space-y-3">
-            <div class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50/50 to-cyan-50/50 rounded-xl border border-blue-100/50 hover:border-blue-300/50 hover:shadow-sm transition-all duration-300">
+          <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900 space-y-3">
+            <div class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50/50 to-cyan-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-blue-100/50 dark:border-gray-600 hover:border-blue-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
               <div class="flex items-center gap-3">
                 <div class="p-2 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg">
                   <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -284,8 +284,8 @@
                   </svg>
                 </div>
                 <div>
-                  <h3 class="font-semibold text-[#002147] text-sm">Push Notifications</h3>
-                  <p class="text-xs text-gray-600">Receive push notifications</p>
+                  <h3 class="font-semibold text-[#002147] dark:text-white text-sm">Push Notifications</h3>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">Receive push notifications</p>
                 </div>
               </div>
               <label class="relative inline-flex items-center cursor-pointer">
@@ -301,7 +301,7 @@
         </div>
 
         <!-- Appearance Settings -->
-        <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
           <div class="bg-gradient-to-r from-[#004595] to-[#00397a] px-6 py-4">
             <div class="flex items-center gap-3">
               <div class="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl">
@@ -316,10 +316,10 @@
             </div>
           </div>
 
-          <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white">
+          <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
             <div class="grid md:grid-cols-2 gap-4">
-              <div class="p-4 bg-gradient-to-br from-orange-50/50 to-amber-50/50 rounded-xl border border-orange-100/50 hover:border-orange-300/50 hover:shadow-sm transition-all duration-300">
-                <label class="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+              <div class="p-4 bg-gradient-to-br from-orange-50/50 to-amber-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-orange-100/50 dark:border-gray-600 hover:border-orange-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
+                <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
                   <svg class="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
                   </svg>
@@ -327,7 +327,7 @@
                 </label>
                 <select
                   v-model="settings.theme"
-                  class="w-full px-3 py-2.5 rounded-lg border-2 border-orange-200 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-100 transition-all duration-200 text-sm cursor-pointer"
+                  class="w-full px-3 py-2.5 rounded-lg border-2 border-orange-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-100 transition-all duration-200 text-sm cursor-pointer"
                 >
                   <option value="light">☀️ Light</option>
                   <option value="dark">🌙 Dark</option>
@@ -335,8 +335,8 @@
                 </select>
               </div>
 
-              <div class="p-4 bg-gradient-to-br from-amber-50/50 to-yellow-50/50 rounded-xl border border-amber-100/50 hover:border-amber-300/50 hover:shadow-sm transition-all duration-300">
-                <label class="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+              <div class="p-4 bg-gradient-to-br from-amber-50/50 to-yellow-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-amber-100/50 dark:border-gray-600 hover:border-amber-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
+                <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
                   <svg class="w-4 h-4 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389c-.188-.196-.373-.396-.554-.6a19.098 19.098 0 01-3.107 3.567 1 1 0 01-1.334-1.49 17.087 17.087 0 003.13-3.733 18.992 18.992 0 01-1.487-2.494 1 1 0 111.79-.89c.234.47.489.928.764 1.372.417-.934.752-1.913.997-2.927H3a1 1 0 110-2h3V3a1 1 0 011-1zm6 6a1 1 0 01.894.553l2.991 5.982a.869.869 0 01.02.037l.99 1.98a1 1 0 11-1.79.895L15.383 16h-4.764l-.724 1.447a1 1 0 11-1.788-.894l.99-1.98.019-.038 2.99-5.982A1 1 0 0113 8zm-1.382 6h2.764L13 11.236 11.618 14z" clip-rule="evenodd"/>
                   </svg>
@@ -344,7 +344,7 @@
                 </label>
                 <select
                   v-model="settings.language"
-                  class="w-full px-3 py-2.5 rounded-lg border-2 border-amber-200 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-100 transition-all duration-200 text-sm cursor-pointer"
+                  class="w-full px-3 py-2.5 rounded-lg border-2 border-amber-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-100 transition-all duration-200 text-sm cursor-pointer"
                 >
                   <option value="en">🇺🇸 English</option>
                   <option value="fil">🇵🇭 Filipino</option>
@@ -381,7 +381,7 @@
         >
           <div
             v-if="editModal.show"
-            class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden"
+            class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden"
             @click.stop
           >
             <!-- Modal Header -->
@@ -415,14 +415,14 @@
             <!-- Modal Body -->
             <div class="p-6">
               <div class="mb-4">
-                <label class="text-sm font-semibold text-gray-700 mb-2 block">
+                <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 block">
                   {{ editModal.field === 'email' ? 'Email Address' : 'Badge Number' }}
                 </label>
                 <input
                   v-model="editModal.value"
                   :type="editModal.field === 'email' ? 'email' : 'text'"
                   :placeholder="editModal.field === 'email' ? 'Enter email address' : 'Enter badge number'"
-                  class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all duration-200 text-sm"
+                  class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all duration-200 text-sm"
                   @keyup.enter="saveEditModal"
                   @keyup.escape="closeEditModal"
                   ref="editModalInput"
@@ -433,7 +433,7 @@
               <div class="flex gap-3 justify-end">
                 <button
                   @click="closeEditModal"
-                  class="px-4 py-2.5 rounded-lg border-2 border-gray-200 text-gray-700 font-semibold hover:bg-gray-50 transition-all duration-200 text-sm"
+                  class="px-4 py-2.5 rounded-lg border-2 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 dark:bg-gray-700 font-semibold hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-200 text-sm"
                 >
                   Cancel
                 </button>
@@ -521,8 +521,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { supabase } from '@/lib/supabase'
+import { useSettings } from '@/composables/useSettings'
+import { useTranslation } from '@/composables/useTranslation'
+
+const { saveSettings: saveSettingsToDb, theme: currentTheme, language: currentLanguage, pushNotifications: currentPushNotifications } = useSettings()
+const { t, setLanguage } = useTranslation()
 
 const adminProfile = ref({
   id: null,
@@ -662,11 +667,50 @@ const fetchAdminData = async () => {
         profile_picture: data.profile_picture || ''
       }
       settings.value.username = data.username || ''
+      
+      // Sync settings from database
+      settings.value.theme = data.theme || 'light'
+      settings.value.language = data.language || 'en'
+      settings.value.pushNotifications = data.push_notifications !== false
+      
+      // Set language for translations
+      setLanguage(settings.value.language)
     }
   } catch (error) {
     console.error('Error fetching admin data:', error)
   }
 }
+
+// Watch for theme changes and apply immediately
+watch(() => settings.value.theme, async (newTheme) => {
+  const result = await saveSettingsToDb({ theme: newTheme })
+  if (result.success) {
+    showToast(t('success'), 'success', t('settingsUpdated'))
+  } else {
+    showToast(t('updateFailed'), 'error', result.error)
+  }
+})
+
+// Watch for language changes and apply immediately
+watch(() => settings.value.language, async (newLang) => {
+  setLanguage(newLang)
+  const result = await saveSettingsToDb({ language: newLang })
+  if (result.success) {
+    showToast(t('success'), 'success', t('settingsUpdated'))
+  } else {
+    showToast(t('updateFailed'), 'error', result.error)
+  }
+})
+
+// Watch for push notification changes
+watch(() => settings.value.pushNotifications, async (newValue) => {
+  const result = await saveSettingsToDb({ pushNotifications: newValue })
+  if (result.success) {
+    showToast(t('success'), 'success', t('settingsUpdated'))
+  } else {
+    showToast(t('updateFailed'), 'error', result.error)
+  }
+})
 
 // Edit modal functions
 const openEditModal = (field) => {
@@ -725,8 +769,7 @@ const saveEditModal = async () => {
     // Update local state
     adminProfile.value[editModal.value.field] = editModal.value.value
     
-    const fieldName = editModal.value.field === 'email' ? 'Email Address' : 'Badge Number'
-    showToast('Success!', 'success', `${fieldName} updated successfully!`)
+    showToast(t('success'), 'success', `${fieldName} ${t('settingsUpdated').toLowerCase()}`)
     closeEditModal()
   } catch (error) {
     console.error(`Error updating ${editModal.value.field}:`, error)
@@ -794,10 +837,10 @@ const handleImageUpload = async (event) => {
 
     // Update local state
     adminProfile.value.profile_picture = publicUrl
-    showToast('Success!', 'success', 'Profile picture updated successfully!')
+    showToast(t('success'), 'success', t('profilePictureUpdated'))
   } catch (error) {
     console.error('Error uploading image:', error)
-    showToast('Upload Failed', 'error', 'Failed to upload profile picture')
+    showToast(t('updateFailed'), 'error', 'Failed to upload profile picture')
   } finally {
     // Clear the file input
     if (fileInput.value) {
@@ -832,7 +875,7 @@ const saveSettings = async () => {
 
     if (error) throw error
 
-    showToast('Success!', 'success', 'Password updated successfully! Please use your new password on next login.')
+    showToast(t('success'), 'success', t('passwordUpdated'))
     settings.value.password = '' // Clear password field
     
     // Reset validation state
@@ -852,9 +895,9 @@ const saveSettings = async () => {
     if (error.message?.includes('New password should be different')) {
       showToast('Same Password', 'warning', 'Please choose a different password')
     } else if (error.message?.includes('Password should be at least')) {
-      showToast('Invalid Password', 'warning', error.message)
+      showToast(t('invalidPassword'), 'warning', error.message)
     } else {
-      showToast('Update Failed', 'error', 'Failed to update password. Please try again.')
+      showToast(t('updateFailed'), 'error', 'Failed to update password. Please try again.')
     }
   }
 }

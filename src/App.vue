@@ -1,9 +1,30 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted, provide } from 'vue'
 import { useRouter } from 'vue-router'
+import { useSettings } from '@/composables/useSettings'
+import { useTranslation } from '@/composables/useTranslation'
 
 const router = useRouter()
 const transitionName = ref('slide-right')
+const { loadSettings, theme, language, pushNotifications } = useSettings()
+const { setLanguage, t } = useTranslation()
+
+// Provide settings and translation globally to all components
+provide('theme', theme)
+provide('language', language)
+provide('t', t)
+provide('setLanguage', setLanguage)
+
+// Load settings on app mount
+onMounted(async () => {
+  await loadSettings()
+  setLanguage(language.value)
+})
+
+// Watch for language changes
+watch(language, (newLang) => {
+  setLanguage(newLang)
+})
 
 watch(
   () => router.currentRoute.value,

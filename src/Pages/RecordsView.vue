@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 font-['Poppins']">
+  <div class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-['Poppins']">
     <div class="mx-auto max-w-7xl px-8 py-10">
       <!-- Header Banner -->
       <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#002147] via-[#004595] to-[#00397a] p-10 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.01] mb-8">
@@ -14,21 +14,21 @@
       </div>
 
       <!-- Search and Filter Section -->
-      <div class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 p-6 mb-6 border border-[#004595]/10">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 p-6 mb-6 border border-[#004595]/10 dark:border-gray-700">
         <div class="flex flex-col md:flex-row gap-4">
           <div class="flex-1">
             <input
               v-model="searchQuery"
               type="text"
               placeholder="Search by barangay name, captain, members, position, patron, or location..."
-              class="w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent transition-all"
+              class="w-full px-5 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent transition-all"
               @input="handleSearch"
             />
           </div>
           <button
             @click="clearSearch"
             v-if="searchQuery"
-            class="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl font-medium"
+            class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-xl hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 shadow-lg hover:shadow-xl font-medium"
           >
             Clear
           </button>
@@ -44,31 +44,31 @@
         </div>
         
         <!-- Search Results Summary -->
-        <div v-if="searchQuery" class="mt-4 text-sm text-gray-600">
-          Found <span class="font-bold text-[#004595]">{{ filteredRecords.length }}</span> 
+        <div v-if="searchQuery" class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+          Found <span class="font-bold text-[#004595] dark:text-blue-400">{{ filteredRecords.length }}</span> 
           {{ filteredRecords.length === 1 ? 'result' : 'results' }} 
           for "<span class="font-semibold">{{ searchQuery }}</span>"
         </div>
       </div>
 
       <!-- Records Grid/Cards -->
-      <div v-if="loading" class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 p-16 text-center border border-[#004595]/10">
+      <div v-if="loading" class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 p-16 text-center border border-[#004595]/10 dark:border-gray-700">
         <div class="flex flex-col items-center gap-4">
-          <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-[#004595]"></div>
-          <p class="text-xl font-semibold text-gray-700">Loading records...</p>
-          <p class="text-sm text-gray-500">Please wait while we fetch the data</p>
+          <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-[#004595] dark:border-blue-400"></div>
+          <p class="text-xl font-semibold text-gray-700 dark:text-gray-200">Loading records...</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Please wait while we fetch the data</p>
         </div>
       </div>
 
-      <div v-else-if="filteredRecords.length === 0 && searchQuery" class="bg-gradient-to-br from-white to-[#f3f1ee]/30 rounded-2xl shadow-xl p-20 text-center border border-[#004595]/10">
+      <div v-else-if="filteredRecords.length === 0 && searchQuery" class="bg-gradient-to-br from-white to-[#f3f1ee]/30 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl p-20 text-center border border-[#004595]/10 dark:border-gray-700">
         <div class="flex flex-col items-center gap-4">
-          <div class="p-6 bg-amber-500/10 rounded-full">
-            <svg class="w-20 h-20 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="p-6 bg-amber-500/10 dark:bg-amber-500/20 rounded-full">
+            <svg class="w-20 h-20 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-gray-800">No Results Found</h3>
-          <p class="text-gray-600">No barangay records match your search for "<span class="font-semibold">{{ searchQuery }}</span>"</p>
+          <h3 class="text-2xl font-bold text-gray-800 dark:text-white">No Results Found</h3>
+          <p class="text-gray-600 dark:text-gray-400">No barangay records match your search for "<span class="font-semibold">{{ searchQuery }}</span>"</p>
           <button
             @click="clearSearch"
             class="mt-4 px-6 py-2.5 bg-gradient-to-r from-[#004595] to-[#00397a] text-white rounded-xl hover:from-[#002147] hover:to-[#004595] transition-all duration-300 shadow-lg hover:shadow-xl font-medium"
@@ -78,15 +78,15 @@
         </div>
       </div>
 
-      <div v-else-if="records.length === 0" class="bg-gradient-to-br from-white to-[#f3f1ee]/30 rounded-2xl shadow-xl p-20 text-center border border-[#004595]/10">
+      <div v-else-if="records.length === 0" class="bg-gradient-to-br from-white to-[#f3f1ee]/30 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl p-20 text-center border border-[#004595]/10 dark:border-gray-700">
         <div class="flex flex-col items-center gap-4">
-          <div class="p-6 bg-[#004595]/10 rounded-full">
-            <svg class="w-20 h-20 text-[#004595]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="p-6 bg-[#004595]/10 dark:bg-blue-500/20 rounded-full">
+            <svg class="w-20 h-20 text-[#004595] dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-gray-800">No Records Found</h3>
-          <p class="text-gray-600">There are currently no barangay records to display</p>
+          <h3 class="text-2xl font-bold text-gray-800 dark:text-white">No Records Found</h3>
+          <p class="text-gray-600 dark:text-gray-400">There are currently no barangay records to display</p>
         </div>
       </div>
 
@@ -95,26 +95,26 @@
         <div 
           v-for="(record, index) in filteredRecords" 
           :key="index" 
-          class="bg-white rounded-2xl shadow-lg shadow-[#004595]/5 hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-300 overflow-hidden border border-[#004595]/10 transform hover:scale-[1.01] cursor-pointer"
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg shadow-[#004595]/5 dark:shadow-black/20 hover:shadow-2xl hover:shadow-[#004595]/10 dark:hover:shadow-black/30 transition-all duration-300 overflow-hidden border border-[#004595]/10 dark:border-gray-700 transform hover:scale-[1.01] cursor-pointer"
           @click="viewRecordDetails(record)"
         >
           <div class="p-6">
             <!-- Header Section -->
-            <div class="flex items-start justify-between mb-6 pb-5 border-b border-gray-200">
+            <div class="flex items-start justify-between mb-6 pb-5 border-b border-gray-200 dark:border-gray-700">
               <div class="flex items-center gap-4">
                 <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-[#004595] to-[#00397a] text-white font-bold text-lg shadow-lg">
                   {{ index + 1 }}
                 </div>
                 <div>
-                  <h3 class="text-2xl font-bold text-[#002147] mb-1">{{ record.brgyname || 'N/A' }}</h3>
+                  <h3 class="text-2xl font-bold text-[#002147] dark:text-white mb-1">{{ record.brgyname || 'N/A' }}</h3>
                   <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200">
                       <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
                       </svg>
                       Barangay
                     </span>
-                    <span v-if="record.date" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                    <span v-if="record.date" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-200">
                       <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                       </svg>
@@ -149,89 +149,89 @@
             <!-- Content Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <!-- Captain Info -->
-              <div class="bg-gradient-to-br from-[#004595]/5 to-transparent rounded-xl p-4 border border-[#004595]/10">
+              <div class="bg-gradient-to-br from-[#004595]/5 to-transparent dark:from-blue-500/10 dark:to-transparent rounded-xl p-4 border border-[#004595]/10 dark:border-gray-700">
                 <div class="flex items-center gap-2 mb-2">
-                  <div class="p-2 bg-[#004595] rounded-lg">
+                  <div class="p-2 bg-[#004595] dark:bg-blue-600 rounded-lg">
                     <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                     </svg>
                   </div>
-                  <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Captain</span>
+                  <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Captain</span>
                 </div>
-                <p class="text-base font-bold text-[#002147] truncate">{{ record.cptfullname || 'Not assigned' }}</p>
+                <p class="text-base font-bold text-[#002147] dark:text-white truncate">{{ record.cptfullname || 'Not assigned' }}</p>
               </div>
 
               <!-- Members Info with Positions -->
-              <div class="bg-gradient-to-br from-green-50 to-transparent rounded-xl p-4 border border-green-200/50 col-span-2">
+              <div class="bg-gradient-to-br from-green-50 to-transparent dark:from-green-900/20 dark:to-transparent rounded-xl p-4 border border-green-200/50 dark:border-green-800/50 col-span-2">
                 <div class="flex items-center gap-2 mb-2">
-                  <div class="p-2 bg-green-600 rounded-lg">
+                  <div class="p-2 bg-green-600 dark:bg-green-700 rounded-lg">
                     <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                     </svg>
                   </div>
-                  <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Barangay Officials</span>
+                  <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Barangay Officials</span>
                 </div>
                 <div v-if="record.bmfullname" class="space-y-1">
-                  <p class="text-sm font-semibold text-green-800">{{ record.bmfullname }}</p>
-                  <p v-if="record.bmposition" class="text-xs text-green-600">
-                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  <p class="text-sm font-semibold text-green-800 dark:text-green-300">{{ record.bmfullname }}</p>
+                  <p v-if="record.bmposition" class="text-xs text-green-600 dark:text-green-400">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300">
                       {{ record.bmposition }}
                     </span>
                   </p>
                 </div>
-                <p v-else class="text-base font-bold text-green-800">No members listed</p>
+                <p v-else class="text-base font-bold text-green-800 dark:text-green-300">No members listed</p>
               </div>
 
               <!-- Patron Info -->
-              <div class="bg-gradient-to-br from-amber-50 to-transparent rounded-xl p-4 border border-amber-200/50">
+              <div class="bg-gradient-to-br from-amber-50 to-transparent dark:from-amber-900/20 dark:to-transparent rounded-xl p-4 border border-amber-200/50 dark:border-amber-800/50">
                 <div class="flex items-center gap-2 mb-2">
-                  <div class="p-2 bg-amber-600 rounded-lg">
+                  <div class="p-2 bg-amber-600 dark:bg-amber-700 rounded-lg">
                     <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" />
                     </svg>
                   </div>
-                  <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Patron Saint</span>
+                  <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Patron Saint</span>
                 </div>
-                <p class="text-base font-bold text-amber-800 truncate">{{ record.patron || 'Not specified' }}</p>
+                <p class="text-base font-bold text-amber-800 dark:text-amber-300 truncate">{{ record.patron || 'Not specified' }}</p>
               </div>
 
               <!-- Schools Info -->
-              <div class="bg-gradient-to-br from-indigo-50 to-transparent rounded-xl p-4 border border-indigo-200/50">
+              <div class="bg-gradient-to-br from-indigo-50 to-transparent dark:from-indigo-900/20 dark:to-transparent rounded-xl p-4 border border-indigo-200/50 dark:border-indigo-800/50">
                 <div class="flex items-center gap-2 mb-2">
-                  <div class="p-2 bg-indigo-600 rounded-lg">
+                  <div class="p-2 bg-indigo-600 dark:bg-indigo-700 rounded-lg">
                     <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
                     </svg>
                   </div>
-                  <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Schools</span>
+                  <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Schools</span>
                 </div>
-                <p class="text-base font-bold text-indigo-800 truncate">{{ record.schoolname || 'No schools listed' }}</p>
+                <p class="text-base font-bold text-indigo-800 dark:text-indigo-300 truncate">{{ record.schoolname || 'No schools listed' }}</p>
               </div>
 
               <!-- Churches Info -->
-              <div class="bg-gradient-to-br from-rose-50 to-transparent rounded-xl p-4 border border-rose-200/50">
+              <div class="bg-gradient-to-br from-rose-50 to-transparent dark:from-rose-900/20 dark:to-transparent rounded-xl p-4 border border-rose-200/50 dark:border-rose-800/50">
                 <div class="flex items-center gap-2 mb-2">
-                  <div class="p-2 bg-rose-600 rounded-lg">
+                  <div class="p-2 bg-rose-600 dark:bg-rose-700 rounded-lg">
                     <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd" />
                     </svg>
                   </div>
-                  <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Churches</span>
+                  <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Churches</span>
                 </div>
-                <p class="text-base font-bold text-rose-800 truncate">{{ record.churchname || 'No churches listed' }}</p>
+                <p class="text-base font-bold text-rose-800 dark:text-rose-300 truncate">{{ record.churchname || 'No churches listed' }}</p>
               </div>
 
               <!-- Establishments Info -->
-              <div class="bg-gradient-to-br from-cyan-50 to-transparent rounded-xl p-4 border border-cyan-200/50">
+              <div class="bg-gradient-to-br from-cyan-50 to-transparent dark:from-cyan-900/20 dark:to-transparent rounded-xl p-4 border border-cyan-200/50 dark:border-cyan-800/50">
                 <div class="flex items-center gap-2 mb-2">
-                  <div class="p-2 bg-cyan-600 rounded-lg">
+                  <div class="p-2 bg-cyan-600 dark:bg-cyan-700 rounded-lg">
                     <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 00-2 0v1H8a1 1 0 000 2h1v1a1 1 0 002 0v-1h1a1 1 0 000-2h-1V9z" clip-rule="evenodd" />
                     </svg>
                   </div>
-                  <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Establishments</span>
+                  <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Establishments</span>
                 </div>
-                <p class="text-base font-bold text-cyan-800 truncate">{{ record.establishmentname || 'No establishments listed' }}</p>
+                <p class="text-base font-bold text-cyan-800 dark:text-cyan-300 truncate">{{ record.establishmentname || 'No establishments listed' }}</p>
               </div>
             </div>
           </div>
@@ -253,7 +253,7 @@
         class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
         @click.self="closeDetailsModal"
       >
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden transform transition-all flex flex-col">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden transform transition-all flex flex-col">
           <!-- Modal Header -->
           <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden flex-shrink-0">
             <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
@@ -276,12 +276,12 @@
           </div>
           
           <!-- Modal Body -->
-          <div class="overflow-y-auto flex-1 p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white">
+          <div class="overflow-y-auto flex-1 p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
             <div class="space-y-6">
               <!-- Basic Information Section -->
-              <div class="bg-white rounded-xl shadow-md border border-[#004595]/10 overflow-hidden">
-                <div class="bg-gradient-to-r from-[#004595]/10 to-transparent px-5 py-3 border-b border-[#004595]/10">
-                  <h3 class="text-lg font-bold text-[#002147] flex items-center gap-2">
+              <div class="bg-white dark:bg-gray-700 rounded-xl shadow-md border border-[#004595]/10 dark:border-gray-600 overflow-hidden">
+                <div class="bg-gradient-to-r from-[#004595]/10 to-transparent dark:from-blue-500/20 dark:to-transparent px-5 py-3 border-b border-[#004595]/10 dark:border-gray-600">
+                  <h3 class="text-lg font-bold text-[#002147] dark:text-white flex items-center gap-2">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd" />
                     </svg>
@@ -290,24 +290,24 @@
                 </div>
                 <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div class="space-y-1">
-                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Barangay Name</p>
-                    <p class="text-base font-bold text-[#002147]">{{ selectedRecord?.brgyname || 'N/A' }}</p>
+                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Barangay Name</p>
+                    <p class="text-base font-bold text-[#002147] dark:text-white">{{ selectedRecord?.brgyname || 'N/A' }}</p>
                   </div>
                   <div class="space-y-1">
-                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Patron Saint</p>
-                    <p class="text-base font-semibold text-gray-800">{{ selectedRecord?.patron || 'Not specified' }}</p>
+                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Patron Saint</p>
+                    <p class="text-base font-semibold text-gray-800 dark:text-gray-200">{{ selectedRecord?.patron || 'Not specified' }}</p>
                   </div>
                   <div class="space-y-1">
-                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Fiesta Date</p>
-                    <p class="text-base font-semibold text-gray-800">{{ selectedRecord?.date || 'Not specified' }}</p>
+                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Fiesta Date</p>
+                    <p class="text-base font-semibold text-gray-800 dark:text-gray-200">{{ selectedRecord?.date || 'Not specified' }}</p>
                   </div>
                 </div>
               </div>
 
               <!-- Leadership Section -->
-              <div class="bg-white rounded-xl shadow-md border border-[#004595]/10 overflow-hidden">
-                <div class="bg-gradient-to-r from-[#004595]/10 to-transparent px-5 py-3 border-b border-[#004595]/10">
-                  <h3 class="text-lg font-bold text-[#002147] flex items-center gap-2">
+              <div class="bg-white dark:bg-gray-700 rounded-xl shadow-md border border-[#004595]/10 dark:border-gray-600 overflow-hidden">
+                <div class="bg-gradient-to-r from-[#004595]/10 to-transparent dark:from-blue-500/20 dark:to-transparent px-5 py-3 border-b border-[#004595]/10 dark:border-gray-600">
+                  <h3 class="text-lg font-bold text-[#002147] dark:text-white flex items-center gap-2">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
                     </svg>
@@ -315,36 +315,36 @@
                   </h3>
                 </div>
                 <div class="p-5 space-y-4">
-                  <div class="bg-gradient-to-r from-[#004595]/5 to-transparent rounded-lg p-4 border border-[#004595]/10">
-                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Barangay Captain</p>
-                    <p class="text-lg font-bold text-[#002147]">{{ selectedRecord?.cptfullname || 'Not assigned' }}</p>
+                  <div class="bg-gradient-to-r from-[#004595]/5 to-transparent dark:from-blue-500/10 dark:to-transparent rounded-lg p-4 border border-[#004595]/10 dark:border-blue-800/30">
+                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Barangay Captain</p>
+                    <p class="text-lg font-bold text-[#002147] dark:text-white">{{ selectedRecord?.cptfullname || 'Not assigned' }}</p>
                   </div>
-                  <div class="bg-gradient-to-r from-green-50 to-transparent rounded-lg p-4 border border-green-200">
-                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Barangay Officials</p>
+                  <div class="bg-gradient-to-r from-green-50 to-transparent dark:from-green-900/20 dark:to-transparent rounded-lg p-4 border border-green-200 dark:border-green-800/50">
+                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Barangay Officials</p>
                     <div v-if="selectedRecord?.bmfullname" class="space-y-2">
                       <div v-if="getMembersList(selectedRecord).length > 0" class="space-y-2">
                         <div 
                           v-for="(member, index) in getMembersList(selectedRecord)" 
                           :key="index"
-                          class="flex items-center justify-between py-2 px-3 bg-white/50 rounded-lg hover:bg-white/80 transition-colors"
+                          class="flex items-center justify-between py-2 px-3 bg-white/50 dark:bg-gray-800/50 rounded-lg hover:bg-white/80 dark:hover:bg-gray-700/80 transition-colors"
                         >
-                          <span class="text-sm font-semibold text-gray-800">{{ member.name }}</span>
-                          <span class="text-sm font-medium text-green-700 bg-green-100 px-3 py-1 rounded-full">
+                          <span class="text-sm font-semibold text-gray-800 dark:text-gray-200">{{ member.name }}</span>
+                          <span class="text-sm font-medium text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900/50 px-3 py-1 rounded-full">
                             {{ member.position }}
                           </span>
                         </div>
                       </div>
-                      <p v-else class="text-sm text-gray-400 italic">No positions assigned</p>
+                      <p v-else class="text-sm text-gray-400 dark:text-gray-500 italic">No positions assigned</p>
                     </div>
-                    <p v-else class="text-base font-semibold text-gray-500">No members listed</p>
+                    <p v-else class="text-base font-semibold text-gray-500 dark:text-gray-400">No members listed</p>
                   </div>
                 </div>
               </div>
 
               <!-- Facilities Section -->
-              <div class="bg-white rounded-xl shadow-md border border-[#004595]/10 overflow-hidden">
-                <div class="bg-gradient-to-r from-[#004595]/10 to-transparent px-5 py-3 border-b border-[#004595]/10">
-                  <h3 class="text-lg font-bold text-[#002147] flex items-center gap-2">
+              <div class="bg-white dark:bg-gray-700 rounded-xl shadow-md border border-[#004595]/10 dark:border-gray-600 overflow-hidden">
+                <div class="bg-gradient-to-r from-[#004595]/10 to-transparent dark:from-blue-500/20 dark:to-transparent px-5 py-3 border-b border-[#004595]/10 dark:border-gray-600">
+                  <h3 class="text-lg font-bold text-[#002147] dark:text-white flex items-center gap-2">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                     </svg>
@@ -352,40 +352,40 @@
                   </h3>
                 </div>
                 <div class="p-5 grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div class="bg-gradient-to-br from-indigo-50 to-transparent rounded-lg p-4 border border-indigo-200">
+                  <div class="bg-gradient-to-br from-indigo-50 to-transparent dark:from-indigo-900/20 dark:to-transparent rounded-lg p-4 border border-indigo-200 dark:border-indigo-800/50">
                     <div class="flex items-center gap-2 mb-2">
-                      <div class="p-2 bg-indigo-600 rounded-lg">
+                      <div class="p-2 bg-indigo-600 dark:bg-indigo-700 rounded-lg">
                         <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
                         </svg>
                       </div>
-                      <span class="text-xs font-semibold text-indigo-800 uppercase">Schools</span>
+                      <span class="text-xs font-semibold text-indigo-800 dark:text-indigo-300 uppercase">Schools</span>
                     </div>
-                    <p class="text-sm font-semibold text-gray-800">{{ selectedRecord?.schoolname || 'No schools listed' }}</p>
+                    <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">{{ selectedRecord?.schoolname || 'No schools listed' }}</p>
                   </div>
 
-                  <div class="bg-gradient-to-br from-rose-50 to-transparent rounded-lg p-4 border border-rose-200">
+                  <div class="bg-gradient-to-br from-rose-50 to-transparent dark:from-rose-900/20 dark:to-transparent rounded-lg p-4 border border-rose-200 dark:border-rose-800/50">
                     <div class="flex items-center gap-2 mb-2">
-                      <div class="p-2 bg-rose-600 rounded-lg">
+                      <div class="p-2 bg-rose-600 dark:bg-rose-700 rounded-lg">
                         <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd" />
                         </svg>
                       </div>
-                      <span class="text-xs font-semibold text-rose-800 uppercase">Churches</span>
+                      <span class="text-xs font-semibold text-rose-800 dark:text-rose-300 uppercase">Churches</span>
                     </div>
-                    <p class="text-sm font-semibold text-gray-800">{{ selectedRecord?.churchname || 'No churches listed' }}</p>
+                    <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">{{ selectedRecord?.churchname || 'No churches listed' }}</p>
                   </div>
 
-                  <div class="bg-gradient-to-br from-cyan-50 to-transparent rounded-lg p-4 border border-cyan-200">
+                  <div class="bg-gradient-to-br from-cyan-50 to-transparent dark:from-cyan-900/20 dark:to-transparent rounded-lg p-4 border border-cyan-200 dark:border-cyan-800/50">
                     <div class="flex items-center gap-2 mb-2">
-                      <div class="p-2 bg-cyan-600 rounded-lg">
+                      <div class="p-2 bg-cyan-600 dark:bg-cyan-700 rounded-lg">
                         <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 00-2 0v1H8a1 1 0 000 2h1v1a1 1 0 002 0v-1h1a1 1 0 000-2h-1V9z" clip-rule="evenodd" />
                         </svg>
                       </div>
-                      <span class="text-xs font-semibold text-cyan-800 uppercase">Establishments</span>
+                      <span class="text-xs font-semibold text-cyan-800 dark:text-cyan-300 uppercase">Establishments</span>
                     </div>
-                    <p class="text-sm font-semibold text-gray-800">{{ selectedRecord?.establishmentname || 'No establishments listed' }}</p>
+                    <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">{{ selectedRecord?.establishmentname || 'No establishments listed' }}</p>
                   </div>
                 </div>
               </div>
@@ -393,16 +393,16 @@
           </div>
 
           <!-- Modal Footer -->
-          <div class="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-end gap-3 flex-shrink-0">
+          <div class="bg-gray-50 dark:bg-gray-900 px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3 flex-shrink-0">
             <button
               @click="closeDetailsModal"
-              class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-all duration-300 font-medium"
+              class="px-6 py-2.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 font-medium"
             >
               Close
             </button>
             <button
               @click="exportFromModal"
-              class="px-6 py-2.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 font-medium"
+              class="px-6 py-2.5 bg-gradient-to-r from-green-600 to-green-700 dark:from-green-700 dark:to-green-800 text-white rounded-xl hover:from-green-700 hover:to-green-800 dark:hover:from-green-800 dark:hover:to-green-900 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 font-medium"
             >
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
