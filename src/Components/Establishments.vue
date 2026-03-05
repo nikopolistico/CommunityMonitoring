@@ -237,6 +237,13 @@
 										</svg>
 										<p>{{ item.contactNumber }}</p>
 									</div>
+									<div v-if="item.latitude && item.longitude" class="flex items-center gap-2 text-green-700 bg-green-50 px-2 py-1.5 rounded-lg border border-green-200">
+										<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+										</svg>
+										<p class="text-xs font-semibold">{{ item.latitude }}, {{ item.longitude }}</p>
+									</div>
 								</div>
 								<div class="flex flex-wrap gap-2 pt-2">
 									<button
@@ -356,6 +363,39 @@
 							<div class="space-y-3">
 								<h4 class="text-sm font-bold text-[#002147] uppercase tracking-wide border-b border-[#004595]/20 pb-2">Basic Information</h4>
 								
+								<!-- Get Location Section -->
+								<div class="space-y-2">
+									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Location</label>
+									<button
+										type="button"
+										@click="getCurrentLocation"
+										:disabled="gettingLocation || loading"
+										class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-linear-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:shadow-lg transition-all font-semibold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+									>
+										<svg v-if="!gettingLocation" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+										</svg>
+										<svg v-else class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+											<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+											<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+										</svg>
+										{{ gettingLocation ? 'Getting Location...' : 'Get My Location' }}
+									</button>
+									
+									<!-- Display Coordinates -->
+									<div v-if="newLatitude && newLongitude" class="grid grid-cols-2 gap-2">
+										<div class="p-3 bg-green-50 border border-green-200 rounded-lg">
+											<p class="text-[10px] text-green-700 font-semibold uppercase tracking-wide">Latitude</p>
+											<p class="text-sm font-bold text-green-900 mt-0.5">{{ newLatitude }}</p>
+										</div>
+										<div class="p-3 bg-green-50 border border-green-200 rounded-lg">
+											<p class="text-[10px] text-green-700 font-semibold uppercase tracking-wide">Longitude</p>
+											<p class="text-sm font-bold text-green-900 mt-0.5">{{ newLongitude }}</p>
+										</div>
+									</div>
+								</div>
+
 								<div>
 									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Establishment Name <span class="text-red-500">*</span></label>
 									<input
@@ -621,6 +661,37 @@
 								</div>
 							</div>
 
+							<!-- Location Coordinates -->
+							<div v-if="detailsItem?.latitude && detailsItem?.longitude" class="rounded-xl border-2 border-green-200 bg-linear-to-br from-green-50 to-white p-4">
+								<h4 class="text-sm font-bold text-green-800 uppercase tracking-wide mb-3 pb-2 border-b border-green-200 flex items-center gap-2">
+									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+									</svg>
+									GPS Coordinates
+								</h4>
+								<div class="grid grid-cols-2 gap-3">
+									<div>
+										<p class="text-xs text-green-700 uppercase tracking-wide font-semibold">Latitude</p>
+										<p class="font-bold text-green-900 mt-1">{{ detailsItem.latitude }}</p>
+									</div>
+									<div>
+										<p class="text-xs text-green-700 uppercase tracking-wide font-semibold">Longitude</p>
+										<p class="font-bold text-green-900 mt-1">{{ detailsItem.longitude }}</p>
+									</div>
+								</div>
+								<a 
+									:href="`https://www.google.com/maps?q=${detailsItem.latitude},${detailsItem.longitude}`" 
+									target="_blank"
+									class="mt-3 inline-flex items-center gap-2 px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold rounded-lg transition-colors"
+								>
+									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+									</svg>
+									View on Google Maps
+								</a>
+							</div>
+
 							<!-- Owner & Manager Details -->
 							<div class="grid gap-4 md:grid-cols-2">
 								<div class="rounded-xl border-2 border-[#004595]/10 bg-white p-4">
@@ -836,6 +907,9 @@ const newManagerEmail = ref('')
 const newOwnerName = ref('')
 const newImage = ref(null)
 const imagePreview = ref('')
+const newLatitude = ref(null)
+const newLongitude = ref(null)
+const gettingLocation = ref(false)
 const editingId = ref(null)
 const editingName = ref('')
 const editingAddress = ref('')
@@ -1040,6 +1114,8 @@ watch(
 		newOwnerName.value = ''
 		newImage.value = null
 		imagePreview.value = ''
+		newLatitude.value = null
+		newLongitude.value = null
 	},
 	{ immediate: true }
 )
@@ -1058,6 +1134,47 @@ const handleImageChange = (event) => {
 		}
 		reader.readAsDataURL(file)
 	}
+}
+
+const getCurrentLocation = () => {
+	if (!navigator.geolocation) {
+		showToast('Not Supported', 'error', 'Geolocation is not supported by your browser')
+		return
+	}
+
+	gettingLocation.value = true
+	
+	navigator.geolocation.getCurrentPosition(
+		(position) => {
+			newLatitude.value = position.coords.latitude.toFixed(6)
+			newLongitude.value = position.coords.longitude.toFixed(6)
+			gettingLocation.value = false
+			showToast('Success!', 'success', 'Location retrieved successfully')
+		},
+		(error) => {
+			gettingLocation.value = false
+			let errorMessage = 'Unable to retrieve your location'
+			
+			switch(error.code) {
+				case error.PERMISSION_DENIED:
+					errorMessage = 'Location permission denied. Please enable location access in your browser.'
+					break
+				case error.POSITION_UNAVAILABLE:
+					errorMessage = 'Location information is unavailable.'
+					break
+				case error.TIMEOUT:
+					errorMessage = 'Location request timed out.'
+					break
+			}
+			
+			showToast('Location Error', 'error', errorMessage)
+		},
+		{
+			enableHighAccuracy: true,
+			timeout: 10000,
+			maximumAge: 0
+		}
+	)
 }
 
 const handleEditImageChange = async (event, itemId) => {
@@ -1125,6 +1242,8 @@ const closeAddModal = () => {
 	newOwnerName.value = ''
 	newImage.value = null
 	imagePreview.value = ''
+	newLatitude.value = null
+	newLongitude.value = null
 }
 
 const goBack = () => {
@@ -1179,7 +1298,9 @@ const addItem = async () => {
 					establishmentAddress: address,
 					contactNumber: contactNumber || null,
 					establishmentImages: imageUrl,
-					brgy_id: barangayId.value 
+					brgy_id: barangayId.value,
+					latitude: newLatitude.value ? parseFloat(newLatitude.value) : null,
+					longitude: newLongitude.value ? parseFloat(newLongitude.value) : null
 				}
 			])
 			.select()
