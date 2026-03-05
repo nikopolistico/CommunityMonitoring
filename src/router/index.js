@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory  } from 'vue-router'
 import { supabase } from '@/lib/supabase'
 import LoginPage from '@/Authentication/LoginPage.vue'
 import NavigationView from '@/Pages/NavigationView.vue'
@@ -11,7 +11,7 @@ import Churches from '@/Components/Churches.vue'
 import Establishments from '@/Components/Establishments.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory (import.meta.env.BASE_URL),
   routes: [
     { name: 'login', path: '/login', component: LoginPage, meta: { requiresAuth: false } },
     { name: 'landing', path: '/landing', component: LandingPage, meta: { requiresAuth: false } },
