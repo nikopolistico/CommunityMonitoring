@@ -166,7 +166,7 @@
 
     <!-- Logout Success Modal -->
     <Transition name="modal-fade">
-      <div v-if="showLogoutSuccess" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-[#002147]/80 via-[#00397a]/70 to-[#004595]/80 backdrop-blur-md">
+      <div v-if="showLogoutSuccess" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-linear-to-br from-[#002147]/80 via-[#00397a]/70 to-[#004595]/80 backdrop-blur-md">
         <div class="success-modal bg-linear-to-br from-[#f3f1ee] to-white rounded-2xl shadow-2xl max-w-lg w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20">
           <!-- Success Icon -->
           <div class="flex justify-center mb-8">
@@ -202,8 +202,8 @@
             <!-- Loading Bar -->
             <div class="pt-2">
               <div class="relative w-full h-3 bg-[#002147]/10 rounded-full overflow-hidden shadow-inner border border-[#004595]/20">
-                <div class="loading-bar absolute top-0 left-0 h-full bg-gradient-to-r from-[#004595] via-[#00397a] to-[#004595] rounded-full shadow-lg animate-pulse"></div>
-                <div class="loading-shimmer absolute top-0 left-0 h-full w-full bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                <div class="loading-bar absolute top-0 left-0 h-full bg-linear-to-r from-[#004595] via-[#00397a] to-[#004595] rounded-full shadow-lg animate-pulse"></div>
+                <div class="loading-shimmer absolute top-0 left-0 h-full w-full bg-linear-to-r from-transparent via-white/30 to-transparent"></div>
               </div>
               <p class="text-[#00397a]/70 text-xs mt-3 font-semibold tracking-wide">
                 {{ t('redirecting') }}
@@ -216,18 +216,18 @@
 
     <!-- Logout Confirmation Modal -->
     <Transition name="modal-fade">
-      <div v-if="showLogoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-[#002147]/80 via-[#00397a]/70 to-[#004595]/80 backdrop-blur-md">
-        <div class="bg-gradient-to-br from-[#f3f1ee] to-white dark:from-gray-800 dark:to-gray-900 rounded-3xl shadow-2xl max-w-md w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20 dark:border-gray-700 relative overflow-hidden">
+      <div v-if="showLogoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-linear-to-br from-[#002147]/80 via-[#00397a]/70 to-[#004595]/80 backdrop-blur-md">
+        <div class="bg-linear-to-br from-[#f3f1ee] to-white dark:from-gray-800 dark:to-gray-900 rounded-3xl shadow-2xl max-w-md w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20 dark:border-gray-700 relative overflow-hidden">
           
           <!-- Decorative Background Elements -->
-          <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#004595]/10 to-transparent rounded-full blur-3xl"></div>
-          <div class="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#00397a]/10 to-transparent rounded-full blur-2xl"></div>
+          <div class="absolute top-0 right-0 w-40 h-40 bg-linear-to-br from-[#004595]/10 to-transparent rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-32 h-32 bg-linear-to-tr from-[#00397a]/10 to-transparent rounded-full blur-2xl"></div>
           
           <!-- Icon -->
           <div class="flex justify-center mb-6 relative z-10">
-            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center ring-4 ring-[#004595]/20 shadow-2xl relative overflow-hidden group">
+            <div class="w-24 h-24 rounded-full bg-linear-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center ring-4 ring-[#004595]/20 shadow-2xl relative overflow-hidden group">
               <!-- Icon Glow Effect -->
-              <div class="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-50"></div>
+              <div class="absolute inset-0 bg-linear-to-tr from-white/20 to-transparent opacity-50"></div>
               <svg class="w-12 h-12 text-white relative z-10 transform transition-transform group-hover:scale-110 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
               </svg>
@@ -236,7 +236,7 @@
           
           <!-- Message -->
           <div class="text-center mb-8 relative z-10">
-            <h3 class="text-3xl font-bold bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] bg-clip-text text-transparent dark:from-blue-400 dark:via-blue-300 dark:to-blue-500 mb-3">{{ t('signOut') }}</h3>
+            <h3 class="text-3xl font-bold bg-linear-to-r from-[#002147] via-[#00397a] to-[#004595] bg-clip-text text-transparent dark:from-blue-400 dark:via-blue-300 dark:to-blue-500 mb-3">{{ t('signOut') }}</h3>
             <p class="text-[#002147]/70 dark:text-gray-300 text-base leading-relaxed">{{ t('confirmLogout') }}</p>
           </div>
           
@@ -245,18 +245,18 @@
             <button
               @click="showLogoutModal = false"
               :disabled="isLoggingOut"
-              class="flex-1 px-6 py-3.5 bg-gradient-to-br from-white to-[#f3f1ee] dark:from-gray-700 dark:to-gray-800 hover:from-[#f3f1ee] hover:to-white dark:hover:from-gray-600 dark:hover:to-gray-700 text-[#002147] dark:text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none border-2 border-[#004595]/20 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-gray-500 relative overflow-hidden group"
+              class="flex-1 px-6 py-3.5 bg-linear-to-br from-white to-[#f3f1ee] dark:from-gray-700 dark:to-gray-800 hover:from-[#f3f1ee] hover:to-white dark:hover:from-gray-600 dark:hover:to-gray-700 text-[#002147] dark:text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none border-2 border-[#004595]/20 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-gray-500 relative overflow-hidden group"
             >
-              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#004595]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              <div class="absolute inset-0 bg-linear-to-r from-transparent via-[#004595]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               <span class="relative z-10">{{ t('cancel') }}</span>
             </button>
             <button
               @click="confirmLogout"
               :disabled="isLoggingOut"
-              class="flex-1 px-6 py-3.5 bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] hover:from-[#00397a] hover:via-[#004595] hover:to-[#002147] text-white font-bold rounded-xl transition-all duration-500 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2.5 relative overflow-hidden group"
+              class="flex-1 px-6 py-3.5 bg-linear-to-br from-[#002147] via-[#00397a] to-[#004595] hover:from-[#00397a] hover:via-[#004595] hover:to-[#002147] text-white font-bold rounded-xl transition-all duration-500 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2.5 relative overflow-hidden group"
             >
               <!-- Button Shimmer -->
-              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+              <div class="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
               
               <svg v-if="isLoggingOut" class="animate-spin w-5 h-5 relative z-10" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>

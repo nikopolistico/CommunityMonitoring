@@ -1,10 +1,10 @@
 <template>
   <div
-    class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-['Poppins']"
+    class="min-h-screen bg-linear-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-['Poppins']"
   >
     <!-- Header Banner -->
     <div
-      class="relative overflow-hidden bg-gradient-to-r from-[#002147] via-[#004595] to-[#00397a] p-3 xs:p-4 sm:p-6 shadow-2xl"
+      class="relative overflow-hidden bg-linear-to-r from-[#002147] via-[#004595] to-[#00397a] p-3 xs:p-4 sm:p-6 shadow-2xl"
     >
       <div
         class="absolute top-0 right-0 w-48 h-48 xs:w-64 xs:h-64 sm:w-96 sm:h-96 bg-white/10 rounded-full blur-3xl -mr-24 xs:-mr-32 sm:-mr-48 -mt-24 xs:-mt-32 sm:-mt-48"
@@ -46,7 +46,7 @@
           <!-- Quick Stats in Header -->
           <div class="flex flex-row items-center gap-2 sm:gap-3 overflow-x-auto pb-2">
             <div
-              class="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-2xl px-3 sm:px-6 py-2 sm:py-3 border border-white/20 flex-shrink-0"
+              class="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-2xl px-3 sm:px-6 py-2 sm:py-3 border border-white/20 shrink-0"
             >
               <div class="flex items-center gap-2 sm:gap-3">
                 <div class="p-1 sm:p-2 bg-amber-500/20 rounded-lg sm:rounded-xl">
@@ -72,7 +72,7 @@
             </div>
 
             <div
-              class="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-2xl px-3 sm:px-6 py-2 sm:py-3 border border-white/20 flex-shrink-0"
+              class="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-2xl px-3 sm:px-6 py-2 sm:py-3 border border-white/20 shrink-0"
             >
               <div class="flex items-center gap-2 sm:gap-3">
                 <div class="p-1 sm:p-2 bg-green-500/20 rounded-lg sm:rounded-xl">
@@ -98,7 +98,7 @@
             </div>
 
             <div
-              class="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-2xl px-3 sm:px-6 py-2 sm:py-3 border border-white/20 flex-shrink-0"
+              class="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-2xl px-3 sm:px-6 py-2 sm:py-3 border border-white/20 shrink-0"
             >
               <div class="flex items-center gap-2 sm:gap-3">
                 <div class="p-1 sm:p-2 bg-purple-500/20 rounded-lg sm:rounded-xl">
@@ -128,7 +128,7 @@
     <div class="flex flex-col lg:flex-row min-h-[calc(100vh-140px)]">
       <!-- Left Side: Calendar -->
       <aside
-        class="w-full lg:w-1/2 bg-gradient-to-b from-white via-[#f3f1ee]/30 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 shadow-2xl lg:border-r border-b lg:border-b-0 border-[#004595]/10 dark:border-gray-700"
+        class="w-full lg:w-1/2 bg-linear-to-b from-white via-[#f3f1ee]/30 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 shadow-2xl lg:border-r border-b lg:border-b-0 border-[#004595]/10 dark:border-gray-700"
       >
         <div class="p-4 sm:p-6 md:p-8 h-full flex flex-col">
           <!-- Calendar Section Title -->
@@ -143,9 +143,9 @@
 
           <!-- Calendar Navigation -->
           <div
-            class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-[#004595]/10 dark:border-gray-700 overflow-hidden flex-shrink-0"
+            class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-[#004595]/10 dark:border-gray-700 overflow-hidden shrink-0"
           >
-            <div class="bg-gradient-to-r from-[#004595] to-[#00397a] px-4 sm:px-6 py-3 sm:py-4">
+            <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-4 sm:px-6 py-3 sm:py-4">
               <div class="flex items-center justify-between gap-2">
                 <button
                   @click="prevMonth"
@@ -206,7 +206,7 @@
                   v-for="day in calendarDays"
                   :key="day.dateStr"
                   :class="[
-                    'min-h-[3.5rem] sm:min-h-[4.5rem] p-1.5 sm:p-3 border cursor-pointer transition-all duration-200 relative rounded-lg sm:rounded-xl text-xs sm:text-sm',
+                    'min-h-14 sm:min-h-18 p-1.5 sm:p-3 border cursor-pointer transition-all duration-200 relative rounded-lg sm:rounded-xl text-xs sm:text-sm',
 
                     day.isCurrentMonth
                       ? 'bg-white hover:bg-blue-50'
@@ -229,7 +229,7 @@
                   >
                     <span
                       v-if="day.isToday"
-                      class="w-7 h-7 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold shadow-lg mx-auto"
+                      class="w-7 h-7 flex items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-blue-600 text-white font-bold shadow-lg mx-auto"
                     >
                       {{ day.date.getDate() }}
                     </span>
@@ -290,11 +290,11 @@
 
       <!-- Right Side: Events List -->
       <main
-        class="w-full lg:w-1/2 bg-gradient-to-br from-[#004595]/5 via-transparent to-[#00397a]/5 overflow-auto"
+        class="w-full lg:w-1/2 bg-linear-to-br from-[#004595]/5 via-transparent to-[#00397a]/5 overflow-auto"
       >
         <div class="p-4 sm:p-6 md:p-8 h-full flex flex-col">
           <!-- Page Header -->
-          <div class="mb-4 sm:mb-6 flex-shrink-0">
+          <div class="mb-4 sm:mb-6 shrink-0">
             <div
               class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-3 sm:mb-4"
             >
@@ -317,7 +317,7 @@
               <button
                 @click="openAddModal"
                 :disabled="!selectedDate"
-                class="w-full sm:w-auto px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-gradient-to-r from-[#004595] to-[#0056b3] text-white text-sm sm:text-base font-bold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center sm:justify-start gap-2"
+                class="w-full sm:w-auto px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-linear-to-r from-[#004595] to-[#0056b3] text-white text-sm sm:text-base font-bold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center sm:justify-start gap-2"
               >
                 <svg
                   class="w-4 sm:w-5 h-4 sm:h-5"
@@ -360,7 +360,7 @@
           <!-- Status Filter Tabs -->
           <div
             v-if="selectedDate && filteredBaseEvents.length > 0"
-            class="mb-4 sm:mb-6 flex-shrink-0"
+            class="mb-4 sm:mb-6 shrink-0"
           >
             <div
               class="flex flex-wrap gap-1 sm:gap-2 bg-white p-1.5 sm:p-2 rounded-lg sm:rounded-xl shadow-lg border border-[#004595]/10"
@@ -368,10 +368,10 @@
               <button
                 @click="statusFilter = 'all'"
                 :class="[
-                  'flex-1 min-w-[80px] px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all duration-300',
+                  'flex-1 min-w-20 px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all duration-300',
 
                   statusFilter === 'all'
-                    ? 'bg-gradient-to-r from-[#004595] to-[#0056b3] text-white shadow-lg transform scale-105'
+                    ? 'bg-linear-to-r from-[#004595] to-[#0056b3] text-white shadow-lg transform scale-105'
                     : 'text-gray-600 hover:text-[#004595] hover:bg-gray-50',
                 ]"
               >
@@ -380,10 +380,10 @@
               <button
                 @click="statusFilter = 'pending'"
                 :class="[
-                  'flex-1 min-w-[80px] px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all duration-300',
+                  'flex-1 min-w-20 px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all duration-300',
 
                   statusFilter === 'pending'
-                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg transform scale-105'
+                    ? 'bg-linear-to-r from-amber-500 to-orange-500 text-white shadow-lg transform scale-105'
                     : 'text-gray-600 hover:text-amber-600 hover:bg-amber-50',
                 ]"
               >
@@ -392,10 +392,10 @@
               <button
                 @click="statusFilter = 'done'"
                 :class="[
-                  'flex-1 min-w-[80px] px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all duration-300',
+                  'flex-1 min-w-20 px-2 sm:px-4 py-2 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm transition-all duration-300',
 
                   statusFilter === 'done'
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg transform scale-105'
+                    ? 'bg-linear-to-r from-green-500 to-emerald-500 text-white shadow-lg transform scale-105'
                     : 'text-gray-600 hover:text-green-600 hover:bg-green-50',
                 ]"
               >
@@ -405,7 +405,7 @@
           </div>
 
           <!-- Events List Container -->
-          <div class="max-h-[600px] overflow-y-auto flex-1 overflow-hidden">
+          <div class="max-h-150 overflow-y-auto flex-1 overflow-hidden">
             <div
               class="h-full bg-white rounded-2xl shadow-2xl border border-[#004595]/10 overflow-y-auto"
             >
@@ -413,7 +413,7 @@
                 <!-- Empty State - No Date Selected -->
                 <div v-if="!selectedDate" class="text-center py-10 sm:py-20">
                   <div
-                    class="w-16 sm:w-24 h-16 sm:h-24 bg-gradient-to-br from-blue-100 to-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg"
+                    class="w-16 sm:w-24 h-16 sm:h-24 bg-linear-to-br from-blue-100 to-blue-50 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg"
                   >
                     <svg
                       class="w-8 sm:w-12 h-8 sm:h-12 text-blue-500"
@@ -440,7 +440,7 @@
                 <!-- Empty State - No Events -->
                 <div v-else-if="filteredBaseEvents.length === 0" class="text-center py-10 sm:py-20">
                   <div
-                    class="w-16 sm:w-24 h-16 sm:h-24 bg-gradient-to-br from-gray-100 to-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg"
+                    class="w-16 sm:w-24 h-16 sm:h-24 bg-linear-to-br from-gray-100 to-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg"
                   >
                     <svg
                       class="w-8 sm:w-12 h-8 sm:h-12 text-gray-400"
@@ -464,7 +464,7 @@
                   </p>
                   <button
                     @click="openAddModal"
-                    class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-gradient-to-r from-[#004595] to-[#0056b3] text-white text-sm sm:text-base font-bold hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                    class="px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-linear-to-r from-[#004595] to-[#0056b3] text-white text-sm sm:text-base font-bold hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
                   >
                     Add First Event
                   </button>
@@ -477,7 +477,7 @@
                     <div v-if="pendingEvents.length > 0">
                       <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-5">
                         <div
-                          class="w-1 sm:w-1.5 h-6 sm:h-8 bg-gradient-to-b from-amber-400 to-amber-600 rounded-full"
+                          class="w-1 sm:w-1.5 h-6 sm:h-8 bg-linear-to-b from-amber-400 to-amber-600 rounded-full"
                         ></div>
                         <h4 class="text-base sm:text-xl font-bold text-amber-700">
                           Pending Events
@@ -492,7 +492,7 @@
                         <div
                           v-for="event in pendingEvents"
                           :key="event.id"
-                          class="event-card group bg-gradient-to-br from-amber-50 via-white to-yellow-50 border-2 border-amber-200 hover:border-amber-400 rounded-lg sm:rounded-2xl p-3 sm:p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+                          class="event-card group bg-linear-to-br from-amber-50 via-white to-yellow-50 border-2 border-amber-200 hover:border-amber-400 rounded-lg sm:rounded-2xl p-3 sm:p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
                         >
                           <div
                             class="flex flex-col sm:flex-row items-start justify-between gap-2 sm:gap-4"
@@ -506,7 +506,7 @@
                                   {{ event.title }}
                                 </h5>
                                 <span
-                                  class="px-2 sm:px-3 py-0.5 sm:py-1 bg-gradient-to-r from-amber-400 to-amber-500 text-white rounded-full font-bold text-xs shadow-sm"
+                                  class="px-2 sm:px-3 py-0.5 sm:py-1 bg-linear-to-r from-amber-400 to-amber-500 text-white rounded-full font-bold text-xs shadow-sm"
                                 >
                                   ⏱ Pending
                                 </span>
@@ -701,7 +701,7 @@
                               <button
                                 @click="saveEdit"
                                 :disabled="isUpdatingEvent"
-                                class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:shadow-xl font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                class="px-5 py-2.5 rounded-xl bg-linear-to-r from-blue-600 to-blue-700 text-white hover:shadow-xl font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                               >
                                 {{ isUpdatingEvent ? 'Saving...' : 'Save Changes' }}
                               </button>
@@ -717,7 +717,7 @@
                     <div v-if="doneEvents.length > 0">
                       <div class="flex items-center gap-3 mb-5 mt-8">
                         <div
-                          class="w-1.5 h-8 bg-gradient-to-b from-green-400 to-green-600 rounded-full"
+                          class="w-1.5 h-8 bg-linear-to-b from-green-400 to-green-600 rounded-full"
                         ></div>
                         <h4 class="text-xl font-bold text-green-700">Completed Events</h4>
                         <span
@@ -730,7 +730,7 @@
                         <div
                           v-for="event in doneEvents"
                           :key="event.id"
-                          class="event-card bg-gradient-to-br from-green-50 via-white to-emerald-50 border-2 border-green-200 hover:border-green-400 rounded-2xl p-6 opacity-90 hover:opacity-100 hover:shadow-2xl transition-all duration-300"
+                          class="event-card bg-linear-to-br from-green-50 via-white to-emerald-50 border-2 border-green-200 hover:border-green-400 rounded-2xl p-6 opacity-90 hover:opacity-100 hover:shadow-2xl transition-all duration-300"
                         >
                           <div class="flex items-start justify-between gap-4">
                             <div class="flex-1 min-w-0">
@@ -752,7 +752,7 @@
                                   {{ event.title }}
                                 </h5>
                                 <span
-                                  class="px-3 py-1 bg-gradient-to-r from-green-400 to-green-500 text-white rounded-full font-bold text-xs shadow-sm"
+                                  class="px-3 py-1 bg-linear-to-r from-green-400 to-green-500 text-white rounded-full font-bold text-xs shadow-sm"
                                 >
                                   ✓ Completed
                                 </span>
@@ -838,7 +838,7 @@
                   <div v-if="selectedDate && selectedDateFiestas.length > 0" class="mt-8">
                     <div class="flex items-center gap-3 mb-5">
                       <div
-                        class="w-1.5 h-8 bg-gradient-to-b from-purple-400 to-purple-600 rounded-full"
+                        class="w-1.5 h-8 bg-linear-to-b from-purple-400 to-purple-600 rounded-full"
                       ></div>
                       <h4 class="text-xl font-bold text-purple-700">Barangay Fiestas</h4>
                       <span
@@ -851,7 +851,7 @@
                       <div
                         v-for="(fiesta, index) in selectedDateFiestas"
                         :key="index"
-                        class="event-card bg-gradient-to-br from-purple-50 via-white to-pink-50 border-2 border-purple-200 hover:border-purple-400 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300"
+                        class="event-card bg-linear-to-br from-purple-50 via-white to-pink-50 border-2 border-purple-200 hover:border-purple-400 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300"
                       >
                         <div class="flex items-start gap-4">
                           <div class="p-3 bg-purple-100 rounded-xl shrink-0">
@@ -869,7 +869,7 @@
                             <div class="flex items-center gap-2 mb-3 flex-wrap">
                               <h5 class="font-bold text-[#002147] text-lg">{{ fiesta.patron }}</h5>
                               <span
-                                class="px-3 py-1 bg-gradient-to-r from-purple-400 to-purple-500 text-white rounded-full font-bold text-xs shadow-sm"
+                                class="px-3 py-1 bg-linear-to-r from-purple-400 to-purple-500 text-white rounded-full font-bold text-xs shadow-sm"
                               >
                                 🎉 Fiesta
                               </span>
@@ -907,7 +907,7 @@
                     class="text-center py-16"
                   >
                     <div
-                      class="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-50 rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg"
+                      class="w-20 h-20 bg-linear-to-br from-gray-100 to-gray-50 rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg"
                     >
                       <svg
                         class="w-10 h-10 text-gray-400"
@@ -956,7 +956,7 @@
       >
         <!-- Modal Header -->
         <div
-          class="bg-gradient-to-r from-[#002147] via-[#004595] to-[#00397a] px-8 py-6 relative overflow-hidden"
+          class="bg-linear-to-r from-[#002147] via-[#004595] to-[#00397a] px-8 py-6 relative overflow-hidden"
         >
           <div
             class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"
@@ -1063,7 +1063,7 @@
             <button
               @click="saveEvent"
               :disabled="isSavingEvent"
-              class="px-6 py-3 rounded-xl bg-gradient-to-r from-[#004595] to-[#0056b3] text-white font-bold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              class="px-6 py-3 rounded-xl bg-linear-to-r from-[#004595] to-[#0056b3] text-white font-bold hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
               {{ isSavingEvent ? 'Saving...' : 'Save Event' }}
             </button>

@@ -24,8 +24,17 @@
 						<p class="text-lg text-white/90 mt-2">Businesses and key establishments in this barangay.</p>
 					</div>
 					<div class="absolute top-0 right-0 p-4">
-						<button class="bg-white/20 hover:bg-white/30 cursor-pointer text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-							View Map
+						<button @click="viewMap" class="bg-white/20 hover:bg-white/30 cursor-pointer text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+						>
+							<span>View Map</span>
+
+							<div class="w-8 h-8 rounded border border-gray-400 overflow-hidden">
+								<img 
+									src="https://cloud.maptiler.com/static/img/maps/hybrid.png" 
+									alt="satellite-map-preview"
+									class="w-full h-full object-cover"
+								/>
+							</div>
 						</button>
 					</div>
 				</div>
@@ -734,6 +743,47 @@
 					</div>
 				</div>
 			</div>
+
+			<!-- Map Modal -->
+			<div
+				v-if="showMapModal"
+				class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4"
+				role="dialog"
+				aria-modal="true"
+				@click.self="closeMapModal"
+			>
+				<div class="relative w-full max-w-6xl h-[85vh] rounded-2xl bg-white shadow-2xl overflow-hidden transform transition-all">
+					<!-- Modal Header -->
+					<div class="bg-linear-to-r from-[#002147] to-[#00397a] px-6 py-4 flex items-center justify-between">
+						<div class="flex items-center gap-3">
+							<div class="p-2 bg-white/20 rounded-lg">
+								<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+								</svg>
+							</div>
+							<div>
+								<h3 class="text-lg font-bold text-white">{{ communityInfo?.name }} - Establishments Map</h3>
+								<p class="text-sm text-white/80">Satellite View</p>
+							</div>
+						</div>
+						<div class="flex items-center gap-2">
+							<!-- Close Button -->
+							<button
+								type="button"
+								@click="closeMapModal"
+								class="p-1.5 hover:bg-white/20 rounded-lg transition-all"
+							>
+								<svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+								</svg>
+							</button>
+						</div>
+					</div>
+
+					<!-- Map Container -->
+					<div id="map-container" class="w-full h-full"></div>
+				</div>
+			</div>
 		</section>
 
 		<section
@@ -872,9 +922,11 @@
 </template>
 
 <script setup>
-import { computed, ref, watch, onMounted } from 'vue'
+import { computed, ref, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { supabase } from '@/lib/supabase'
+import maplibregl from 'maplibre-gl'
+import 'maplibre-gl/dist/maplibre-gl.css'
 
 const route = useRoute()
 const router = useRouter()
@@ -932,6 +984,11 @@ const loading = ref(false)
 const showAddModal = ref(false)
 const searchQuery = ref('')
 const uploadingPhoto = ref(false)
+
+// Map state
+const showMapModal = ref(false)
+const map = ref(null)
+const mapContainer = ref(null)
 
 // Toast notification state
 const toast = ref({
@@ -1660,4 +1717,84 @@ const closeDetails = () => {
 	detailsItem.value = null
 	detailsLoading.value = false
 }
+
+// Map functionality
+const viewMap = () => {
+	showMapModal.value = true
+	nextTick(() => {
+		initMap()
+	})
+}
+
+const initMap = () => {
+	if (map.value) {
+		map.value.remove()
+		map.value = null
+	}
+
+	const mapStyle = 'https://api.maptiler.com/maps/satellite-v4/style.json?key=DtaE2MIVoHbtzcuL2XdL'
+
+	// Calculate center from establishments with coordinates
+	const establishmentsWithCoords = items.value.filter(item => item.latitude && item.longitude)
+	
+	let center = [123.8854, 10.3157] // Default to Cebu City
+	let zoom = 12
+
+	if (establishmentsWithCoords.length > 0) {
+		const avgLat = establishmentsWithCoords.reduce((sum, item) => sum + parseFloat(item.latitude), 0) / establishmentsWithCoords.length
+		const avgLng = establishmentsWithCoords.reduce((sum, item) => sum + parseFloat(item.longitude), 0) / establishmentsWithCoords.length
+		center = [avgLng, avgLat]
+		zoom = 14
+	}
+
+	map.value = new maplibregl.Map({
+		container: 'map-container',
+		style: mapStyle,
+		center: center,
+		zoom: zoom
+	})
+
+	// Add navigation controls
+	map.value.addControl(new maplibregl.NavigationControl(), 'top-right')
+
+	// Add markers for establishments
+	establishmentsWithCoords.forEach(item => {
+		const el = document.createElement('div')
+		el.className = 'custom-marker'
+		el.style.width = '30px'
+		el.style.height = '30px'
+		el.style.backgroundImage = 'url(https://docs.maptiler.com/maplibre-gl-js/assets/custom_marker.png)'
+		el.style.backgroundSize = 'contain'
+		el.style.cursor = 'pointer'
+
+		const popup = new maplibregl.Popup({ offset: 25 })
+			.setHTML(`
+				<div style="font-family: 'Poppins', sans-serif;">
+					<h3 style="font-weight: bold; margin: 0 0 8px 0; color: #002147;">${item.establishmentName}</h3>
+					${item.establishmentAddress ? `<p style="margin: 4px 0; font-size: 12px;">${item.establishmentAddress}</p>` : ''}
+					${item.contactNumber ? `<p style="margin: 4px 0; font-size: 12px;">📞 ${item.contactNumber}</p>` : ''}
+				</div>
+			`)
+
+		new maplibregl.Marker({ element: el })
+			.setLngLat([parseFloat(item.longitude), parseFloat(item.latitude)])
+			.setPopup(popup)
+			.addTo(map.value)
+	})
+}
+
+const closeMapModal = () => {
+	showMapModal.value = false
+	if (map.value) {
+		map.value.remove()
+		map.value = null
+	}
+}
+
+onUnmounted(() => {
+	if (map.value) {
+		map.value.remove()
+		map.value = null
+	}
+})
 </script>
