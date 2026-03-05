@@ -1,4 +1,4 @@
-    <template>
+<template>
       <div class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-['Poppins']">
         <div class="flex min-h-screen">
           <!-- Enhanced Blue Sidebar -->
@@ -2316,7 +2316,7 @@
         </div>
       </div>
     </div>
-  </template>
+</template>
 
   <script setup>
   import { computed, ref, watch, onMounted } from 'vue'
@@ -2984,6 +2984,12 @@
   onMounted(() => {
     if (communityInfo.value) {
       fetchCaptainInfo()
+    }
+    
+    // Check if returning from a detail page with a specific tab
+    const fromTab = route.query.fromTab
+    if (fromTab && ['dashboard', 'officers', 'landmarks', 'history'].includes(fromTab)) {
+      activeTab.value = fromTab
     }
     
     // Close position menu when clicking outside
@@ -3972,17 +3978,17 @@
 
   const goToSchools = () => {
     if (!barangayName.value) return
-    router.push({ name: 'schools', params: { barangayName: barangayName.value } })
+    router.push({ name: 'schools', params: { barangayName: barangayName.value }, query: { fromTab: activeTab.value } })
   }
 
   const goToChurches = () => {
     if (!barangayName.value) return
-    router.push({ name: 'churches', params: { barangayName: barangayName.value } })
+    router.push({ name: 'churches', params: { barangayName: barangayName.value }, query: { fromTab: activeTab.value } })
   }
 
   const goToEstablishments = () => {
     if (!barangayName.value) return
-    router.push({ name: 'establishments', params: { barangayName: barangayName.value } })
+    router.push({ name: 'establishments', params: { barangayName: barangayName.value }, query: { fromTab: activeTab.value } })
   }
 
   // Landmark Modal Functions

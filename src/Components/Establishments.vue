@@ -1,9 +1,9 @@
 <template>
-	<div class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 font-['Poppins']">
+	<div class="min-h-screen bg-linear-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 font-['Poppins']">
 		<div class="mx-auto max-w-none px-6 py-10 space-y-8">
 			<button
 				type="button"
-				class="inline-flex items-center gap-3 rounded-xl bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-3.5 text-sm font-semibold text-white hover:shadow-xl hover:shadow-[#004595]/20 hover:scale-[1.02] transition-all duration-300"
+				class="inline-flex items-center gap-3 rounded-xl bg-linear-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-3.5 text-sm font-semibold text-white hover:shadow-xl hover:shadow-[#004595]/20 hover:scale-[1.02] transition-all duration-300"
 				@click="goBack"
 			>
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -14,7 +14,7 @@
 
 			<section v-if="communityInfo" class="space-y-6">
 				<!-- Enhanced Header Card -->
-				<div class="rounded-2xl bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] p-8 shadow-2xl shadow-[#004595]/30 text-white relative overflow-hidden">
+				<div class="rounded-2xl bg-linear-to-br from-[#002147] via-[#00397a] to-[#004595] p-8 shadow-2xl shadow-[#004595]/30 text-white relative overflow-hidden">
 					<!-- Animated Background Elements -->
 					<div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-20 -mt-20 animate-pulse"></div>
 					<div class="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-xl -ml-16 -mb-16"></div>
@@ -23,13 +23,18 @@
 						<h1 class="text-4xl font-extrabold mt-2">{{ communityInfo.name }}</h1>
 						<p class="text-lg text-white/90 mt-2">Businesses and key establishments in this barangay.</p>
 					</div>
+					<div class="absolute top-0 right-0 p-4">
+						<button class="bg-white/20 hover:bg-white/30 cursor-pointer text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+							View Map
+						</button>
+					</div>
 				</div>
 
 				<div class="flex gap-3">
 					<!-- Add Button -->
 					<button
 						type="button"
-						class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#002147] to-[#00397a] px-5 py-2.5 text-sm font-semibold text-white hover:shadow-lg hover:shadow-[#004595]/30 hover:scale-[1.02] transition-all duration-300"
+						class="inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-[#002147] to-[#00397a] px-5 py-2.5 text-sm font-semibold text-white hover:shadow-lg hover:shadow-[#004595]/30 hover:scale-[1.02] transition-all duration-300"
 						@click="showAddModal = true"
 					>
 						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -78,7 +83,7 @@
 						<div v-if="item.establishmentImages" class="w-full h-56 overflow-hidden bg-gray-50">
 							<img :src="item.establishmentImages" :alt="item.establishmentName" class="w-full h-full object-cover" />
 						</div>
-						<div v-else class="w-full h-56 bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center relative overflow-hidden">
+						<div v-else class="w-full h-56 bg-linear-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center relative overflow-hidden">
 							<div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-16 -mt-16"></div>
 							<svg class="w-20 h-20 text-white/50 relative z-10" fill="currentColor" viewBox="0 0 20 20">
 								<path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd"/>
@@ -98,7 +103,7 @@
 												alt="Establishment Photo"
 												class="w-full h-full object-cover"
 											/>
-											<div v-else class="w-full h-full bg-gradient-to-br from-[#002147] to-[#004595] flex items-center justify-center">
+											<div v-else class="w-full h-full bg-linear-to-br from-[#002147] to-[#004595] flex items-center justify-center">
 												<svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
 													<path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd"/>
 												</svg>
@@ -200,7 +205,7 @@
 								<div class="flex gap-2 pt-2">
 									<button
 										type="button"
-										class="flex-1 px-4 py-2 bg-gradient-to-r from-[#002147] to-[#00397a] text-white rounded-lg hover:shadow-lg transition-all font-semibold text-sm disabled:opacity-50"
+										class="flex-1 px-4 py-2 bg-linear-to-r from-[#002147] to-[#00397a] text-white rounded-lg hover:shadow-lg transition-all font-semibold text-sm disabled:opacity-50"
 										@click="saveEdit"
 										:disabled="uploadingPhoto"
 									>
@@ -221,13 +226,13 @@
 								<h2 class="text-xl font-bold text-[#002147]">{{ item.establishmentName }}</h2>
 								<div class="space-y-1.5 text-sm text-gray-600">
 									<div class="flex items-start gap-2">
-										<svg class="w-4 h-4 text-[#004595] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+										<svg class="w-4 h-4 text-[#004595] mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
 											<path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
 										</svg>
 										<p>{{ item.establishmentAddress || 'No address provided' }}</p>
 									</div>
 									<div v-if="item.contactNumber" class="flex items-center gap-2">
-										<svg class="w-4 h-4 text-[#004595] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+										<svg class="w-4 h-4 text-[#004595] shrink-0" fill="currentColor" viewBox="0 0 20 20">
 											<path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
 										</svg>
 										<p>{{ item.contactNumber }}</p>
@@ -236,7 +241,7 @@
 								<div class="flex flex-wrap gap-2 pt-2">
 									<button
 										type="button"
-										class="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#002147] to-[#00397a] px-4 py-2 text-white hover:shadow-lg transition-all font-semibold text-sm"
+										class="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-linear-to-r from-[#002147] to-[#00397a] px-4 py-2 text-white hover:shadow-lg transition-all font-semibold text-sm"
 										@click="openDetails(item)"
 									>
 										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -275,7 +280,7 @@
 			<div v-if="showAddModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closeAddModal">
 				<div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto transform transition-all">
 					<!-- Modal Header -->
-					<div class="bg-gradient-to-r from-[#002147] to-[#00397a] px-6 py-4 sticky top-0 z-10">
+					<div class="bg-linear-to-r from-[#002147] to-[#00397a] px-6 py-4 sticky top-0 z-10">
 						<div class="flex items-center justify-between">
 							<div class="flex items-center gap-3">
 								<div class="p-2 bg-white/20 rounded-lg">
@@ -310,7 +315,7 @@
 											alt="Establishment Photo"
 											class="w-full h-full object-cover"
 										/>
-										<div v-else class="w-full h-full bg-gradient-to-br from-[#002147] to-[#004595] flex items-center justify-center">
+										<div v-else class="w-full h-full bg-linear-to-br from-[#002147] to-[#004595] flex items-center justify-center">
 											<svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
 												<path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd"/>
 											</svg>
@@ -468,7 +473,7 @@
 								<button
 									type="submit"
 									:disabled="loading || uploadingPhoto"
-									class="flex-1 px-4 py-2.5 bg-gradient-to-r from-[#002147] to-[#00397a] text-white rounded-lg hover:shadow-lg transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+									class="flex-1 px-4 py-2.5 bg-linear-to-r from-[#002147] to-[#00397a] text-white rounded-lg hover:shadow-lg transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm"
 								>
 									{{ loading || uploadingPhoto ? 'Adding...' : 'Add Establishment' }}
 								</button>
@@ -529,7 +534,7 @@
 			>
 				<div class="relative w-full max-w-3xl rounded-2xl bg-white shadow-2xl overflow-hidden transform transition-all max-h-[90vh] overflow-y-auto">
 					<!-- Modal Header -->
-					<div class="bg-gradient-to-r from-[#002147] to-[#00397a] px-6 py-4 sticky top-0 z-10">
+					<div class="bg-linear-to-r from-[#002147] to-[#00397a] px-6 py-4 sticky top-0 z-10">
 						<div class="flex items-center justify-between">
 							<div class="flex items-center gap-3">
 								<div class="p-2 bg-white/20 rounded-lg">
@@ -563,7 +568,7 @@
 							<div v-if="detailsItem?.establishmentImages" class="w-full bg-gray-50">
 								<img :src="detailsItem.establishmentImages" :alt="detailsItem.establishmentName" class="w-full h-auto object-contain" />
 							</div>
-							<div v-else class="w-full h-80 bg-gradient-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center relative overflow-hidden">
+							<div v-else class="w-full h-80 bg-linear-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center relative overflow-hidden">
 								<div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-20 -mt-20"></div>
 								<svg class="w-24 h-24 text-white/50 relative z-10" fill="currentColor" viewBox="0 0 20 20">
 									<path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd"/>
@@ -579,33 +584,33 @@
 							</div>
 
 							<div class="grid gap-4 md:grid-cols-3">
-								<div class="rounded-lg border-2 border-[#004595]/10 bg-gradient-to-br from-[#f3f1ee]/30 to-white px-4 py-3">
+								<div class="rounded-lg border-2 border-[#004595]/10 bg-linear-to-br from-[#f3f1ee]/30 to-white px-4 py-3">
 									<div class="flex items-start gap-2">
-										<svg class="w-5 h-5 text-[#004595] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+										<svg class="w-5 h-5 text-[#004595] mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
 											<path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
 										</svg>
 										<div class="flex-1 min-w-0">
 											<p class="text-xs uppercase tracking-wide text-[#004595]/70 font-semibold">Address</p>
-											<p class="text-sm font-medium text-[#002147] mt-0.5 break-words">{{ detailsItem?.establishmentAddress || 'Not provided' }}</p>
+											<p class="text-sm font-medium text-[#002147] mt-0.5 wrap-break-words">{{ detailsItem?.establishmentAddress || 'Not provided' }}</p>
 										</div>
 									</div>
 								</div>
 
-								<div class="rounded-lg border-2 border-[#004595]/10 bg-gradient-to-br from-[#f3f1ee]/30 to-white px-4 py-3">
+								<div class="rounded-lg border-2 border-[#004595]/10 bg-linear-to-br from-[#f3f1ee]/30 to-white px-4 py-3">
 									<div class="flex items-start gap-2">
-										<svg class="w-5 h-5 text-[#004595] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+										<svg class="w-5 h-5 text-[#004595] mt-0.5 fshrink-0" fill="currentColor" viewBox="0 0 20 20">
 											<path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
 										</svg>
 										<div class="flex-1 min-w-0">
 											<p class="text-xs uppercase tracking-wide text-[#004595]/70 font-semibold">Contact</p>
-											<p class="text-sm font-medium text-[#002147] mt-0.5 break-words">{{ detailsItem?.contactNumber || 'Not provided' }}</p>
+											<p class="text-sm font-medium text-[#002147] mt-0.5 wrap-break-words">{{ detailsItem?.contactNumber || 'Not provided' }}</p>
 										</div>
 									</div>
 								</div>
 
-								<div class="rounded-lg border-2 border-[#004595]/10 bg-gradient-to-br from-[#f3f1ee]/30 to-white px-4 py-3">
+								<div class="rounded-lg border-2 border-[#004595]/10 bg-linear-to-br from-[#f3f1ee]/30 to-white px-4 py-3">
 									<div class="flex items-start gap-2">
-										<svg class="w-5 h-5 text-[#004595] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+										<svg class="w-5 h-5 text-[#004595] mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
 											<path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd"/>
 										</svg>
 										<div class="flex-1 min-w-0">
@@ -631,7 +636,7 @@
 										</div>
 										<div>
 											<p class="text-xs text-gray-500 uppercase tracking-wide">Email</p>
-											<p class="font-medium text-gray-700 break-words">{{ detailsItem?.ownerEmail || 'Not provided' }}</p>
+											<p class="font-medium text-gray-700 wrap-break-words">{{ detailsItem?.ownerEmail || 'Not provided' }}</p>
 										</div>
 									</div>
 								</div>
@@ -649,7 +654,7 @@
 										</div>
 										<div>
 											<p class="text-xs text-gray-500 uppercase tracking-wide">Email</p>
-											<p class="font-medium text-gray-700 break-words">{{ detailsItem?.managerEmail || 'Not provided' }}</p>
+											<p class="font-medium text-gray-700 wrap-break-words">{{ detailsItem?.managerEmail || 'Not provided' }}</p>
 										</div>
 									</div>
 								</div>
@@ -688,20 +693,20 @@
 		>
 			<div
 				v-if="toast.show"
-				class="fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-md px-4 z-[100000]"
+				class="fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-md px-4 z-100000"
 			>
 				<div
 					class="rounded-2xl shadow-2xl overflow-hidden"
 					:class="{
-						'bg-gradient-to-r from-green-500 to-emerald-600': toast.type === 'success',
-						'bg-gradient-to-r from-red-500 to-rose-600': toast.type === 'error',
-						'bg-gradient-to-r from-yellow-500 to-amber-600': toast.type === 'warning',
-						'bg-gradient-to-r from-blue-500 to-indigo-600': toast.type === 'info'
+						'bg-linear-to-r from-green-500 to-emerald-600': toast.type === 'success',
+						'bg-linear-to-r from-red-500 to-rose-600': toast.type === 'error',
+						'bg-linear-to-r from-yellow-500 to-amber-600': toast.type === 'warning',
+						'bg-linear-to-r from-blue-500 to-indigo-600': toast.type === 'info'
 					}"
 				>
 					<div class="p-4 flex items-start gap-3">
 						<!-- Icon -->
-						<div class="flex-shrink-0 mt-0.5">
+						<div class="shrink-0 mt-0.5">
 							<!-- Success Icon -->
 							<svg
 								v-if="toast.type === 'success'"
@@ -769,7 +774,7 @@
 						<!-- Close Button -->
 						<button
 							@click="hideToast"
-							class="flex-shrink-0 ml-2 p-1 hover:bg-white/20 rounded-lg transition-colors"
+							class="shrink-0 ml-2 p-1 hover:bg-white/20 rounded-lg transition-colors"
 						>
 							<svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
 								<path
@@ -1124,10 +1129,11 @@ const closeAddModal = () => {
 
 const goBack = () => {
 	if (barangayName.value) {
-		router.push({ name: 'community', params: { barangayName: barangayName.value } })
+		const fromTab = route.query.fromTab || 'landmarks'
+		router.push({ name: 'community', params: { barangayName: barangayName.value }, query: { fromTab } })
 		return
 	}
-	router.push({ name: 'dashboard' })
+	router.push({ name: 'establishments' })
 }
 
 const addItem = async () => {

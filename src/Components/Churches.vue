@@ -933,7 +933,8 @@ const handleEditImageChange = async (event, itemId) => {
 
 const goBack = () => {
 	if (barangayName.value) {
-		router.push({ name: 'community', params: { barangayName: barangayName.value } })
+		const fromTab = route.query.fromTab || 'landmarks'
+		router.push({ name: 'community', params: { barangayName: barangayName.value }, query: { fromTab } })
 		return
 	}
 	router.push({ name: 'dashboard' })
