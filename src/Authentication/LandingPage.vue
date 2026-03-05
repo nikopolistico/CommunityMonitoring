@@ -4,23 +4,23 @@
   >
     <!-- Navigation Header -->
     <nav
-      class="fixed top-0 left-0 right-0 flex justify-between items-center px-12 py-4 bg-[#002147] shadow-[0_2px_10px_rgba(0,33,71,0.1)] z-100 animate-slideDown"
+      class="fixed top-0 left-0 right-0 flex justify-between items-center px-4 md:px-8 lg:px-12 py-3 md:py-4 bg-[#002147] shadow-[0_2px_10px_rgba(0,33,71,0.1)] z-100 animate-slideDown"
     >
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 md:gap-4">
         <img
           src="@/assets/BCPO 1 LOGO.png"
           alt="BCPS 1 Logo"
-          class="h-12.5 w-auto animate-fadeIn"
+          class="h-10 md:h-12 lg:h-12.5 w-auto animate-fadeIn"
         />
-        <span class="text-[0.95rem] font-bold text-white tracking-[0.5px] animate-fadeIn"
+        <span class="text-xs md:text-sm lg:text-[0.95rem] font-bold text-white tracking-[0.5px] animate-fadeIn"
           >BUTUAN CITY POLICE STATION 1</span
         >
       </div>
       <router-link
         to="/login"
-        class="flex items-center gap-2 px-7 py-2.5 font-semibold text-[0.95rem] no-underline bg-[#004595] text-white border-2 border-white rounded-full transition-all duration-500 ease-in-out cursor-pointer shadow-[0_2px_8px_rgba(0,33,71,0.10)] tracking-wider hover:shadow-[0_6px_20px_rgba(0,69,149,0.35)] hover:scale-105 hover:brightness-110 animate-fadeIn"
+        class="flex items-center gap-1 md:gap-2 px-4 md:px-6 lg:px-7 py-2 md:py-2.5 font-semibold text-xs md:text-sm lg:text-[0.95rem] no-underline bg-[#004595] text-white border-2 border-white rounded-full transition-all duration-500 ease-in-out cursor-pointer shadow-[0_2px_8px_rgba(0,33,71,0.10)] tracking-wider hover:shadow-[0_6px_20px_rgba(0,69,149,0.35)] hover:scale-105 hover:brightness-110 animate-fadeIn"
       >
-        <svg class="w-4 h-4 transition-transform duration-500 ease-in-out group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-3 h-3 md:w-4 md:h-4 transition-transform duration-500 ease-in-out group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -28,21 +28,22 @@
             d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
           />
         </svg>
-        Sign In
+        <span class="hidden sm:inline">Sign In</span>
+        <span class="sm:hidden">Login</span>
       </router-link>
     </nav>
 
     <div class="flex flex-col">
       <!-- Hero Section -->
       <section class="hero-container">
-        <div class="relative z-1 text-center max-w-275 mx-auto px-4 animate-fadeInUp">
+        <div class="relative z-1 text-center max-w-275 mx-auto px-4 md:px-6 lg:px-8 animate-fadeInUp">
           <div
-            class="flex justify-center items-center gap-16 mb-12 max-md:gap-6 max-sm:gap-3 animate-scaleIn"
+            class="flex justify-center items-center gap-6 md:gap-10 lg:gap-16 mb-8 md:mb-12 animate-scaleIn"
           >
-            <div class="flex justify-center items-center gap-10 max-md:gap-6 max-sm:gap-4">
+            <div class="flex justify-center items-center gap-4 md:gap-6 lg:gap-10">
 
   <!-- BCPO -->
-  <div class="flex items-center justify-center w-30 h-30 max-md:w-20 max-md:h-20">
+  <div class="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-30 lg:h-30">
     <img
       src="@/assets/BCPO 1 LOGO.png"
       alt="BCPS 1 Logo"
@@ -51,7 +52,7 @@
   </div>
 
   <!-- PNP -->
-  <div class="flex items-center justify-center w-30 h-30 max-md:w-20 max-md:h-20">
+  <div class="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-30 lg:h-30">
     <img
       src="@/assets/pnplogo.png"
       alt="PNP Logo"
@@ -59,12 +60,12 @@
     />
   </div>
 
-  <!-- ✅ PNP BUTUAN (slightly bigger, spacing steady) -->
-  <div class="flex items-center justify-center w-30 h-30 max-md:w-20 max-md:h-20 overflow-visible">
+  <!-- PNP BUTUAN (slightly bigger, spacing steady) -->
+  <div class="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-30 lg:h-30 overflow-visible">
     <img
       src="@/assets/pnpbutuan.png"
       alt="PNP Butuan Logo"
-      class="w-full h-full object-contain scale-200 hover:scale-220 transition-transform duration-300"
+      class="w-full h-full object-contain scale-150 sm:scale-175 md:scale-200 hover:scale-[1.6] sm:hover:scale-[1.85] md:hover:scale-220 transition-transform duration-300"
     />
   </div>
 
@@ -72,19 +73,19 @@
 
           </div>
           <h1
-            class="text-[2.75rem] font-extrabold text-white mb-6 tracking-wider [text-shadow:2px_2px_8px_rgba(0,0,0,0.5)] max-md:text-[1.75rem] animate-fadeInUp animation-delay-200"
+            class="text-xl sm:text-2xl md:text-3xl lg:text-[2.75rem] font-extrabold text-white mb-4 md:mb-6 tracking-wider [text-shadow:2px_2px_8px_rgba(0,0,0,0.5)] animate-fadeInUp animation-delay-200"
           >
             COMMUNITY MONITORING SYSTEM
           </h1>
           <p
-            class="text-lg text-[#f3f1ee] leading-[1.7] mb-10 [text-shadow:1px_1px_6px_rgba(0,0,0,0.5)] max-md:text-base max-w-175 mx-auto animate-fadeInUp animation-delay-400"
+            class="text-sm sm:text-base md:text-lg text-[#f3f1ee] leading-[1.7] mb-6 md:mb-10 [text-shadow:1px_1px_6px_rgba(0,0,0,0.5)] max-w-full md:max-w-175 mx-auto px-2 animate-fadeInUp animation-delay-400"
           >
             Real-time monitoring and coordination for schools, businesses, and community events
             across 28 barangays in Butuan City.
           </p>
           <router-link
             to="/login"
-            class="inline-flex items-center gap-2 px-12 py-4 text-lg font-semibold bg-[#004595] text-white border-2 border-white rounded-full no-underline transition-all duration-500 ease-in-out cursor-pointer shadow-[0_2px_8px_rgba(0,33,71,0.10)] tracking-wider hover:-translate-y-1 hover:shadow-[0_8px_25px_rgba(0,69,149,0.4)] hover:scale-105 hover:brightness-110 animate-fadeInUp animation-delay-600"
+            class="inline-flex items-center gap-2 px-6 sm:px-8 md:px-10 lg:px-12 py-3 md:py-4 text-sm sm:text-base md:text-lg font-semibold bg-[#004595] text-white border-2 border-white rounded-full no-underline transition-all duration-500 ease-in-out cursor-pointer shadow-[0_2px_8px_rgba(0,33,71,0.10)] tracking-wider hover:-translate-y-1 hover:shadow-[0_8px_25px_rgba(0,69,149,0.4)] hover:scale-105 hover:brightness-110 animate-fadeInUp animation-delay-600"
           >
             <svg class="w-5 h-5 transition-transform duration-500 ease-in-out hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -101,28 +102,28 @@
 
       <!-- Info Cards -->
       <section class="info-section">
-        <div class="relative z-1 grid grid-cols-3 gap-8 max-w-300 mx-auto max-md:grid-cols-1 px-4">
+        <div class="relative z-1 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-300 mx-auto px-4 md:px-6 lg:px-8">
           <div
-            class="bg-white/90 backdrop-blur-[10px] p-8 text-center border-2 border-[#004595] rounded-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_30px_rgba(0,69,149,0.25)] hover:bg-white hover:border-[#002147] animate-fadeInUp animation-delay-100"
+            class="bg-white/90 backdrop-blur-[10px] p-5 md:p-6 lg:p-8 text-center border-2 border-[#004595] rounded-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_30px_rgba(0,69,149,0.25)] hover:bg-white hover:border-[#002147] animate-fadeInUp animation-delay-100"
           >
-            <div class="text-5xl font-extrabold text-[#004595] mb-3 animate-countUp">28</div>
-            <div class="text-sm font-semibold text-[#002147] uppercase tracking-[1px]">
+            <div class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#004595] mb-2 md:mb-3 animate-countUp">28</div>
+            <div class="text-xs sm:text-sm font-semibold text-[#002147] uppercase tracking-[1px]">
               Barangays Covered
             </div>
           </div>
           <div
-            class="bg-white/90 backdrop-blur-[10px] p-8 text-center border-2 border-[#004595] rounded-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_30px_rgba(0,69,149,0.25)] hover:bg-white hover:border-[#002147] animate-fadeInUp animation-delay-300"
+            class="bg-white/90 backdrop-blur-[10px] p-5 md:p-6 lg:p-8 text-center border-2 border-[#004595] rounded-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_30px_rgba(0,69,149,0.25)] hover:bg-white hover:border-[#002147] animate-fadeInUp animation-delay-300"
           >
-            <div class="text-5xl font-extrabold text-[#004595] mb-3">24/7</div>
-            <div class="text-sm font-semibold text-[#002147] uppercase tracking-[1px]">
+            <div class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#004595] mb-2 md:mb-3">24/7</div>
+            <div class="text-xs sm:text-sm font-semibold text-[#002147] uppercase tracking-[1px]">
               Monitoring
             </div>
           </div>
           <div
-            class="bg-white/90 backdrop-blur-[10px] p-8 text-center border-2 border-[#004595] rounded-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_30px_rgba(0,69,149,0.25)] hover:bg-white hover:border-[#002147] animate-fadeInUp animation-delay-500"
+            class="bg-white/90 backdrop-blur-[10px] p-5 md:p-6 lg:p-8 text-center border-2 border-[#004595] rounded-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_12px_30px_rgba(0,69,149,0.25)] hover:bg-white hover:border-[#002147] animate-fadeInUp animation-delay-500"
           >
-            <div class="text-5xl font-extrabold text-[#004595] mb-3 animate-countUp">100%</div>
-            <div class="text-sm font-semibold text-[#002147] uppercase tracking-[1px]">
+            <div class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#004595] mb-2 md:mb-3 animate-countUp">100%</div>
+            <div class="text-xs sm:text-sm font-semibold text-[#002147] uppercase tracking-[1px]">
               Coverage
             </div>
           </div>
@@ -132,16 +133,16 @@
       <!-- Services Section -->
       <section class="services-section">
         <h2
-          class="relative z-1 text-center text-[2.5rem] font-extrabold text-white mb-14 tracking-[1.5px] [text-shadow:2px_2px_8px_rgba(0,0,0,0.5)] max-md:text-[1.75rem] animate-fadeInUp"
+          class="relative z-1 text-center text-xl sm:text-2xl md:text-3xl lg:text-[2.5rem] font-extrabold text-white mb-8 md:mb-10 lg:mb-14 tracking-[1.5px] [text-shadow:2px_2px_8px_rgba(0,0,0,0.5)] animate-fadeInUp"
         >
           OUR SERVICES
         </h2>
-        <div class="relative z-1 grid grid-cols-2 gap-8 max-w-300 mx-auto max-md:grid-cols-1 px-4">
+        <div class="relative z-1 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 max-w-300 mx-auto px-4 md:px-6 lg:px-8">
           <div class="service-card animate-fadeInUp animation-delay-100">
-            <div class="flex items-start gap-4 mb-4">
-              <div class="p-3 bg-white/20 rounded-lg">
+            <div class="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+              <div class="p-2 md:p-3 bg-white/20 rounded-lg">
                 <svg
-                  class="w-8 h-8 text-white stroke-[2.5] shrink-0"
+                  class="w-6 h-6 md:w-8 md:h-8 text-white stroke-[2.5] shrink-0"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -156,11 +157,11 @@
               </div>
               <div>
                 <h3
-                  class="text-[1.35rem] font-bold text-white mb-3 tracking-[0.5px] [text-shadow:1px_1px_4px_rgba(0,0,0,0.3)]"
+                  class="text-base sm:text-lg md:text-xl lg:text-[1.35rem] font-bold text-white mb-2 md:mb-3 tracking-[0.5px] [text-shadow:1px_1px_4px_rgba(0,0,0,0.3)]"
                 >
                   Educational Institutions
                 </h3>
-                <p class="text-base text-[#f3f1ee] leading-[1.6] opacity-95">
+                <p class="text-sm md:text-base text-[#f3f1ee] leading-[1.6] opacity-95">
                   Monitoring and support for schools within our jurisdiction
                 </p>
               </div>
@@ -257,14 +258,14 @@
       </section>
 
       <!-- Footer -->
-     <footer class="px-8 py-8 bg-[#00397a] border-t-[3px] border-[#004595] animate-fadeIn">
+     <footer class="px-4 md:px-6 lg:px-8 py-6 md:py-8 bg-[#00397a] border-t-[3px] border-[#004595] animate-fadeIn">
   <div class="max-w-7xl mx-auto text-center">
 
     <!-- Logos -->
-    <div class="flex justify-center items-center gap-10 max-md:gap-6 max-sm:gap-4 mb-4">
+    <div class="flex justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 mb-3 md:mb-4">
 
       <!-- BCPO -->
-      <div class="flex items-center justify-center w-16 h-16 max-md:w-12 max-md:h-12 relative -right-2">
+      <div class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
         <img
           src="@/assets/BCPO 1 LOGO.png"
           alt="BCPO Logo"
@@ -273,7 +274,7 @@
       </div>
 
       <!-- PNP -->
-      <div class="flex items-center justify-center w-16 h-16 max-md:w-12 max-md:h-12 relative -right-3">
+      <div class="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
         <img
           src="@/assets/pnplogo.png"
           alt="PNP Logo"
@@ -282,21 +283,21 @@
       </div>
 
       <!-- PNP BUTUAN (larger but spacing fixed) -->
-      <div class="flex items-center justify-center w-22 h-22 max-md:w-18 max-md:h-18 relative -right-1">
+      <div class="flex items-center justify-center w-16 h-16 sm:w-18 sm:h-18 md:w-22 md:h-22 overflow-visible">
         <img
           src="@/assets/pnpbutuan.png"
           alt="PNP Butuan Logo"
-          class="w-full h-full object-contain scale-152 hover:scale-162 transition-transform duration-300"
+          class="w-full h-full object-contain scale-125 sm:scale-140 md:scale-152 hover:scale-[1.35] sm:hover:scale-150 md:hover:scale-162 transition-transform duration-300"
         />
       </div>
 
     </div>
 
     <!-- Text -->
-    <p class="text-base font-semibold text-white mb-1">
+    <p class="text-xs sm:text-sm md:text-base font-semibold text-white mb-1">
       © {{ new Date().getFullYear() }} Butuan City Police Station 1
     </p>
-    <p class="text-sm text-[#f3f1ee] opacity-90">
+    <p class="text-xs sm:text-sm text-[#f3f1ee] opacity-90">
       Serving and Protecting the Community
     </p>
 
@@ -442,11 +443,18 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 8rem 2rem 4rem;
+  padding: 6rem 1rem 3rem;
   background-image: url('@/assets/landing.jpg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: scroll;
+}
+
+@media (min-width: 768px) {
+  .hero-container {
+    padding: 8rem 2rem 4rem;
+    background-attachment: fixed;
+  }
 }
 
 .hero-container::before {
@@ -459,11 +467,24 @@ export default {
 
 .info-section {
   position: relative;
-  padding: 5rem 2rem;
+  padding: 3rem 1rem;
   background-image: url('@/assets/landing.jpg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: scroll;
+}
+
+@media (min-width: 768px) {
+  .info-section {
+    padding: 4rem 2rem;
+    background-attachment: fixed;
+  }
+}
+
+@media (min-width: 1024px) {
+  .info-section {
+    padding: 5rem 2rem;
+  }
 }
 
 .info-section::before {
@@ -476,11 +497,24 @@ export default {
 
 .services-section {
   position: relative;
-  padding: 5rem 2rem;
+  padding: 3rem 1rem;
   background-image: url('@/assets/landing.jpg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: scroll;
+}
+
+@media (min-width: 768px) {
+  .services-section {
+    padding: 4rem 2rem;
+    background-attachment: fixed;
+  }
+}
+
+@media (min-width: 1024px) {
+  .services-section {
+    padding: 5rem 2rem;
+  }
 }
 
 .services-section::before {
@@ -495,12 +529,18 @@ export default {
 .service-card {
   background: rgba(0, 57, 122, 0.9);
   backdrop-filter: blur(10px);
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 1rem;
   border: 2px solid white;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
+}
+
+@media (min-width: 768px) {
+  .service-card {
+    padding: 2rem;
+  }
 }
 
 .service-card:hover {
@@ -513,17 +553,5 @@ export default {
 /* Smooth Scroll Behavior */
 html {
   scroll-behavior: smooth;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .hero-container {
-    padding: 6rem 1rem 3rem;
-  }
-
-  .info-section,
-  .services-section {
-    padding: 3rem 1rem;
-  }
 }
 </style>

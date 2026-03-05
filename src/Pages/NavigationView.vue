@@ -1,15 +1,9 @@
 
 <template>
   <div class="flex h-screen bg-[#eeeff3] dark:bg-gray-900">
-    <!-- Left Sidebar Navigation -->
+    <!-- Left Sidebar Navigation - Hidden on mobile, visible on desktop -->
     <aside
-      :class="[
-        'w-64 bg-linear-to-b from-[#002147] to-[#00397a] dark:from-gray-800 dark:to-gray-900 text-white flex flex-col shadow-2xl transition-transform duration-300 z-40',
-        'lg:relative lg:translate-x-0',
-        sidebarOpen
-          ? 'fixed inset-y-0 left-0 translate-x-0'
-          : 'fixed inset-y-0 left-0 -translate-x-full lg:translate-x-0',
-      ]"
+      class="hidden lg:flex w-64 bg-linear-to-b from-[#002147] to-[#00397a] dark:from-gray-800 dark:to-gray-900 text-white flex-col shadow-2xl z-40"
     >
       <!-- Officer Profile Section -->
       <div class="p-6 border-b border-white/10">
@@ -148,7 +142,7 @@
           class="w-full flex items-center justify-center p-3.5 rounded-xl bg-white dark:bg-gray-700 hover:bg-[#f3f1ee] dark:hover:bg-gray-600 text-[#002147] dark:text-white border-2 border-white/30 dark:border-gray-600 hover:border-white dark:hover:border-gray-500 transition-all duration-300 font-bold shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none group relative overflow-hidden"
         >
           <!-- Shimmer Effect -->
-          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#004595]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+          <div class="absolute inset-0 bg-linear-to-r from-transparent via-[#004595]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
           
           <!-- Loading Spinner -->
           <svg v-if="isLoggingOut" class="animate-spin w-5 h-5 mr-2.5 relative z-10 text-[#004595] dark:text-blue-400" fill="none" viewBox="0 0 24 24">
@@ -173,7 +167,7 @@
     <!-- Logout Success Modal -->
     <Transition name="modal-fade">
       <div v-if="showLogoutSuccess" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-[#002147]/80 via-[#00397a]/70 to-[#004595]/80 backdrop-blur-md">
-        <div class="success-modal bg-gradient-to-br from-[#f3f1ee] to-white rounded-2xl shadow-2xl max-w-lg w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20">
+        <div class="success-modal bg-linear-to-br from-[#f3f1ee] to-white rounded-2xl shadow-2xl max-w-lg w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20">
           <!-- Success Icon -->
           <div class="flex justify-center mb-8">
             <div class="success-checkmark">
@@ -190,7 +184,7 @@
           <div class="text-center space-y-5">
             <div class="space-y-2">
               <h3 class="text-3xl font-extrabold text-[#002147] tracking-tight">{{ t('logoutSuccess') }}</h3>
-              <div class="w-24 h-1 bg-gradient-to-r from-transparent via-[#004595] to-transparent rounded-full mx-auto"></div>
+              <div class="w-24 h-1 bg-linear-to-r from-transparent via-[#004595] to-transparent rounded-full mx-auto"></div>
             </div>
             
             <div class="bg-white/70 backdrop-blur-sm rounded-xl p-5 border border-[#004595]/10 shadow-sm">
@@ -275,36 +269,8 @@
       </div>
     </Transition>
 
-    <!-- Mobile Menu Button -->
-    <button
-      @click="sidebarOpen = !sidebarOpen"
-      class="lg:hidden fixed top-4 left-4 z-50 p-2 bg-[#004595] text-white rounded-lg shadow-lg"
-    >
-      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-        <path
-          v-if="!sidebarOpen"
-          fill-rule="evenodd"
-          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-          clip-rule="evenodd"
-        />
-        <path
-          v-else
-          fill-rule="evenodd"
-          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-          clip-rule="evenodd"
-        />
-      </svg>
-    </button>
-
-    <!-- Overlay for mobile -->
-    <div
-      v-if="sidebarOpen"
-      @click="sidebarOpen = false"
-      class="lg:hidden fixed inset-0 bg-black/50 z-30"
-    ></div>
-
     <!-- Main Content Area -->
-    <main class="flex-1 overflow-auto">
+    <main class="flex-1 overflow-auto pb-20 lg:pb-0">
       <!-- Dashboard View -->
       <DashBoard v-if="activeView === 'dashboard'" />
       
@@ -317,6 +283,97 @@
       <!-- Settings View -->
       <SettingsView v-else-if="activeView === 'settings'" />
     </main>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t-2 border-[#004595]/20 dark:border-gray-700 shadow-2xl z-50">
+      <div class="flex justify-around items-center h-16 px-2">
+        <!-- Dashboard -->
+        <button
+          @click="setActiveView('dashboard')"
+          :class="[
+            'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
+            activeView === 'dashboard' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+          ]"
+        >
+          <div
+            v-if="activeView === 'dashboard'"
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+          ></div>
+          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+            />
+          </svg>
+          <span class="text-xs font-semibold">{{ t('dashboard') }}</span>
+        </button>
+
+        <!-- Calendar -->
+        <button
+          @click="setActiveView('calendar')"
+          :class="[
+            'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
+            activeView === 'calendar' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+          ]"
+        >
+          <div
+            v-if="activeView === 'calendar'"
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+          ></div>
+          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span class="text-xs font-semibold">{{ t('calendar') }}</span>
+        </button>
+
+        <!-- Records -->
+        <button
+          @click="setActiveView('records')"
+          :class="[
+            'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
+            activeView === 'records' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+          ]"
+        >
+          <div
+            v-if="activeView === 'records'"
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+          ></div>
+          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span class="text-xs font-semibold">{{ t('records') }}</span>
+        </button>
+
+        <!-- Settings -->
+        <button
+          @click="setActiveView('settings')"
+          :class="[
+            'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
+            activeView === 'settings' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+          ]"
+        >
+          <div
+            v-if="activeView === 'settings'"
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+          ></div>
+          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span class="text-xs font-semibold">{{ t('settings') }}</span>
+        </button>
+      </div>
+    </nav>
   </div>
 </template>
 
@@ -332,7 +389,6 @@ import SettingsView from './SettingsView.vue'
 
 const router = useRouter()
 const { t } = useGlobal()
-const sidebarOpen = ref(false)
 const activeView = ref('dashboard')
 const showLogoutModal = ref(false)
 const isLoggingOut = ref(false)
@@ -368,7 +424,6 @@ const fetchAdminProfile = async () => {
 
 const setActiveView = (view) => {
   activeView.value = view
-  sidebarOpen.value = false // Close sidebar on mobile after selection
 }
 
 const confirmLogout = async () => {
