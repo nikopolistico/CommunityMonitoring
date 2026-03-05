@@ -1,51 +1,53 @@
 <template>
   <div class="flex-1 flex flex-col bg-[#f3f1ee] dark:bg-gray-900">
     <!-- Top Header -->
-      <header class="relative shadow-2xl overflow-hidden h-48">
+      <header class="relative shadow-2xl overflow-hidden h-32 sm:h-40 md:h-44 lg:h-48">
         <div
           class="absolute inset-0 bg-cover bg-center" 
           :style="{ backgroundImage: `url(${headbk})` }"
         ></div>
         <div class="absolute inset-0 bg-gradient-to-r from-[#002147]/40 to-[#004595]/30"></div>
 
-        <div class="relative z-10 p-4 lg:p-6">
+        <div class="relative z-10 p-3 sm:p-4 md:p-5 lg:p-6">
           <div class="max-w-6xl mx-auto">
-            <div class="flex items-start justify-between gap-4">
-              <div class="mt-8">
-                <div class="flex items-center gap-2 lg:gap-3 mb-2 lg:mb-3">
+            <!-- Top Row: Title and Notification -->
+            <div class="flex items-start justify-between gap-2 sm:gap-3 md:gap-4 mb-3">
+              <div class="mt-2 sm:mt-4 md:mt-6 lg:mt-8">
+                <div class="flex items-center gap-1.5 sm:gap-2 lg:gap-3 mb-1 sm:mb-2 lg:mb-3">
                   <h1
-                    class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight drop-shadow-lg"
+                    class="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-white tracking-tight drop-shadow-lg"
                   >
                     {{ t('policeStationTitle') }}
                   </h1>
                 </div>
 
                 <div>
-                  <p class="text-sm sm:text-base lg:text-lg text-[#e0e7ff] mb-1 ms-9 font-medium">
+                  <p class="text-xs sm:text-sm md:text-base lg:text-lg text-[#e0e7ff] mb-1 ms-4 sm:ms-6 md:ms-8 lg:ms-9 font-medium">
                     {{ t('communityMonitoring') }}
                   </p>
                 </div>
               </div>
 
-              <div class="flex items-center gap-2 mt-8">
+              <!-- Notification Bell and Date/Time (Desktop) -->
+              <div class="flex items-center gap-1.5 sm:gap-2 md:gap-2.5 mt-2 sm:mt-4 md:mt-6 lg:mt-8">
                 <!-- Notification Bell -->
                 <div class="relative">
                   <button 
                     @click="toggleNotifications"
-                    class="relative p-2.5 rounded-full bg-white/20 backdrop-blur-md shadow-lg border border-white/30 hover:bg-white/30 transition-all duration-300 group"
+                    class="relative p-1.5 sm:p-2 md:p-2.5 rounded-full bg-white/20 backdrop-blur-md shadow-lg border border-white/30 hover:bg-white/30 transition-all duration-300 group"
                   >
-                    <svg class="w-5 h-5 text-white group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
                     </svg>
                     <!-- Notification Badge -->
-                    <span v-if="unreadNotifications > 0" class="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-white text-[10px] font-bold border border-white shadow-md animate-pulse">
+                    <span v-if="unreadNotifications > 0" class="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 sm:h-4 sm:w-4 items-center justify-center rounded-full bg-red-500 text-white text-[9px] sm:text-[10px] font-bold border border-white shadow-md animate-pulse">
                       {{ unreadNotifications }}
                     </span>
                   </button>
                 </div>
 
-                <!-- Date and Time -->
-                <div class="flex flex-col gap-2 px-7 py-4 rounded-xl bg-white/15 backdrop-blur-md shadow-lg border border-white/25 hover:bg-white/20 transition-all duration-300">
+                <!-- Date and Time (Desktop Only) -->
+                <div class="hidden lg:flex items-center gap-4 lg:gap-6 px-5 py-3 lg:px-7 lg:py-4 rounded-xl bg-white/15 backdrop-blur-md shadow-lg border border-white/25 hover:bg-white/20 transition-all duration-300">
                   <div class="flex items-center gap-2.5">
                     <svg class="w-6 h-6 text-white/90" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
@@ -54,6 +56,7 @@
                       {{ currentDate }}
                     </p>
                   </div>
+                  <div class="h-8 w-px bg-white/30"></div>
                   <div class="flex items-center gap-2.5">
                     <svg class="w-6 h-6 text-white/90" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-8.75V5a.75.75 0 10-1.5 0v4.5c0 .2.08.39.22.53l3 3a.75.75 0 101.06-1.06l-2.78-2.72z" clip-rule="evenodd"/>
@@ -65,8 +68,31 @@
                 </div>
               </div>
             </div>
+
+            <!-- Bottom Row: Date and Time (Mobile Only) -->
+            <div class="lg:hidden flex items-center gap-1.5 sm:gap-2 md:gap-2.5">
+              <div class="flex items-center gap-2 sm:gap-3 md:gap-4 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-3 rounded-lg md:rounded-xl bg-white/15 backdrop-blur-md shadow-lg border border-white/25 hover:bg-white/20 transition-all duration-300">
+                <div class="flex items-center gap-1.5 sm:gap-2 md:gap-2.5">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white/90" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                  </svg>
+                  <p class="text-xs sm:text-sm md:text-base font-bold text-white/95 tracking-wide">
+                    {{ currentDate }}
+                  </p>
+                </div>
+                <div class="h-6 sm:h-7 md:h-8 w-px bg-white/30"></div>
+                <div class="flex items-center gap-1.5 sm:gap-2 md:gap-2.5">
+                  <svg class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white/90" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-8.75V5a.75.75 0 10-1.5 0v4.5c0 .2.08.39.22.53l3 3a.75.75 0 101.06-1.06l-2.78-2.72z" clip-rule="evenodd"/>
+                  </svg>
+                  <p class="text-sm sm:text-base md:text-lg font-extrabold text-white tracking-wider">
+                    {{ currentTime }}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+          </div>
       </header>
 
       <!-- Summary Cards -->

@@ -1,8 +1,8 @@
 <template>
       <div class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-['Poppins']">
         <div class="flex min-h-screen">
-          <!-- Enhanced Blue Sidebar -->
-          <aside class="w-full max-w-sm bg-gradient-to-b from-white via-[#f3f1ee]/30 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 shadow-2xl border-r border-[#004595]/10 dark:border-gray-700">
+          <!-- Enhanced Blue Sidebar - Hidden on mobile, visible on desktop -->
+          <aside class="hidden lg:block w-full max-w-sm bg-gradient-to-b from-white via-[#f3f1ee]/30 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 shadow-2xl border-r border-[#004595]/10 dark:border-gray-700">
             <div class="p-6 space-y-6">
               <!-- Enhanced Back Button -->
               <button
@@ -124,7 +124,35 @@
           </aside>
 
           <main class="flex-1 bg-gradient-to-br from-[#004595]/5 via-transparent to-[#00397a]/5">
-            <div class="mx-auto max-w-7xl px-8 py-10">
+            <!-- Mobile Header with Back Button and Profile -->
+            <div class="lg:hidden sticky top-0 z-40 bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-4 py-4 shadow-lg">
+              <button
+                type="button"
+                class="inline-flex items-center gap-2 text-white font-semibold hover:text-white/80 transition-colors mb-3"
+                @click="goBack"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                <span class="text-sm">Back to Dashboard</span>
+              </button>
+              
+              <!-- Mobile Captain Profile -->
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm overflow-hidden flex items-center justify-center ring-2 ring-white/40">
+                  <img v-if="captainInfo.profileImage" :src="captainInfo.profileImage" alt="Captain" class="w-full h-full object-cover" />
+                  <svg v-else class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-white font-bold text-sm">{{ captainInfo.name || 'No name' }}</p>
+                  <p class="text-white/80 text-xs">Barangay Captain</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mx-auto max-w-7xl px-4 lg:px-8 py-10 pb-24 lg:pb-10">
               <section v-if="communityInfo" class="space-y-6">
                 
                 <!-- Dashboard Section -->
@@ -1342,6 +1370,83 @@
           </div>
         </main>
       </div>
+
+      <!-- Mobile Bottom Navigation -->
+      <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t-2 border-[#004595]/20 dark:border-gray-700 shadow-2xl z-50">
+        <div class="flex justify-around items-center h-16 px-2">
+          <!-- Dashboard -->
+          <button
+            @click="setActiveTab('dashboard')"
+            :class="[
+              'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
+              activeTab === 'dashboard' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+            ]"
+          >
+            <div
+              v-if="activeTab === 'dashboard'"
+              class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+            ></div>
+            <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+            </svg>
+            <span class="text-xs font-semibold">Dashboard</span>
+          </button>
+
+          <!-- Officers -->
+          <button
+            @click="setActiveTab('officers')"
+            :class="[
+              'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
+              activeTab === 'officers' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+            ]"
+          >
+            <div
+              v-if="activeTab === 'officers'"
+              class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+            ></div>
+            <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+            </svg>
+            <span class="text-xs font-semibold">Officers</span>
+          </button>
+
+          <!-- Landmarks -->
+          <button
+            @click="setActiveTab('landmarks')"
+            :class="[
+              'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
+              activeTab === 'landmarks' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+            ]"
+          >
+            <div
+              v-if="activeTab === 'landmarks'"
+              class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+            ></div>
+            <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-xs font-semibold">Landmarks</span>
+          </button>
+
+          <!-- History -->
+          <button
+            @click="setActiveTab('history')"
+            :class="[
+              'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
+              activeTab === 'history' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+            ]"
+          >
+            <div
+              v-if="activeTab === 'history'"
+              class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+            ></div>
+            <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+            </svg>
+            <span class="text-xs font-semibold">History</span>
+          </button>
+        </div>
+      </nav>
 
       <!-- Add Personnel Modal -->
       <div v-if="showModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" style="z-index: 100000;" @click.self="closeModal">
