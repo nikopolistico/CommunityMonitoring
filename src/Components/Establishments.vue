@@ -23,18 +23,16 @@
 						<h1 class="text-4xl font-extrabold mt-2">{{ communityInfo.name }}</h1>
 						<p class="text-lg text-white/90 mt-2">Businesses and key establishments in this barangay.</p>
 					</div>
-					<div class="absolute top-0 right-0 p-4">
-						<button @click="viewMap" class="bg-white/20 hover:bg-white/30 cursor-pointer text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+					<div class="absolute top-0 right-0 p-2 sm:p-4 z-20">
+						<button @click="viewMap" class="bg-white/20 hover:bg-white/30 cursor-pointer text-white px-2 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors flex items-center gap-1 sm:gap-2 pointer-events-auto"
 						>
-							<span>View Map</span>
+							<span class="hidden sm:inline">View Map</span>
 
-							<div class="w-8 h-8 rounded border border-gray-400 overflow-hidden">
-								<img 
-									src="https://cloud.maptiler.com/static/img/maps/hybrid.png" 
-									alt="satellite-map-preview"
-									class="w-full h-full object-cover"
-								/>
-							</div>
+							<svg class="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
+								<line x1="8" y1="2" x2="8" y2="18" />
+								<line x1="16" y1="6" x2="16" y2="22" />
+							</svg>
 						</button>
 					</div>
 				</div>
