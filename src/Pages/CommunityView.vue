@@ -1184,14 +1184,14 @@
                   </div>
                   <div>
                     <h1 class="text-3xl font-bold text-white tracking-tight">Community Landmarks</h1>
-                    <p class="text-white/90 text-sm font-medium mt-1">Schools, Churches & Business Establishments</p>
+                    <p class="text-white/90 text-sm font-medium mt-1">Schools, Churches, Business Establishments & Government Offices</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Landmarks Grid -->
-            <div class="grid gap-6 grid-cols-1 lg:grid-cols-3">
+            <div class="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
               <!-- Schools Card -->
               <article
                 class="group relative overflow-hidden rounded-2xl border-2 border-[#004595]/10 hover:border-[#004595]/40 bg-white shadow-md hover:shadow-xl hover:shadow-[#004595]/10 transition-all duration-300 cursor-pointer hover:-translate-y-1"
@@ -1203,34 +1203,34 @@
               >
                 <div class="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-[#004595]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
                 
-                <div class="p-8 relative">
+                <div class="p-6 relative">
                   <div class="flex flex-col items-center text-center">
-                    <div class="w-24 h-24 rounded-2xl flex items-center justify-center bg-linear-to-br from-[#002147] to-[#004595] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-6">
-                      <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center bg-linear-to-br from-[#002147] to-[#004595] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
+                      <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
                       </svg>
                     </div>
-                    <h3 class="text-3xl font-bold text-[#002147] mb-3 group-hover:text-[#004595] transition-colors">Schools</h3>
-                    <p class="text-base text-[#00397a] font-semibold px-5 py-2 bg-[#004595]/10 rounded-lg mb-6">{{ landmarksCount.schools }} Institutions</p>
+                    <h3 class="text-2xl font-bold text-[#002147] mb-2 group-hover:text-[#004595] transition-colors">Schools</h3>
+                    <p class="text-sm text-[#00397a] font-semibold px-4 py-1.5 bg-[#004595]/10 rounded-lg mb-4">{{ landmarksCount.schools }} Institutions</p>
                     
-                    <div class="w-full pt-4 border-t border-[#004595]/10 flex items-center justify-between gap-3">
+                    <div class="w-full pt-3 border-t border-[#004595]/10 flex items-center justify-between gap-2">
                       <button
                         @click.stop="openLandmarkModal('schools')"
-                        class="flex-1 flex items-center justify-center gap-2 text-[#00397a] font-bold hover:text-[#004595] transition-colors"
+                        class="flex-1 flex items-center justify-center gap-1.5 text-[#00397a] font-bold hover:text-[#004595] transition-colors text-xs"
                       >
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
                           <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
                         </svg>
-                        <span class="text-sm">Quick View</span>
+                        <span>Quick View</span>
                       </button>
-                      <div class="w-px h-8 bg-[#004595]/20"></div>
-                      <div class="flex-1 flex items-center justify-center gap-2 text-[#00397a] font-bold">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <div class="w-px h-6 bg-[#004595]/20"></div>
+                      <div class="flex-1 flex items-center justify-center gap-1.5 text-[#00397a] font-bold text-xs">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
                         </svg>
-                        <span class="text-sm">Manage</span>
-                        <svg class="w-4 h-4 text-[#004595] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                        <span>Manage</span>
+                        <svg class="w-3.5 h-3.5 text-[#004595] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                         </svg>
                       </div>
@@ -1250,34 +1250,34 @@
               >
                 <div class="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-[#00397a]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
                 
-                <div class="p-8 relative">
+                <div class="p-6 relative">
                   <div class="flex flex-col items-center text-center">
-                    <div class="w-24 h-24 rounded-2xl flex items-center justify-center bg-linear-to-br from-[#00397a] to-[#004595] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-6">
-                      <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center bg-linear-to-br from-[#00397a] to-[#004595] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
+                      <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
                       </svg>
                     </div>
-                    <h3 class="text-3xl font-bold text-[#002147] mb-3 group-hover:text-[#00397a] transition-colors">Churches</h3>
-                    <p class="text-base text-[#00397a] font-semibold px-5 py-2 bg-[#00397a]/10 rounded-lg mb-6">{{ landmarksCount.churches }} Places of Worship</p>
+                    <h3 class="text-2xl font-bold text-[#002147] mb-2 group-hover:text-[#00397a] transition-colors">Churches</h3>
+                    <p class="text-sm text-[#00397a] font-semibold px-4 py-1.5 bg-[#00397a]/10 rounded-lg mb-4">{{ landmarksCount.churches }} Places of Worship</p>
                     
-                    <div class="w-full pt-4 border-t border-[#00397a]/10 flex items-center justify-between gap-3">
+                    <div class="w-full pt-3 border-t border-[#00397a]/10 flex items-center justify-between gap-2">
                       <button
                         @click.stop="openLandmarkModal('churches')"
-                        class="flex-1 flex items-center justify-center gap-2 text-[#00397a] font-bold hover:text-[#00397a] transition-colors"
+                        class="flex-1 flex items-center justify-center gap-1.5 text-[#00397a] font-bold hover:text-[#00397a] transition-colors text-xs"
                       >
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
                           <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
                         </svg>
-                        <span class="text-sm">Quick View</span>
+                        <span>Quick View</span>
                       </button>
-                      <div class="w-px h-8 bg-[#00397a]/20"></div>
-                      <div class="flex-1 flex items-center justify-center gap-2 text-[#00397a] font-bold">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <div class="w-px h-6 bg-[#00397a]/20"></div>
+                      <div class="flex-1 flex items-center justify-center gap-1.5 text-[#00397a] font-bold text-xs">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
                         </svg>
-                        <span class="text-sm">Manage</span>
-                        <svg class="w-4 h-4 text-[#00397a] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                        <span>Manage</span>
+                        <svg class="w-3.5 h-3.5 text-[#00397a] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                         </svg>
                       </div>
@@ -1297,34 +1297,81 @@
               >
                 <div class="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-[#002147]/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
                 
-                <div class="p-8 relative">
+                <div class="p-6 relative">
                   <div class="flex flex-col items-center text-center">
-                    <div class="w-24 h-24 rounded-2xl flex items-center justify-center bg-linear-to-br from-[#002147] to-[#00397a] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-6">
-                      <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center bg-linear-to-br from-[#002147] to-[#00397a] shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
+                      <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd"/>
                       </svg>
                     </div>
-                    <h3 class="text-3xl font-bold text-[#002147] mb-3 group-hover:text-[#00397a] transition-colors">Businesses</h3>
-                    <p class="text-base text-[#00397a] font-semibold px-5 py-2 bg-[#002147]/10 rounded-lg mb-6">{{ landmarksCount.establishments }} Establishments</p>
+                    <h3 class="text-2xl font-bold text-[#002147] mb-2 group-hover:text-[#00397a] transition-colors">Businesses</h3>
+                    <p class="text-sm text-[#00397a] font-semibold px-4 py-1.5 bg-[#002147]/10 rounded-lg mb-4">{{ landmarksCount.establishments }} Establishments</p>
                     
-                    <div class="w-full pt-4 border-t border-[#002147]/10 flex items-center justify-between gap-3">
+                    <div class="w-full pt-3 border-t border-[#002147]/10 flex items-center justify-between gap-2">
                       <button
                         @click.stop="openLandmarkModal('businesses')"
-                        class="flex-1 flex items-center justify-center gap-2 text-[#00397a] font-bold hover:text-[#002147] transition-colors"
+                        class="flex-1 flex items-center justify-center gap-1.5 text-[#00397a] font-bold hover:text-[#002147] transition-colors text-xs"
                       >
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
                           <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
                         </svg>
-                        <span class="text-sm">Quick View</span>
+                        <span>Quick View</span>
                       </button>
-                      <div class="w-px h-8 bg-[#002147]/20"></div>
-                      <div class="flex-1 flex items-center justify-center gap-2 text-[#00397a] font-bold">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <div class="w-px h-6 bg-[#002147]/20"></div>
+                      <div class="flex-1 flex items-center justify-center gap-1.5 text-[#00397a] font-bold text-xs">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
                         </svg>
-                        <span class="text-sm">Manage</span>
-                        <svg class="w-4 h-4 text-[#002147] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                        <span>Manage</span>
+                        <svg class="w-3.5 h-3.5 text-[#002147] group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Government Offices Card -->
+              <article
+                class="group relative overflow-hidden rounded-2xl border-2 border-green-600/10 hover:border-green-600/40 bg-white shadow-md hover:shadow-xl hover:shadow-green-600/10 transition-all duration-300 cursor-pointer hover:-translate-y-1"
+                role="button"
+                tabindex="0"
+                @click="goToGovtOffices"
+                @keyup.enter="goToGovtOffices"
+                @keyup.space="goToGovtOffices"
+              >
+                <div class="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-green-600/5 to-transparent rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"></div>
+                
+                <div class="p-6 relative">
+                  <div class="flex flex-col items-center text-center">
+                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center bg-linear-to-br from-green-700 to-green-600 shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
+                      <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-[#002147] mb-2 group-hover:text-green-700 transition-colors">Government Offices</h3>
+                    <p class="text-sm text-[#00397a] font-semibold px-4 py-1.5 bg-green-600/10 rounded-lg mb-4">{{ landmarksCount.govtOffices }} Offices</p>
+                    
+                    <div class="w-full pt-3 border-t border-green-600/10 flex items-center justify-between gap-2">
+                      <button
+                        @click.stop="openLandmarkModal('govtOffices')"
+                        class="flex-1 flex items-center justify-center gap-1.5 text-[#00397a] font-bold hover:text-green-700 transition-colors text-xs"
+                      >
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                          <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Quick View</span>
+                      </button>
+                      <div class="w-px h-6 bg-green-600/20"></div>
+                      <div class="flex-1 flex items-center justify-center gap-1.5 text-[#00397a] font-bold text-xs">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Manage</span>
+                        <svg class="w-3.5 h-3.5 text-green-600 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
                         </svg>
                       </div>
@@ -2652,6 +2699,7 @@
     if (selectedLandmarkType.value === 'schools') return 'Schools'
     if (selectedLandmarkType.value === 'churches') return 'Churches'
     if (selectedLandmarkType.value === 'businesses') return 'Business Establishments'
+    if (selectedLandmarkType.value === 'govtOffices') return 'Government Offices'
     return ''
   })
 
@@ -2808,12 +2856,13 @@
   const landmarksCount = ref({
     schools: 0,
     churches: 0,
-    establishments: 0
+    establishments: 0,
+    govtOffices: 0
   })
   
   const totalOfficers = computed(() => officers.value.length)
   const totalLandmarks = computed(() => {
-    return landmarksCount.value.schools + landmarksCount.value.churches + landmarksCount.value.establishments
+    return landmarksCount.value.schools + landmarksCount.value.churches + landmarksCount.value.establishments + landmarksCount.value.govtOffices
   })
   const totalHistory = computed(() => brgyInfo.value.filter(item => item?.brgy_history).length)
 
@@ -2848,6 +2897,15 @@
       
       if (establishmentsError) throw establishmentsError
       landmarksCount.value.establishments = establishmentsCount || 0
+
+      // Fetch government offices count
+      const { count: govtOfficesCount, error: govtOfficesError } = await supabase
+        .from('GovtOffices')
+        .select('*', { count: 'exact', head: true })
+        .eq('brgy_id', barangay_id.value)
+      
+      if (govtOfficesError) throw govtOfficesError
+      landmarksCount.value.govtOffices = govtOfficesCount || 0
 
       console.log('Landmarks count:', landmarksCount.value)
     } catch (error) {
@@ -4096,6 +4154,11 @@
     router.push({ name: 'establishments', params: { barangayName: barangayName.value }, query: { fromTab: activeTab.value } })
   }
 
+  const goToGovtOffices = () => {
+    if (!barangayName.value) return
+    router.push({ name: 'govtOffices', params: { barangayName: barangayName.value }, query: { fromTab: activeTab.value } })
+  }
+
   // Landmark Modal Functions
   const openLandmarkModal = async (type) => {
     selectedLandmarkType.value = type
@@ -4149,6 +4212,20 @@
         selectedLandmarkItems.value = data.map(establishment => ({
           name: establishment.establishmentName,
           address: establishment.establishmentAddress
+        }))
+      } else if (type === 'govtOffices') {
+        // Fetch government offices from the GovtOffices table
+        const { data, error } = await supabase
+          .from('GovtOffices')
+          .select('brgyName, location')
+          .eq('brgy_id', barangay_id.value)
+          .order('brgyName', { ascending: true })
+
+        if (error) throw error
+        
+        selectedLandmarkItems.value = data.map(office => ({
+          name: office.brgyName,
+          address: office.location
         }))
       }
     } catch (error) {

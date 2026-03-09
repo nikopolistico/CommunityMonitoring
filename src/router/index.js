@@ -9,6 +9,7 @@ import Intropage from '@/Authentication/Intropage.vue'
 import Schools from '@/Components/Schools.vue'
 import Churches from '@/Components/Churches.vue'
 import Establishments from '@/Components/Establishments.vue'
+import GovtOffices from '@/Components/GovtOffices.vue'
 
 const router = createRouter({
   history: createWebHistory (import.meta.env.BASE_URL),
@@ -68,6 +69,12 @@ const router = createRouter({
       name: 'establishments',
       path: '/community/:barangayName/establishments',
       component: Establishments,
+      meta: { requiresAuth: true },
+    },
+    {
+      name: 'govtOffices',
+      path: '/community/:barangayName/govt-offices',
+      component: GovtOffices,
       meta: { requiresAuth: true },
     },
   ],
