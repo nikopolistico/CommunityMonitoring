@@ -1184,7 +1184,7 @@
                   </div>
                   <div>
                     <h1 class="text-3xl font-bold text-white tracking-tight">Community Landmarks</h1>
-                    <p class="text-white/90 text-sm font-medium mt-1">Schools, Churches & Business Establishments</p>
+                    <p class="text-white/90 text-sm font-medium mt-1">Schools, Churches & Establishments</p>
                   </div>
                 </div>
               </div>
@@ -1304,7 +1304,7 @@
                         <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd"/>
                       </svg>
                     </div>
-                    <h3 class="text-3xl font-bold text-[#002147] mb-3 group-hover:text-[#00397a] transition-colors">Businesses</h3>
+                    <h3 class="text-3xl font-bold text-[#002147] mb-3 group-hover:text-[#00397a] transition-colors">Establishments</h3>
                     <p class="text-base text-[#00397a] font-semibold px-5 py-2 bg-[#002147]/10 rounded-lg mb-6">{{ landmarksCount.establishments }} Establishments</p>
                     
                     <div class="w-full pt-4 border-t border-[#002147]/10 flex items-center justify-between gap-3">

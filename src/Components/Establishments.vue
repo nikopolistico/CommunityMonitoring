@@ -50,6 +50,22 @@
 						Add Establishment
 					</button>
 
+					<!-- Category Dropdown -->
+					<div class="relative">
+						<select
+							v-model="selectedCategory"
+							class="rounded-xl border-2 border-[#f3f1ee] pl-4 pr-10 py-2.5 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all appearance-none bg-white text-sm font-medium text-[#002147] min-w-45"
+						>
+							<option value="">All Categories</option>
+							<option v-for="category in categories" :key="category" :value="category">
+								{{ category }}
+							</option>
+						</select>
+						<svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#004595] pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+						</svg>
+					</div>
+
 					<!-- Search Bar -->
 					<div class="flex-1 relative">
 						<svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -403,6 +419,18 @@
 									</div>
 								</div>
 
+									<div>
+									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Category <span class="text-red-500">*</span></label>
+									<input
+										v-model="newCategory"
+										type="text"
+										required
+										class="w-full px-3 py-2.5 border-2 border-[#f3f1ee] rounded-lg focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
+										placeholder="Enter establishment type"
+										:disabled="loading"
+									/>
+								</div>
+
 								<div>
 									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Establishment Name <span class="text-red-500">*</span></label>
 									<input
@@ -662,7 +690,7 @@
 										</svg>
 										<div class="flex-1 min-w-0">
 											<p class="text-xs uppercase tracking-wide text-[#004595]/70 font-semibold">Type</p>
-											<p class="text-sm font-medium text-[#002147] mt-0.5">Establishment</p>
+											<p class="text-sm font-medium text-[#002147] mt-0.5">{{ detailsItem?.category || 'Not provided' }}</p>
 										</div>
 									</div>
 								</div>
@@ -949,6 +977,7 @@ const items = ref([])
 const newName = ref('')
 const newAddress = ref('')
 const newContactNumber = ref('')
+const newCategory = ref('')
 const newManagerName = ref('')
 const newOwnerContact = ref('')
 const newManagerContact = ref('')
@@ -982,6 +1011,10 @@ const loading = ref(false)
 const showAddModal = ref(false)
 const searchQuery = ref('')
 const uploadingPhoto = ref(false)
+
+// Category state
+const categories = ref([])
+const selectedCategory = ref('')
 
 // Map state
 const showMapModal = ref(false)
@@ -1124,27 +1157,86 @@ const fetchBarangayId = async () => {
 	}
 }
 
+// Fetch categories from Establishments table
+const fetchCategories = async () => {
+  if (!barangayId.value) return
+  
+  try {
+    const { data, error } = await supabase
+      .from('Establishments')
+      .select('category')
+      .eq('brgy_id', barangayId.value)
+      .not('category', 'is', null)
+      .order('category')
+
+    if (error) throw error
+
+    // Get unique categories
+    const uniqueCategories = [...new Set(data.map(item => item.category))]
+    categories.value = uniqueCategories.filter(cat => cat && cat.trim() !== '')
+  } catch (error) {
+    console.error('Error fetching categories:', error)
+    categories.value = []
+  }
+}
+
 // Fetch establishments from Supabase
 const fetchEstablishments = async () => {
-	if (!barangayName.value) return
-	
-	loading.value = true
-	try {
-		const { data, error } = await supabase
-			.from('Establishments')
-			.select('*')
-			.eq('brgy_id', barangayId.value)
-		
-		if (error) throw error
-		
-		items.value = data || []
-	} catch (error) {
-		console.error('Error fetching establishments:', error)
-		items.value = []
-	} finally {
-		loading.value = false
-	}
+  if (!barangayName.value || !barangayId.value) return
+
+  loading.value = true
+  try {
+    let data, error
+
+    if (!selectedCategory.value) {
+      // Fetch all establishments from Establishments table
+      const result = await supabase
+        .from('Establishments')
+        .select('*')
+        .eq('brgy_id', barangayId.value)
+        .order('establishmentName')
+      
+      data = result.data
+      error = result.error
+    } else {
+      // Fetch filtered by category using RPC
+      const result = await supabase.rpc('categorizedview', {
+        catry: selectedCategory.value,
+        b_id: barangayId.value
+      })
+      
+      data = result.data
+      error = result.error
+    }
+
+    if (error) throw error
+
+    items.value = data || []
+  } catch (error) {
+    console.error('Error fetching establishments:', error)
+    items.value = []
+  } finally {
+    loading.value = false
+  }
 }
+
+// Watch for category changes
+watch(
+	() => selectedCategory.value,
+	() => {
+		fetchEstablishments()
+	}
+)
+
+// Watch for barangayId changes
+watch(
+	() => barangayId.value,
+	(newId) => {
+		if (newId) {
+			fetchCategories()
+		}
+	}
+)
 
 watch(
 	() => barangayName.value,
@@ -1161,6 +1253,8 @@ watch(
 		editingOwnerEmail.value = ''
 		newName.value = ''
 		newAddress.value = ''
+		newCategory.value = ''
+		newContactNumber.value = ''
 		newManagerName.value = ''
 		newOwnerContact.value = ''
 		newManagerContact.value = ''
@@ -1177,6 +1271,7 @@ watch(
 
 onMounted(() => {
 	fetchBarangayId()
+	fetchCategories()
 })
 
 const handleImageChange = (event) => {
@@ -1289,6 +1384,7 @@ const closeAddModal = () => {
 	newName.value = ''
 	newAddress.value = ''
 	newContactNumber.value = ''
+	newCategory.value = ''
 	newManagerName.value = ''
 	newOwnerContact.value = ''
 	newManagerContact.value = ''
@@ -1311,9 +1407,15 @@ const goBack = () => {
 }
 
 const addItem = async () => {
+	const category = newCategory.value.trim()
 	const name = newName.value.trim()
 	const address = newAddress.value.trim()
 	const contactNumber = newContactNumber.value.trim()
+	
+	if (!category) {
+		showToast('Category Required', 'warning', 'Please enter an establishment category')
+		return
+	}
 	if (!name) {
 		showToast('Establishment Name Required', 'warning', 'Please enter an establishment name')
 		return
@@ -1349,6 +1451,7 @@ const addItem = async () => {
 			.from('Establishments')
 			.insert([
 				{ 
+					category: category,
 					establishmentName: name, 
 					establishmentAddress: address,
 					contactNumber: contactNumber || null,
@@ -1402,11 +1505,10 @@ const addItem = async () => {
 			if (ownerError) throw ownerError
 		}
 		
-		if (data && data.length > 0) {
-			items.value.push(data[0])
-		}
 		showToast('Success!', 'success', 'Establishment added successfully')
 		closeAddModal()
+		await fetchCategories() // Refresh categories in case a new one was added
+		await fetchEstablishments() // Refresh the list with current category filter
 	} catch (error) {
 		console.error('Error adding establishment:', error)
 		showToast('Add Failed', 'error', error?.message || 'Failed to add establishment. Please try again.')
