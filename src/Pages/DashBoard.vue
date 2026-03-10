@@ -6,7 +6,7 @@
           class="absolute inset-0 bg-cover bg-center" 
           :style="{ backgroundImage: `url(${headbk})` }"
         ></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-[#002147]/40 to-[#004595]/30"></div>
+        <div class="absolute inset-0 bg-linear-to-r from-[#002147]/40 to-[#004595]/30"></div>
 
         <div class="relative z-10 p-3 sm:p-4 md:p-5 lg:p-6">
           <div class="max-w-6xl mx-auto">
@@ -110,7 +110,7 @@
                   <h3 class="text-5xl font-extrabold text-[#002147] dark:text-white mb-2 group-hover:scale-105 transition-transform">{{ totalBarangays }}</h3>
                   <p class="text-sm text-[#00397a] dark:text-gray-300 font-semibold uppercase tracking-wide">{{ t('totalBarangays') }}</p>
                 </div>
-                <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
+                <div class="flex items-center justify-center w-14 h-14 bg-linear-to-br from-purple-100 to-purple-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
                   <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -128,7 +128,7 @@
                   <h3 class="text-5xl font-extrabold text-[#002147] dark:text-white mb-2 group-hover:scale-105 transition-transform">{{ totalSchools }}</h3>
                   <p class="text-sm text-[#00397a] dark:text-gray-300 font-semibold uppercase tracking-wide">{{ t('totalSchools') }}</p>
                 </div>
-                <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-emerald-100 to-emerald-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
+                <div class="flex items-center justify-center w-14 h-14 bg-linear-to-br from-emerald-100 to-emerald-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
                   <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
@@ -147,7 +147,7 @@
                   <h3 class="text-5xl font-extrabold text-[#002147] dark:text-white mb-2 group-hover:scale-105 transition-transform">{{ totalChurches }}</h3>
                   <p class="text-sm text-[#00397a] dark:text-gray-300 font-semibold uppercase tracking-wide">{{ t('totalChurches') }}</p>
                 </div>
-                <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-rose-100 to-rose-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
+                <div class="flex items-center justify-center w-14 h-14 bg-linear-to-br from-rose-100 to-rose-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
                   <svg class="w-8 h-8 text-rose-600" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2L10 6H8v3H6v13h12V9h-2V6h-2L12 2z"/>
                     <path d="M10 6h4v3h-4V6z"/>
@@ -169,7 +169,7 @@
                   <h3 class="text-5xl font-extrabold text-[#002147] dark:text-white mb-2 group-hover:scale-105 transition-transform">{{ totalEstablishments }}</h3>
                   <p class="text-sm text-[#00397a] dark:text-gray-300 font-semibold uppercase tracking-wide">{{ t('totalEstablishments') }}</p>
                 </div>
-                <div class="flex items-center justify-center w-14 h-14 bg-gradient-to-br from-amber-100 to-amber-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
+                <div class="flex items-center justify-center w-14 h-14 bg-linear-to-br from-amber-100 to-amber-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300">
                   <svg class="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v3"/>
@@ -269,7 +269,7 @@
                 class="relative group"
                 @click="navigateToBarangay(option.value)"
               >
-                <div class="relative p-4 bg-gradient-to-br from-white to-[#f3f1ee] dark:from-gray-700 dark:to-gray-800 rounded-lg border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595] dark:hover:border-blue-500 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden h-full flex flex-col items-center justify-center min-h-[100px]">
+                <div class="relative p-4 bg-linear-to-br from-white to-[#f3f1ee] dark:from-gray-700 dark:to-gray-800 rounded-lg border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595] dark:hover:border-blue-500 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden h-full flex flex-col items-center justify-center min-h-25">
                   <!-- Decorative Circle -->
                   <div class="absolute top-0 right-0 w-16 h-16 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-8 -mt-8 group-hover:scale-150 group-hover:bg-[#004595]/10 dark:group-hover:bg-blue-500/20 transition-all duration-500"></div>
                   
@@ -288,7 +288,7 @@
                   </div>
                   
                   <!-- Hover Indicator -->
-                  <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#004595] via-[#00397a] to-[#002147] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-b-lg"></div>
+                  <div class="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-[#004595] via-[#00397a] to-[#002147] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-b-lg"></div>
                 </div>
               </div>
             </div>
@@ -310,7 +310,7 @@
     <transition name="modal-fade">
       <div 
         v-if="showNotifications" 
-        class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+        class="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
         @click="closeNotificationModal"
       >
         <div 
@@ -318,7 +318,7 @@
           @click.stop
         >
           <!-- Modal Header -->
-          <div class="bg-gradient-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 flex items-center justify-between">
+          <div class="bg-linear-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 flex items-center justify-between">
             <div class="flex items-center gap-3">
               <div class="p-2 bg-white/20 rounded-lg">
                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -349,7 +349,7 @@
           <div class="overflow-y-auto max-h-[calc(85vh-180px)] p-6">
             <!-- Empty State -->
             <div v-if="notifications.length === 0" class="text-center py-16">
-              <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-[#004595]/10 to-[#002147]/10 rounded-full mb-6">
+              <div class="inline-flex items-center justify-center w-24 h-24 bg-linear-to-br from-[#004595]/10 to-[#002147]/10 rounded-full mb-6">
                 <svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                 </svg>
@@ -363,7 +363,7 @@
               <div 
                 v-for="(notification, index) in notifications" 
                 :key="index"
-                class="notification-card bg-gradient-to-br from-white to-[#f3f1ee] rounded-xl p-5 border-2 transition-all duration-300 cursor-pointer hover:shadow-xl"
+                class="notification-card bg-linear-to-br from-white to-[#f3f1ee] rounded-xl p-5 border-2 transition-all duration-300 cursor-pointer hover:shadow-xl"
                 :class="[
                   !notification.read ? 'border-[#004595] shadow-lg' : 'border-gray-200 hover:border-[#004595]',
                   getNotificationCardClass(notification.type)
@@ -372,7 +372,7 @@
               >
                 <div class="flex items-start gap-4">
                   <!-- Icon -->
-                  <div class="flex-shrink-0">
+                  <div class="shrink-0">
                     <div class="p-3 rounded-xl" :class="getNotificationIconBg(notification.type)">
                       <svg class="w-7 h-7" :class="getNotificationIconColor(notification.type)" fill="currentColor" viewBox="0 0 20 20">
                         <path v-if="notification.type === 'fiesta'" d="M2 6a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2a2 2 0 100-4V6z"/>
@@ -388,7 +388,7 @@
                   <div class="flex-1 min-w-0">
                     <div class="flex items-start justify-between gap-3 mb-2">
                       <h3 class="text-lg font-bold text-gray-800">{{ notification.title }}</h3>
-                      <span v-if="!notification.read" class="flex-shrink-0">
+                      <span v-if="!notification.read" class="shrink-0">
                         <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-[#004595] text-white animate-pulse">
                           NEW
                         </span>
@@ -453,7 +453,7 @@
           </div>
 
           <!-- Modal Footer -->
-          <div class="bg-gradient-to-r from-[#f3f1ee] to-white px-6 py-4 border-t-2 border-gray-200 flex items-center justify-between">
+          <div class="bg-linear-to-r from-[#f3f1ee] to-white px-6 py-4 border-t-2 border-gray-200 flex items-center justify-between">
             <p class="text-sm text-gray-600">
               <span class="font-semibold">{{ unreadNotifications }}</span> unread notifications
             </p>
@@ -466,7 +466,7 @@
               </button>
               <button 
                 @click="closeNotificationModal" 
-                class="px-5 py-2 bg-gradient-to-r from-[#004595] to-[#002147] hover:from-[#00397a] hover:to-[#004595] text-white rounded-lg font-semibold transition-all shadow-lg"
+                class="px-5 py-2 bg-linear-to-r from-[#004595] to-[#002147] hover:from-[#00397a] hover:to-[#004595] text-white rounded-lg font-semibold transition-all shadow-lg"
               >
                 Close
               </button>
@@ -496,6 +496,7 @@ const weatherCondition = ref('Loading...')
 const weatherCode = ref(0)
 const currentDate = ref('')
 const currentTime = ref('')
+const stats = ref([])
 let timestampInterval = null
 
 // Notification state
@@ -504,8 +505,26 @@ const notifications = ref([])
 const eventsData = ref([])
 const fiestaData = ref([])
 
+
 const unreadNotifications = computed(() => {
   return notifications.value.filter(n => !n.read).length
+})
+
+// Computed properties for stats
+const totalBarangays = computed(() => {
+  return stats.value[0]?.totalbarangay || 0
+})
+
+const totalSchools = computed(() => {
+  return stats.value[0]?.totalschools || 0
+})
+
+const totalChurches = computed(() => {
+  return stats.value[0]?.totalchurch || 0
+})
+
+const totalEstablishments = computed(() => {
+  return stats.value[0]?.totalestablishment || 0
 })
 
 // Generate notifications from real events and fiestas
@@ -810,7 +829,27 @@ const fetchFiestas = async () => {
   }
 }
 
+const fetchBarangayStats = async () => {
+  console.log('Fetching barangay stats...')
+  
+  const { data, error } = await supabase
+    .from('barangay_stats')
+    .select('*')
+
+  if (error) {
+    console.error('Error fetching barangay stats:', error)
+    return
+  }
+
+  stats.value = data || []
+
+  console.log('Barangay Stats:', stats.value)
+  console.table(stats.value)
+}
+
+
 onMounted(() => {
+  fetchBarangayStats()  // Test RPC function
   fetchBarangays()
   fetchEvents()
   fetchFiestas()
@@ -830,24 +869,6 @@ onUnmounted(() => {
     clearInterval(timestampInterval)
     timestampInterval = null
   }
-})
-
-// Computed totals
-const totalBarangays = computed(() => barangayOptions.value.length)
-
-const totalChurches = computed(() => {
-  // 3 churches per barangay based on communityData structure
-  return totalBarangays.value * 3
-})
-
-const totalSchools = computed(() => {
-  // 3 schools per barangay based on communityData structure
-  return totalBarangays.value * 3
-})
-
-const totalEstablishments = computed(() => {
-  // 3 establishments per barangay based on communityData structure
-  return totalBarangays.value * 3
 })
 
 // Filter barangays based on search query
@@ -941,7 +962,7 @@ select option:checked {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background: linear-linear(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   transition: left 0.5s;
 }
 
