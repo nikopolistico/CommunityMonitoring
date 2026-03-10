@@ -643,7 +643,7 @@
 							<div v-if="detailsItem?.establishmentImages" class="w-full bg-gray-50">
 								<img :src="detailsItem.establishmentImages" :alt="detailsItem.establishmentName" class="w-full h-auto object-contain" />
 							</div>
-							<div v-else class="w-full h-80 bg-linear-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center relative overflow-hidden">
+							<div v-else class="w-full h-40 bg-linear-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center relative overflow-hidden">
 								<div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-20 -mt-20"></div>
 								<svg class="w-24 h-24 text-white/50 relative z-10" fill="currentColor" viewBox="0 0 20 20">
 									<path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 10-2 0v1H8a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd"/>
