@@ -170,6 +170,12 @@
 									placeholder="Establishment name"
 								/>
 								<input
+									v-model="editingCategory"
+									type="text"
+									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm font-semibold"
+									placeholder="Establishment category"
+								/>
+								<input
 									v-model="editingAddress"
 									type="text"
 									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
@@ -991,6 +997,7 @@ const newLongitude = ref(null)
 const gettingLocation = ref(false)
 const editingId = ref(null)
 const editingName = ref('')
+const editingCategory = ref('')
 const editingAddress = ref('')
 const editingContactNumber = ref('')
 const editingManagerName = ref('')
@@ -1243,6 +1250,7 @@ watch(
 	() => {
 		fetchBarangayId()
 		editingId.value = null
+		editingCategory.value = ''
 		editingName.value = ''
 		editingAddress.value = ''
 		editingManagerName.value = ''
@@ -1524,6 +1532,7 @@ const startEdit = async (id) => {
 		return
 	}
 	editingId.value = id
+	editingCategory.value = item.category || ''
 	editingName.value = item.establishmentName || ''
 	editingAddress.value = item.establishmentAddress || ''
 	editingContactNumber.value = item.contactNumber || ''
@@ -1570,6 +1579,7 @@ const saveEdit = async () => {
 	if (editingId.value === null) {
 		return
 	}
+	const category = editingCategory.value.trim()
 	const name = editingName.value.trim()
 	const address = editingAddress.value.trim()
 	const contactNumber = editingContactNumber.value.trim()
@@ -1588,6 +1598,7 @@ const saveEdit = async () => {
 		const { error } = await supabase
 			.from('Establishments')
 			.update({
+				category: category || null,
 				establishmentName: name,
 				establishmentAddress: address || null,
 				contactNumber: contactNumber || null,
@@ -1675,8 +1686,10 @@ const saveEdit = async () => {
 			item.establishmentName = name
 			item.establishmentAddress = address
 			item.contactNumber = contactNumber
+			item.category = category
 		}
 		editingId.value = null
+		editingCategory.value = ''
 		editingName.value = ''
 		editingAddress.value = ''
 		editingContactNumber.value = ''
@@ -1687,6 +1700,7 @@ const saveEdit = async () => {
 		editingOwnerContact.value = ''
 		editingOwnerEmail.value = ''
 		editImagePreview.value = ''
+		await fetchCategories() // Refresh categories in case a new one was added
 		showToast('Success!', 'success', 'Establishment updated successfully')
 	} catch (error) {
 		console.error('Error updating establishment:', error)
@@ -1698,6 +1712,7 @@ const saveEdit = async () => {
 
 const cancelEdit = () => {
 	editingId.value = null
+	editingCategory.value = ''
 	editingName.value = ''
 	editingAddress.value = ''
 	editingContactNumber.value = ''
