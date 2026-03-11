@@ -1,9 +1,9 @@
 <template>
-	<div class="min-h-screen bg-gradient-to-br from-green-600/5 via-[#ffffff] to-green-700/5 font-['Poppins']">
+	<div class="min-h-screen bg-linear-to-br from-green-600/5 via-[#ffffff] to-green-700/5 font-['Poppins']">
 		<div class="mx-auto max-w-none px-6 py-10 space-y-8">
 			<button
 				type="button"
-				class="inline-flex items-center gap-3 rounded-xl bg-gradient-to-r from-green-700 via-green-600 to-green-700 px-6 py-3.5 text-sm font-semibold text-white hover:shadow-xl hover:shadow-green-600/20 hover:scale-[1.02] transition-all duration-300"
+				class="inline-flex items-center gap-3 rounded-xl bg-linear-to-r from-green-700 via-green-600 to-green-700 px-6 py-3.5 text-sm font-semibold text-white hover:shadow-xl hover:shadow-green-600/20 hover:scale-[1.02] transition-all duration-300"
 				@click="goBack"
 			>
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -14,7 +14,7 @@
 
 			<section v-if="communityInfo" class="space-y-6">
 				<!-- Enhanced Header Card -->
-				<div class="rounded-2xl bg-gradient-to-br from-green-700 via-green-600 to-green-700 p-8 shadow-2xl shadow-green-600/30 text-white relative overflow-hidden">
+				<div class="rounded-2xl bg-linear-to-br from-green-700 via-green-600 to-green-700 p-8 shadow-2xl shadow-green-600/30 text-white relative overflow-hidden">
 					<!-- Animated Background Elements -->
 					<div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-20 -mt-20 animate-pulse"></div>
 					<div class="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-xl -ml-16 -mb-16"></div>
@@ -29,7 +29,7 @@
 					<!-- Add Button -->
 					<button
 						type="button"
-						class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-green-700 to-green-600 px-5 py-2.5 text-sm font-semibold text-white hover:shadow-lg hover:shadow-green-600/30 hover:scale-[1.02] transition-all duration-300"
+						class="inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-green-700 to-green-600 px-5 py-2.5 text-sm font-semibold text-white hover:shadow-lg hover:shadow-green-600/30 hover:scale-[1.02] transition-all duration-300"
 						@click="showAddModal = true"
 					>
 						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -77,7 +77,7 @@
 						<div v-if="item.officeImage" class="w-full h-56 overflow-hidden bg-gray-50">
 							<img :src="item.officeImage" :alt="item.brgyName" class="w-full h-full object-cover" />
 						</div>
-						<div v-else class="w-full h-56 bg-gradient-to-br from-green-700 via-green-600 to-green-700 flex items-center justify-center relative overflow-hidden">
+						<div v-else class="w-full h-56 bg-linear-to-br from-green-700 via-green-600 to-green-700 flex items-center justify-center relative overflow-hidden">
 							<div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-16 -mt-16"></div>
 							<svg class="w-20 h-20 text-white/50 relative z-10" fill="currentColor" viewBox="0 0 20 20">
 								<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
@@ -97,7 +97,7 @@
 												alt="Office Photo"
 												class="w-full h-full object-cover"
 											/>
-											<div v-else class="w-full h-full bg-gradient-to-br from-green-700 to-green-600 flex items-center justify-center">
+											<div v-else class="w-full h-full bg-linear-to-br from-green-700 to-green-600 flex items-center justify-center">
 												<svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
 													<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
 												</svg>
@@ -150,7 +150,7 @@
 									<button
 										type="button"
 										@click="saveEdit"
-										class="flex-1 rounded-lg bg-gradient-to-r from-green-700 to-green-600 px-3 py-2 text-xs font-semibold text-white hover:shadow-lg transition-all"
+										class="flex-1 rounded-lg bg-linear-to-r from-green-700 to-green-600 px-3 py-2 text-xs font-semibold text-white hover:shadow-lg transition-all"
 									>
 										Save
 									</button>
@@ -169,7 +169,7 @@
 								<h2 class="text-xl font-bold text-green-700">{{ item.brgyName }}</h2>
 								<div class="space-y-1.5 text-sm text-gray-600">
 									<div class="flex items-start gap-2">
-										<svg class="w-4 h-4 text-green-600/60 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<svg class="w-4 h-4 text-green-600/60 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
 										</svg>
@@ -209,7 +209,7 @@
 			<div v-if="showAddModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closeAddModal">
 				<div class="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto transform transition-all">
 					<!-- Modal Header -->
-					<div class="bg-gradient-to-r from-green-700 to-green-600 px-6 py-4 sticky top-0 z-10">
+					<div class="bg-linear-to-r from-green-700 to-green-600 px-6 py-4 sticky top-0 z-10">
 						<div class="flex items-center justify-between">
 							<div class="flex items-center gap-3">
 								<div class="p-2 bg-white/20 rounded-lg">
@@ -244,7 +244,7 @@
 											alt="Office Preview"
 											class="w-full h-full object-cover"
 										/>
-										<div v-else class="w-full h-full bg-gradient-to-br from-green-700 to-green-600 flex items-center justify-center">
+										<div v-else class="w-full h-full bg-linear-to-br from-green-700 to-green-600 flex items-center justify-center">
 											<svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
 												<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
 											</svg>
@@ -309,7 +309,7 @@
 							<button
 								type="submit"
 								:disabled="loading || !newName"
-								class="flex-1 rounded-xl bg-gradient-to-r from-green-700 to-green-600 px-4 py-2.5 text-sm font-semibold text-white hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+								class="flex-1 rounded-xl bg-linear-to-r from-green-700 to-green-600 px-4 py-2.5 text-sm font-semibold text-white hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
 							>
 								{{ loading ? 'Adding...' : 'Add Office' }}
 							</button>
@@ -329,7 +329,7 @@
 			<div v-if="showDeleteModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="showDeleteModal = false">
 				<div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 transform transition-all">
 					<div class="flex items-center gap-4 mb-4">
-						<div class="flex-shrink-0 w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+						<div class="shrink-0 w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
 							<svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
 							</svg>
@@ -368,15 +368,15 @@
 				leave-from-class="translate-y-0 opacity-100"
 				leave-to-class="translate-y-[-100%] opacity-0"
 			>
-				<div v-if="toast.show" class="fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-md px-4 z-[100000]">
+				<div v-if="toast.show" class="fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-md px-4 z-100000">
 					<div class="rounded-2xl shadow-2xl overflow-hidden" :class="{
-						'bg-gradient-to-r from-green-500 to-emerald-600': toast.type === 'success',
-						'bg-gradient-to-r from-red-500 to-rose-600': toast.type === 'error',
-						'bg-gradient-to-r from-yellow-500 to-amber-600': toast.type === 'warning',
-						'bg-gradient-to-r from-blue-500 to-indigo-600': toast.type === 'info'
+						'bg-linear-to-r from-green-500 to-emerald-600': toast.type === 'success',
+						'bg-linear-to-r from-red-500 to-rose-600': toast.type === 'error',
+						'bg-linear-to-r from-yellow-500 to-amber-600': toast.type === 'warning',
+						'bg-linear-to-r from-blue-500 to-indigo-600': toast.type === 'info'
 					}">
 						<div class="p-4 flex items-start gap-3">
-							<div class="flex-shrink-0 mt-0.5">
+							<div class="shrink-0 mt-0.5">
 								<svg v-if="toast.type === 'success'" class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
 									<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
 								</svg>
@@ -388,14 +388,14 @@
 								<p class="font-bold text-white text-sm leading-tight">{{ toast.message }}</p>
 								<p v-if="toast.description" class="text-white/90 text-xs mt-1 leading-snug">{{ toast.description }}</p>
 							</div>
-							<button @click="hideToast" class="flex-shrink-0 ml-2 p-1 hover:bg-white/20 rounded-lg transition-colors">
+							<button @click="hideToast" class="shrink-0 ml-2 p-1 hover:bg-white/20 rounded-lg transition-colors">
 								<svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
 									<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
 								</svg>
 							</button>
 						</div>
 						<div class="h-1 bg-white/30">
-							<div class="h-full bg-white transition-all duration-[5000ms] ease-linear" :style="{ width: toast.progress + '%' }"></div>
+							<div class="h-full bg-white transition-all duration-5000 ease-linear" :style="{ width: toast.progress + '%' }"></div>
 						</div>
 					</div>
 				</div>

@@ -37,11 +37,110 @@
 					</div>
 				</div>
 
-				<div class="flex gap-3">
+				<!-- Enhanced Statistics Section -->
+				<div v-if="categoryStatistics.length > 0" class="relative rounded-xl overflow-hidden bg-linear-to-br from-white via-[#f3f1ee]/20 to-white shadow-lg border border-[#004595]/20 p-5">
+					<!-- Decorative Background Elements -->
+					<div class="absolute top-0 right-0 w-48 h-48 bg-[#004595]/5 rounded-full blur-3xl -mr-24 -mt-24 pointer-events-none"></div>
+					<div class="absolute bottom-0 left-0 w-32 h-32 bg-[#00397a]/5 rounded-full blur-2xl -ml-16 -mb-16 pointer-events-none"></div>
+					
+					<div class="relative z-10">
+						<!-- Header -->
+						<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 mb-3 pb-2 border-b border-[#004595]/10">
+							<div class="flex items-center gap-1.5">
+								<div class="p-1 bg-linear-to-br from-[#002147] to-[#004595] rounded-lg shadow-md">
+									<svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+									</svg>
+								</div>
+								<div>
+									<h2 class="text-sm font-bold text-[#002147]">Category Statistics</h2>
+									<p class="text-[9px] text-gray-500">Click to filter</p>
+								</div>
+							</div>
+						<div class="flex items-center gap-2">
+							<div class="flex items-center gap-1 bg-linear-to-r from-[#002147]/5 to-[#004595]/5 px-2 py-1 rounded-lg border border-[#004595]/20">
+								<svg class="w-3 h-3 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+								</svg>
+								<div class="flex flex-col">
+									<span class="text-sm font-extrabold text-[#002147] leading-none">{{ items.length }}</span>
+									<span class="text-[8px] font-semibold text-gray-500 uppercase tracking-wide">Total</span>
+								</div>
+							</div>
+							<button
+								@click="showStatistics = !showStatistics"
+								class="p-1.5 rounded-lg hover:bg-[#004595]/10 transition-all duration-300 group"
+								title="Toggle Statistics"
+							>
+								<svg class="w-3.5 h-3.5 text-[#004595] transition-transform duration-300" :class="showStatistics ? '' : 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+								</svg>
+							</button>
+						</div>
+					</div>
+					
+					<!-- Statistics Grid -->
+					<div v-show="showStatistics" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2">
+					<div
+						v-for="(stat, index) in categoryStatistics"
+						:key="stat.category"
+						class="group relative flex flex-col items-center justify-center p-2 rounded-xl border-2 transition-all duration-300 cursor-pointer overflow-hidden"
+						:class="selectedCategory === stat.category 
+							? 'border-[#004595] bg-linear-to-br from-[#002147] via-[#00397a] to-[#004595] text-white shadow-lg shadow-[#004595]/30 scale-105' 
+							: 'border-[#004595]/20 bg-white hover:border-[#004595] hover:shadow-lg hover:scale-105 hover:-translate-y-0.5'"
+						@click="selectedCategory = selectedCategory === stat.category ? '' : stat.category"
+						:style="{ animationDelay: `${index * 50}ms` }"
+					>
+						<!-- Animated Background for Selected State -->
+								<div v-if="selectedCategory === stat.category" class="absolute inset-0 bg-white/10 rounded-xl animate-pulse pointer-events-none"></div>
+								
+								<!-- Decorative Circle -->
+								<div class="absolute -top-4 -right-4 w-12 h-12 rounded-full transition-all duration-300"
+									:class="selectedCategory === stat.category ? 'bg-white/10' : 'bg-[#004595]/5 group-hover:bg-[#004595]/10 group-hover:scale-150'">
+								</div>
+								<div class="relative z-10 flex flex-col items-center">
+									<!-- Icon -->
+									<div class="mb-1 p-1 rounded-md transition-all duration-300"
+										:class="selectedCategory === stat.category ? 'bg-white/20' : 'bg-[#004595]/10 group-hover:bg-[#004595]/20'">
+										<svg class="w-3 h-3 transition-colors duration-300" 
+											:class="selectedCategory === stat.category ? 'text-white' : 'text-[#004595]'"
+											fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+										</svg>
+									</div>
+									
+									<!-- Count -->
+									<div class="text-xl font-black mb-0.5 transition-all duration-300" 
+										:class="selectedCategory === stat.category ? 'text-white drop-shadow-lg' : 'text-[#004595] group-hover:scale-110'">
+										{{ stat.count }}
+									</div>
+									
+									<!-- Category Name -->
+									<div class="text-[9px] font-bold text-center uppercase tracking-wide transition-colors duration-300 px-1" 
+										:class="selectedCategory === stat.category ? 'text-white/95' : 'text-gray-600 group-hover:text-[#002147]'">
+										{{ stat.category }}
+									</div>
+									
+									<!-- Selected Indicator -->
+									<div v-if="selectedCategory === stat.category" class="mt-0.5 flex items-center gap-0.5 text-white/90">
+										<svg class="w-2 h-2" fill="currentColor" viewBox="0 0 20 20">
+											<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+										</svg>
+										<span class="text-[8px] font-semibold uppercase">Active</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+<div class="flex flex-col gap-3">
+				<!-- Top Row: Add Button, Category, and View Toggle -->
+				<div class="flex flex-col sm:flex-row gap-3">
 					<!-- Add Button -->
 					<button
 						type="button"
-						class="inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-[#002147] to-[#00397a] px-5 py-2.5 text-sm font-semibold text-white hover:shadow-lg hover:shadow-[#004595]/30 hover:scale-[1.02] transition-all duration-300"
+						class="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-[#002147] to-[#00397a] px-5 py-2.5 text-sm font-semibold text-white hover:shadow-lg hover:shadow-[#004595]/30 hover:scale-[1.02] transition-all duration-300 w-full sm:w-auto"
 						@click="showAddModal = true"
 					>
 						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -51,10 +150,10 @@
 					</button>
 
 					<!-- Category Dropdown -->
-					<div class="relative">
+					<div class="relative flex-1 sm:flex-initial">
 						<select
 							v-model="selectedCategory"
-							class="rounded-xl border-2 border-[#f3f1ee] pl-4 pr-10 py-2.5 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all appearance-none bg-white text-sm font-medium text-[#002147] min-w-45"
+							class="w-full rounded-xl border-2 border-[#f3f1ee] pl-4 pr-10 py-2.5 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all appearance-none bg-white text-sm font-medium text-[#002147] sm:min-w-45"
 						>
 							<option value="">All Categories</option>
 							<option v-for="category in categories" :key="category" :value="category">
@@ -66,23 +165,47 @@
 						</svg>
 					</div>
 
-					<!-- Search Bar -->
-					<div class="flex-1 relative">
-						<svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-						</svg>
-						<input
-							v-model="searchQuery"
-							type="text"
-							placeholder="Search establishments..."
-							class="w-full rounded-xl border-2 border-[#f3f1ee] pl-10 pr-4 py-2.5 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
-						/>
+					<!-- View Toggle -->
+					<div class="flex items-center justify-center gap-2 bg-white border-2 border-[#f3f1ee] rounded-xl p-1 w-full sm:w-auto">
+						<button
+							@click="viewMode = 'cards'"
+							:class="viewMode === 'cards' ? 'bg-linear-to-r from-[#002147] to-[#00397a] text-white' : 'text-gray-600 hover:bg-gray-100'"
+							class="flex-1 sm:flex-initial p-2 rounded-lg transition-all duration-200"
+							title="Card View"
+						>
+							<svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+							</svg>
+						</button>
+						<button
+							@click="viewMode = 'table'"
+							:class="viewMode === 'table' ? 'bg-linear-to-r from-[#002147] to-[#00397a] text-white' : 'text-gray-600 hover:bg-gray-100'"
+							class="flex-1 sm:flex-initial p-2 rounded-lg transition-all duration-200"
+							title="Table View"
+						>
+							<svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+							</svg>
+						</button>
 					</div>
 				</div>
 
-				<!-- Establishments Grid -->
-				<!-- Establishments Grid -->
-				<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<!-- Search Bar (Full Width Row) -->
+				<div class="relative">
+					<svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+					</svg>
+					<input
+						v-model="searchQuery"
+						type="text"
+						placeholder="Search establishments..."
+						class="w-full rounded-xl border-2 border-[#f3f1ee] pl-10 pr-4 py-2.5 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+					/>
+				</div>
+				</div>
+
+				<!-- Cards View -->
+				<div v-if="viewMode === 'cards'" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 					<div v-if="loading" class="col-span-full text-center py-16">
 						<div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#004595] border-t-transparent"></div>
 						<p class="mt-4 text-gray-600 font-medium">Loading establishments...</p>
@@ -115,7 +238,7 @@
 
 						<div class="p-5">
 							<!-- Editing Mode -->
-							<div v-if="editingId === item.id" class="space-y-3">
+							<div v-if="false" class="space-y-3">
 								<!-- Photo Upload Section -->
 								<div class="flex flex-col items-center mb-3">
 									<div class="relative group">
@@ -310,6 +433,77 @@
 							</div>
 						</div>
 					</article>
+				</div>
+
+				<!-- Table View -->
+				<div v-if="viewMode === 'table'" class="bg-white rounded-xl shadow-lg border border-[#004595]/10 overflow-hidden">
+					<div v-if="loading" class="text-center py-16">
+						<div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#004595] border-t-transparent"></div>
+						<p class="mt-4 text-gray-600 font-medium">Loading establishments...</p>
+					</div>
+					<div v-else-if="filteredItems.length === 0" class="text-center py-16">
+						<div class="inline-block p-4 bg-gray-100 rounded-full mb-4">
+							<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+							</svg>
+						</div>
+						<p class="text-gray-600 font-medium">{{ searchQuery ? 'No establishments found matching your search.' : 'No establishments yet. Add one to get started!' }}</p>
+					</div>
+					<table v-else class="w-full">
+						<thead class="bg-linear-to-r from-[#002147] to-[#00397a] text-white">
+							<tr>
+								<th class="px-6 py-4 text-left text-sm font-semibold">Establishment Name</th>
+								<th class="px-6 py-4 text-left text-sm font-semibold">Category</th>
+								<th class="px-6 py-4 text-left text-sm font-semibold">Address</th>
+								<th class="px-6 py-4 text-left text-sm font-semibold">Contact</th>
+								<th class="px-6 py-4 text-center text-sm font-semibold">Actions</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y divide-gray-200">
+							<tr v-for="(item, index) in filteredItems" :key="item.id || index" class="hover:bg-gray-50 transition-colors">
+								<td class="px-6 py-4">
+									<div class="flex items-center gap-3">
+										<div v-if="item.establishmentImages" class="w-12 h-12 rounded-lg overflow-hidden shrink-0">
+											<img :src="item.establishmentImages" :alt="item.establishmentName" class="w-full h-full object-cover" />
+										</div>
+										<div v-else class="w-12 h-12 rounded-lg bg-linear-to-br from-[#002147] to-[#004595] flex items-center justify-center shrink-0">
+											<svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+												<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+											</svg>
+										</div>
+										<div class="font-semibold text-[#002147]">{{ item.establishmentName || 'N/A' }}</div>
+									</div>
+								</td>
+								<td class="px-6 py-4">
+									<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#004595]/10 text-[#004595]">
+										{{ item.category || 'N/A' }}
+									</span>
+								</td>
+								<td class="px-6 py-4 text-sm text-gray-700">{{ item.establishmentAddress || 'N/A' }}</td>
+								<td class="px-6 py-4 text-sm text-gray-700">{{ item.contactNumber || 'N/A' }}</td>
+								<td class="px-6 py-4">
+									<div class="flex items-center justify-center gap-2">
+										<button @click="viewDetails(item)" class="p-2 text-[#004595] hover:bg-[#004595]/10 rounded-lg transition-colors" title="View Details">
+											<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+											</svg>
+										</button>
+										<button @click="editItem(item)" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
+											<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+											</svg>
+										</button>
+										<button @click="openDelete(item.id)" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
+											<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+											</svg>
+										</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 
 			<!-- Add Establishment Modal -->
@@ -557,6 +751,218 @@
 									class="flex-1 px-4 py-2.5 bg-linear-to-r from-[#002147] to-[#00397a] text-white rounded-lg hover:shadow-lg transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm"
 								>
 									{{ loading || uploadingPhoto ? 'Adding...' : 'Add Establishment' }}
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<!-- Edit Establishment Modal -->
+			<div v-if="showEditModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closeEditModal">
+				<div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto transform transition-all">
+					<!-- Modal Header -->
+					<div class="bg-linear-to-r from-[#002147] to-[#00397a] px-6 py-4 sticky top-0 z-10">
+						<div class="flex items-center justify-between">
+							<div class="flex items-center gap-3">
+								<div class="p-2 bg-white/20 rounded-lg">
+									<svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+										<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+									</svg>
+								</div>
+								<h3 class="text-lg font-bold text-white">Edit Establishment</h3>
+							</div>
+							<button
+								type="button"
+								@click="closeEditModal"
+								class="p-1.5 hover:bg-white/20 rounded-lg transition-all"
+							>
+								<svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+								</svg>
+							</button>
+						</div>
+					</div>
+					
+					<!-- Modal Body -->
+					<form @submit.prevent="saveEdit" class="p-6">
+						<div class="space-y-5">
+							<!-- Photo Upload Section -->
+							<div class="flex flex-col items-center">
+								<div class="relative group">
+									<div class="w-32 h-32 rounded-xl overflow-hidden border-2 border-[#004595]/20 shadow-md">
+										<img v-if="editImagePreview" :src="editImagePreview" alt="Preview" class="w-full h-full object-cover" />
+										<div v-else class="w-full h-full bg-linear-to-br from-[#002147] to-[#004595] flex items-center justify-center">
+											<svg class="w-12 h-12 text-white/50" fill="currentColor" viewBox="0 0 20 20">
+												<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+											</svg>
+										</div>
+									</div>
+									
+									<!-- Upload Button Overlay -->
+									<button
+										type="button"
+										@click="$refs.editFileInput.click()"
+										class="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 disabled:opacity-50"
+										:disabled="uploadingPhoto"
+									>
+										<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+										</svg>
+									</button>
+									<input
+										ref="editFileInput"
+										type="file"
+										accept="image/*"
+										@change="handleEditImageChange($event, editingId)"
+										class="hidden"
+									/>
+								</div>
+								<p class="text-xs text-[#00397a] mt-2 text-center">Click photo to update (Max 5MB)</p>
+							</div>
+
+							<!-- Basic Information -->
+							<div class="space-y-3">
+								<h4 class="text-sm font-bold text-[#002147] uppercase tracking-wide border-b border-[#004595]/20 pb-2">Basic Information</h4>
+								
+								<div>
+									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Establishment Name <span class="text-red-500">*</span></label>
+									<input
+										v-model="editingName"
+										type="text"
+										placeholder="e.g., Jollibee Butuan"
+										class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+										:disabled="loading"
+									/>
+								</div>
+
+								<div>
+									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Category <span class="text-red-500">*</span></label>
+									<input
+										v-model="editingCategory"
+										type="text"
+										placeholder="e.g., Restaurant, Store, etc."
+										class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+										:disabled="loading"
+									/>
+								</div>
+
+								<div>
+									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Address</label>
+									<input
+										v-model="editingAddress"
+										type="text"
+										placeholder="e.g., J.C. Aquino Ave., Butuan City"
+										class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+										:disabled="loading"
+									/>
+								</div>
+
+								<div>
+									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Contact Number</label>
+									<input
+										v-model="editingContactNumber"
+										type="text"
+										placeholder="e.g., 0912-345-6789"
+										class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+										:disabled="loading"
+									/>
+								</div>
+							</div>
+
+							<!-- Manager Details -->
+							<div class="space-y-3">
+								<h4 class="text-sm font-bold text-[#002147] uppercase tracking-wide border-b border-[#004595]/20 pb-2">Manager Details</h4>
+								
+								<div>
+									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Manager Name</label>
+									<input
+										v-model="editingManagerName"
+										type="text"
+										placeholder="e.g., Juan Dela Cruz"
+										class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+										:disabled="loading"
+									/>
+								</div>
+
+								<div class="grid grid-cols-2 gap-3">
+									<div>
+										<label class="block text-xs font-semibold text-[#002147] mb-1.5">Manager Contact</label>
+										<input
+											v-model="editingManagerContact"
+											type="text"
+											placeholder="0912-345-6789"
+											class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+											:disabled="loading"
+										/>
+									</div>
+									<div>
+										<label class="block text-xs font-semibold text-[#002147] mb-1.5">Manager Email</label>
+										<input
+											v-model="editingManagerEmail"
+											type="email"
+											placeholder="manager@email.com"
+											class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+											:disabled="loading"
+										/>
+									</div>
+								</div>
+							</div>
+
+							<!-- Owner Details -->
+							<div class="space-y-3">
+								<h4 class="text-sm font-bold text-[#002147] uppercase tracking-wide border-b border-[#004595]/20 pb-2">Owner Details</h4>
+								
+								<div>
+									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Owner Name</label>
+									<input
+										v-model="editingOwnerName"
+										type="text"
+										placeholder="e.g., Maria Santos"
+										class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+										:disabled="loading"
+									/>
+								</div>
+
+								<div class="grid grid-cols-2 gap-3">
+									<div>
+										<label class="block text-xs font-semibold text-[#002147] mb-1.5">Owner Contact</label>
+										<input
+											v-model="editingOwnerContact"
+											type="text"
+											placeholder="0912-345-6789"
+											class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+											:disabled="loading"
+										/>
+									</div>
+									<div>
+										<label class="block text-xs font-semibold text-[#002147] mb-1.5">Owner Email</label>
+										<input
+											v-model="editingOwnerEmail"
+											type="email"
+											placeholder="owner@email.com"
+											class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+											:disabled="loading"
+										/>
+									</div>
+								</div>
+							</div>
+
+							<!-- Action Buttons -->
+							<div class="flex gap-3 pt-4 border-t border-[#004595]/10">
+								<button
+									type="button"
+									@click="closeEditModal"
+									class="flex-1 px-4 py-2.5 border-2 border-[#f3f1ee] text-[#002147] rounded-lg hover:bg-[#f3f1ee] transition-all font-semibold text-sm"
+								>
+									Cancel
+								</button>
+								<button
+									type="submit"
+									:disabled="loading || uploadingPhoto"
+									class="flex-1 px-4 py-2.5 bg-linear-to-r from-[#002147] to-[#00397a] text-white rounded-lg hover:shadow-lg transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+								>
+									{{ loading || uploadingPhoto ? 'Updating...' : 'Update Establishment' }}
 								</button>
 							</div>
 						</div>
@@ -1016,12 +1422,15 @@ const detailsItem = ref(null)
 const detailsLoading = ref(false)
 const loading = ref(false)
 const showAddModal = ref(false)
+const showEditModal = ref(false)
 const searchQuery = ref('')
 const uploadingPhoto = ref(false)
 
 // Category state
 const categories = ref([])
 const selectedCategory = ref('')
+const showStatistics = ref(false)
+const viewMode = ref('cards') // 'cards' or 'table'
 
 // Map state
 const showMapModal = ref(false)
@@ -1087,6 +1496,30 @@ const filteredItems = computed(() => {
 		item.establishmentName?.toLowerCase().includes(query) ||
 		item.establishmentAddress?.toLowerCase().includes(query)
 	)
+})
+
+// Statistics for categories
+const categoryStatistics = computed(() => {
+	if (!items.value || items.value.length === 0) {
+		return []
+	}
+	
+	const stats = {}
+	
+	// Count establishments per category
+	items.value.forEach(establishment => {
+		const category = establishment.category || 'Uncategorized'
+		if (stats[category]) {
+			stats[category]++
+		} else {
+			stats[category] = 1
+		}
+	})
+	
+	// Convert to array and sort by count descending
+	return Object.entries(stats)
+		.map(([category, count]) => ({ category, count }))
+		.sort((a, b) => b.count - a.count)
 })
 
 // Fetch barangay ID from database
@@ -1542,7 +1975,8 @@ const startEdit = async (id) => {
 	editingOwnerName.value = ''
 	editingOwnerContact.value = ''
 	editingOwnerEmail.value = ''
-	editImagePreview.value = ''
+	editImagePreview.value = item.establishmentImages || ''
+	showEditModal.value = true
 
 	try {
 		const { data: managerData, error: managerError } = await supabase
@@ -1688,19 +2122,10 @@ const saveEdit = async () => {
 			item.contactNumber = contactNumber
 			item.category = category
 		}
-		editingId.value = null
-		editingCategory.value = ''
-		editingName.value = ''
-		editingAddress.value = ''
-		editingContactNumber.value = ''
-		editingManagerName.value = ''
-		editingManagerContact.value = ''
-		editingManagerEmail.value = ''
-		editingOwnerName.value = ''
-		editingOwnerContact.value = ''
-		editingOwnerEmail.value = ''
-		editImagePreview.value = ''
+		
+		closeEditModal()
 		await fetchCategories() // Refresh categories in case a new one was added
+		await fetchEstablishments() // Refresh the list
 		showToast('Success!', 'success', 'Establishment updated successfully')
 	} catch (error) {
 		console.error('Error updating establishment:', error)
@@ -1710,7 +2135,8 @@ const saveEdit = async () => {
 	}
 }
 
-const cancelEdit = () => {
+const closeEditModal = () => {
+	showEditModal.value = false
 	editingId.value = null
 	editingCategory.value = ''
 	editingName.value = ''
@@ -1723,6 +2149,10 @@ const cancelEdit = () => {
 	editingOwnerContact.value = ''
 	editingOwnerEmail.value = ''
 	editImagePreview.value = ''
+}
+
+const cancelEdit = () => {
+	closeEditModal()
 }
 
 const deleteItem = async (id) => {
