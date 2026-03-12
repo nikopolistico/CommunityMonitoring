@@ -483,13 +483,13 @@
 								<td class="px-6 py-4 text-sm text-gray-700">{{ item.contactNumber || 'N/A' }}</td>
 								<td class="px-6 py-4">
 									<div class="flex items-center justify-center gap-2">
-										<button @click="viewDetails(item)" class="p-2 text-[#004595] hover:bg-[#004595]/10 rounded-lg transition-colors" title="View Details">
+										<button @click="openDetails(item)" class="p-2 text-[#004595] hover:bg-[#004595]/10 rounded-lg transition-colors" title="View Details">
 											<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
 												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
 											</svg>
 										</button>
-										<button @click="editItem(item)" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
+										<button @click="startEdit(item.id)" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
 											<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
 											</svg>
@@ -900,7 +900,7 @@
 										<label class="block text-xs font-semibold text-[#002147] mb-1.5">Manager Email</label>
 										<input
 											v-model="editingManagerEmail"
-											type="email"
+											type="text"
 											placeholder="manager@email.com"
 											class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
 											:disabled="loading"
@@ -939,7 +939,7 @@
 										<label class="block text-xs font-semibold text-[#002147] mb-1.5">Owner Email</label>
 										<input
 											v-model="editingOwnerEmail"
-											type="email"
+											type="text"
 											placeholder="owner@email.com"
 											class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
 											:disabled="loading"
@@ -1053,7 +1053,7 @@
 						<!-- Establishment Image -->
 						<div class="rounded-xl overflow-hidden border-2 border-[#004595]/10">
 							<div v-if="detailsItem?.establishmentImages" class="w-full bg-gray-50">
-								<img :src="detailsItem.establishmentImages" :alt="detailsItem.establishmentName" class="w-full h-auto object-contain" />
+								<img :src="detailsItem.establishmentImages" :alt="detailsItem.establishmentName" class="w-full h-full object-contain" />
 							</div>
 							<div v-else class="w-full h-40 bg-linear-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center relative overflow-hidden">
 								<div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-20 -mt-20"></div>

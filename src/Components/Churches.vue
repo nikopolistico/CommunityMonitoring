@@ -511,6 +511,17 @@
 								</div>
 
 								<div>
+									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Category <span class="text-red-500">*</span></label>
+									<input
+										v-model="newCategory"
+										type="text"
+										placeholder="e.g., Catholic, Baptist, etc."
+										class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+										:disabled="loading"
+									/>
+								</div>
+
+								<div>
 									<label class="block text-xs font-semibold text-[#002147] mb-1.5">Address</label>
 									<input
 										v-model="newAddress"
@@ -1563,34 +1574,65 @@ const saveEdit = async () => {
 		return
 	}
 	
+	if (!category) {
+		showToast('Category Required', 'warning', 'Please enter a church category')
+		return
+	}
+	
 	loading.value = true
 	try {
 		const { error } = await supabase
 			.from('Church')
 			.update({ 
-				category: category || null,
+				category: category,
 				churchName: name,
-				churchAddress: address
+				churchAddress: address || null
 			})
 			.eq('id', editingId.value)
 		
 		if (error) throw error
 		
+		// Handle leader information
 		const leaderName = editingLeaderName.value.trim()
 		const leaderRegistered = editingLeaderRegistration.value === 'yes'
 		
-		const { error: leaderError } = await supabase
+		// Check if leader record exists
+		const { data: existingLeader, error: checkError } = await supabase
 			.from('ChurchLeader')
-			.upsert(
-				{
-					fullname: leaderName || null,
-					registration: leaderRegistered,
-					ch_id: editingId.value
-				},
-				{ onConflict: 'ch_id' }
-			)
+			.select('id')
+			.eq('ch_id', editingId.value)
+			.maybeSingle()
 		
-		if (leaderError) throw leaderError
+		if (checkError && checkError.code !== 'PGRST116') {
+			console.error('Error checking leader:', checkError)
+		}
+		
+		// Update or insert leader information
+		if (existingLeader) {
+			// Update existing leader
+			const { error: updateError } = await supabase
+				.from('ChurchLeader')
+				.update({
+					fullname: leaderName || null,
+					registration: leaderRegistered
+				})
+				.eq('ch_id', editingId.value)
+			
+			if (updateError) throw updateError
+		} else {
+			// Insert new leader record only if there's a name
+			if (leaderName) {
+				const { error: insertError } = await supabase
+					.from('ChurchLeader')
+					.insert({
+						fullname: leaderName,
+						registration: leaderRegistered,
+						ch_id: editingId.value
+					})
+				
+				if (insertError) throw insertError
+			}
+		}
 		
 		const item = items.value.find(i => i.id === editingId.value)
 		if (item) {
