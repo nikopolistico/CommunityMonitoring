@@ -1654,7 +1654,7 @@ const fetchAllCategories = async () => {
 
     // Fetch from Churches table
     const { data: churchesData, error: churchesError } = await supabase
-      .from('Churches')
+      .from('Church')
       .select('category, brgy_id, churchName, churchAddress, Barangays(brgyname)')
       .not('category', 'is', null)
 
