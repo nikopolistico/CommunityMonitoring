@@ -134,357 +134,6 @@
       </div>
     </header>
 
-    <!-- Category Search Bar -->
-    <div class="p-2 sm:p-4 lg:p-6 pb-0">
-      <div
-        class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 overflow-hidden"
-      >
-        <div
-          class="absolute top-0 right-0 w-64 h-64 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-32 -mt-32"
-        ></div>
-        <div
-          class="absolute bottom-0 left-0 w-48 h-48 bg-[#00397a]/5 dark:bg-blue-400/10 rounded-full -ml-24 -mb-24"
-        ></div>
-
-        <div class="relative z-10">
-          <div class="flex items-center gap-3 mb-4">
-            <div
-              class="flex items-center justify-center w-12 h-12 bg-[#004595]/10 dark:bg-blue-500/20 rounded-lg"
-            >
-              <svg
-                class="w-6 h-6 text-[#004595] dark:text-blue-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-[#002147] dark:text-white">Search Categories</h3>
-          </div>
-
-          <!-- Search Input -->
-          <div class="relative mb-6">
-            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <svg
-                class="w-5 h-5 text-[#004595] dark:text-blue-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </div>
-            <input
-              v-model="categorySearchQuery"
-              @focus="categorySearchFocused = true"
-              @blur="() => setTimeout(() => (categorySearchFocused = false), 200)"
-              type="text"
-              placeholder="Search for a category name (e.g., 'Elementary School', 'Catholic Church')..."
-              class="w-full pl-12 pr-4 py-3 border-2 border-[#004595]/30 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-[#004595] transition-all bg-white dark:bg-gray-700 text-[#002147] dark:text-white placeholder-[#00397a]/60 dark:placeholder-gray-400 shadow-sm hover:border-[#004595]/50"
-            />
-
-            <!-- Category Dropdown Menu -->
-            <div
-              v-if="
-                categorySearchFocused &&
-                categorySearchQuery.trim() &&
-                filteredCategoriesForMenu.length > 0
-              "
-              class="absolute z-50 top-full left-0 right-0 mt-2 bg-white dark:bg-gray-700 border-2 border-[#004595]/30 dark:border-gray-600 rounded-lg shadow-lg max-h-64 overflow-y-auto"
-            >
-              <div class="p-2">
-                <!-- Category List -->
-                <button
-                  v-for="(cat, idx) in filteredCategoriesForMenu"
-                  :key="idx"
-                  @click="selectCategoryFromMenu(cat.name)"
-                  class="w-full text-left px-4 py-3 rounded-lg hover:bg-[#004595]/10 dark:hover:bg-blue-500/20 transition-all duration-200 border-b border-[#004595]/10 dark:border-gray-600 last:border-b-0 group"
-                >
-                  <div class="flex items-center justify-between">
-                    <div class="flex-1">
-                      <p
-                        class="font-semibold text-[#002147] dark:text-white group-hover:text-[#004595] dark:group-hover:text-blue-300 transition-colors"
-                      >
-                        {{ cat.name }}
-                      </p>
-                      <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                        <span
-                          class="inline-block px-1.5 py-0.5 bg-[#004595]/10 dark:bg-blue-500/20 rounded text-[#004595] dark:text-blue-400 font-medium"
-                          >{{ cat.type }}</span
-                        >
-                      </p>
-                    </div>
-                    <span
-                      class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-[#004595]/20 dark:bg-blue-500/30 text-[#004595] dark:text-blue-300"
-                    >
-                      {{ cat.count }}
-                    </span>
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Search Results -->
-          <div v-if="categorySearchQuery.trim()" class="space-y-4">
-            <!-- Results Count -->
-            <div class="flex items-center gap-2 mb-2">
-              <span
-                class="inline-block px-3 py-1 bg-[#004595]/10 dark:bg-blue-500/20 text-[#004595] dark:text-blue-400 rounded-full text-sm font-semibold"
-              >
-                {{ categorySearchResults.length }} Result{{
-                  categorySearchResults.length !== 1 ? 's' : ''
-                }}
-              </span>
-            </div>
-
-            <!-- Results Grid -->
-            <div
-              v-if="categorySearchResults.length > 0"
-              class="grid grid-cols-1 gap-4 max-h-screen overflow-y-auto pr-2"
-            >
-              <div
-                v-for="result in categorySearchResults"
-                :key="result.key"
-                class="relative bg-linear-to-br from-white to-[#f3f1ee] dark:from-gray-700 dark:to-gray-800 rounded-xl shadow-md hover:shadow-lg border border-[#004595]/20 dark:border-gray-600 hover:border-[#004595] dark:hover:border-blue-500 transition-all duration-300 overflow-hidden group"
-              >
-                <!-- Decorative Background -->
-                <div
-                  class="absolute top-0 right-0 w-20 h-20 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"
-                ></div>
-
-                <!-- Header Section (Always Visible) -->
-                <div class="relative z-10 p-4 border-b border-[#004595]/10 dark:border-gray-600">
-                  <div
-                    class="flex items-start justify-between gap-2 cursor-pointer"
-                    @click="toggleCategoryExpanded(result.key)"
-                  >
-                    <div class="flex-1">
-                      <h4 class="text-lg font-bold text-[#002147] dark:text-white leading-tight">
-                        {{ result.categoryName }}
-                      </h4>
-                      <p
-                        class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400 mt-1"
-                      >
-                        {{ result.type }}
-                      </p>
-                    </div>
-                    <div class="flex items-center gap-3">
-                      <span
-                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-[#004595] text-white whitespace-nowrap"
-                      >
-                        {{ result.totalCount }} Total
-                      </span>
-                      <svg
-                        class="w-5 h-5 text-[#004595] dark:text-blue-400 transition-transform duration-300"
-                        :class="{ 'rotate-180': expandedCategories.has(result.key) }"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-
-                  <!-- Stats Row -->
-                  <div
-                    class="grid grid-cols-2 gap-2 pt-3 mt-3 border-t border-[#004595]/10 dark:border-gray-600"
-                  >
-                    <div class="flex items-center gap-2">
-                      <div
-                        class="flex items-center justify-center w-8 h-8 bg-[#004595]/10 dark:bg-blue-500/20 rounded-lg"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#004595] dark:text-blue-400"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            d="M10.5 1.5H5.75A2.25 2.25 0 003.5 3.75v12.5A2.25 2.25 0 005.75 18.5h8.5a2.25 2.25 0 002.25-2.25V6.5m-9-5v5m0 0h5"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Barangays</p>
-                        <p class="text-sm font-bold text-[#002147] dark:text-white">
-                          {{ result.barangayCount }}
-                        </p>
-                      </div>
-                    </div>
-                    <div class="flex items-center gap-2">
-                      <div
-                        class="flex items-center justify-center w-8 h-8 bg-[#004595]/10 dark:bg-blue-500/20 rounded-lg"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#004595] dark:text-blue-400"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                      </div>
-                      <div>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Total Items</p>
-                        <p class="text-sm font-bold text-[#002147] dark:text-white">
-                          {{ result.totalCount }}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Expanded Items Section -->
-                <div
-                  v-if="expandedCategories.has(result.key)"
-                  class="relative z-10 p-4 space-y-3 max-h-96 overflow-y-auto"
-                >
-                  <!-- Items List -->
-                  <div class="space-y-2">
-                    <div
-                      v-for="(item, idx) in result.items"
-                      :key="idx"
-                      class="p-3 bg-white dark:bg-gray-700 rounded-lg border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595] dark:hover:border-blue-400 transition-all"
-                    >
-                      <!-- Item Name -->
-                      <h5 class="font-bold text-[#002147] dark:text-white text-sm mb-2">
-                        {{ item.name }}
-                      </h5>
-
-                      <!-- Barangay and Address -->
-                      <div class="space-y-1.5">
-                        <div class="flex items-start gap-2">
-                          <svg
-                            class="w-4 h-4 text-[#004595] dark:text-blue-400 mt-0.5 shrink-0"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                              clip-rule="evenodd"
-                            />
-                          </svg>
-                          <div class="flex-1 min-w-0">
-                            <p class="text-xs font-semibold text-gray-500 dark:text-gray-400">
-                              Barangay
-                            </p>
-                            <p class="text-xs text-[#002147] dark:text-white font-medium">
-                              {{ item.barangay }}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div class="flex items-start gap-2">
-                          <svg
-                            class="w-4 h-4 text-[#004595] dark:text-blue-400 mt-0.5 shrink-0"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                            />
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                            />
-                          </svg>
-                          <div class="flex-1 min-w-0">
-                            <p class="text-xs font-semibold text-gray-500 dark:text-gray-400">
-                              Address
-                            </p>
-                            <p class="text-xs text-[#002147] dark:text-white">
-                              {{ item.address || 'Address not provided' }}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- No Results Message -->
-            <div v-else class="text-center py-8">
-              <div
-                class="inline-flex items-center justify-center w-16 h-16 bg-[#004595]/10 dark:bg-blue-500/20 rounded-full mb-3"
-              >
-                <svg
-                  class="w-8 h-8 text-[#00397a] dark:text-blue-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-              <p class="font-semibold text-[#002147] dark:text-white">No categories found</p>
-              <p class="text-sm text-[#00397a] dark:text-gray-400">
-                Try searching with a different keyword
-              </p>
-            </div>
-          </div>
-
-          <!-- Empty State -->
-          <div v-else class="text-center py-8">
-            <div
-              class="inline-flex items-center justify-center w-20 h-20 bg-[#004595]/10 dark:bg-blue-500/20 rounded-full mb-4"
-            >
-              <svg
-                class="w-10 h-10 text-[#004595] dark:text-blue-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.414a6 6 0 108.485 8.485L20.71 13.3"
-                />
-              </svg>
-            </div>
-            <p class="font-semibold text-[#002147] dark:text-white">
-              Search Categories Across All Barangays
-            </p>
-            <p class="text-sm text-[#00397a] dark:text-gray-400 mt-1">
-              Type a category name to find it in any barangay
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Summary Cards -->
     <div class="p-2 sm:p-4 lg:p-6 space-y-4">
       <!-- Stats Grid with Weather -->
@@ -1228,7 +877,7 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGlobal } from '@/composables/useGlobal'
 import headbk from '@/assets/landing.jpg'
@@ -1847,32 +1496,68 @@ const filteredBarangays = computed(() => {
 })
 
 // Search categories across all types
+// Aggregate all matching categories into a single consolidated result
 const categorySearchResults = computed(() => {
   if (!categorySearchQuery.value.trim()) {
-    return []
+    return null
   }
 
   const query = categorySearchQuery.value.toLowerCase().trim()
-  const results = []
+  const queryWords = query.split(/\s+/).filter((w) => w.length > 0)
+  const matchingCategories = []
+  const barangayTotals = {}
   const seen = new Set()
 
-  // Filter and organize results
+  // Find all matching categories
   allCategories.value.forEach((cat) => {
     const key = `${cat.categoryName}-${cat.type}`.toLowerCase()
 
     // Avoid duplicates
     if (seen.has(key)) return
 
-    // Match query against category name
-    if (cat.categoryName.toLowerCase().includes(query)) {
+    const categoryLower = cat.categoryName.toLowerCase()
+
+    // Match if any word in query matches any part of category name
+    const matches = queryWords.some((word) => categoryLower.includes(word))
+
+    if (matches) {
       seen.add(key)
-      results.push(cat)
+      matchingCategories.push(cat.categoryName)
+
+      // Aggregate barangay totals across all matching categories
+      cat.barangays.forEach((brgy) => {
+        if (!barangayTotals[brgy.name]) {
+          barangayTotals[brgy.name] = 0
+        }
+        barangayTotals[brgy.name] += brgy.count
+      })
     }
   })
 
-  return results.sort((a, b) => b.totalCount - a.totalCount)
+  // If no matches found
+  if (matchingCategories.length === 0) {
+    return null
+  }
+
+  // Convert barangay totals to array and sort by count
+  const barangaysArray = Object.entries(barangayTotals)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count)
+
+  // Calculate totals
+  const totalItems = barangaysArray.reduce((sum, b) => sum + b.count, 0)
+  const totalBarangays = barangaysArray.length
+
+  return {
+    matchingCategories,
+    barangays: barangaysArray,
+    totalItems,
+    totalBarangays,
+    searchQuery: query,
+  }
 })
 
+// Auto-expand search results when user searches for a category
 // Get all unique categories for the dropdown menu
 const uniqueCategories = computed(() => {
   const categories = []
