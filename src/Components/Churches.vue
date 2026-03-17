@@ -1363,6 +1363,12 @@ watch(
 onMounted(() => {
 	fetchBarangayId()
 	fetchCategories()
+	
+	// Check if coming from category search and set selectedCategory
+	const filterCategory = route.query.filterCategory
+	if (filterCategory) {
+		selectedCategory.value = filterCategory.toString()
+	}
 })
 
 const handleImageChange = (event) => {

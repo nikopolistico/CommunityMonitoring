@@ -1782,6 +1782,7 @@ const categorySearchResults = computed(() => {
   const query = categorySearchQuery.value.toLowerCase().trim()
   const queryWords = query.split(/\s+/).filter((w) => w.length > 0)
   const matchingCategories = []
+  const categoryTypes = []
   const barangayTotals = {}
   const seen = new Set()
 
@@ -1795,6 +1796,7 @@ const categorySearchResults = computed(() => {
     if (matches) {
       seen.add(key)
       matchingCategories.push(cat.categoryName)
+      categoryTypes.push(cat.type)
       cat.barangays.forEach((brgy) => {
         if (!barangayTotals[brgy.name]) {
           barangayTotals[brgy.name] = 0
@@ -1817,6 +1819,7 @@ const categorySearchResults = computed(() => {
 
   return {
     matchingCategories,
+    categoryTypes,
     barangays: barangaysArray,
     totalItems,
     totalBarangays,
@@ -1869,11 +1872,26 @@ const toggleCategoryExpanded = (key) => {
 }
 
 const goToBarangay = (barangayName) => {
-  const categories = categorySearchResults.value?.matchingCategories || []
+  const results = categorySearchResults.value
+  if (!results || !results.categoryTypes || results.categoryTypes.length === 0) return
+
+  const categoryType = results.categoryTypes[0]
+  const categoryName = results.matchingCategories[0]
+  
+  // Map category type to route name and component
+  const typeMap = {
+    'School': 'schools',
+    'Church': 'churches',
+    'Establishment': 'establishments',
+    'GovtOffice': 'govtOffices',
+  }
+  
+  const routeName = typeMap[categoryType]
+  
   router.push({
-    name: 'community',
+    name: routeName,
     params: { barangayName: barangayName },
-    query: { categories: categories.join(',') },
+    query: { filterCategory: categoryName },
   })
 }
 
