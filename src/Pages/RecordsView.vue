@@ -1877,17 +1877,17 @@ const goToBarangay = (barangayName) => {
 
   const categoryType = results.categoryTypes[0]
   const categoryName = results.matchingCategories[0]
-  
+
   // Map category type to route name and component
   const typeMap = {
-    'School': 'schools',
-    'Church': 'churches',
-    'Establishment': 'establishments',
-    'GovtOffice': 'govtOffices',
+    School: 'schools',
+    Church: 'churches',
+    Establishment: 'establishments',
+    GovtOffice: 'govtOffices',
   }
-  
+
   const routeName = typeMap[categoryType]
-  
+
   router.push({
     name: routeName,
     params: { barangayName: barangayName },
