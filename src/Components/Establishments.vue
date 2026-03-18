@@ -273,7 +273,7 @@
               <button
                 type="button"
                 @click="showCategoryDropdown = !showCategoryDropdown"
-                class="w-full rounded-xl border-2 border-[#f3f1ee] pl-4 pr-10 py-2.5 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all bg-white text-sm font-medium text-[#002147] text-left hover:border-[#004595]/50 flex items-center justify-between sm:min-w-45"
+                class="w-full rounded-xl border-2 border-[#f3f1ee] pl-4 pr-10 py-2.5 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all bg-white text-sm font-medium text-[#002147] text-left hover:border-[#004595]/50 flex items-center justify-between sm:min-w-50"
               >
                 <span v-if="selectedCategories.length === 0" class="text-gray-500"
                   >All Categories</span
@@ -311,10 +311,7 @@
                 <button
                   v-if="selectedCategories.length > 0"
                   type="button"
-                  @click="
-                    selectedCategories = []
-                    showCategoryDropdown = false
-                  "
+                  @click="clearAndCloseDropdown"
                   class="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 border-b border-[#f3f1ee] font-medium transition-colors"
                 >
                   Clear All Selections
@@ -330,11 +327,7 @@
                     <input
                       type="checkbox"
                       :checked="selectedCategories.includes(category)"
-                      @change="
-                        selectedCategories = selectedCategories.includes(category)
-                          ? selectedCategories.filter((c) => c !== category)
-                          : [...selectedCategories, category]
-                      "
+                      @change="toggleCategorySelection(category)"
                       class="w-4 h-4 rounded border-2 border-[#004595]/30 accent-[#004595] cursor-pointer"
                     />
                     <span
@@ -2994,6 +2987,17 @@ const toggleCategory = (category) => {
   } else {
     selectedCategories.value = [...selectedCategories.value, category]
   }
+}
+
+// Toggle category selection (for checkbox)
+const toggleCategorySelection = (category) => {
+  toggleCategory(category)
+}
+
+// Clear all categories and close dropdown
+const clearAndCloseDropdown = () => {
+  selectedCategories.value = []
+  showCategoryDropdown.value = false
 }
 
 // Close dropdown when clicking outside
