@@ -1876,7 +1876,7 @@ const goToBarangay = (barangayName) => {
   if (!results || !results.categoryTypes || results.categoryTypes.length === 0) return
 
   const categoryType = results.categoryTypes[0]
-  const categoryName = results.matchingCategories[0]
+  const matchingCategories = results.matchingCategories
 
   // Map category type to route name and component
   const typeMap = {
@@ -1891,7 +1891,7 @@ const goToBarangay = (barangayName) => {
   router.push({
     name: routeName,
     params: { barangayName: barangayName },
-    query: { filterCategory: categoryName },
+    query: { selectedCategories: matchingCategories.join(',') },
   })
 }
 

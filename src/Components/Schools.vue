@@ -1845,9 +1845,25 @@ onMounted(() => {
   fetchCategories()
 
   // Check if coming from category search and set selectedCategory
-  const filterCategory = route.query.filterCategory
-  if (filterCategory) {
-    selectedCategory.value = filterCategory.toString()
+  const selectedCategoriesQuery = route.query.selectedCategories
+  if (selectedCategoriesQuery) {
+    // Parse comma-separated categories and take the first one
+    const categories = selectedCategoriesQuery
+      .toString()
+      .split(',')
+      .map((cat) => cat.trim())
+      .filter((cat) => cat.length > 0)
+    if (categories.length > 0) {
+      selectedCategory.value = categories[0]
+    }
+  }
+
+  // Also support legacy filterCategory parameter for backward compatibility
+  if (!selectedCategory.value) {
+    const filterCategory = route.query.filterCategory
+    if (filterCategory) {
+      selectedCategory.value = filterCategory.toString()
+    }
   }
 })
 

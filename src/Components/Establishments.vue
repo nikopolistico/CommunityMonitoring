@@ -2212,13 +2212,14 @@ const hideToast = () => {
 const filteredItems = computed(() => {
   let filtered = items.value
 
-  // Filter by search query
+  // Filter by search query (name, address, or category)
   if (searchQuery.value.trim()) {
     const query = searchQuery.value.toLowerCase()
     filtered = filtered.filter(
       (item) =>
         item.establishmentName?.toLowerCase().includes(query) ||
-        item.establishmentAddress?.toLowerCase().includes(query),
+        item.establishmentAddress?.toLowerCase().includes(query) ||
+        item.category?.toLowerCase().includes(query),
     )
   }
 
@@ -2386,6 +2387,32 @@ watch(
   },
 )
 
+// Watch for search query changes to auto-select matching categories
+watch(
+  () => searchQuery.value,
+  (newQuery) => {
+    if (newQuery.trim()) {
+      const query = newQuery.toLowerCase()
+
+      // Find categories that match the search query
+      const matchingCategories = categories.value.filter((category) =>
+        category.toLowerCase().includes(query),
+      )
+
+      // Auto-select matching categories
+      if (matchingCategories.length > 0) {
+        // Update selectedCategories to include matching categories
+        selectedCategories.value = Array.from(
+          new Set([...selectedCategories.value, ...matchingCategories]),
+        )
+      }
+    } else {
+      // Clear selection when search is cleared
+      selectedCategories.value = []
+    }
+  },
+)
+
 watch(
   () => barangayName.value,
   () => {
@@ -2423,8 +2450,22 @@ onMounted(() => {
   fetchCategories()
 
   // Check if coming from category search and set selectedCategories
+  const selectedCategoriesQuery = route.query.selectedCategories
+  if (selectedCategoriesQuery) {
+    // Parse comma-separated categories and filter out empty strings
+    const categories = selectedCategoriesQuery
+      .toString()
+      .split(',')
+      .map((cat) => cat.trim())
+      .filter((cat) => cat.length > 0)
+    if (categories.length > 0) {
+      selectedCategories.value = categories
+    }
+  }
+
+  // Also support legacy filterCategory parameter for backward compatibility
   const filterCategory = route.query.filterCategory
-  if (filterCategory) {
+  if (filterCategory && selectedCategories.value.length === 0) {
     selectedCategories.value = [filterCategory.toString()]
   }
 })
