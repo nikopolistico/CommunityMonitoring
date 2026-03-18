@@ -154,16 +154,16 @@
                 :key="stat.category"
                 class="group relative flex flex-col items-center justify-center p-2 rounded-xl border-2 transition-all duration-300 cursor-pointer overflow-hidden"
                 :class="
-                  selectedCategory === stat.category
+                  selectedCategories.includes(stat.category)
                     ? 'border-[#004595] bg-linear-to-br from-[#002147] via-[#00397a] to-[#004595] text-white shadow-lg shadow-[#004595]/30 scale-105'
                     : 'border-[#004595]/20 bg-white hover:border-[#004595] hover:shadow-lg hover:scale-105 hover:-translate-y-0.5'
                 "
-                @click="selectedCategory = selectedCategory === stat.category ? '' : stat.category"
+                @click="toggleCategory(stat.category)"
                 :style="{ animationDelay: `${index * 50}ms` }"
               >
                 <!-- Animated Background for Selected State -->
                 <div
-                  v-if="selectedCategory === stat.category"
+                  v-if="selectedCategories.includes(stat.category)"
                   class="absolute inset-0 bg-white/10 rounded-xl animate-pulse pointer-events-none"
                 ></div>
 
@@ -171,7 +171,7 @@
                 <div
                   class="absolute -top-4 -right-4 w-12 h-12 rounded-full transition-all duration-300"
                   :class="
-                    selectedCategory === stat.category
+                    selectedCategories.includes(stat.category)
                       ? 'bg-white/10'
                       : 'bg-[#004595]/5 group-hover:bg-[#004595]/10 group-hover:scale-150'
                   "
@@ -181,14 +181,17 @@
                   <div
                     class="mb-1 p-1 rounded-md transition-all duration-300"
                     :class="
-                      selectedCategory === stat.category
+                      selectedCategories.includes(stat.category)
                         ? 'bg-white/20'
                         : 'bg-[#004595]/10 group-hover:bg-[#004595]/20'
                     "
                   >
                     <svg
                       class="w-3 h-3 transition-colors duration-300"
-                      :class="selectedCategory === stat.category ? 'text-white' : 'text-[#004595]'"
+                      v-bind:class="{
+                        'text-white': selectedCategories.includes(stat.category),
+                        'text-[#004595]': !selectedCategories.includes(stat.category),
+                      }"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -206,7 +209,7 @@
                   <div
                     class="text-xl font-black mb-0.5 transition-all duration-300"
                     :class="
-                      selectedCategory === stat.category
+                      selectedCategories.includes(stat.category)
                         ? 'text-white drop-shadow-lg'
                         : 'text-[#004595] group-hover:scale-110'
                     "
@@ -218,7 +221,7 @@
                   <div
                     class="text-[9px] font-bold text-center uppercase tracking-wide transition-colors duration-300 px-1"
                     :class="
-                      selectedCategory === stat.category
+                      selectedCategories.includes(stat.category)
                         ? 'text-white/95'
                         : 'text-gray-600 group-hover:text-[#002147]'
                     "
@@ -228,7 +231,7 @@
 
                   <!-- Selected Indicator -->
                   <div
-                    v-if="selectedCategory === stat.category"
+                    v-if="selectedCategories.includes(stat.category)"
                     class="mt-0.5 flex items-center gap-0.5 text-white/90"
                   >
                     <svg class="w-2 h-2" fill="currentColor" viewBox="0 0 20 20">
@@ -265,30 +268,91 @@
               Add Establishment
             </button>
 
-            <!-- Category Dropdown -->
-            <div class="relative flex-1 sm:flex-initial">
-              <select
-                v-model="selectedCategory"
-                class="w-full rounded-xl border-2 border-[#f3f1ee] pl-4 pr-10 py-2.5 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all appearance-none bg-white text-sm font-medium text-[#002147] sm:min-w-45"
+            <!-- Category Multi-Select Dropdown -->
+            <div class="category-dropdown-container relative flex-1 sm:flex-initial">
+              <button
+                type="button"
+                @click="showCategoryDropdown = !showCategoryDropdown"
+                class="w-full rounded-xl border-2 border-[#f3f1ee] pl-4 pr-10 py-2.5 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all bg-white text-sm font-medium text-[#002147] text-left hover:border-[#004595]/50 flex items-center justify-between sm:min-w-45"
               >
-                <option value="">All Categories</option>
-                <option v-for="category in categories" :key="category" :value="category">
-                  {{ category }}
-                </option>
-              </select>
-              <svg
-                class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#004595] pointer-events-none"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+                <span v-if="selectedCategories.length === 0" class="text-gray-500"
+                  >All Categories</span
+                >
+                <span v-else class="flex items-center gap-2">
+                  <span
+                    class="inline-flex items-center px-2 py-1 rounded-lg text-xs font-semibold bg-[#004595]/10 text-[#004595]"
+                  >
+                    {{ selectedCategories.length }} selected
+                  </span>
+                </span>
+                <svg
+                  class="w-5 h-5 text-[#004595] pointer-events-none transition-transform duration-300"
+                  :class="showCategoryDropdown ? 'rotate-180' : ''"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              <!-- Dropdown Menu -->
+              <div
+                v-if="showCategoryDropdown"
+                class="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-[#f3f1ee] rounded-xl shadow-lg z-40 max-h-64 overflow-y-auto"
+                @click.stop
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+                <!-- Clear All Button -->
+                <button
+                  v-if="selectedCategories.length > 0"
+                  type="button"
+                  @click="
+                    selectedCategories = []
+                    showCategoryDropdown = false
+                  "
+                  class="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 border-b border-[#f3f1ee] font-medium transition-colors"
+                >
+                  Clear All Selections
+                </button>
+
+                <!-- Category Checkboxes -->
+                <div v-if="categories.length > 0" class="p-2">
+                  <label
+                    v-for="category in categories"
+                    :key="category"
+                    class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors group"
+                  >
+                    <input
+                      type="checkbox"
+                      :checked="selectedCategories.includes(category)"
+                      @change="
+                        selectedCategories = selectedCategories.includes(category)
+                          ? selectedCategories.filter((c) => c !== category)
+                          : [...selectedCategories, category]
+                      "
+                      class="w-4 h-4 rounded border-2 border-[#004595]/30 accent-[#004595] cursor-pointer"
+                    />
+                    <span
+                      class="text-sm font-medium text-[#002147] group-hover:text-[#004595] transition-colors flex-1"
+                    >
+                      {{ category }}
+                    </span>
+                    <span class="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded">
+                      {{ items.filter((item) => item.category === category).length }}
+                    </span>
+                  </label>
+                </div>
+
+                <!-- Empty State -->
+                <div v-else class="px-4 py-8 text-center text-gray-500 text-sm">
+                  No categories available
+                </div>
+              </div>
             </div>
 
             <!-- View Toggle -->
@@ -2092,7 +2156,8 @@ const uploadingPhoto = ref(false)
 
 // Category state
 const categories = ref([])
-const selectedCategory = ref('')
+const selectedCategories = ref([])
+const showCategoryDropdown = ref(false)
 const showStatistics = ref(false)
 const viewMode = ref('cards') // 'cards' or 'table'
 
@@ -2152,15 +2217,24 @@ const hideToast = () => {
 }
 
 const filteredItems = computed(() => {
-  if (!searchQuery.value.trim()) {
-    return items.value
+  let filtered = items.value
+
+  // Filter by search query
+  if (searchQuery.value.trim()) {
+    const query = searchQuery.value.toLowerCase()
+    filtered = filtered.filter(
+      (item) =>
+        item.establishmentName?.toLowerCase().includes(query) ||
+        item.establishmentAddress?.toLowerCase().includes(query),
+    )
   }
-  const query = searchQuery.value.toLowerCase()
-  return items.value.filter(
-    (item) =>
-      item.establishmentName?.toLowerCase().includes(query) ||
-      item.establishmentAddress?.toLowerCase().includes(query),
-  )
+
+  // Filter by selected categories
+  if (selectedCategories.value.length > 0) {
+    filtered = filtered.filter((item) => selectedCategories.value.includes(item.category))
+  }
+
+  return filtered
 })
 
 // Statistics for categories
@@ -2289,28 +2363,14 @@ const fetchEstablishments = async () => {
 
   loading.value = true
   try {
-    let data, error
+    // Fetch all establishments from Establishments table
+    const result = await supabase
+      .from('Establishments')
+      .select('*')
+      .eq('brgy_id', barangayId.value)
+      .order('establishmentName')
 
-    if (!selectedCategory.value) {
-      // Fetch all establishments from Establishments table
-      const result = await supabase
-        .from('Establishments')
-        .select('*')
-        .eq('brgy_id', barangayId.value)
-        .order('establishmentName')
-
-      data = result.data
-      error = result.error
-    } else {
-      // Fetch filtered by category using RPC
-      const result = await supabase.rpc('categorizedview', {
-        catry: selectedCategory.value,
-        b_id: barangayId.value,
-      })
-
-      data = result.data
-      error = result.error
-    }
+    const { data, error } = result
 
     if (error) throw error
 
@@ -2322,14 +2382,6 @@ const fetchEstablishments = async () => {
     loading.value = false
   }
 }
-
-// Watch for category changes
-watch(
-  () => selectedCategory.value,
-  () => {
-    fetchEstablishments()
-  },
-)
 
 // Watch for barangayId changes
 watch(
@@ -2377,10 +2429,10 @@ onMounted(() => {
   fetchBarangayId()
   fetchCategories()
 
-  // Check if coming from category search and set selectedCategory
+  // Check if coming from category search and set selectedCategories
   const filterCategory = route.query.filterCategory
   if (filterCategory) {
-    selectedCategory.value = filterCategory.toString()
+    selectedCategories.value = [filterCategory.toString()]
   }
 })
 
@@ -2934,6 +2986,33 @@ const closeDetails = () => {
   detailsItem.value = null
   detailsLoading.value = false
 }
+
+// Category filter toggle
+const toggleCategory = (category) => {
+  if (selectedCategories.value.includes(category)) {
+    selectedCategories.value = selectedCategories.value.filter((c) => c !== category)
+  } else {
+    selectedCategories.value = [...selectedCategories.value, category]
+  }
+}
+
+// Close dropdown when clicking outside
+const handleClickOutside = (event) => {
+  if (showCategoryDropdown.value) {
+    const dropdown = document.querySelector('.category-dropdown-container')
+    if (dropdown && !dropdown.contains(event.target)) {
+      showCategoryDropdown.value = false
+    }
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
 
 // Map functionality
 const viewMap = () => {
