@@ -139,10 +139,10 @@
       <!-- Stats Grid with Weather -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <!-- Left Side Stats (2x2 Grid) -->
-        <div class="lg:col-span-2 grid grid-cols-2 gap-4">
+        <div class="lg:col-span-2 grid grid-cols-2 gap-2">
           <!-- Total Barangays Card -->
           <div
-            class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-2xl transition-all duration-300 group overflow-hidden"
+            class="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
           >
             <div
               class="absolute top-0 right-0 w-32 h-32 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"
@@ -153,7 +153,7 @@
             <div class="relative z-10 flex items-start justify-between">
               <div>
                 <h3
-                  class="text-5xl font-extrabold text-[#002147] dark:text-white mb-2 group-hover:scale-105 transition-transform"
+                  class="text-2xl font-extrabold text-[#002147] dark:text-white mb-1 group-hover:scale-105 transition-transform"
                 >
                   {{ totalBarangays }}
                 </h3>
@@ -164,10 +164,10 @@
                 </p>
               </div>
               <div
-                class="flex items-center justify-center w-14 h-14 bg-linear-to-br from-purple-100 to-purple-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
+                class="flex items-center justify-center w-10 h-10 bg-linear-to-br from-purple-100 to-purple-50 rounded-lg group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
               >
                 <svg
-                  class="w-7 h-7 text-purple-600"
+                  class="w-5 h-5 text-purple-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -191,7 +191,7 @@
 
           <!-- Total Schools Card -->
           <div
-            class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-2xl transition-all duration-300 group overflow-hidden"
+            class="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
           >
             <div
               class="absolute top-0 right-0 w-32 h-32 bg-[#00397a]/5 dark:bg-emerald-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"
@@ -202,7 +202,7 @@
             <div class="relative z-10 flex items-start justify-between">
               <div>
                 <h3
-                  class="text-5xl font-extrabold text-[#002147] dark:text-white mb-2 group-hover:scale-105 transition-transform"
+                  class="text-2xl font-extrabold text-[#002147] dark:text-white mb-1 group-hover:scale-105 transition-transform"
                 >
                   {{ totalSchools }}
                 </h3>
@@ -213,10 +213,10 @@
                 </p>
               </div>
               <div
-                class="flex items-center justify-center w-14 h-14 bg-linear-to-br from-emerald-100 to-emerald-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
+                class="flex items-center justify-center w-10 h-10 bg-linear-to-br from-emerald-100 to-emerald-50 rounded-lg group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
               >
                 <svg
-                  class="w-7 h-7 text-emerald-600"
+                  class="w-5 h-5 text-emerald-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -246,7 +246,7 @@
 
           <!-- Total Church Card -->
           <div
-            class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-2xl transition-all duration-300 group overflow-hidden"
+            class="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
           >
             <div
               class="absolute top-0 right-0 w-32 h-32 bg-[#002147]/5 dark:bg-rose-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"
@@ -257,7 +257,7 @@
             <div class="relative z-10 flex items-start justify-between">
               <div>
                 <h3
-                  class="text-5xl font-extrabold text-[#002147] dark:text-white mb-2 group-hover:scale-105 transition-transform"
+                  class="text-2xl font-extrabold text-[#002147] dark:text-white mb-1 group-hover:scale-105 transition-transform"
                 >
                   {{ totalChurches }}
                 </h3>
@@ -268,9 +268,9 @@
                 </p>
               </div>
               <div
-                class="flex items-center justify-center w-14 h-14 bg-linear-to-br from-rose-100 to-rose-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
+                class="flex items-center justify-center w-10 h-10 bg-linear-to-br from-rose-100 to-rose-50 rounded-lg group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
               >
-                <svg class="w-8 h-8 text-rose-600" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-rose-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2L10 6H8v3H6v13h12V9h-2V6h-2L12 2z" />
                   <path d="M10 6h4v3h-4V6z" />
                   <path d="M8 11h8v2H8v-2z" />
@@ -284,7 +284,7 @@
 
           <!-- Total Establishment Card -->
           <div
-            class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-2xl transition-all duration-300 group overflow-hidden"
+            class="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
           >
             <div
               class="absolute top-0 right-0 w-32 h-32 bg-[#004595]/5 dark:bg-amber-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"
@@ -295,7 +295,7 @@
             <div class="relative z-10 flex items-start justify-between">
               <div>
                 <h3
-                  class="text-5xl font-extrabold text-[#002147] dark:text-white mb-2 group-hover:scale-105 transition-transform"
+                  class="text-2xl font-extrabold text-[#002147] dark:text-white mb-1 group-hover:scale-105 transition-transform"
                 >
                   {{ totalEstablishments }}
                 </h3>
@@ -306,10 +306,10 @@
                 </p>
               </div>
               <div
-                class="flex items-center justify-center w-14 h-14 bg-linear-to-br from-amber-100 to-amber-50 rounded-xl group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
+                class="flex items-center justify-center w-10 h-10 bg-linear-to-br from-amber-100 to-amber-50 rounded-lg group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
               >
                 <svg
-                  class="w-7 h-7 text-amber-600"
+                  class="w-5 h-5 text-amber-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -334,7 +334,7 @@
 
         <!-- Right Side Weather Card -->
         <div
-          class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 flex flex-col items-center justify-center hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-2xl transition-all duration-300 group overflow-hidden"
+          class="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 flex flex-col items-center justify-center hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
         >
           <div
             class="absolute top-0 right-0 w-40 h-40 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-500"
@@ -344,15 +344,15 @@
           ></div>
           <div class="relative z-10 w-full">
             <h2
-              class="text-3xl font-bold text-[#002147] dark:text-white mb-4 text-center group-hover:scale-105 transition-transform"
+              class="text-lg font-bold text-[#002147] dark:text-white mb-2 text-center group-hover:scale-105 transition-transform"
             >
               {{ t('weather') }}
             </h2>
-            <div class="flex items-center justify-center mb-4">
+            <div class="flex items-center justify-center mb-2">
               <!-- Sunny -->
               <div v-if="weatherIcon === 'sunny'" class="relative">
                 <svg
-                  class="w-20 h-20 text-yellow-400 drop-shadow-lg"
+                  class="w-12 h-12 text-yellow-400 drop-shadow-lg"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -366,7 +366,7 @@
               <!-- Cloudy -->
               <svg
                 v-else-if="weatherIcon === 'cloudy'"
-                class="w-20 h-20 text-gray-400 drop-shadow-lg"
+                class="w-12 h-12 text-gray-400 drop-shadow-lg"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -377,7 +377,7 @@
               <!-- Rainy -->
               <div v-else-if="weatherIcon === 'rainy'" class="relative">
                 <svg
-                  class="w-20 h-20 text-blue-500 drop-shadow-lg"
+                  class="w-12 h-12 text-blue-500 drop-shadow-lg"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -395,7 +395,7 @@
               <!-- Stormy -->
               <svg
                 v-else-if="weatherIcon === 'stormy'"
-                class="w-20 h-20 text-[#002147] drop-shadow-lg"
+                class="w-12 h-12 text-[#002147] drop-shadow-lg"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -413,7 +413,7 @@
               <!-- Snowy -->
               <svg
                 v-else-if="weatherIcon === 'snowy'"
-                class="w-20 h-20 text-cyan-300 drop-shadow-lg"
+                class="w-12 h-12 text-cyan-300 drop-shadow-lg"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -427,7 +427,7 @@
               <!-- Default Partly Cloudy -->
               <svg
                 v-else
-                class="w-20 h-20 text-gray-300 drop-shadow-lg"
+                class="w-12 h-12 text-gray-300 drop-shadow-lg"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -442,11 +442,11 @@
             </div>
             <div class="text-center">
               <p
-                class="text-4xl font-extrabold text-[#002147] dark:text-white group-hover:scale-105 transition-transform mb-2"
+                class="text-2xl font-extrabold text-[#002147] dark:text-white group-hover:scale-105 transition-transform mb-1"
               >
                 {{ currentTemperature }}°C
               </p>
-              <p class="text-[#00397a] dark:text-gray-300 font-semibold text-base">
+              <p class="text-[#00397a] dark:text-gray-300 font-semibold text-xs">
                 {{ weatherCondition }}
               </p>
             </div>

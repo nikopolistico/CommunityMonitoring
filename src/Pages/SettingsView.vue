@@ -1,8 +1,8 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-['Poppins']">
+  <div class="min-h-screen bg-linear-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-['Poppins']">
     <div class="mx-auto max-w-7xl px-8 py-10">
       <!-- Header Banner -->
-      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#002147] via-[#004595] to-[#00397a] p-10 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.01] mb-8">
+      <div class="relative overflow-hidden rounded-3xl bg-linear-to-br from-[#002147] via-[#004595] to-[#00397a] p-10 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.01] mb-8">
         <div class="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl -mr-40 -mt-40"></div>
         <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-2xl -ml-32 -mb-32"></div>
         <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
@@ -30,7 +30,7 @@
       <div class="space-y-6">
         <!-- Administrator Profile Section -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
-          <div class="bg-gradient-to-r from-[#004595] to-[#00397a] px-6 py-4">
+          <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4">
             <div class="flex items-center gap-3">
               <div class="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl">
                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -48,11 +48,11 @@
             </div>
           </div>
           
-          <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
+          <div class="p-6 bg-linear-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
             <!-- Profile Picture -->
-            <div class="flex items-center gap-6 mb-6 p-5 bg-gradient-to-r from-blue-50/50 to-indigo-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-[#004595]/10 dark:border-gray-600">
-              <div class="relative group flex-shrink-0">
-                <div class="w-24 h-24 bg-gradient-to-br from-[#004595] to-[#00397a] rounded-full flex items-center justify-center shadow-lg overflow-hidden transition-all duration-300">
+            <div class="flex items-center gap-6 mb-6 p-5 bg-linear-to-r from-blue-50/50 to-indigo-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-[#004595]/10 dark:border-gray-600">
+              <div class="relative group shrink-0">
+                <div class="w-24 h-24 bg-linear-to-br from-[#004595] to-[#00397a] rounded-full flex items-center justify-center shadow-lg overflow-hidden transition-all duration-300">
                   <img
                     v-if="adminProfile.profile_picture"
                     :src="adminProfile.profile_picture"
@@ -69,7 +69,7 @@
                 </div>
                 <button
                   @click="triggerFileUpload"
-                  class="absolute bottom-0 right-0 p-2 bg-gradient-to-r from-[#004595] to-[#002147] rounded-full text-white hover:scale-110 transition-all duration-300 shadow-lg"
+                  class="absolute bottom-0 right-0 p-2 bg-linear-to-r from-[#004595] to-[#002147] rounded-full text-white hover:scale-110 transition-all duration-300 shadow-lg"
                   title="Change Profile Picture"
                 >
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -99,10 +99,10 @@
             <!-- Admin Info Cards -->
             <div class="grid md:grid-cols-2 gap-4">
               <!-- Email Card -->
-              <div class="p-4 bg-gradient-to-br from-white to-blue-50/30 dark:from-gray-700 dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595]/20 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('email')">
+              <div class="p-4 bg-linear-to-br from-white to-blue-50/30 dark:from-gray-700 dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595]/20 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('email')">
                 <div class="flex items-center justify-between mb-2">
                   <div class="flex items-center gap-2.5">
-                    <div class="p-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg">
+                    <div class="p-2 bg-linear-to-br from-blue-500 to-blue-600 rounded-lg">
                       <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
@@ -118,10 +118,10 @@
               </div>
 
               <!-- Badge Card -->
-              <div class="p-4 bg-gradient-to-br from-white to-purple-50/30 dark:from-gray-700 dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-purple-300/50 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('badge_number')">
+              <div class="p-4 bg-linear-to-br from-white to-purple-50/30 dark:from-gray-700 dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-purple-300/50 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('badge_number')">
                 <div class="flex items-center justify-between mb-2">
                   <div class="flex items-center gap-2.5">
-                    <div class="p-2 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg">
+                    <div class="p-2 bg-linear-to-br from-indigo-500 to-purple-600 rounded-lg">
                       <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z" clip-rule="evenodd"/>
                       </svg>
@@ -140,7 +140,7 @@
 
         <!-- Account Settings -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
-          <div class="bg-gradient-to-r from-[#004595] to-[#00397a] px-6 py-4">
+          <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4">
             <div class="flex items-center gap-3">
               <div class="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl">
                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -154,8 +154,8 @@
             </div>
           </div>
           
-          <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
-            <div class="p-5 bg-gradient-to-br from-green-50/50 to-emerald-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-green-200/50 dark:border-gray-600">
+          <div class="p-6 bg-linear-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
+            <div class="p-5 bg-linear-to-br from-green-50/50 to-emerald-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-green-200/50 dark:border-gray-600">
               <div class="mb-4">
                 <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
                   <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
@@ -247,7 +247,7 @@
                 <button
                   @click="saveSettings"
                   :disabled="!isPasswordValid"
-                  class="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#004595] to-[#002147] text-white text-sm font-semibold hover:from-[#00397a] hover:to-[#001935] transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 flex items-center gap-2"
+                  class="px-6 py-2.5 rounded-lg bg-linear-to-r from-[#004595] to-[#002147] text-white text-sm font-semibold hover:from-[#00397a] hover:to-[#001935] transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 flex items-center gap-2"
                 >
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
@@ -261,7 +261,7 @@
 
         <!-- Notification Settings -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
-          <div class="bg-gradient-to-r from-[#004595] to-[#00397a] px-6 py-4">
+          <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4">
             <div class="flex items-center gap-3">
               <div class="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl">
                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -275,10 +275,10 @@
             </div>
           </div>
 
-          <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900 space-y-3">
-            <div class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50/50 to-cyan-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-blue-100/50 dark:border-gray-600 hover:border-blue-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
+          <div class="p-6 bg-linear-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900 space-y-3">
+            <div class="flex items-center justify-between p-4 bg-linear-to-r from-blue-50/50 to-cyan-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-blue-100/50 dark:border-gray-600 hover:border-blue-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
               <div class="flex items-center gap-3">
-                <div class="p-2 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg">
+                <div class="p-2 bg-linear-to-br from-blue-500 to-cyan-600 rounded-lg">
                   <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
                   </svg>
@@ -294,7 +294,7 @@
                   type="checkbox"
                   class="sr-only peer"
                 />
-                <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-blue-500 peer-checked:to-cyan-600 shadow-sm"></div>
+                <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-linear-to-r peer-checked:from-blue-500 peer-checked:to-cyan-600 shadow-sm"></div>
               </label>
             </div>
           </div>
@@ -302,7 +302,7 @@
 
         <!-- Appearance Settings -->
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
-          <div class="bg-gradient-to-r from-[#004595] to-[#00397a] px-6 py-4">
+          <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4">
             <div class="flex items-center gap-3">
               <div class="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl">
                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -316,9 +316,9 @@
             </div>
           </div>
 
-          <div class="p-6 bg-gradient-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
+          <div class="p-6 bg-linear-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
             <div class="grid md:grid-cols-2 gap-4">
-              <div class="p-4 bg-gradient-to-br from-orange-50/50 to-amber-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-orange-100/50 dark:border-gray-600 hover:border-orange-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
+              <div class="p-4 bg-linear-to-br from-orange-50/50 to-amber-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-orange-100/50 dark:border-gray-600 hover:border-orange-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
                 <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
                   <svg class="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
@@ -335,7 +335,7 @@
                 </select>
               </div>
 
-              <div class="p-4 bg-gradient-to-br from-amber-50/50 to-yellow-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-amber-100/50 dark:border-gray-600 hover:border-amber-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
+              <div class="p-4 bg-linear-to-br from-amber-50/50 to-yellow-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-amber-100/50 dark:border-gray-600 hover:border-amber-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
                 <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
                   <svg class="w-4 h-4 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389c-.188-.196-.373-.396-.554-.6a19.098 19.098 0 01-3.107 3.567 1 1 0 01-1.334-1.49 17.087 17.087 0 003.13-3.733 18.992 18.992 0 01-1.487-2.494 1 1 0 111.79-.89c.234.47.489.928.764 1.372.417-.934.752-1.913.997-2.927H3a1 1 0 110-2h3V3a1 1 0 011-1zm6 6a1 1 0 01.894.553l2.991 5.982a.869.869 0 01.02.037l.99 1.98a1 1 0 11-1.79.895L15.383 16h-4.764l-.724 1.447a1 1 0 11-1.788-.894l.99-1.98.019-.038 2.99-5.982A1 1 0 0113 8zm-1.382 6h2.764L13 11.236 11.618 14z" clip-rule="evenodd"/>
@@ -368,7 +368,7 @@
     >
       <div
         v-if="editModal.show"
-        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[90000] flex items-center justify-center p-4"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-90000 flex items-center justify-center p-4"
         @click.self="closeEditModal"
       >
         <Transition
@@ -385,7 +385,7 @@
             @click.stop
           >
             <!-- Modal Header -->
-            <div class="bg-gradient-to-r from-[#004595] to-[#00397a] px-6 py-4">
+            <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                   <div class="p-2 bg-white/10 backdrop-blur-sm rounded-lg">
@@ -439,7 +439,7 @@
                 </button>
                 <button
                   @click="saveEditModal"
-                  class="px-4 py-2.5 rounded-lg bg-gradient-to-r from-[#004595] to-[#00397a] text-white font-semibold hover:from-[#00397a] hover:to-[#002147] transition-all duration-200 shadow-md hover:shadow-lg text-sm flex items-center gap-2"
+                  class="px-4 py-2.5 rounded-lg bg-linear-to-r from-[#004595] to-[#00397a] text-white font-semibold hover:from-[#00397a] hover:to-[#002147] transition-all duration-200 shadow-md hover:shadow-lg text-sm flex items-center gap-2"
                 >
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
@@ -464,20 +464,20 @@
     >
       <div
         v-if="toast.show"
-        class="fixed top-6 left-1/2 -translate-x-1/2 z-[100000] max-w-md w-full px-4"
+        class="fixed top-6 left-1/2 -translate-x-1/2 z-100000 max-w-md w-full px-4"
       >
         <div
           :class="[
             'rounded-2xl shadow-2xl border-2 overflow-hidden transform transition-all',
-            toast.type === 'success' ? 'bg-gradient-to-r from-green-500 to-emerald-600 border-green-400' :
-            toast.type === 'error' ? 'bg-gradient-to-r from-red-500 to-rose-600 border-red-400' :
-            'bg-gradient-to-r from-amber-500 to-orange-600 border-amber-400'
+            toast.type === 'success' ? 'bg-linear-to-r from-green-500 to-emerald-600 border-green-400' :
+            toast.type === 'error' ? 'bg-linear-to-r from-red-500 to-rose-600 border-red-400' :
+            'bg-linear-to-r from-amber-500 to-orange-600 border-amber-400'
           ]"
         >
           <div class="p-4">
             <div class="flex items-start gap-3">
               <!-- Icon -->
-              <div class="flex-shrink-0 mt-0.5">
+              <div class="shrink-0 mt-0.5">
                 <svg v-if="toast.type === 'success'" class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                 </svg>
@@ -498,7 +498,7 @@
               <!-- Close Button -->
               <button
                 @click="hideToast"
-                class="flex-shrink-0 text-white/80 hover:text-white transition-colors"
+                class="shrink-0 text-white/80 hover:text-white transition-colors"
               >
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
