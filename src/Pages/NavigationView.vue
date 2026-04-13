@@ -59,6 +59,31 @@
           <li>
             <a
               href="#"
+              @click.prevent="setActiveView('govt-offices')"
+              :class="[
+                'group flex items-center p-3 rounded-xl transition-all duration-300 transform hover:translate-x-1',
+                activeView === 'govt-offices' 
+                  ? 'bg-white/10 border-l-4 border-[#004595]' 
+                  : 'hover:bg-white/10'
+              ]"
+            >
+              <div
+                class="p-2 bg-transparent rounded-lg mr-3 group-hover:bg-white/10 transition-colors"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M4 4a1 1 0 011-1h10a1 1 0 011 1v1h2a1 1 0 110 2h-.22l-.894 8.941a2 2 0 01-1.994 1.794h-13.78a2 2 0 01-1.994-1.794L2.22 8H2a1 1 0 110-2h2V4zm10 2H6v9h8V6zm-6 5a1 1 0 100 2h4a1 1 0 100-2H8z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <span class="font-semibold">{{ t('Government') }}</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
               @click.prevent="setActiveView('calendar')"
               :class="[
                 'group flex items-center p-3 rounded-xl transition-all duration-300 transform hover:translate-x-1',
@@ -274,6 +299,9 @@
       <!-- Dashboard View -->
       <DashBoard v-if="activeView === 'dashboard'" />
       
+       <!-- Govt Offices View -->
+      <GovtOffices v-else-if="activeView === 'govt-offices'" />
+
       <!-- Calendar View -->
       <CalendarView v-else-if="activeView === 'calendar'" />
       
@@ -307,6 +335,27 @@
           <span class="text-xs font-semibold">{{ t('dashboard') }}</span>
         </button>
 
+        <!-- Governement Offices -->
+        <button
+          @click="setActiveView('govt-offices')"
+          :class="[
+            'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
+            activeView === 'govt-offices' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+          ]"
+        >
+          <div
+            v-if="activeView === 'govt-offices'"
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+          ></div>
+          <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span class="text-xs font-semibold">{{ t('Government') }}</span>
+        </button>
         <!-- Calendar -->
         <button
           @click="setActiveView('calendar')"
@@ -386,6 +435,7 @@ import DashBoard from './DashBoard.vue'
 import CalendarView from './CalendarView.vue'
 import RecordsView from './RecordsView.vue'
 import SettingsView from './SettingsView.vue'
+import GovtOffices from '@/Components/GovtOffices.vue'
 
 const router = useRouter()
 const { t } = useGlobal()

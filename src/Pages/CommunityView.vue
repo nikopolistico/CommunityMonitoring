@@ -2875,7 +2875,7 @@
       >
         <!-- Modal Header -->
         <div
-          class="bg-linear-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden sticky top-0 z-10"
+          class="bg-linear-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 overflow-hidden relative top-0 z-10"
         >
           <div
             class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-2xl -mr-32 -mt-32 animate-pulse"

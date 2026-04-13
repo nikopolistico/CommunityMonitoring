@@ -1,45 +1,65 @@
 <template>
-	<div class="min-h-screen bg-linear-to-br from-green-600/5 via-[#ffffff] to-green-700/5 font-['Poppins']">
+	<div class="min-h-screen bg-linear-to-br from-[#004595]/5 via-[#ffffff] to-[#002147]/5 font-['Poppins']">    
 		<div class="mx-auto max-w-none px-6 py-10 space-y-8">
-			<button
-				type="button"
-				class="inline-flex items-center gap-3 rounded-xl bg-linear-to-r from-green-700 via-green-600 to-green-700 px-6 py-3.5 text-sm font-semibold text-white hover:shadow-xl hover:shadow-green-600/20 hover:scale-[1.02] transition-all duration-300"
-				@click="goBack"
-			>
-				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-				</svg>
-				<span class="tracking-wide">Back to Community</span>
-			</button>
-
-			<section v-if="communityInfo" class="space-y-6">
+			<section class="space-y-6">
 				<!-- Enhanced Header Card -->
-				<div class="rounded-2xl bg-linear-to-br from-green-700 via-green-600 to-green-700 p-8 shadow-2xl shadow-green-600/30 text-white relative overflow-hidden">
+				<div class="rounded-2xl bg-linear-to-br from-[#002147] via-[#00397a] to-[#004595] p-8 shadow-2xl shadow-[#004595]/30 text-white relative overflow-hidden">
 					<!-- Animated Background Elements -->
 					<div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl -mr-20 -mt-20 animate-pulse"></div>
 					<div class="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-xl -ml-16 -mb-16"></div>
 					<div class="relative z-10">
-						<p class="text-sm uppercase tracking-widest font-semibold opacity-90">Government Offices</p>
-						<h1 class="text-4xl font-extrabold mt-2">{{ communityInfo.name }}</h1>
-						<p class="text-lg text-white/90 mt-2">Government offices in this barangay.</p>
+					<p class="text-sm uppercase tracking-widest font-semibold opacity-90">BCPS1 Monitoring System</p>
+					<h1 class="text-4xl font-extrabold mt-2">Government Landmarks</h1>
+					<p class="text-lg text-white/90 mt-2">All government offices in the municipality.</p>
+				</div>
+			</div>
+
+			<div class="flex gap-3">
+				<!-- Add Button -->
+				<button
+					type="button"
+					class="inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-[#002147] to-[#004595] px-5 py-2.5 text-sm font-semibold text-white hover:shadow-lg hover:shadow-[#004595]/30 hover:scale-[1.02] transition-all duration-300"
+					@click="showAddModal = true"
+				>
+					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+						<path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+					</svg>
+					Add Office
+				</button>
+
+				<!-- Category Filter Dropdown -->
+				<div class="relative">
+					<button
+						type="button"
+						@click="showCategoryDropdown = !showCategoryDropdown"
+						class="inline-flex items-center gap-2 rounded-xl border-2 border-[#004595] px-5 py-2.5 text-sm font-semibold text-[#004595] hover:bg-[#004595]/10 transition-all duration-300"
+					>
+						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+							<path d="M3 3a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-.293.707L12 9.414V17a1 1 0 01-.293.707l-2 2A1 1 0 018 19v-9.586L3.293 5.707A1 1 0 013 5V3z"/>
+						</svg>
+						{{ selectedCategory || 'Filter by Category' }}
+						<svg v-if="selectedCategory" class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" @click.stop="selectedCategory = ''">
+							<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+						</svg>
+					</button>
+					
+					<!-- Category Dropdown Menu -->
+					<div v-if="showCategoryDropdown" class="absolute top-full left-0 mt-2 bg-white border-2 border-[#004595] rounded-xl shadow-lg z-20 min-w-48 max-h-64 overflow-y-auto">
+						<button
+							v-for="category in [...new Set(items.map(item => item.category).filter(Boolean))]"
+							:key="category"
+							type="button"
+							@click="selectedCategory = category; showCategoryDropdown = false"
+							class="w-full text-left px-4 py-3 hover:bg-[#004595]/10 text-gray-700 border-b border-[#004595]/10 last:border-b-0 transition-colors"
+							:class="{ 'bg-[#004595]/20 text-[#004595] font-semibold': selectedCategory === category }"
+						>
+							{{ category }}
+						</button>
 					</div>
 				</div>
 
-				<div class="flex gap-3">
-					<!-- Add Button -->
-					<button
-						type="button"
-						class="inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-green-700 to-green-600 px-5 py-2.5 text-sm font-semibold text-white hover:shadow-lg hover:shadow-green-600/30 hover:scale-[1.02] transition-all duration-300"
-						@click="showAddModal = true"
-					>
-						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-							<path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
-						</svg>
-						Add Office
-					</button>
-
-					<!-- Search Bar -->
-					<div class="flex-1 relative">
+				<!-- Search Bar -->
+				<div class="flex-1 relative">
 						<svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
 						</svg>
@@ -47,15 +67,15 @@
 							v-model="searchQuery"
 							type="text"
 							placeholder="Search government offices..."
-							class="w-full rounded-xl border-2 border-[#f3f1ee] pl-10 pr-4 py-2.5 focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-600/20 transition-all"
+							class="w-full rounded-xl border-2 border-[#f3f1ee] pl-10 pr-4 py-2.5 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
 						/>
 					</div>
-				</div>
+			</div>
 
 				<!-- Offices Grid -->
 				<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 					<div v-if="loading" class="col-span-full text-center py-16">
-						<div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-green-600 border-t-transparent"></div>
+						<div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#004595] border-t-transparent"></div>
 						<p class="mt-4 text-gray-600 font-medium">Loading government offices...</p>
 					</div>
 
@@ -71,13 +91,13 @@
 					<article
 						v-for="(item, index) in filteredItems"
 						:key="item.id || index"
-						class="rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-green-600/10 hover:border-green-600/30 transform hover:-translate-y-1"
+						class="rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-[#004595]/10 hover:border-[#004595]/30 transform hover:-translate-y-1"
 					>
 						<!-- Office Image -->
 						<div v-if="item.officeImage" class="w-full h-56 overflow-hidden bg-gray-50">
 							<img :src="item.officeImage" :alt="item.brgyName" class="w-full h-full object-cover" />
 						</div>
-						<div v-else class="w-full h-56 bg-linear-to-br from-green-700 via-green-600 to-green-700 flex items-center justify-center relative overflow-hidden">
+						<div v-else class="w-full h-56 bg-linear-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center relative overflow-hidden">
 							<div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-16 -mt-16"></div>
 							<svg class="w-20 h-20 text-white/50 relative z-10" fill="currentColor" viewBox="0 0 20 20">
 								<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
@@ -85,19 +105,19 @@
 						</div>
 
 						<div class="p-5">
-							<!-- Editing Mode -->
-							<div v-if="editingId === item.id" class="space-y-3">
+							<!-- Editing Mode (Hidden - Using Modal Instead) -->
+							<div v-if="false" class="space-y-3">
 								<!-- Photo Upload Section -->
 								<div class="flex flex-col items-center mb-3">
 									<div class="relative group">
-										<div class="w-24 h-24 rounded-xl overflow-hidden border-2 border-green-600/20 shadow-md">
+										<div class="w-24 h-24 rounded-xl overflow-hidden border-2 border-[#004595]/20 shadow-md">
 											<img 
 												v-if="editImagePreview || item.officeImage" 
 												:src="editImagePreview || item.officeImage" 
 												alt="Office Photo"
 												class="w-full h-full object-cover"
 											/>
-											<div v-else class="w-full h-full bg-linear-to-br from-green-700 to-green-600 flex items-center justify-center">
+							<div v-else class="w-full h-full bg-linear-to-br from-[#002147] to-[#004595] flex items-center justify-center">
 												<svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
 													<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
 												</svg>
@@ -131,56 +151,72 @@
 											class="hidden"
 										/>
 									</div>
-									<p class="text-[9px] text-green-700 mt-1.5 text-center">Click photo to update</p>
+									<p class="text-[9px] text-[#004595] mt-1.5 text-center">Click photo to update</p>
 								</div>
 
 								<input
 									v-model="editingName"
 									type="text"
-									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 focus:border-green-600 focus:outline-none focus:ring-1 focus:ring-green-600/20 transition-all text-sm font-semibold"
+									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm font-semibold"
 									placeholder="Office name"
 								/>
 								<input
 									v-model="editingLocation"
 									type="text"
-									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 focus:border-green-600 focus:outline-none focus:ring-1 focus:ring-green-600/20 transition-all text-sm"
+									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 focus:border-[#004595] focus:outline-none focus:ring-1 focus:ring-[#004595]/20 transition-all text-sm"
 									placeholder="Location"
 								/>
 								<div class="flex gap-2 pt-2">
 									<button
 										type="button"
 										@click="saveEdit"
-										class="flex-1 rounded-lg bg-linear-to-r from-green-700 to-green-600 px-3 py-2 text-xs font-semibold text-white hover:shadow-lg transition-all"
+										class="flex-1 rounded-lg bg-linear-to-r from-[#002147] to-[#004595] px-3 py-2 text-xs font-semibold text-white hover:shadow-lg transition-all"
 									>
 										Save
 									</button>
 									<button
 										type="button"
 										@click="cancelEdit"
-										class="rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-xs font-semibold text-green-700 hover:bg-[#f3f1ee] transition-all"
+										class="rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-xs font-semibold text-[#004595] hover:bg-[#f3f1ee] transition-all"
 									>
 										Cancel
 									</button>
 								</div>
 							</div>
-
 							<!-- View Mode -->
-							<div v-else class="space-y-3">
-								<h2 class="text-xl font-bold text-green-700">{{ item.brgyName }}</h2>
-								<div class="space-y-1.5 text-sm text-gray-600">
+							<div class="space-y-3">
+								<h2 class="text-xl font-bold text-[#002147]">{{ item.brgyName }}</h2>							
+							<!-- Category Badge -->
+							<div v-if="item.category" class="flex items-center gap-2">
+								<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#004595]/10 text-[#004595]">
+									{{ item.category }}
+								</span>
+							</div>
+															<div class="space-y-1.5 text-sm text-gray-600">
 									<div class="flex items-start gap-2">
-										<svg class="w-4 h-4 text-green-600/60 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<svg class="w-4 h-4 text-[#004595]/60 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
 										</svg>
 										<p class="text-sm text-gray-600 flex-1">{{ item.location || 'No location provided' }}</p>
 									</div>
 								</div>
-								<div class="flex flex-wrap gap-2 pt-2">
-									<button
+								<div class="flex flex-wrap gap-2 pt-2">								<!-- View Button -->
+								<button
+									type="button"
+									@click="openViewModal(item)"
+									class="flex-1 rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-[#004595] hover:bg-[#f3f1ee] hover:border-[#004595] transition-all"
+									title="View details"
+								>
+									<svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+									</svg>
+								</button>
+								<!-- Edit Button -->									<button
 										type="button"
 										@click="startEdit(item.id)"
-										class="flex-1 rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-green-600 hover:bg-[#f3f1ee] hover:border-green-600 transition-all"
+										class="flex-1 rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-[#004595] hover:bg-[#f3f1ee] hover:border-[#004595] transition-all"
 										title="Edit office"
 									>
 										<svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -209,7 +245,7 @@
 			<div v-if="showAddModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closeAddModal">
 				<div class="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto transform transition-all">
 					<!-- Modal Header -->
-					<div class="bg-linear-to-r from-green-700 to-green-600 px-6 py-4 sticky top-0 z-10">
+					<div class="bg-linear-to-r from-[#002147] to-[#004595] px-6 py-4 sticky top-0 z-10">
 						<div class="flex items-center justify-between">
 							<div class="flex items-center gap-3">
 								<div class="p-2 bg-white/20 rounded-lg">
@@ -237,14 +273,14 @@
 							<!-- Photo Upload Section -->
 							<div class="flex flex-col items-center">
 								<div class="relative group">
-									<div class="w-32 h-32 rounded-xl overflow-hidden border-2 border-green-600/20 shadow-md">
+									<div class="w-32 h-32 rounded-xl overflow-hidden border-2 border-[#004595]/20 shadow-md">
 										<img 
 											v-if="newImagePreview" 
 											:src="newImagePreview" 
 											alt="Office Preview"
 											class="w-full h-full object-cover"
 										/>
-										<div v-else class="w-full h-full bg-linear-to-br from-green-700 to-green-600 flex items-center justify-center">
+										<div v-else class="w-full h-full bg-linear-to-br from-[#002147] to-[#004595] flex items-center justify-center">
 											<svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
 												<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
 											</svg>
@@ -280,27 +316,51 @@
 										class="hidden"
 									/>
 								</div>
-								<p class="text-xs text-green-700 mt-2 text-center">Click to upload office photo</p>
+								<p class="text-xs text-[#004595] mt-2 text-center">Click to upload office photo</p>
 							</div>
 
-							<div>
-								<label class="block text-xs font-semibold text-green-700 mb-1.5">Office Name <span class="text-red-500">*</span></label>
+							<div>							<label class="block text-xs font-semibold text-[#004595] mb-1.5">Category <span class="text-red-500">*</span></label>
+							<div class="relative">
+								<input
+									v-model="newCategory"
+									type="text"
+									placeholder="e.g., City Hall, Healthcare, Education"
+									@focus="showCategoryDropdown = true"
+									@blur="setTimeout(() => showCategoryDropdown = false, 200)"
+									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+									required
+								/>
+								<div v-if="showCategoryDropdown && filteredCategories.length > 0" class="absolute top-full left-0 right-0 mt-1 bg-white border-2 border-[#004595] rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+									<button
+										v-for="category in filteredCategories"
+										:key="category"
+										type="button"
+										@click="newCategory = category; showCategoryDropdown = false"
+										class="w-full text-left px-3 py-2 hover:bg-[#004595]/10 text-sm text-gray-700 transition-colors"
+									>
+										{{ category }}
+									</button>
+								</div>
+							</div>
+						</div>
+
+						<div>								<label class="block text-xs font-semibold text-[#004595] mb-1.5">Office Name <span class="text-red-500">*</span></label>
 								<input
 									v-model="newName"
 									type="text"
 									placeholder="e.g., Barangay Hall"
-									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-600/20 transition-all"
+									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
 									required
 								/>
 							</div>
 
 							<div>
-								<label class="block text-xs font-semibold text-green-700 mb-1.5">Location</label>
+								<label class="block text-xs font-semibold text-[#004595] mb-1.5">Location</label>
 								<input
 									v-model="newLocation"
 									type="text"
 									placeholder="e.g., Main St., Butuan City"
-									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-green-600 focus:outline-none focus:ring-2 focus:ring-green-600/20 transition-all"
+									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
 								/>
 							</div>
 						</div>
@@ -309,16 +369,217 @@
 							<button
 								type="submit"
 								:disabled="loading || !newName"
-								class="flex-1 rounded-xl bg-linear-to-r from-green-700 to-green-600 px-4 py-2.5 text-sm font-semibold text-white hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+								class="flex-1 rounded-xl bg-linear-to-r from-[#002147] to-[#004595] px-4 py-2.5 text-sm font-semibold text-white hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
 							>
 								{{ loading ? 'Adding...' : 'Add Office' }}
 							</button>
 							<button
 								type="button"
 								@click="closeAddModal"
-								class="rounded-xl border-2 border-[#f3f1ee] px-4 py-2.5 text-sm font-semibold text-green-700 hover:bg-[#f3f1ee] transition-all"
+								class="rounded-xl border-2 border-[#f3f1ee] px-4 py-2.5 text-sm font-semibold text-[#004595] hover:bg-[#f3f1ee] transition-all"
 							>
 								Cancel
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<!-- View Details Modal -->
+			<div v-if="showViewModal && viewingItem" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closeViewModal">
+				<div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[85vh] overflow-y-auto transform transition-all">
+					<!-- Modal Header -->
+					<div class="bg-linear-to-r from-[#002147] to-[#004595] px-8 py-6 sticky top-0 z-10 flex items-center justify-between">
+						<h2 class="text-2xl font-bold text-white">{{ viewingItem.brgyName }}</h2>
+						<button
+							type="button"
+							@click="closeViewModal"
+							class="p-2 hover:bg-white/20 rounded-lg transition-all"
+						>
+							<svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+								<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+							</svg>
+						</button>
+					</div>
+
+					<!-- Modal Content -->
+					<div class="p-8">
+						<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+							<!-- Image Section -->
+							<div>
+								<div v-if="viewingItem.officeImage" class="rounded-xl overflow-hidden shadow-lg h-64 lg:h-96">
+									<img :src="viewingItem.officeImage" :alt="viewingItem.brgyName" class="w-full h-full object-cover" />
+								</div>
+								<div v-else class="rounded-xl bg-linear-to-br from-[#002147] to-[#004595] flex items-center justify-center h-64 lg:h-96 shadow-lg">
+									<svg class="w-24 h-24 text-white/50" fill="currentColor" viewBox="0 0 20 20">
+										<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+									</svg>
+								</div>
+							</div>
+
+							<!-- Details Section -->
+							<div class="space-y-6">
+								<div>
+									<label class="block text-sm font-semibold text-[#004595] mb-2">Office Name</label>
+									<p class="text-2xl font-bold text-[#002147]">{{ viewingItem.brgyName }}</p>
+								</div>
+
+								<div>
+									<label class="block text-sm font-semibold text-[#004595] mb-2">Location</label>
+									<div class="flex items-start gap-3">
+										<svg class="w-5 h-5 text-[#004595] mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+										</svg>
+										<p class="text-lg text-gray-700">{{ viewingItem.location || 'No location provided' }}</p>
+									</div>
+								</div>
+
+								<div v-if="viewingItem.category">
+									<label class="block text-sm font-semibold text-[#004595] mb-2">Category</label>
+									<span class="inline-block bg-linear-to-r from-[#002147] to-[#004595] text-white px-4 py-2 rounded-full text-sm font-semibold">{{ viewingItem.category }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Edit Modal -->
+			<div v-if="showEditModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="closeEditModal">
+				<div class="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto transform transition-all">
+					<!-- Modal Header -->
+					<div class="bg-linear-to-r from-[#002147] to-[#004595] px-6 py-4 sticky top-0 z-10">
+						<div class="flex items-center justify-between">
+							<div class="flex items-center gap-3">
+								<div class="p-2 bg-white/20 rounded-lg">
+									<svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+										<path fill-rule="evenodd" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" clip-rule="evenodd"/>
+									</svg>
+								</div>
+								<h3 class="text-lg font-bold text-white">Edit Government Office</h3>
+							</div>
+							<button
+								type="button"
+								@click="closeEditModal"
+								class="p-1.5 hover:bg-white/20 rounded-lg transition-all"
+							>
+								<svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+								</svg>
+							</button>
+						</div>
+					</div>
+					
+					<!-- Modal Body -->
+					<form @submit.prevent="saveEdit" class="p-6">
+						<div class="space-y-4">
+							<!-- Photo Upload Section -->
+							<div class="flex flex-col items-center">
+								<div class="relative group">
+									<div class="w-32 h-32 rounded-xl overflow-hidden border-2 border-[#004595]/20 shadow-md">
+										<img 
+											v-if="editImagePreview" 
+											:src="editImagePreview" 
+											alt="Office Preview"
+											class="w-full h-full object-cover"
+										/>
+										<div v-else class="w-full h-full bg-linear-to-br from-[#002147] to-[#004595] flex items-center justify-center">
+											<svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20">
+												<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"/>
+											</svg>
+										</div>
+									</div>
+									
+									<!-- Upload Button Overlay -->
+									<button
+										type="button"
+										@click="$refs.editPhotoInput?.click()"
+										:disabled="uploadingPhoto"
+										class="absolute inset-0 bg-black/60 backdrop-blur-sm rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 disabled:opacity-50"
+									>
+										<div class="text-center">
+											<svg v-if="!uploadingPhoto" class="w-5 h-5 text-white mx-auto" fill="currentColor" viewBox="0 0 20 20">
+												<path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.413V13H5.5z"/>
+											</svg>
+											<div v-else class="w-5 h-5 mx-auto">
+												<svg class="animate-spin text-white" fill="none" viewBox="0 0 24 24">
+													<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+													<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+												</svg>
+											</div>
+										</div>
+									</button>
+									<input
+										ref="editPhotoInput"
+										type="file"
+										accept="image/*"
+										@change="handleEditImageChange"
+										class="hidden"
+									/>
+								</div>
+								<p class="text-[9px] text-[#004595] mt-2 text-center">Click to update office photo</p>
+							</div>
+
+							<div>							<label class="block text-xs font-semibold text-[#004595] mb-1.5">Category</label>
+							<div class="relative">
+								<input
+									v-model="editingCategory"
+									type="text"
+									placeholder="e.g., City Hall, Healthcare, Education"
+									@focus="showEditCategoryDropdown = true"
+									@blur="setTimeout(() => showEditCategoryDropdown = false, 200)"
+									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+								/>
+								<div v-if="showEditCategoryDropdown && filteredEditCategories.length > 0" class="absolute top-full left-0 right-0 mt-1 bg-white border-2 border-[#004595] rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+									<button
+										v-for="category in filteredEditCategories"
+										:key="category"
+										type="button"
+										@click="editingCategory = category; showEditCategoryDropdown = false"
+										class="w-full text-left px-3 py-2 hover:bg-[#004595]/10 text-sm text-gray-700 transition-colors"
+									>
+										{{ category }}
+									</button>
+								</div>
+							</div>
+						</div>
+
+						<div>								<label class="block text-xs font-semibold text-[#004595] mb-1.5">Office Name <span class="text-red-500">*</span></label>
+								<input
+									v-model="editingName"
+									type="text"
+									placeholder="e.g., City Hall"
+									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+									required
+								/>
+							</div>
+
+							<div>
+								<label class="block text-xs font-semibold text-[#004595] mb-1.5">Location</label>
+								<input
+									v-model="editingLocation"
+									type="text"
+									placeholder="e.g., Main St., Butuan City"
+									class="w-full rounded-lg border-2 border-[#f3f1ee] px-3 py-2 text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+								/>
+							</div>
+						</div>
+
+						<div class="flex gap-3 mt-6">
+							<button
+								type="button"
+								@click="closeEditModal"
+								class="flex-1 rounded-xl border-2 border-[#f3f1ee] px-4 py-2.5 text-sm font-semibold text-[#004595] hover:bg-[#f3f1ee] transition-all"
+							>
+								Cancel
+							</button>
+							<button
+								type="submit"
+								:disabled="loading"
+								class="flex-1 rounded-xl bg-linear-to-r from-[#002147] to-[#004595] px-4 py-2.5 text-sm font-semibold text-white hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+							>
+								{{ loading ? 'Saving...' : 'Save Changes' }}
 							</button>
 						</div>
 					</form>
@@ -370,7 +631,7 @@
 			>
 				<div v-if="toast.show" class="fixed top-4 left-1/2 transform -translate-x-1/2 w-full max-w-md px-4 z-100000">
 					<div class="rounded-2xl shadow-2xl overflow-hidden" :class="{
-						'bg-linear-to-r from-green-500 to-emerald-600': toast.type === 'success',
+						'bg-linear-to-r from-[#004595] to-blue-600': toast.type === 'success',
 						'bg-linear-to-r from-red-500 to-rose-600': toast.type === 'error',
 						'bg-linear-to-r from-yellow-500 to-amber-600': toast.type === 'warning',
 						'bg-linear-to-r from-blue-500 to-indigo-600': toast.type === 'info'
@@ -405,29 +666,34 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { ref, computed, onMounted } from 'vue'
 import { supabase } from '@/lib/supabase'
 
-const route = useRoute()
-const router = useRouter()
-
-const communityInfo = ref(null)
 const items = ref([])
 const loading = ref(false)
 const searchQuery = ref('')
+const selectedCategory = ref('')
+
 
 const showAddModal = ref(false)
 const newName = ref('')
 const newLocation = ref('')
+const newCategory = ref('')
+const showCategoryDropdown = ref(false)
 const newImagePreview = ref('')
 const newImageFile = ref(null)
 
 const editingId = ref(null)
 const editingName = ref('')
 const editingLocation = ref('')
+const editingCategory = ref('')
+const showEditCategoryDropdown = ref(false)
 const editImagePreview = ref('')
 const editImageFile = ref(null)
+const showEditModal = ref(false)
+
+const showViewModal = ref(false)
+const viewingItem = ref(null)
 
 const uploadingPhoto = ref(false)
 
@@ -446,12 +712,37 @@ let toastTimeout = null
 let progressInterval = null
 
 const filteredItems = computed(() => {
-	if (!searchQuery.value) return items.value
-	const query = searchQuery.value.toLowerCase()
-	return items.value.filter(item =>
-		item.brgyName?.toLowerCase().includes(query) ||
-		item.location?.toLowerCase().includes(query)
-	)
+	let result = items.value
+	
+	// Filter by selected category
+	if (selectedCategory.value) {
+		result = result.filter(item => item.category === selectedCategory.value)
+	}
+	
+	// Filter by search query
+	if (searchQuery.value) {
+		const query = searchQuery.value.toLowerCase()
+		result = result.filter(item =>
+			item.brgyName?.toLowerCase().includes(query) ||
+			item.location?.toLowerCase().includes(query)
+		)
+	}
+	
+	return result
+})
+
+const filteredCategories = computed(() => {
+	const uniqueCategories = [...new Set(items.value.map(item => item.category).filter(Boolean))]
+	if (!newCategory.value.trim()) return uniqueCategories
+	const query = newCategory.value.toLowerCase()
+	return uniqueCategories.filter(cat => cat.toLowerCase().includes(query))
+})
+
+const filteredEditCategories = computed(() => {
+	const uniqueCategories = [...new Set(items.value.map(item => item.category).filter(Boolean))]
+	if (!editingCategory.value.trim()) return uniqueCategories
+	const query = editingCategory.value.toLowerCase()
+	return uniqueCategories.filter(cat => cat.toLowerCase().includes(query))
 })
 
 const showToast = (message, type = 'success', description = '') => {
@@ -517,7 +808,7 @@ const handleNewImageChange = async (event) => {
 	reader.readAsDataURL(file)
 }
 
-const handleEditImageChange = async (event, itemId) => {
+const handleEditImageChange = async (event) => {
 	const file = event.target.files?.[0]
 	if (!file) return
 
@@ -551,7 +842,7 @@ const uploadImage = async (file) => {
 	const filePath = `govt-offices/${fileName}`
 
 	const { data, error } = await supabase.storage
-		.from('administrator')
+		.from('Government')
 		.upload(filePath, file)
 
 	if (error) {
@@ -560,59 +851,19 @@ const uploadImage = async (file) => {
 	}
 
 	const { data: { publicUrl } } = supabase.storage
-		.from('administrator')
+		.from('Government')
 		.getPublicUrl(filePath)
 
 	return publicUrl
 }
 
-const goBack = () => {
-	const fromTab = route.query.fromTab || 'landmarks'
-	router.push({
-		name: 'community',
-		params: { barangayName: route.params.barangayName },
-		query: { tab: fromTab }
-	})
-}
-
-const fetchCommunityInfo = async () => {
-	const barangayName = route.params.barangayName
-	
-	if (!barangayName) {
-		console.error('No barangay name provided')
-		return
-	}
-
-	const { data, error } = await supabase
-		.from('Barangays')
-		.select('id, brgyname')
-		.ilike('brgyname', `%${barangayName}%`)
-		.limit(1)
-
-	if (error) {
-		console.error('Error fetching community:', error)
-		showToast('Failed to load community information', 'error')
-		return
-	}
-
-	if (!data || data.length === 0) {
-		console.error('No matching barangay found for:', barangayName)
-		showToast('Barangay not found', 'error')
-		return
-	}
-
-	communityInfo.value = { id: data[0].id, name: data[0].brgyname }
-}
-
 const fetchItems = async () => {
-	if (!communityInfo.value) return
 	loading.value = true
 	
 	try {
 		const { data, error } = await supabase
 			.from('GovtOffices')
 			.select('*')
-			.eq('brgy_id', communityInfo.value.id)
 			.order('brgyName', { ascending: true })
 
 		if (error) throw error
@@ -644,9 +895,9 @@ const addItem = async () => {
 		const { data, error } = await supabase
 			.from('GovtOffices')
 			.insert([{
-				brgy_id: communityInfo.value.id,
 				brgyName: newName.value,
 				location: newLocation.value,
+				category: newCategory.value,
 				officeImage: imageUrl
 			}])
 			.select()
@@ -669,6 +920,7 @@ const closeAddModal = () => {
 	showAddModal.value = false
 	newName.value = ''
 	newLocation.value = ''
+	newCategory.value = ''
 	newImagePreview.value = ''
 	newImageFile.value = null
 }
@@ -679,9 +931,21 @@ const startEdit = (id) => {
 		editingId.value = id
 		editingName.value = item.brgyName
 		editingLocation.value = item.location || ''
-		editImagePreview.value = ''
+		editingCategory.value = item.category || ''
+		editImagePreview.value = item.officeImage || ''
 		editImageFile.value = null
+		showEditModal.value = true
 	}
+}
+
+const closeEditModal = () => {
+	showEditModal.value = false
+	editingId.value = null
+	editingName.value = ''
+	editingLocation.value = ''
+	editingCategory.value = ''
+	editImagePreview.value = ''
+	editImageFile.value = null
 }
 
 const saveEdit = async () => {
@@ -702,7 +966,8 @@ const saveEdit = async () => {
 
 		const updateData = {
 			brgyName: editingName.value,
-			location: editingLocation.value
+			location: editingLocation.value,
+			category: editingCategory.value
 		}
 		
 		// Only update image if new one was uploaded
@@ -721,6 +986,7 @@ const saveEdit = async () => {
 		if (index !== -1) {
 			items.value[index].brgyName = editingName.value
 			items.value[index].location = editingLocation.value
+			items.value[index].category = editingCategory.value
 			if (imageUrl) {
 				items.value[index].officeImage = imageUrl
 			}
@@ -738,11 +1004,17 @@ const saveEdit = async () => {
 }
 
 const cancelEdit = () => {
-	editingId.value = null
-	editingName.value = ''
-	editingLocation.value = ''
-	editImagePreview.value = ''
-	editImageFile.value = null
+	closeEditModal()
+}
+
+const openViewModal = (item) => {
+	viewingItem.value = item
+	showViewModal.value = true
+}
+
+const closeViewModal = () => {
+	showViewModal.value = false
+	viewingItem.value = null
 }
 
 const openDelete = (id) => {
@@ -775,12 +1047,6 @@ const confirmDelete = async () => {
 }
 
 onMounted(async () => {
-	await fetchCommunityInfo()
-	await fetchItems()
-})
-
-watch(() => route.params.barangayName, async () => {
-	await fetchCommunityInfo()
 	await fetchItems()
 })
 </script>
