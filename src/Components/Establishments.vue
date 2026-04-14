@@ -3069,64 +3069,72 @@ const viewMap = () => {
 
 const initMap = () => {
   if (map.value) {
-    map.value.remove()
-    map.value = null
+    map.value.remove();
+    map.value = null;
   }
 
-  const mapStyle = 'https://api.maptiler.com/maps/satellite-v4/style.json?key=DtaE2MIVoHbtzcuL2XdL'
+  const mapStyle = 'https://api.maptiler.com/maps/satellite-v4/style.json?key=DtaE2MIVoHbtzcuL2XdL';
+
+  // Helper function para i-convert [lat, lng] → [lng, lat]
+  const toLngLat = (latlng) => [latlng[1], latlng[0]];
 
   // Calculate center from establishments with coordinates
-  const establishmentsWithCoords = items.value.filter((item) => item.latitude && item.longitude)
+  const establishmentsWithCoords = items.value.filter(
+    (item) => item.latitude && item.longitude
+  );
 
-  let center = [123.8854, 10.3157] // Default to Cebu City
-  let zoom = 12
+  // Default center in [lat, lng] order
+  let centerLatLng = [8.931476586112794, 125.54247743126997]; // Cebu City
+  let zoom = 12;
 
   if (establishmentsWithCoords.length > 0) {
     const avgLat =
       establishmentsWithCoords.reduce((sum, item) => sum + parseFloat(item.latitude), 0) /
-      establishmentsWithCoords.length
+      establishmentsWithCoords.length;
     const avgLng =
       establishmentsWithCoords.reduce((sum, item) => sum + parseFloat(item.longitude), 0) /
-      establishmentsWithCoords.length
-    center = [avgLng, avgLat]
-    zoom = 14
+      establishmentsWithCoords.length;
+
+    centerLatLng = [avgLat, avgLng]; // keep [lat, lng]
+    zoom = 14;
   }
 
   map.value = new maplibregl.Map({
     container: 'map-container',
     style: mapStyle,
-    center: center,
+    center: toLngLat(centerLatLng), // convert bago ipasa
     zoom: zoom,
-  })
+  });
 
   // Add navigation controls
-  map.value.addControl(new maplibregl.NavigationControl(), 'top-right')
+  map.value.addControl(new maplibregl.NavigationControl(), 'top-right');
 
   // Add markers for establishments
   establishmentsWithCoords.forEach((item) => {
-    const el = document.createElement('div')
-    el.className = 'custom-marker'
-    el.style.width = '30px'
-    el.style.height = '30px'
+    const el = document.createElement('div');
+    el.className = 'custom-marker';
+    el.style.width = '30px';
+    el.style.height = '30px';
     el.style.backgroundImage =
-      'url(https://docs.maptiler.com/maplibre-gl-js/assets/custom_marker.png)'
-    el.style.backgroundSize = 'contain'
-    el.style.cursor = 'pointer'
+      'url(https://docs.maptiler.com/maplibre-gl-js/assets/custom_marker.png)';
+    el.style.backgroundSize = 'contain';
+    el.style.cursor = 'pointer';
 
     const popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
-				<div style="font-family: 'Poppins', sans-serif;">
-					<h3 style="font-weight: bold; margin: 0 0 8px 0; color: #002147;">${item.establishmentName}</h3>
-					${item.establishmentAddress ? `<p style="margin: 4px 0; font-size: 12px;">${item.establishmentAddress}</p>` : ''}
-					${item.contactNumber ? `<p style="margin: 4px 0; font-size: 12px;">📞 ${item.contactNumber}</p>` : ''}
-				</div>
-			`)
+      <div style="font-family: 'Poppins', sans-serif;">
+        <h3 style="font-weight: bold; margin: 0 0 8px 0; color: #002147;">${item.establishmentName}</h3>
+        ${item.establishmentAddress ? `<p style="margin: 4px 0; font-size: 12px;">${item.establishmentAddress}</p>` : ''}
+        ${item.contactNumber ? `<p style="margin: 4px 0; font-size: 12px;">📞 ${item.contactNumber}</p>` : ''}
+      </div>
+    `);
 
+    // keep [lat, lng] internally, convert bago ipasa
     new maplibregl.Marker({ element: el })
-      .setLngLat([parseFloat(item.longitude), parseFloat(item.latitude)])
+      .setLngLat(toLngLat([parseFloat(item.latitude), parseFloat(item.longitude)]))
       .setPopup(popup)
-      .addTo(map.value)
-  })
-}
+      .addTo(map.value);
+  });
+};
 
 const closeMapModal = () => {
   showMapModal.value = false

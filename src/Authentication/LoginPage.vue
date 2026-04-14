@@ -1,9 +1,9 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[#002147] to-[#00397a]">
+  <div class="min-h-screen flex items-center justify-center relative overflow-hidden bg-linear-to-br from-[#002147] to-[#00397a]">
     <!-- Success Modal -->
     <Transition name="modal-fade">
       <div v-if="showSuccessModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-        <div class="success-modal bg-gradient-to-br from-[#f3f1ee] to-white rounded-2xl shadow-2xl max-w-lg w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20">
+        <div class="success-modal bg-linear-to-br from-[#f3f1ee] to-white rounded-2xl shadow-2xl max-w-lg w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20">
           <!-- Success Icon -->
           <div class="flex justify-center mb-8">
             <div class="success-checkmark">
@@ -20,7 +20,7 @@
           <div class="text-center space-y-5">
             <div class="space-y-2">
               <h3 class="text-3xl font-extrabold text-[#002147] tracking-tight">Welcome Back!</h3>
-              <div class="w-24 h-1 bg-gradient-to-r from-transparent via-[#004595] to-transparent rounded-full mx-auto"></div>
+              <div class="w-24 h-1 bg-linear-to-r from-transparent via-[#004595] to-transparent rounded-full mx-auto"></div>
             </div>
             
             <div class="bg-white/70 backdrop-blur-sm rounded-xl p-5 border border-[#004595]/10 shadow-sm">
@@ -39,7 +39,7 @@
             <!-- Loading Bar -->
             <div class="pt-2">
               <div class="relative w-full h-2.5 bg-[#002147]/10 rounded-full overflow-hidden shadow-inner">
-                <div class="loading-bar absolute top-0 left-0 h-full bg-gradient-to-r from-[#004595] via-[#00397a] to-[#004595] rounded-full shadow-lg"></div>
+                <div class="loading-bar absolute top-0 left-0 h-full bg-linear-to-r from-[#004595] via-[#00397a] to-[#004595] rounded-full shadow-lg"></div>
               </div>
               <p class="text-[#00397a]/70 text-xs mt-3 font-semibold tracking-wide">
                 Accessing 28 Barangays Monitoring Dashboard...
@@ -53,7 +53,7 @@
     <!-- Error Modal -->
     <Transition name="modal-fade">
       <div v-if="showErrorModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-        <div class="error-modal bg-gradient-to-br from-[#f3f1ee] to-white rounded-2xl shadow-2xl max-w-lg w-full p-10 transform animate-modal-slide border-2 border-red-500/20">
+        <div class="error-modal bg-linear-to-br from-[#f3f1ee] to-white rounded-2xl shadow-2xl max-w-lg w-full p-10 transform animate-modal-slide border-2 border-red-500/20">
           <!-- Error Icon -->
           <div class="flex justify-center mb-8">
             <div class="error-icon-wrapper">
@@ -71,7 +71,7 @@
           <div class="text-center space-y-5">
             <div class="space-y-2">
               <h3 class="text-3xl font-extrabold text-red-600 tracking-tight">Access Denied</h3>
-              <div class="w-24 h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent rounded-full mx-auto"></div>
+              <div class="w-24 h-1 bg-linear-to-r from-transparent via-red-500 to-transparent rounded-full mx-auto"></div>
             </div>
             
             <div class="bg-white/70 backdrop-blur-sm rounded-xl p-5 border border-red-500/10 shadow-sm">
@@ -81,7 +81,7 @@
             <!-- Close Button -->
             <button
               @click="closeErrorModal"
-              class="mt-4 w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3.5 px-6 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 tracking-wide"
+              class="mt-4 w-full bg-linear-to-r from-red-500 to-red-600 text-white py-3.5 px-6 rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 tracking-wide"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -136,12 +136,12 @@
               <p class="text-[#f3f1ee]/90 text-sm font-semibold tracking-wider uppercase">Welcome to</p>
               <h1 class="text-4xl font-extrabold text-white leading-tight tracking-tight">
                 Community
-                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-[#f3f1ee] via-white to-[#f3f1ee] animate-gradient">
+                <span class="block text-transparent bg-clip-text bg-linear-to-r from-[#f3f1ee] via-white to-[#f3f1ee] animate-linear">
                   Monitoring System
                 </span>
               </h1>
             </div>
-            <div class="w-16 h-1 bg-gradient-to-r from-[#f3f1ee] to-transparent rounded-full"></div>
+            <div class="w-16 h-1 bg-linear-to-r from-[#f3f1ee] to-transparent rounded-full"></div>
             <p class="text-base text-[#f3f1ee]/80 leading-relaxed font-light">
               Secure access to the <span class="font-semibold text-white">28 Barangays</span> monitoring dashboard. Track, manage, and protect your community.
             </p>
@@ -176,11 +176,11 @@
         <div class="login-card bg-white/95 backdrop-blur-xl p-6 rounded-2xl shadow-lg border border-gray-200/60 relative overflow-hidden">
           
           <!-- Elegant Top Border Accent -->
-          <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#004595]/40 via-[#00397a]/30 to-[#004595]/40"></div>
+          <div class="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-[#004595]/40 via-[#00397a]/30 to-[#004595]/40"></div>
           
           <!-- Subtle Corner Decorations -->
-          <div class="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-gray-100/80 to-transparent rounded-br-3xl"></div>
-          <div class="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-gray-100/60 to-transparent rounded-tl-3xl"></div>
+          <div class="absolute top-0 left-0 w-16 h-16 bg-linear-to-br from-gray-100/80 to-transparent rounded-br-3xl"></div>
+          <div class="absolute bottom-0 right-0 w-20 h-20 bg-linear-to-tl from-gray-100/60 to-transparent rounded-tl-3xl"></div>
           
           <!-- Mobile Logo -->
           <div class="lg:hidden text-center mb-5 relative z-10">
@@ -189,13 +189,13 @@
                 <img :src="bcpoLogo" alt="BCPO Logo" class="w-24 h-24 object-contain drop-shadow-lg" />
               </div>
               
-              <div class="w-px h-20 bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+              <div class="w-px h-20 bg-linear-to-b from-transparent via-gray-300 to-transparent"></div>
               
               <div class="transform hover:scale-110 transition-transform duration-300">
                 <img :src="pnpLogo" alt="PNP Logo" class="w-24 h-24 object-contain drop-shadow-lg" />
               </div>
               
-              <div class="w-px h-20 bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+              <div class="w-px h-20 bg-linear-to-b from-transparent via-gray-300 to-transparent"></div>
               
               <div class="transform hover:scale-110 transition-transform duration-300">
                 <img :src="pnpbutuanLogo" alt="PNP Butuan Logo" class="w-24 h-24 object-contain drop-shadow-lg" />
@@ -204,7 +204,7 @@
             
             <div class="space-y-1.5">
               <h2 class="text-xl font-bold text-gray-800 tracking-tight">Officer Login</h2>
-              <div class="w-12 h-0.5 bg-gradient-to-r from-transparent via-gray-400 to-transparent rounded-full mx-auto"></div>
+              <div class="w-12 h-0.5 bg-linear-to-r from-transparent via-gray-400 to-transparent rounded-full mx-auto"></div>
               <p class="text-gray-600 text-xs font-medium">Community Monitoring System</p>
             </div>
           </div>
@@ -212,14 +212,14 @@
           <!-- Desktop Header -->
           <div class="hidden lg:block mb-5 relative z-10">
             <div class="flex items-center gap-3 mb-2">
-              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#002147] to-[#003875] flex items-center justify-center shadow-md transform hover:scale-105 transition-transform duration-300">
+              <div class="w-10 h-10 rounded-xl bg-linear-to-br from-[#002147] to-[#003875] flex items-center justify-center shadow-md transform hover:scale-105 transition-transform duration-300">
                 <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
                 </svg>
               </div>
               <div>
                 <h2 class="text-2xl font-bold text-gray-800 tracking-tight">Officer Login</h2>
-                <div class="w-16 h-0.5 bg-gradient-to-r from-[#004595]/60 via-gray-400 to-transparent rounded-full"></div>
+                <div class="w-16 h-0.5 bg-linear-to-r from-[#004595]/60 via-gray-400 to-transparent rounded-full"></div>
               </div>
             </div>
             <p class="text-gray-600 font-medium text-xs">Enter your credentials to access the dashboard</p>
@@ -246,7 +246,7 @@
                   placeholder="officer@bcpo.gov.ph"
                   class="input-field w-full px-3.5 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-[#004595]/60 focus:ring-2 focus:ring-[#004595]/10 bg-white text-gray-800 placeholder-gray-400 transition-all duration-300 text-sm font-medium hover:border-gray-400"
                 />
-                <div class="absolute inset-0 rounded-lg bg-gradient-to-r from-[#004595]/3 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none"></div>
+                <div class="absolute inset-0 rounded-lg bg-linear-to-r from-[#004595]/3 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none"></div>
               </div>
             </div>
 
@@ -280,7 +280,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
                   </svg>
                 </button>
-                <div class="absolute inset-0 rounded-lg bg-gradient-to-r from-[#004595]/3 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none"></div>
+                <div class="absolute inset-0 rounded-lg bg-linear-to-r from-[#004595]/3 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none"></div>
               </div>
             </div>
 
@@ -304,9 +304,9 @@
             <button
               type="submit"
               :disabled="isLoading"
-              class="login-button w-full bg-gradient-to-r from-[#002147] via-[#003875] to-[#002147] text-white py-3 rounded-lg font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none relative overflow-hidden group tracking-wide text-sm mt-1"
+              class="login-button w-full bg-linear-to-r from-[#002147] via-[#003875] to-[#002147] text-white py-3 rounded-lg font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none relative overflow-hidden group tracking-wide text-sm mt-1"
             >
-              <div class="absolute inset-0 bg-gradient-to-r from-[#003875] via-[#002147] to-[#003875] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute inset-0 bg-linear-to-r from-[#003875] via-[#002147] to-[#003875] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               
               <span class="relative z-10 flex items-center justify-center gap-2">
                 <svg v-if="isLoading" class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
@@ -499,12 +499,12 @@ async function handleLogin() {
   0%, 100% {
     opacity: 0;
     transform: scale(0.8);
-    background: radial-gradient(circle, rgba(220, 38, 38, 0.4), transparent);
+    background: radial-linear(circle, rgba(220, 38, 38, 0.4), transparent);
   }
   50% {
     opacity: 0.8;
     transform: scale(1.2);
-    background: radial-gradient(circle, rgba(220, 38, 38, 0.6), transparent);
+    background: radial-linear(circle, rgba(220, 38, 38, 0.6), transparent);
   }
 }
 
@@ -512,12 +512,12 @@ async function handleLogin() {
   0%, 100% {
     opacity: 0;
     transform: scale(0.8);
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.4), transparent);
+    background: radial-linear(circle, rgba(59, 130, 246, 0.4), transparent);
   }
   50% {
     opacity: 0.8;
     transform: scale(1.2);
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.6), transparent);
+    background: radial-linear(circle, rgba(59, 130, 246, 0.6), transparent);
   }
 }
 
@@ -609,7 +609,7 @@ async function handleLogin() {
 .input-corner-accent::after {
   content: '';
   position: absolute;
-  background: linear-gradient(135deg, #004595 0%, transparent 100%);
+  background: linear-linear(135deg, #004595 0%, transparent 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -640,7 +640,7 @@ async function handleLogin() {
 .input-wrapper::after {
   content: '';
   position: absolute;
-  background: linear-gradient(135deg, transparent 0%, #004595 100%);
+  background: linear-linear(135deg, transparent 0%, #004595 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -675,8 +675,8 @@ async function handleLogin() {
   width: 100%;
   height: 100%;
   background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-linear(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-linear(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 50px 50px;
   animation: grid-move 20s linear infinite;
 }
@@ -691,7 +691,7 @@ async function handleLogin() {
 }
 
 /* Animated Gradient Text */
-@keyframes gradient {
+@keyframes linear {
   0%, 100% {
     background-position: 0% 50%;
   }
@@ -700,9 +700,9 @@ async function handleLogin() {
   }
 }
 
-.animate-gradient {
+.animate-linear {
   background-size: 200% auto;
-  animation: gradient 4s ease infinite;
+  animation: linear 4s ease infinite;
 }
 
 /* Feature Pills */
@@ -785,7 +785,7 @@ async function handleLogin() {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-linear(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
   transition: left 0.5s ease;
 }
 
@@ -871,7 +871,7 @@ async function handleLogin() {
   border-radius: 50%;
   box-sizing: content-box;
   border: 4px solid #4ade80;
-  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  background: linear-linear(135deg, #dcfce7 0%, #bbf7d0 100%);
 }
 
 .success-checkmark .check-icon::before {
@@ -896,7 +896,7 @@ async function handleLogin() {
   content: '';
   height: 100px;
   position: absolute;
-  background: linear-gradient(135deg, #f3f1ee 0%, #ffffff 100%);
+  background: linear-linear(135deg, #f3f1ee 0%, #ffffff 100%);
   transform: rotate(-45deg);
 }
 
@@ -945,7 +945,7 @@ async function handleLogin() {
   height: 85px;
   position: absolute;
   transform: rotate(-45deg);
-  background: linear-gradient(135deg, #f3f1ee 0%, #ffffff 100%);
+  background: linear-linear(135deg, #f3f1ee 0%, #ffffff 100%);
 }
 
 @keyframes rotate-circle {

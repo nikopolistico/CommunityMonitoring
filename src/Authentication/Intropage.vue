@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-screen h-screen flex justify-center items-center bg-gradient-to-br from-[#001a35] via-[#002147] to-[#00397a] text-white overflow-hidden relative"
+    class="w-screen h-screen flex justify-center items-center bg-linear-to-br from-[#001a35] via-[#002147] to-[#00397a] text-white overflow-hidden relative"
   >
     <!-- Decorative background elements -->
     <div class="absolute inset-0 opacity-10">
@@ -27,11 +27,11 @@
           Community Monitoring System
         </h1>
         <div class="flex items-center justify-center gap-3">
-          <div class="h-px w-12 bg-gradient-to-r from-transparent to-white/60"></div>
+          <div class="h-px w-12 bg-linear-to-r from-transparent to-white/60"></div>
           <p class="text-lg text-blue-100/90 font-medium tracking-wide">
             Butuan City Police Station 1
           </p>
-          <div class="h-px w-12 bg-gradient-to-l from-transparent to-white/60"></div>
+          <div class="h-px w-12 bg-linear-to-l from-transparent to-white/60"></div>
         </div>
       </div>
 
