@@ -3667,6 +3667,12 @@ onMounted(() => {
     fetchCaptainInfo()
   }
 
+  // Restore the active tab from sessionStorage
+  const savedTab = sessionStorage.getItem('communityActiveTab')
+  if (savedTab) {
+    activeTab.value = savedTab
+  }
+
   // Check if coming from category search and set active tab to landmarks
   const categories = route.query.categories
   if (categories) {
@@ -3679,6 +3685,11 @@ onMounted(() => {
       activePositionMenu.value = null
     }
   })
+})
+
+// Save active tab to sessionStorage whenever it changes
+watch(activeTab, (newTab) => {
+  sessionStorage.setItem('communityActiveTab', newTab)
 })
 
 const locationName = computed(() => (route.query.location || '').toString())
