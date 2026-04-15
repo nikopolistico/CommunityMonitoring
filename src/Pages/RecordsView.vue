@@ -670,9 +670,20 @@
                         >Schools</span
                       >
                     </div>
-                    <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">
-                      {{ selectedRecord?.schoolname || 'No schools listed' }}
-                    </p>
+                    <div class="space-y-2">
+                      <div>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">School Names</p>
+                        <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                          {{ selectedRecord?.schoolname || 'No schools listed' }}
+                        </p>
+                      </div>
+                      <div>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Principals</p>
+                        <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                          {{ selectedRecord?.schoolprincipals || 'No principals listed' }}
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
                   <div
@@ -692,9 +703,20 @@
                         >Churches</span
                       >
                     </div>
-                    <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">
-                      {{ selectedRecord?.churchname || 'No churches listed' }}
-                    </p>
+                    <div class="space-y-2">
+                      <div>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Church Names</p>
+                        <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                          {{ selectedRecord?.churchname || 'No churches listed' }}
+                        </p>
+                      </div>
+                      <div>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Leaders</p>
+                        <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                          {{ selectedRecord?.churchleaders || 'No leaders listed' }}
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
                   <div
@@ -714,9 +736,26 @@
                         >Establishments</span
                       >
                     </div>
-                    <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">
-                      {{ selectedRecord?.establishmentname || 'No establishments listed' }}
-                    </p>
+                    <div class="space-y-2">
+                      <div>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Establishment Names</p>
+                        <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                          {{ selectedRecord?.establishmentname || 'No establishments listed' }}
+                        </p>
+                      </div>
+                      <div>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Managers</p>
+                        <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                          {{ selectedRecord?.establishmentmanagers || 'No managers listed' }}
+                        </p>
+                      </div>
+                      <div>
+                        <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Owners</p>
+                        <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                          {{ selectedRecord?.establishmentowners || 'No owners listed' }}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -935,6 +974,23 @@
                       </div>
                       <p v-else class="text-sm text-gray-700 dark:text-gray-300 italic">No establishments listed</p>
                     </div>
+                  </div>
+
+                  <!-- Record Export Button -->
+                  <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button
+                      @click="exportSingleBarangay(record)"
+                      class="w-full px-4 py-2 bg-linear-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-300 font-medium text-sm flex items-center justify-center gap-2"
+                    >
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          fill-rule="evenodd"
+                          d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      Export to Excel
+                    </button>
                   </div>
                 </div>
               </div>
@@ -1253,8 +1309,12 @@ const buildWorksheet = (rows, barangayLabel) => {
     'Patron',
     'Fiesta Date',
     'Schools',
+    'School Principals',
     'Churches',
+    'Church Leaders',
     'Establishments',
+    'Managers',
+    'Owners',
   ]
 
   const dataRows = rows.map((record, index) => [
@@ -1266,15 +1326,19 @@ const buildWorksheet = (rows, barangayLabel) => {
     record.patron || '',
     record.date || '',
     record.schoolname || '',
+    record.schoolprincipals || '',
     record.churchname || '',
+    record.churchleaders || '',
     record.establishmentname || '',
+    record.establishmentmanagers || '',
+    record.establishmentowners || '',
   ])
 
   const worksheet = XLSX.utils.aoa_to_sheet([titleRow, brgyRow, [], headerRow, ...dataRows])
 
   worksheet['!merges'] = [
-    { s: { r: 0, c: 0 }, e: { r: 0, c: 9 } },
-    { s: { r: 1, c: 0 }, e: { r: 1, c: 9 } },
+    { s: { r: 0, c: 0 }, e: { r: 0, c: 13 } },
+    { s: { r: 1, c: 0 }, e: { r: 1, c: 13 } },
   ]
 
   worksheet['A1'].s = {
@@ -1457,211 +1521,42 @@ const getChurchesList = (record) => {
   return churches
 }
 
-// Fetch records with members from BrgyMembers table
+// Fetch records from barangay_records RPC
 const fetchBarangays = async () => {
   loading.value = true
   try {
-    // First try using the RPC function
-    console.log('Attempting to fetch using RPC function...')
-    const { data: rpcData, error: rpcError } = await supabase.rpc('brgyrecords')
+    console.log('Fetching from barangay_records RPC...')
+    const { data: rpcData, error: rpcError } = await supabase.from('barangay_records').select('*')
 
     if (rpcError) {
-      console.warn('RPC function error:', rpcError.message)
-      console.log('Falling back to direct table fetch...')
+      console.error('RPC function error:', rpcError.message)
+      throw new Error(`Failed to fetch records: ${rpcError.message}`)
+    }
 
-      // Fallback: Fetch barangays with their captain - using exact schema
-      const { data: barangays, error: brgyError } = await supabase
-        .from('Barangays')
-        .select('*')
-        .order('brgyname', { ascending: true })
+    console.log('RPC data received:', rpcData)
 
-      if (brgyError) {
-        console.error('Barangays fetch error:', brgyError)
-        throw new Error(`Failed to fetch barangays: ${brgyError.message}`)
-      }
-
-      console.log('Fetched barangays:', barangays)
-
-      // Fetch all captains
-      const captainIds = barangays.map((b) => b.cpt_id).filter(Boolean)
-      const { data: captains, error: captainsError } = await supabase
-        .from('BrgyCaptain')
-        .select('id, Cptfullname')
-        .in('id', captainIds)
-
-      if (captainsError) {
-        console.error('Captains fetch error:', captainsError)
-      }
-
-      console.log('Fetched captains:', captains)
-
-      // Create captain lookup map
-      const captainMap = {}
-      if (captains) {
-        captains.forEach((captain) => {
-          captainMap[captain.id] = captain.Cptfullname
-        })
-      }
-
-      // Fetch members for all barangays
-      const barangayIds = barangays.map((b) => b.id)
-      const { data: members, error: membersError } = await supabase
-        .from('BrgyMembers')
-        .select('id, BMfullname, position, brgy_id')
-        .in('brgy_id', barangayIds)
-
-      if (membersError) {
-        console.error('Members fetch error:', membersError)
-      }
-
-      console.log('Fetched members:', members)
-
-      // Fetch fiestas (patron saints and dates)
-      const { data: fiestas, error: fiestasError } = await supabase
-        .from('BrgyFiesta')
-        .select('id, patron, date, brgy_id')
-        .in('brgy_id', barangayIds)
-        .eq('active', true)
-
-      if (fiestasError) {
-        console.error('Fiestas fetch error:', fiestasError)
-      }
-
-      console.log('Fetched fiestas:', fiestas)
-
-      // Fetch schools
-      const { data: schools, error: schoolsError } = await supabase
-        .from('Schools')
-        .select('id, schoolName, brgy_id')
-        .in('brgy_id', barangayIds)
-
-      if (schoolsError) {
-        console.error('Schools fetch error:', schoolsError)
-      }
-
-      console.log('Fetched schools:', schools)
-
-      // Fetch churches
-      const { data: churches, error: churchesError } = await supabase
-        .from('Church')
-        .select('id, churchName, brgy_id')
-        .in('brgy_id', barangayIds)
-
-      if (churchesError) {
-        console.error('Churches fetch error:', churchesError)
-      }
-
-      console.log('Fetched churches:', churches)
-
-      // Fetch establishments
-      const { data: establishments, error: establishmentsError } = await supabase
-        .from('Establishments')
-        .select('id, establishmentName, brgy_id')
-        .in('brgy_id', barangayIds)
-
-      if (establishmentsError) {
-        console.error('Establishments fetch error:', establishmentsError)
-      }
-
-      console.log('Fetched establishments:', establishments)
-
-      // Group all data by barangay
-      const membersByBrgy = {}
-      const fiestasByBrgy = {}
-      const schoolsByBrgy = {}
-      const churchesByBrgy = {}
-      const establishmentsByBrgy = {}
-
-      if (members) {
-        members.forEach((member) => {
-          if (!membersByBrgy[member.brgy_id]) {
-            membersByBrgy[member.brgy_id] = []
-          }
-          membersByBrgy[member.brgy_id].push(member)
-        })
-      }
-
-      if (fiestas) {
-        fiestas.forEach((fiesta) => {
-          if (!fiestasByBrgy[fiesta.brgy_id]) {
-            fiestasByBrgy[fiesta.brgy_id] = []
-          }
-          fiestasByBrgy[fiesta.brgy_id].push(fiesta)
-        })
-      }
-
-      if (schools) {
-        schools.forEach((school) => {
-          if (!schoolsByBrgy[school.brgy_id]) {
-            schoolsByBrgy[school.brgy_id] = []
-          }
-          schoolsByBrgy[school.brgy_id].push(school.schoolName)
-        })
-      }
-
-      if (churches) {
-        churches.forEach((church) => {
-          if (!churchesByBrgy[church.brgy_id]) {
-            churchesByBrgy[church.brgy_id] = []
-          }
-          churchesByBrgy[church.brgy_id].push(church.churchName)
-        })
-      }
-
-      if (establishments) {
-        establishments.forEach((establishment) => {
-          if (!establishmentsByBrgy[establishment.brgy_id]) {
-            establishmentsByBrgy[establishment.brgy_id] = []
-          }
-          establishmentsByBrgy[establishment.brgy_id].push(establishment.establishmentName)
-        })
-      }
-
-      // Transform the data to match the expected format
-      records.value = barangays.map((brgy) => {
-        const brgyMembers = membersByBrgy[brgy.id] || []
-        const brgyFiestas = fiestasByBrgy[brgy.id] || []
-        const brgySchools = schoolsByBrgy[brgy.id] || []
-        const brgyChurches = churchesByBrgy[brgy.id] || []
-        const brgyEstablishments = establishmentsByBrgy[brgy.id] || []
-
-        // Get the first (active) fiesta for patron and date
-        const primaryFiesta = brgyFiestas[0] || {}
-
-        return {
-          brgyname: brgy.brgyname || '',
-          cptfullname: captainMap[brgy.cpt_id] || 'Not assigned',
-          bmfullname:
-            brgyMembers
-              .map((m) => m.BMfullname)
-              .filter(Boolean)
-              .join(', ') || '',
-          bmposition:
-            brgyMembers
-              .map((m) => m.position)
-              .filter(Boolean)
-              .join(', ') || '',
-          patron: primaryFiesta.patron || 'Not specified',
-          date: primaryFiesta.date || '',
-          schoolname: brgySchools.join(', ') || 'No schools listed',
-          churchname: brgyChurches.join(', ') || 'No churches listed',
-          establishmentname: brgyEstablishments.join(', ') || 'No establishments listed',
-          members: brgyMembers, // Store raw members array for detailed view
-        }
-      })
-
-      console.log('Transformed records:', records.value)
-      console.log(`Successfully loaded ${records.value.length} barangay records`)
+    if (rpcData && rpcData.length > 0) {
+      // Use RPC data directly
+      // RPC columns: brgyname, cptfullname, bmfullname, bmposition, patron, date, churchname, churchleaders, schoolname, schoolprincipals, establishmentname, establishmentmanagers, establishmentowners
+      records.value = rpcData.map((record) => ({
+        brgyname: record.brgyname || '',
+        cptfullname: record.cptfullname || 'Not assigned',
+        bmfullname: record.bmfullname || '',
+        bmposition: record.bmposition || '',
+        patron: record.patron || 'Not specified',
+        date: record.date || '',
+        churchname: record.churchname || 'No churches listed',
+        churchleaders: record.churchleaders || '',
+        schoolname: record.schoolname || 'No schools listed',
+        schoolprincipals: record.schoolprincipals || '',
+        establishmentname: record.establishmentname || 'No establishments listed',
+        establishmentmanagers: record.establishmentmanagers || '',
+        establishmentowners: record.establishmentowners || '',
+      }))
+      console.log(`Successfully loaded ${records.value.length} records from RPC`)
     } else {
-      // Use RPC data if available
-      console.log('RPC function succeeded, data:', rpcData)
-      if (rpcData && rpcData.length > 0) {
-        records.value = rpcData
-        console.log(`Successfully loaded ${records.value.length} records from RPC`)
-      } else {
-        console.warn('RPC returned no data')
-        records.value = []
-      }
+      console.warn('RPC returned no data')
+      records.value = []
     }
   } catch (error) {
     console.error('Error fetching records:', error)
@@ -1809,48 +1704,7 @@ const fetchAllCategories = async () => {
       })
     }
 
-    // Fetch from GovtOffices table
-    const { data: govtData, error: govtError } = await supabase
-      .from('GovtOffices')
-      .select('officeType, brgy_id, officeName, officeAddress, Barangays(brgyname)')
-      .not('officeType', 'is', null)
-
-    if (govtError) {
-      console.error('Error fetching govt offices:', govtError)
-    } else if (govtData && govtData.length > 0) {
-      const govtByType = {}
-      govtData.forEach((office) => {
-        const type = office.officeType.trim()
-        if (!govtByType[type]) {
-          govtByType[type] = {
-            items: [],
-            barangays: {},
-          }
-        }
-        govtByType[type].items.push(office)
-        const brgyName = office.Barangays?.brgyname || 'Unknown'
-        if (!govtByType[type].barangays[brgyName]) {
-          govtByType[type].barangays[brgyName] = 0
-        }
-        govtByType[type].barangays[brgyName]++
-      })
-
-      Object.entries(govtByType).forEach(([categoryName, data]) => {
-        const barangays = Object.entries(data.barangays).map(([name, count]) => ({
-          name,
-          count,
-        }))
-
-        categories.push({
-          categoryName,
-          type: 'Government Office',
-          totalCount: data.items.length,
-          barangayCount: Object.keys(data.barangays).length,
-          barangays,
-          key: `govt-${categoryName}`,
-        })
-      })
-    }
+    // GovtOffices removed - not in barangay_records RPC
 
     allCategories.value = categories
   } catch (error) {
@@ -1969,7 +1823,6 @@ const goToBarangay = (barangayName) => {
     School: 'schools',
     Church: 'churches',
     Establishment: 'establishments',
-    GovtOffice: 'govtOffices',
   }
 
   const routeName = typeMap[categoryType]

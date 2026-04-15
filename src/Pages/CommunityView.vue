@@ -302,23 +302,6 @@
                         <p class="text-xs text-[#00397a] font-medium">
                           Community personnel & leaders
                         </p>
-
-                        <div class="mt-4 pt-3 border-t border-[#004595]/10">
-                          <div class="flex items-center justify-between text-xs">
-                            <span class="text-[#00397a] font-semibold">View Details</span>
-                            <svg
-                              class="w-4 h-4 text-[#004595] group-hover:translate-x-1 transition-transform"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                        </div>
                       </div>
                     </div>
 
@@ -354,23 +337,6 @@
                           Community Landmarks
                         </h3>
                         <p class="text-xs text-[#00397a] font-medium">Notable locations & places</p>
-
-                        <div class="mt-4 pt-3 border-t border-[#00397a]/10">
-                          <div class="flex items-center justify-between text-xs">
-                            <span class="text-[#00397a] font-semibold">Explore Map</span>
-                            <svg
-                              class="w-4 h-4 text-[#00397a] group-hover:translate-x-1 transition-transform"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                        </div>
                       </div>
                     </div>
 
@@ -406,23 +372,6 @@
                           Historical Records
                         </h3>
                         <p class="text-xs text-[#00397a] font-medium">Heritage & cultural data</p>
-
-                        <div class="mt-4 pt-3 border-t border-[#004595]/10">
-                          <div class="flex items-center justify-between text-xs">
-                            <span class="text-[#00397a] font-semibold">Read More</span>
-                            <svg
-                              class="w-4 h-4 text-[#004595] group-hover:translate-x-1 transition-transform"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -1385,7 +1334,7 @@
                   <div
                     class="relative overflow-hidden bg-linear-to-br from-[#f3f1ee]/30 to-white flex items-center justify-center"
                   >
-                    <div class="relative w-full h-[450px] flex items-center justify-center">
+                    <div class="relative w-full h-112.5 flex items-center justify-center">
                       <!-- Placeholder Icon when no image -->
                       <div
                         v-if="!brgy.brgy_images"
@@ -1406,39 +1355,13 @@
                       <!-- Actual Image when available -->
                       <img
                         v-if="brgy.brgy_images"
-                        class="w-[450px] h-[450px] object-cover group-hover:scale-[1.02] transition-transform duration-700"
+                        class="w-112.5 h-112.5 object-cover group-hover:scale-[1.02] transition-transform duration-700"
                         :src="brgy.brgy_images"
                         alt="Barangay Image"
                       />
                       <div
                         class="absolute inset-0 bg-linear-to-t from-[#002147]/40 via-transparent to-transparent pointer-events-none"
                       ></div>
-
-                      <!-- Floating Badge on Image -->
-                      <div class="absolute top-6 left-6 z-10">
-                        <div
-                          class="px-5 py-3 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-white/50"
-                        >
-                          <div class="flex items-center gap-3">
-                            <svg
-                              class="w-5 h-5 text-[#004595]"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                clip-rule="evenodd"
-                              />
-                            </svg>
-                            <span
-                              class="text-[#002147] font-bold text-sm uppercase tracking-wide"
-                              >{{ brgy.araw }}</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-
                       <!-- Edit Button on Image -->
                       <button
                         @click="startEditHistory(brgy)"
@@ -1480,73 +1403,107 @@
 
                     <!-- Details Grid -->
                     <div class="space-y-5">
-                      <!-- Patron Saint -->
-                      <div
-                        class="group/item relative overflow-hidden rounded-2xl p-5 bg-linear-to-r from-[#004595]/5 via-[#004595]/10 to-transparent border-l-4 border-[#004595] hover:border-[#00397a] hover:shadow-lg hover:shadow-[#004595]/5 transition-all duration-300"
-                      >
-                        <div class="flex items-start gap-4">
-                          <div
-                            class="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-[#002147] to-[#004595] shadow-lg flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300"
-                          >
-                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                              <path
-                                fill-rule="evenodd"
-                                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                clip-rule="evenodd"
-                              />
-                            </svg>
-                          </div>
-                          <div class="flex-1">
-                            <p
-                              class="text-xs font-bold text-[#00397a] uppercase tracking-wider mb-1.5 flex items-center gap-2"
+                      <!-- Top Row: Patron Saint, Fiesta Date, Araw -->
+                      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Patron Saint -->
+                        <div
+                          class="group/item relative overflow-hidden rounded-2xl p-5 bg-linear-to-r from-[#004595]/5 via-[#004595]/10 to-transparent border-l-4 border-[#004595] hover:border-[#00397a] hover:shadow-lg hover:shadow-[#004595]/5 transition-all duration-300"
+                        >
+                          <div class="flex items-start gap-4">
+                            <div
+                              class="shrink-0 w-8 h-8 rounded-xl bg-linear-to-br from-[#002147] to-[#004595] shadow-lg flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300"
                             >
-                              Patron Saint
-                              <span class="h-px flex-1 bg-[#004595]/20"></span>
-                            </p>
-                            <p
-                              class="text-xl font-bold text-[#002147] group-hover/item:text-[#004595] transition-colors"
-                            >
-                              {{ brgy.patron }}
-                            </p>
+                              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                  clip-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                            <div class="flex-1">
+                              <p
+                                class="text-xs font-bold text-[#00397a] uppercase tracking-wider mb-1.5 flex items-center gap-2"
+                              >
+                                Patron Saint
+                                <span class="h-px flex-1 bg-[#004595]/20"></span>
+                              </p>
+                              <p
+                                class="text-xs font-bold text-[#002147] group-hover/item:text-[#004595] transition-colors"
+                              >
+                                {{ brgy.patron || 'Not yet provided' }}
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <!-- Fiesta Date -->
-                      <div
-                        class="group/item relative overflow-hidden rounded-2xl p-5 bg-linear-to-r from-[#00397a]/5 via-[#00397a]/10 to-transparent border-l-4 border-[#00397a] hover:border-[#004595] hover:shadow-lg hover:shadow-[#00397a]/5 transition-all duration-300"
-                      >
-                        <div class="flex items-start gap-4">
-                          <div
-                            class="shrink-0 w-12 h-12 rounded-xl bg-linear-to-br from-[#00397a] to-[#004595] shadow-lg flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300"
-                          >
-                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                              <path
-                                fill-rule="evenodd"
-                                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                clip-rule="evenodd"
-                              />
-                            </svg>
+                        <!-- Fiesta Date -->
+                        <div
+                          class="group/item relative overflow-hidden rounded-2xl p-5 bg-linear-to-r from-[#00397a]/5 via-[#00397a]/10 to-transparent border-l-4 border-[#00397a] hover:border-[#004595] hover:shadow-lg hover:shadow-[#00397a]/5 transition-all duration-300"
+                        >
+                          <div class="flex items-start gap-4">
+                            <div
+                              class="shrink-0 w-8 h-8 rounded-xl bg-linear-to-br from-[#00397a] to-[#004595] shadow-lg flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300"
+                            >
+                              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                  clip-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                            <div class="flex-1">
+                              <p
+                                class="text-xs font-bold text-[#00397a] uppercase tracking-wider mb-1.5 flex items-center gap-2"
+                              >
+                                Fiesta Celebration
+                                <span class="h-px flex-1 bg-[#00397a]/20"></span>
+                              </p>
+                              <p
+                                class="text-xs font-bold text-[#002147] group-hover/item:text-[#00397a] transition-colors"
+                              >
+                                {{ brgy.date || 'Not yet provided' }}
+                              </p>
+                            </div>
                           </div>
-                          <div class="flex-1">
-                            <p
-                              class="text-xs font-bold text-[#00397a] uppercase tracking-wider mb-1.5 flex items-center gap-2"
+                        </div>
+
+                        <!-- Araw (Date) -->
+                        <div
+                          class="group/item relative overflow-hidden rounded-2xl p-5 bg-linear-to-r from-[#002147]/5 via-[#002147]/10 to-transparent border-l-4 border-[#002147] hover:border-[#004595] hover:shadow-lg hover:shadow-[#002147]/5 transition-all duration-300"
+                        >
+                          <div class="flex items-start gap-4">
+                            <div
+                              class="shrink-0 w-8 h-8 rounded-xl bg-linear-to-br from-[#002147] to-[#00397a] shadow-lg flex items-center justify-center group-hover/item:scale-110 transition-transform duration-300"
                             >
-                              Fiesta Celebration
-                              <span class="h-px flex-1 bg-[#00397a]/20"></span>
-                            </p>
-                            <p
-                              class="text-xl font-bold text-[#002147] group-hover/item:text-[#00397a] transition-colors"
-                            >
-                              {{ brgy.date }}
-                            </p>
+                              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                  clip-rule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                            <div class="flex-1">
+                              <p
+                                class="text-xs font-bold text-[#002147] uppercase tracking-wider mb-1.5 flex items-center gap-2"
+                              >
+                                Day / Araw
+                                <span class="h-px flex-1 bg-[#002147]/20"></span>
+                              </p>
+                              <p
+                                class="text-xs font-bold text-[#002147] group-hover/item:text-[#004595] transition-colors"
+                              >
+                                {{ brgy.araw || 'Not yet provided' }}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       <!-- History -->
                       <div
-                        v-if="brgy.brgy_history"
                         class="relative overflow-hidden rounded-2xl p-8 bg-white border-2 border-[#004595]/10 shadow-sm hover:shadow-xl hover:shadow-[#004595]/5 hover:border-[#004595]/30 transition-all duration-300"
                       >
                         <div
@@ -1577,9 +1534,16 @@
                             </div>
                           </div>
                           <p
-                            class="text-lg text-[#002147] leading-loose font-medium whitespace-pre-line"
+                            v-if="brgy.brgy_history"
+                            class="text-base text-[#002147] leading-loose font-medium whitespace-pre-line"
                           >
                             {{ brgy.brgy_history }}
+                          </p>
+                          <p
+                            v-else
+                            class="text-base text-[#00397a]/60 leading-loose font-medium italic"
+                          >
+                            Not yet provided
                           </p>
                         </div>
                       </div>
@@ -1692,36 +1656,9 @@
                       >
                         Schools
                       </h3>
-                      <p
-                        class="text-sm text-[#00397a] font-semibold px-4 py-1 bg-[#004595]/10 rounded-lg"
-                      >
-                        {{ communityInfo.schools?.length || 0 }} Institutions
-                      </p>
                     </div>
-
-                    <div class="space-y-2 mb-4 max-h-48 overflow-y-auto">
-                      <div
-                        v-for="school in communityInfo.schools"
-                        :key="school"
-                        class="flex items-start gap-2 py-2 px-3 rounded-lg bg-[#f3f1ee]/50 hover:bg-[#f3f1ee] transition-colors"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#004595] mt-0.5 shrink-0"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                        <span class="text-sm font-medium text-[#002147]">{{ school }}</span>
-                      </div>
-                    </div>
-
                     <div class="pt-3 border-t border-[#004595]/10">
-                      <div class="flex items-center justify-between text-sm">
+                      <div class="flex items-center justify-center text-sm">
                         <span class="text-[#00397a] font-bold">View Details</span>
                         <svg
                           class="w-5 h-5 text-[#004595] group-hover:translate-x-1 transition-transform"
@@ -1770,36 +1707,9 @@
                       >
                         Churches
                       </h3>
-                      <p
-                        class="text-sm text-[#00397a] font-semibold px-4 py-1 bg-[#00397a]/10 rounded-lg"
-                      >
-                        {{ communityInfo.churches?.length || 0 }} Places of Worship
-                      </p>
                     </div>
-
-                    <div class="space-y-2 mb-4 max-h-48 overflow-y-auto">
-                      <div
-                        v-for="church in communityInfo.churches"
-                        :key="church"
-                        class="flex items-start gap-2 py-2 px-3 rounded-lg bg-[#f3f1ee]/50 hover:bg-[#f3f1ee] transition-colors"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#00397a] mt-0.5 shrink-0"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                        <span class="text-sm font-medium text-[#002147]">{{ church }}</span>
-                      </div>
-                    </div>
-
                     <div class="pt-3 border-t border-[#00397a]/10">
-                      <div class="flex items-center justify-between text-sm">
+                      <div class="flex items-center justify-center text-sm">
                         <span class="text-[#00397a] font-bold">View Details</span>
                         <svg
                           class="w-5 h-5 text-[#00397a] group-hover:translate-x-1 transition-transform"
@@ -1848,36 +1758,9 @@
                       >
                         Businesses
                       </h3>
-                      <p
-                        class="text-sm text-[#00397a] font-semibold px-4 py-1 bg-[#002147]/10 rounded-lg"
-                      >
-                        {{ communityInfo.businesses?.length || 0 }} Establishments
-                      </p>
                     </div>
-
-                    <div class="space-y-2 mb-4 max-h-48 overflow-y-auto">
-                      <div
-                        v-for="business in communityInfo.businesses"
-                        :key="business"
-                        class="flex items-start gap-2 py-2 px-3 rounded-lg bg-[#f3f1ee]/50 hover:bg-[#f3f1ee] transition-colors"
-                      >
-                        <svg
-                          class="w-4 h-4 text-[#002147] mt-0.5 shrink-0"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                        <span class="text-sm font-medium text-[#002147]">{{ business }}</span>
-                      </div>
-                    </div>
-
                     <div class="pt-3 border-t border-[#002147]/10">
-                      <div class="flex items-center justify-between text-sm">
+                      <div class="flex items-center justify-center text-sm">
                         <span class="text-[#00397a] font-bold">View Details</span>
                         <svg
                           class="w-5 h-5 text-[#002147] group-hover:translate-x-1 transition-transform"
