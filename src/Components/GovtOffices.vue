@@ -14,43 +14,44 @@
 				</div>
 			</div>
 
-			<div class="flex gap-3">
+			<div class="flex flex-col gap-2 md:gap-3 lg:gap-4 lg:flex-row lg:items-center">
 				<!-- Add Button -->
 				<button
 					type="button"
-					class="inline-flex items-center gap-2 rounded-xl bg-linear-to-r from-[#002147] to-[#004595] px-5 py-2.5 text-sm font-semibold text-white hover:shadow-lg hover:shadow-[#004595]/30 hover:scale-[1.02] transition-all duration-300"
+					class="inline-flex items-center justify-center w-full md:w-auto gap-2 rounded-xl bg-linear-to-r from-[#002147] to-[#004595] px-4 py-3 md:py-2.5 text-xs md:text-sm font-semibold text-white hover:shadow-lg hover:shadow-[#004595]/30 hover:scale-[1.02] transition-all duration-300"
 					@click="showAddModal = true"
 				>
-					<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+					<svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
 						<path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
 					</svg>
-					Add Office
+					<span>Add Office</span>
 				</button>
 
 				<!-- Category Filter Dropdown -->
-				<div class="relative">
+				<div class="relative w-full md:w-auto">
 					<button
 						type="button"
 						@click="showCategoryDropdown = !showCategoryDropdown"
-						class="inline-flex items-center gap-2 rounded-xl border-2 border-[#004595] px-5 py-2.5 text-sm font-semibold text-[#004595] hover:bg-[#004595]/10 transition-all duration-300"
+						class="w-full inline-flex items-center justify-center md:justify-start gap-2 rounded-xl border-2 border-[#004595] px-3 md:px-5 py-3 md:py-2.5 text-xs md:text-sm font-semibold text-[#004595] hover:bg-[#004595]/10 transition-all duration-300 truncate"
 					>
-						<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-							<path d="M3 3a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-.293.707L12 9.414V17a1 1 0 01-.293.707l-2 2A1 1 0 018 19v-9.586L3.293 5.707A1 1 0 013 5V3z"/>
+						<svg class="w-4 h-4 md:w-5 md:h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+							<path d="M3 3h18v2H3V3zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" />
+							<polygon points="12,18 6,10 18,10" fill="currentColor"/>
 						</svg>
-						{{ selectedCategory || 'Filter by Category' }}
-						<svg v-if="selectedCategory" class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" @click.stop="selectedCategory = ''">
+						<span class="truncate">{{ selectedCategory || 'Filter' }}</span>
+						<svg v-if="selectedCategory" class="w-3 h-3 md:w-4 md:h-4 ml-1 shrink-0" fill="currentColor" viewBox="0 0 20 20" @click.stop="selectedCategory = ''">
 							<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
 						</svg>
 					</button>
 					
 					<!-- Category Dropdown Menu -->
-					<div v-if="showCategoryDropdown" class="absolute top-full left-0 mt-2 bg-white border-2 border-[#004595] rounded-xl shadow-lg z-20 min-w-48 max-h-64 overflow-y-auto">
+					<div v-if="showCategoryDropdown" class="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-[#004595] rounded-xl shadow-lg z-20 w-full md:min-w-48 max-h-64 overflow-y-auto">
 						<button
 							v-for="category in [...new Set(items.map(item => item.category).filter(Boolean))]"
 							:key="category"
 							type="button"
 							@click="selectedCategory = category; showCategoryDropdown = false"
-							class="w-full text-left px-4 py-3 hover:bg-[#004595]/10 text-gray-700 border-b border-[#004595]/10 last:border-b-0 transition-colors"
+							class="w-full text-left px-4 py-3 hover:bg-[#004595]/10 text-gray-700 border-b border-[#004595]/10 last:border-b-0 transition-colors text-sm"
 							:class="{ 'bg-[#004595]/20 text-[#004595] font-semibold': selectedCategory === category }"
 						>
 							{{ category }}
@@ -59,20 +60,58 @@
 				</div>
 
 				<!-- Search Bar -->
-				<div class="flex-1 relative">
-						<svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<div class="w-full md:flex-1 relative min-w-0">
+						<svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
 						</svg>
 						<input
 							v-model="searchQuery"
 							type="text"
-							placeholder="Search government offices..."
-							class="w-full rounded-xl border-2 border-[#f3f1ee] pl-10 pr-4 py-2.5 focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
+							placeholder="Search..."
+							class="w-full rounded-xl border-2 border-[#f3f1ee] pl-9 md:pl-10 pr-4 py-3 md:py-2.5 text-xs md:text-sm focus:border-[#004595] focus:outline-none focus:ring-2 focus:ring-[#004595]/20 transition-all"
 						/>
 					</div>
+
+				<!-- View Toggle Buttons -->
+				<div class="flex gap-1 rounded-xl border-2 border-[#004595] p-1 bg-[#004595]/5 w-full md:w-fit">
+					<button
+						type="button"
+						@click="viewMode = 'card'"
+						:class="[
+							'flex-1 md:flex-initial px-2 md:px-4 py-2.5 rounded-lg font-semibold text-xs md:text-sm transition-all flex items-center justify-center gap-1 md:gap-2',
+							viewMode === 'card'
+								? 'bg-linear-to-r from-[#002147] to-[#004595] text-white shadow-md'
+								: 'text-[#004595] hover:bg-[#004595]/10'
+						]"
+						title="Card view"
+					>
+						<svg class="w-4 h-4 md:w-5 md:h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+							<path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4z"/>
+							<path d="M3 10a1 1 0 011-1h12a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6z"/>
+						</svg>
+						<span class="hidden md:inline">Cards</span>
+					</button>
+					<button
+						type="button"
+						@click="viewMode = 'table'"
+						:class="[
+							'flex-1 md:flex-initial px-2 md:px-4 py-2.5 rounded-lg font-semibold text-xs md:text-sm transition-all flex items-center justify-center gap-1 md:gap-2',
+							viewMode === 'table'
+								? 'bg-linear-to-r from-[#002147] to-[#004595] text-white shadow-md'
+								: 'text-[#004595] hover:bg-[#004595]/10'
+						]"
+						title="Table view"
+					>
+						<svg class="w-4 h-4 md:w-5 md:h-5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+							<path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 6a1 1 0 011-1h12a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM4 15a2 2 0 100 4h12a2 2 0 100-4H4z" clip-rule="evenodd"/>
+						</svg>
+						<span class="hidden md:inline">Table</span>
+					</button>
+				</div>
 			</div>
 
-				<!-- Offices Grid -->
+			<!-- Card View -->
+			<div v-if="viewMode === 'card'">
 				<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 					<div v-if="loading" class="col-span-full text-center py-16">
 						<div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#004595] border-t-transparent"></div>
@@ -238,6 +277,96 @@
 						</div>
 					</article>
 				</div>
+			</div>
+
+			<!-- Table View -->
+			<div v-else-if="viewMode === 'table'" class="w-full overflow-x-auto rounded-2xl border border-[#004595]/10 shadow-lg">
+				<div v-if="loading" class="col-span-full text-center py-16">
+					<div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-[#004595] border-t-transparent"></div>
+					<p class="mt-4 text-gray-600 font-medium">Loading government offices...</p>
+				</div>
+
+				<div v-else-if="filteredItems.length === 0" class="col-span-full text-center py-16">
+					<div class="inline-block p-4 bg-gray-100 rounded-full mb-4">
+						<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+						</svg>
+					</div>
+					<p class="text-gray-600 font-medium">{{ searchQuery ? 'No government offices found matching your search.' : 'No government offices yet.' }}</p>
+				</div>
+
+				<table v-else class="w-full">
+					<thead class="bg-linear-to-r from-[#002147] to-[#004595] text-white sticky top-0">
+						<tr>
+							<th class="px-4 py-3 text-left text-sm font-semibold">Office Name</th>
+							<th class="px-4 py-3 text-left text-sm font-semibold hidden sm:table-cell">Category</th>
+							<th class="px-4 py-3 text-left text-sm font-semibold hidden md:table-cell">Location</th>
+							<th class="px-4 py-3 text-center text-sm font-semibold">Actions</th>
+						</tr>
+					</thead>
+					<tbody class="divide-y divide-[#004595]/10">
+						<tr v-for="(item, index) in filteredItems" :key="item.id || index" class="hover:bg-[#004595]/5 transition-colors">
+							<td class="px-4 py-3 text-sm font-semibold text-[#002147]">
+								<div class="flex items-center gap-2">
+									<div v-if="item.officeImage" class="w-8 h-8 rounded overflow-hidden flex-shrink-0">
+										<img :src="item.officeImage" :alt="item.brgyName" class="w-full h-full object-cover" />
+									</div>
+									<div v-else class="w-8 h-8 rounded bg-linear-to-br from-[#002147] to-[#004595] flex items-center justify-center flex-shrink-0">
+										<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+											<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4z" clip-rule="evenodd"/>
+										</svg>
+									</div>
+									<span class="truncate">{{ item.brgyName }}</span>
+								</div>
+							</td>
+							<td class="px-4 py-3 text-sm text-gray-600 hidden sm:table-cell">
+								<span v-if="item.category" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#004595]/10 text-[#004595]">
+									{{ item.category }}
+								</span>
+								<span v-else class="text-gray-400">—</span>
+							</td>
+							<td class="px-4 py-3 text-sm text-gray-600 hidden md:table-cell truncate">
+								{{ item.location || '—' }}
+							</td>
+							<td class="px-4 py-3">
+								<div class="flex items-center justify-center gap-2">
+									<button
+										type="button"
+										@click="openViewModal(item)"
+										class="p-1.5 rounded-lg text-[#004595] hover:bg-[#004595]/10 transition-colors"
+										title="View details"
+									>
+										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+										</svg>
+									</button>
+									<button
+										type="button"
+										@click="startEdit(item.id)"
+										class="p-1.5 rounded-lg text-[#004595] hover:bg-[#004595]/10 transition-colors"
+										title="Edit office"
+									>
+										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+										</svg>
+									</button>
+									<button
+										type="button"
+										@click="openDelete(item.id)"
+										class="p-1.5 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
+										title="Delete office"
+									>
+										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+										</svg>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
 			</section>
 
@@ -673,6 +802,7 @@ const items = ref([])
 const loading = ref(false)
 const searchQuery = ref('')
 const selectedCategory = ref('')
+const viewMode = ref('card') // 'card' or 'table'
 
 
 const showAddModal = ref(false)

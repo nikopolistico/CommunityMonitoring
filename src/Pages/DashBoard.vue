@@ -523,7 +523,7 @@
               @click="navigateToBarangay(option.value)"
             >
               <div
-                class="relative p-4 bg-linear-to-br from-white to-[#f3f1ee] dark:from-gray-700 dark:to-gray-800 rounded-lg border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595] dark:hover:border-blue-500 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden h-full flex flex-col items-center justify-center min-h-25"
+                class="relative p-4 bg-linear-to-br  dark:to-gray-800 rounded-lg border border-[#004595]/10 hover:border-[#004595] dark:hover:border-blue-500 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden h-full flex flex-col items-center justify-center min-h-25"
               >
                 <!-- Decorative Circle -->
                 <div

@@ -48,9 +48,9 @@
             </div>
           </div>
           
-          <div class="p-6 bg-linear-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
+          <div class="p-6 bg-linear-to-br dark:to-gray-900">
             <!-- Profile Picture -->
-            <div class="flex items-center gap-6 mb-6 p-5 bg-linear-to-r from-blue-50/50 to-indigo-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-[#004595]/10 dark:border-gray-600">
+            <div class="flex items-center gap-6 mb-6 p-5 bg-linear-to-br  dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600">
               <div class="relative group shrink-0">
                 <div class="w-24 h-24 bg-linear-to-br from-[#004595] to-[#00397a] rounded-full flex items-center justify-center shadow-lg overflow-hidden transition-all duration-300">
                   <img
@@ -99,7 +99,7 @@
             <!-- Admin Info Cards -->
             <div class="grid md:grid-cols-2 gap-4">
               <!-- Email Card -->
-              <div class="p-4 bg-linear-to-br from-white to-blue-50/30 dark:from-gray-700 dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595]/20 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('email')">
+              <div class="p-4 bg-linear-to-br  dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595]/20 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('email')">
                 <div class="flex items-center justify-between mb-2">
                   <div class="flex items-center gap-2.5">
                     <div class="p-2 bg-linear-to-br from-blue-500 to-blue-600 rounded-lg">
@@ -118,7 +118,7 @@
               </div>
 
               <!-- Badge Card -->
-              <div class="p-4 bg-linear-to-br from-white to-purple-50/30 dark:from-gray-700 dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-purple-300/50 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('badge_number')">
+              <div class="p-4 bg-linear-to-br  dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-purple-300/50 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('badge_number')">
                 <div class="flex items-center justify-between mb-2">
                   <div class="flex items-center gap-2.5">
                     <div class="p-2 bg-linear-to-br from-indigo-500 to-purple-600 rounded-lg">
@@ -154,8 +154,8 @@
             </div>
           </div>
           
-          <div class="p-6 bg-linear-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
-            <div class="p-5 bg-linear-to-br from-green-50/50 to-emerald-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-green-200/50 dark:border-gray-600">
+          <div class="p-6 bg-linear-to-br dark:to-gray-900">
+            <div class="p-5 bg-linear-to-br dark:to-gray-800 rounded-xl border border-green-200/50 dark:border-gray-600">
               <div class="mb-4">
                 <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
                   <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
@@ -163,13 +163,28 @@
                   </svg>
                   New Password
                 </label>
-                <input
-                  v-model="settings.password"
-                  type="password"
-                  class="w-full px-4 py-3 rounded-lg border-2 border-green-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-100 transition-all duration-200 text-sm"
-                  placeholder="Enter new password"
-                  @input="validatePassword"
-                />
+                <div class="relative">
+                  <input
+                    v-model="settings.password"
+                    :type="showPassword ? 'text' : 'password'"
+                    class="w-full px-4 py-3 pr-12 rounded-lg border-2 border-green-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-100 transition-all duration-200 text-sm"
+                    placeholder="Enter new password"
+                    @input="validatePassword"
+                  />
+                  <button
+                    type="button"
+                    @click="showPassword = !showPassword"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+                    title="Toggle password visibility"
+                  >
+                    <svg v-if="showPassword" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                    </svg>
+                    <svg v-else class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.41l2.61 2.61L2 9c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.59 22 21 20.59 3.41 3 2 4.41zM7.38 8.38L8.77 9.77C8.32 11.13 9.26 12.36 10.61 12.69L12 14.08c-1.66 0-3-1.34-3-3 0-1.46 1.16-2.63 2.38-2.7zM11.06 5.02l3.03 3.03c.01-.05.02-.1.02-.15 0-1.66-1.34-3-3-3-.05 0-.1.01-.15.02z"/>
+                    </svg>
+                  </button>
+                </div>
                 
                 <!-- Password Requirements -->
                 <div v-if="settings.password" class="mt-3 space-y-2 p-3 bg-white/70 dark:bg-gray-800/70 rounded-lg border border-green-200/50 dark:border-gray-600/50">
@@ -241,6 +256,56 @@
                   </div>
                 </div>
               </div>
+
+              <!-- Confirm Password Field -->
+              <div class="mb-4">
+                <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
+                  <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  Confirm Password
+                </label>
+                <div class="relative">
+                  <input
+                    v-model="settings.confirmPassword"
+                    :type="showConfirmPassword ? 'text' : 'password'"
+                    class="w-full px-4 py-3 pr-12 rounded-lg border-2 transition-all duration-200 text-sm"
+                    :class="[
+                      settings.confirmPassword ? (
+                        passwordsMatch ? 'border-green-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-100' : 
+                        'border-red-300 dark:border-red-600 dark:bg-gray-700 dark:text-white focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-100'
+                      ) : 'border-green-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-100'
+                    ]"
+                    placeholder="Confirm your password"
+                    @input="validatePassword"
+                  />
+                  <button
+                    type="button"
+                    @click="showConfirmPassword = !showConfirmPassword"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+                    title="Toggle password visibility"
+                  >
+                    <svg v-if="showConfirmPassword" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                    </svg>
+                    <svg v-else class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.41l2.61 2.61L2 9c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.59 22 21 20.59 3.41 3 2 4.41zM7.38 8.38L8.77 9.77C8.32 11.13 9.26 12.36 10.61 12.69L12 14.08c-1.66 0-3-1.34-3-3 0-1.46 1.16-2.63 2.38-2.7zM11.06 5.02l3.03 3.03c.01-.05.02-.1.02-.15 0-1.66-1.34-3-3-3-.05 0-.1.01-.15.02z"/>
+                    </svg>
+                  </button>
+                </div>
+                <!-- Password Match Indicator -->
+                <div v-if="settings.confirmPassword" class="mt-2 flex items-center gap-2">
+                  <svg v-if="passwordsMatch" class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <svg v-else class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                  </svg>
+                  <p :class="passwordsMatch ? 'text-green-700 font-semibold text-sm' : 'text-red-700 font-semibold text-sm'">
+                    {{ passwordsMatch ? 'Passwords match' : 'Passwords do not match' }}
+                  </p>
+                </div>
+              </div>
               
               <!-- Save Button -->
               <div class="flex justify-end">
@@ -275,17 +340,17 @@
             </div>
           </div>
 
-          <div class="p-6 bg-linear-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900 space-y-3">
-            <div class="flex items-center justify-between p-4 bg-linear-to-r from-blue-50/50 to-cyan-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-blue-100/50 dark:border-gray-600 hover:border-blue-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
+          <div class="p-6 bg-linear-to-br  dark:to-gray-900 space-y-3">
+            <div class="flex items-center justify-between p-4 bg-linear-to-br dark:to-gray-800 rounded-xl border border-blue-100/50 dark:border-gray-600 hover:border-blue-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
               <div class="flex items-center gap-3">
-                <div class="p-2 bg-linear-to-br from-blue-500 to-cyan-600 rounded-lg">
+                <div class="p-2 bg-linear-to-br  rounded-lg">
                   <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
                   </svg>
                 </div>
-                <div>
-                  <h3 class="font-semibold text-[#002147] dark:text-white text-sm">Push Notifications</h3>
-                  <p class="text-xs text-gray-600 dark:text-gray-400">Receive push notifications</p>
+                <div class="dark:bg-gray-800">
+                  <h3 class="font-semibold text-gray-700 dark:text-gray-200 text-sm">Push Notifications</h3>
+                  <p class="text-xs text-white">Receive push notifications</p>
                 </div>
               </div>
               <label class="relative inline-flex items-center cursor-pointer">
@@ -316,9 +381,9 @@
             </div>
           </div>
 
-          <div class="p-6 bg-linear-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
+          <div class="p-6 bg-linear-to-br dark:to-gray-900">
             <div class="grid md:grid-cols-2 gap-4">
-              <div class="p-4 bg-linear-to-br from-orange-50/50 to-amber-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-orange-100/50 dark:border-gray-600 hover:border-orange-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
+              <div class="p-4 bg-linear-to-br dark:to-gray-800 rounded-xl border border-orange-100/50 dark:border-gray-600 hover:border-orange-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
                 <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
                   <svg class="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
@@ -335,7 +400,7 @@
                 </select>
               </div>
 
-              <div class="p-4 bg-linear-to-br from-amber-50/50 to-yellow-50/50 dark:from-gray-700/50 dark:to-gray-800/50 rounded-xl border border-amber-100/50 dark:border-gray-600 hover:border-amber-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
+              <div class="p-4 bg-linear-to-br dark:to-gray-800 rounded-xl border border-amber-100/50 dark:border-gray-600 hover:border-amber-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
                 <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
                   <svg class="w-4 h-4 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389c-.188-.196-.373-.396-.554-.6a19.098 19.098 0 01-3.107 3.567 1 1 0 01-1.334-1.49 17.087 17.087 0 003.13-3.733 18.992 18.992 0 01-1.487-2.494 1 1 0 111.79-.89c.234.47.489.928.764 1.372.417-.934.752-1.913.997-2.927H3a1 1 0 110-2h3V3a1 1 0 011-1zm6 6a1 1 0 01.894.553l2.991 5.982a.869.869 0 01.02.037l.99 1.98a1 1 0 11-1.79.895L15.383 16h-4.764l-.724 1.447a1 1 0 11-1.788-.894l.99-1.98.019-.038 2.99-5.982A1 1 0 0113 8zm-1.382 6h2.764L13 11.236 11.618 14z" clip-rule="evenodd"/>
@@ -541,10 +606,14 @@ const adminProfile = ref({
 const settings = ref({
   username: '',
   password: '',
+  confirmPassword: '',
   pushNotifications: true,
   theme: 'light',
   language: 'en',
 })
+
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
 
 const editingField = ref(null)
 const fileInput = ref(null)
@@ -569,6 +638,7 @@ const passwordValidation = ref({
 
 const passwordStrength = ref('')
 const isPasswordValid = ref(false)
+const passwordsMatch = ref(false)
 
 // Toast notification state
 const toast = ref({
@@ -619,6 +689,7 @@ const hideToast = () => {
 // Password validation function
 const validatePassword = () => {
   const password = settings.value.password
+  const confirmPassword = settings.value.confirmPassword
   
   // Check each requirement
   passwordValidation.value = {
@@ -629,12 +700,15 @@ const validatePassword = () => {
     hasSpecial: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
   }
   
+  // Check if passwords match
+  passwordsMatch.value = password.length > 0 && password === confirmPassword
+  
   // Calculate password strength
   const validCount = Object.values(passwordValidation.value).filter(v => v).length
   
   if (validCount === 5) {
     passwordStrength.value = 'Strong'
-    isPasswordValid.value = true
+    isPasswordValid.value = passwordsMatch.value && validCount === 5
   } else if (validCount >= 3) {
     passwordStrength.value = 'Medium'
     isPasswordValid.value = false
