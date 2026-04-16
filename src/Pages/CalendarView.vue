@@ -842,7 +842,7 @@
                       ></div>
                       <h4 class="text-xl font-bold text-purple-700">Barangay Fiestas</h4>
                       <span
-                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full font-bold text-sm"
+                        class="px-3 py-1bg-linear-to-br  dark:to-gray-800 rounded-full font-bold text-sm"
                       >
                         {{ selectedDateFiestas.length }}
                       </span>
@@ -851,7 +851,7 @@
                       <div
                         v-for="(fiesta, index) in selectedDateFiestas"
                         :key="index"
-                        class="event-card bg-linear-to-br from-purple-50 via-white to-pink-50 border-2 border-purple-200 hover:border-purple-400 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300"
+                        class="event-card bg-linear-to-br dark:to-gray-800 border border-[#004595]/10  rounded-2xl p-6 hover:shadow-2xl transition-all duration-300"
                       >
                         <div class="flex items-start gap-4">
                           <div class="p-3 bg-purple-100 rounded-xl shrink-0">
@@ -865,9 +865,9 @@
                               />
                             </svg>
                           </div>
-                          <div class="flex-1 min-w-0">
+                          <div class="flex-1 min-w-0 ">
                             <div class="flex items-center gap-2 mb-3 flex-wrap">
-                              <h5 class="font-bold text-[#002147] text-lg">{{ fiesta.patron }}</h5>
+                              <h5 class="font-bold text-white text-lg">{{ fiesta.patron }}</h5>
                               <span
                                 class="px-3 py-1 bg-linear-to-r from-purple-400 to-purple-500 text-white rounded-full font-bold text-xs shadow-sm"
                               >

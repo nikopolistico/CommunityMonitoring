@@ -1781,7 +1781,7 @@
 
               <!-- Info Card -->
               <div
-                class="bg-linear-to-br from-white to-[#f3f1ee]/30 rounded-xl p-5 border border-[#004595]/10 shadow-sm"
+                class="bg-linear-to-br dark:to-gray-800  rounded-xl p-5 border border-[#004595]/10 shadow-sm"
               >
                 <div class="flex items-start gap-3">
                   <div class="p-2 bg-[#004595]/10 rounded-lg">

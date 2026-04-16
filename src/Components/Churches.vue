@@ -41,7 +41,7 @@
         <!-- Enhanced Statistics Section -->
         <div
           v-if="categoryStatistics.length > 0"
-          class="relative rounded-xl overflow-hidden bg-linear-to-br from-white via-[#f3f1ee]/20 to-white shadow-lg border border-[#004595]/20 p-5"
+          class="relative rounded-xl overflow-hidden bg-linear-to-br  shadow-lg border border-[#004595]/20 p-5"
         >
           <!-- Decorative Background Elements -->
           <div
