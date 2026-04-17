@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-linear-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-['Poppins']">
+  <div class="min-h-screen bg-linear-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 font-['Poppins']">
     <div class="mx-auto max-w-7xl px-8 py-10">
       <!-- Header Banner -->
       <div class="relative overflow-hidden rounded-3xl bg-linear-to-br from-[#002147] via-[#004595] to-[#00397a] p-10 shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.01] mb-8">
@@ -29,7 +29,7 @@
       <!-- Settings Sections -->
       <div class="space-y-6">
         <!-- Administrator Profile Section -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
+        <div class="bg-white dark:bg-white-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
           <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4">
             <div class="flex items-center gap-3">
               <div class="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl">
@@ -48,9 +48,9 @@
             </div>
           </div>
           
-          <div class="p-6 bg-linear-to-br dark:to-gray-900">
+          <div class="p-6 bg-linear-to-br dark:to-white-900">
             <!-- Profile Picture -->
-            <div class="flex items-center gap-6 mb-6 p-5 bg-linear-to-br  dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600">
+            <div class="flex items-center gap-6 mb-6 p-5 bg-linear-to-br dark:to-white-800 rounded-xl border border-[#004595]/10 dark:border-gray-600">
               <div class="relative group shrink-0">
                 <div class="w-24 h-24 bg-linear-to-br from-[#004595] to-[#00397a] rounded-full flex items-center justify-center shadow-lg overflow-hidden transition-all duration-300">
                   <img
@@ -85,9 +85,9 @@
                 />
               </div>
               <div class="flex-1 min-w-0">
-                <h3 class="text-xl font-bold text-[#002147] dark:text-white mb-1 truncate">{{ adminProfile.username || 'Administrator' }}</h3>
-                <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">System Administrator</p>
-                <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                <h3 class="text-xl font-bold text-[#002147] dark:text-black mb-1 truncate">{{ adminProfile.username || 'Administrator' }}</h3>
+                <p class="text-black-600 dark:text-black-300 text-sm mb-2">System Administrator</p>
+                <div class="flex items-center gap-2 text-xs text-black-500 dark:text-black-400">
                   <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
                   </svg>
@@ -99,7 +99,7 @@
             <!-- Admin Info Cards -->
             <div class="grid md:grid-cols-2 gap-4">
               <!-- Email Card -->
-              <div class="p-4 bg-linear-to-br  dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595]/20 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('email')">
+              <div class="p-4 bg-linear-to-br  dark:to-white-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595]/20 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('email')">
                 <div class="flex items-center justify-between mb-2">
                   <div class="flex items-center gap-2.5">
                     <div class="p-2 bg-linear-to-br from-blue-500 to-blue-600 rounded-lg">
@@ -108,17 +108,17 @@
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                       </svg>
                     </div>
-                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Email Address</p>
+                    <p class="text-xs font-semibold text-white-100 uppercase tracking-wide">Email Address</p>
                   </div>
-                  <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-blue-600 transition-colors" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-4 h-4 text-gray-400 dark:text-gray-900 group-hover:text-blue-600 transition-colors" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
                   </svg>
                 </div>
-                <p class="text-sm font-semibold text-[#002147] dark:text-white break-all">{{ adminProfile.email || 'Not set' }}</p>
+                <p class="text-sm font-semibold text-[#002147] dark:text-black break-all">{{ adminProfile.email || 'Not set' }}</p>
               </div>
 
               <!-- Badge Card -->
-              <div class="p-4 bg-linear-to-br  dark:to-gray-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-purple-300/50 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('badge_number')">
+              <div class="p-4 bg-linear-to-br  dark:to-white-800 rounded-xl border border-[#004595]/10 dark:border-gray-600 hover:border-purple-300/50 dark:hover:border-gray-500 hover:shadow-md transition-all duration-300 cursor-pointer group" @click="openEditModal('badge_number')">
                 <div class="flex items-center justify-between mb-2">
                   <div class="flex items-center gap-2.5">
                     <div class="p-2 bg-linear-to-br from-indigo-500 to-purple-600 rounded-lg">
@@ -126,20 +126,20 @@
                         <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z" clip-rule="evenodd"/>
                       </svg>
                     </div>
-                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Badge Number</p>
+                    <p class="text-xs font-semibold text-black-500 dark:text-black-400 uppercase tracking-wide">Badge Number</p>
                   </div>
-                  <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 group-hover:text-purple-600 transition-colors" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-4 h-4 text-gray-400 dark:text-gray-900 group-hover:text-purple-600 transition-colors" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
                   </svg>
                 </div>
-                <p class="text-sm font-semibold text-[#002147] dark:text-white">{{ adminProfile.badge_number || 'Not set' }}</p>
+                <p class="text-sm font-semibold text-[#002147] dark:text-black">{{ adminProfile.badge_number || 'Not set' }}</p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Account Settings -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
+        <div class="bg-white dark:bg-white-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
           <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4">
             <div class="flex items-center gap-3">
               <div class="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl">
@@ -154,10 +154,10 @@
             </div>
           </div>
           
-          <div class="p-6 bg-linear-to-br dark:to-gray-900">
-            <div class="p-5 bg-linear-to-br dark:to-gray-800 rounded-xl border border-green-200/50 dark:border-gray-600">
+          <div class="p-6 bg-linear-to-br dark:to-white-100">
+            <div class="p-5 bg-linear-to-br dark:to-white-800 rounded-xl border border-green-200/50 dark:border-gray-600">
               <div class="mb-4">
-                <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
+                <label class="text-sm font-semibold text-black-700 dark:text-black-200 mb-2 flex items-center gap-2">
                   <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd"/>
                   </svg>
@@ -167,7 +167,7 @@
                   <input
                     v-model="settings.password"
                     :type="showPassword ? 'text' : 'password'"
-                    class="w-full px-4 py-3 pr-12 rounded-lg border-2 border-green-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-100 transition-all duration-200 text-sm"
+                    class="w-full px-4 py-3 pr-12 rounded-lg border-2 border-green-200 dark:border-gray-600 dark:bg-white-700 dark:text-black focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-100 transition-all duration-200 text-sm"
                     placeholder="Enter new password"
                     @input="validatePassword"
                   />
@@ -187,8 +187,8 @@
                 </div>
                 
                 <!-- Password Requirements -->
-                <div v-if="settings.password" class="mt-3 space-y-2 p-3 bg-white/70 dark:bg-gray-800/70 rounded-lg border border-green-200/50 dark:border-gray-600/50">
-                  <p class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-2">Password Requirements:</p>
+                <div v-if="settings.password" class="mt-3 space-y-2 p-3 bg-white/70 dark:bg-white-800/70 rounded-lg border border-green-200/50 dark:border-gray-600/50">
+                  <p class="text-xs font-semibold text-black-700 dark:text-black-200 mb-2">Password Requirements:</p>
                   <div class="space-y-1.5">
                     <div class="flex items-center gap-2 text-xs">
                       <svg :class="passwordValidation.minLength ? 'text-green-600' : 'text-gray-400'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -235,7 +235,7 @@
                   <!-- Password Strength Indicator -->
                   <div class="mt-3 pt-3 border-t border-green-200/50 dark:border-gray-600/50">
                     <div class="flex items-center justify-between mb-1.5">
-                      <span class="text-xs font-semibold text-gray-700 dark:text-gray-200">Password Strength:</span>
+                      <span class="text-xs font-semibold text-gray-700 dark:text-black-200">Password Strength:</span>
                       <span :class="[
                         'text-xs font-bold',
                         passwordStrength === 'Weak' ? 'text-red-600' :
@@ -259,7 +259,7 @@
 
               <!-- Confirm Password Field -->
               <div class="mb-4">
-                <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
+                <label class="text-sm font-semibold text-black-700 dark:text-black-200 mb-2 flex items-center gap-2">
                   <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd"/>
                   </svg>
@@ -272,9 +272,9 @@
                     class="w-full px-4 py-3 pr-12 rounded-lg border-2 transition-all duration-200 text-sm"
                     :class="[
                       settings.confirmPassword ? (
-                        passwordsMatch ? 'border-green-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-100' : 
-                        'border-red-300 dark:border-red-600 dark:bg-gray-700 dark:text-white focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-100'
-                      ) : 'border-green-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-100'
+                        passwordsMatch ? 'border-green-200 dark:border-gray-600 dark:bg-white-700 dark:text-black focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-100' : 
+                        'border-red-300 dark:border-red-600 dark:bg-white-700 dark:text-black focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-100'
+                      ) : 'border-green-200 dark:border-gray-600 dark:bg-white-700 dark:text-black focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-100'
                     ]"
                     placeholder="Confirm your password"
                     @input="validatePassword"
@@ -325,7 +325,7 @@
         </div>
 
         <!-- Notification Settings -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
+        <div class="bg-white dark:bg-gray-100 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
           <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4">
             <div class="flex items-center gap-3">
               <div class="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl">
@@ -340,17 +340,17 @@
             </div>
           </div>
 
-          <div class="p-6 bg-linear-to-br  dark:to-gray-900 space-y-3">
-            <div class="flex items-center justify-between p-4 bg-linear-to-br dark:to-gray-800 rounded-xl border border-blue-100/50 dark:border-gray-600 hover:border-blue-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
+          <div class="p-6 bg-linear-to-br  dark:to-white-900 space-y-3">
+            <div class="flex items-center justify-between p-4 bg-linear-to-br dark:to-gray-100 rounded-xl border border-blue-100/50 dark:border-gray-600 hover:border-blue-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
               <div class="flex items-center gap-3">
                 <div class="p-2 bg-linear-to-br  rounded-lg">
-                  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
                   </svg>
                 </div>
-                <div class="dark:bg-gray-800">
-                  <h3 class="font-semibold text-gray-700 dark:text-gray-200 text-sm">Push Notifications</h3>
-                  <p class="text-xs text-white">Receive push notifications</p>
+                <div class="dark:bg-white-10">
+                  <h3 class="font-semibold text-black text-sm">Push Notifications</h3>
+                  <p class="text-xs text-black">Receive push notifications</p>
                 </div>
               </div>
               <label class="relative inline-flex items-center cursor-pointer">

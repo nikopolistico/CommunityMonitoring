@@ -173,7 +173,7 @@
         </div>
       </aside>
 
-      <main class="flex-1 w-full md:w-auto bg-linear-to-br from-[#004595]/5 via-transparent to-[#00397a]/5 pb-16 md:pb-0">
+      <main class="flex-1 w-full md:w-auto bg-linear-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 pb-16 md:pb-0">
         <!-- Mobile Header -->
         <div class="md:hidden sticky top-0 z-40 bg-white border-b border-[#004595]/10 shadow-md">
           <div class="px-4 py-3 flex items-center justify-between">
@@ -237,6 +237,15 @@
                     </div>
                   </div>
                 </div>
+              </div>
+
+              <div>
+                <img
+                  v-if="communityInfo.map"
+                  :src="communityInfo.map"
+                  alt="Barangay Map"
+                  class="w-full h-64 object-cover rounded-2xl shadow-lg border border-[#004595]/10"
+                />
               </div>
 
               <!-- Statistics Cards -->

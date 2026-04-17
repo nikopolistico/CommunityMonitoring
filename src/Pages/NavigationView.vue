@@ -1,9 +1,9 @@
 
 <template>
-  <div class="flex h-screen bg-[#eeeff3] dark:bg-gray-900">
+  <div class="flex h-screen bg-linear-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5">
     <!-- Left Sidebar Navigation - Hidden on mobile, visible on desktop -->
     <aside
-      class="hidden lg:flex w-64 bg-linear-to-b from-[#002147] to-[#00397a] dark:from-gray-800 dark:to-gray-900 text-white flex-col shadow-2xl z-40"
+      class="hidden lg:flex w-64 bg-linear-to-b from-[#002147] to-[#00397a] text-white flex-col shadow-2xl z-40"
     >
       <!-- Officer Profile Section -->
       <div class="p-6 border-b border-white/10">
@@ -47,13 +47,13 @@
               <div
                 class="p-2 bg-white/10 rounded-lg mr-3 group-hover:bg-white/20 transition-colors"
               >
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
                   />
                 </svg>
               </div>
-              <span class="font-semibold">{{ t('dashboard') }}</span>
+              <span class="font-semibold text-white">Dashboard</span>
             </a>
           </li>
           <li>
@@ -68,9 +68,9 @@
               ]"
             >
               <div
-                class="p-2 bg-transparent rounded-lg mr-3 group-hover:bg-white/10 transition-colors"
+                class="p-2 bg-[#004595]/10 rounded-lg mr-3 group-hover:bg-[#004595]/20 transition-colors"
               >
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fill-rule="evenodd"
                     d="M4 4a1 1 0 011-1h10a1 1 0 011 1v1h2a1 1 0 110 2h-.22l-.894 8.941a2 2 0 01-1.994 1.794h-13.78a2 2 0 01-1.994-1.794L2.22 8H2a1 1 0 110-2h2V4zm10 2H6v9h8V6zm-6 5a1 1 0 100 2h4a1 1 0 100-2H8z"
@@ -78,7 +78,7 @@
                   />
                 </svg>
               </div>
-              <span class="font-semibold">{{ t('Government') }}</span>
+              <span class="font-semibold text-white">Government</span>
             </a>
           </li>
           <li>
@@ -93,9 +93,9 @@
               ]"
             >
               <div
-                class="p-2 bg-transparent rounded-lg mr-3 group-hover:bg-white/10 transition-colors"
+                class="p-2 bg-[#004595]/10 rounded-lg mr-3 group-hover:bg-[#004595]/20 transition-colors"
               >
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fill-rule="evenodd"
                     d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
@@ -103,7 +103,7 @@
                   />
                 </svg>
               </div>
-              <span class="font-semibold">{{ t('calendar') }}</span>
+              <span class="font-semibold text-white">Calendar</span>
             </a>
           </li>
           <li>
@@ -118,9 +118,9 @@
               ]"
             >
               <div
-                class="p-2 bg-transparent rounded-lg mr-3 group-hover:bg-white/10 transition-colors"
+                class="p-2 bg-[#004595]/10 rounded-lg mr-3 group-hover:bg-[#004595]/20 transition-colors"
               >
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fill-rule="evenodd"
                     d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
@@ -128,7 +128,7 @@
                   />
                 </svg>
               </div>
-              <span class="font-semibold">{{ t('records') }}</span>
+              <span class="font-semibold text-white">Records</span>
             </a>
           </li>
           <li>
@@ -143,9 +143,9 @@
               ]"
             >
               <div
-                class="p-2 bg-transparent rounded-lg mr-3 group-hover:bg-white/10 transition-colors"
+                class="p-2 bg-[#004595]/10 rounded-lg mr-3 group-hover:bg-[#004595]/20 transition-colors"
               >
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fill-rule="evenodd"
                     d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
@@ -153,24 +153,24 @@
                   />
                 </svg>
               </div>
-              <span class="font-semibold">{{ t('settings') }}</span>
+              <span class="font-semibold text-white">Settings</span>
             </a>
           </li>
         </ul>
       </nav>
 
       <!-- Logout Button -->
-      <div class="p-4 border-t border-white/10 dark:border-gray-700">
+      <div class="p-4 border-t border-white/10">
         <button
           @click="showLogoutModal = true"
           :disabled="isLoggingOut"
-          class="w-full flex items-center justify-center p-3.5 rounded-xl bg-white dark:bg-gray-700 hover:bg-[#f3f1ee] dark:hover:bg-gray-600 text-[#002147] dark:text-white border-2 border-white/30 dark:border-gray-600 hover:border-white dark:hover:border-gray-500 transition-all duration-300 font-bold shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none group relative overflow-hidden"
+          class="w-full flex items-center justify-center p-3.5 rounded-xl bg-white hover:bg-[#f3f1ee] text-[#002147] border-2 border-white/50 hover:border-white transition-all duration-300 font-bold shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none group relative overflow-hidden"
         >
           <!-- Shimmer Effect -->
-          <div class="absolute inset-0 bg-linear-to-r from-transparent via-[#004595]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+          <div class="absolute inset-0 bg-linear-to-r from-transparent via-[#002147]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
           
           <!-- Loading Spinner -->
-          <svg v-if="isLoggingOut" class="animate-spin w-5 h-5 mr-2.5 relative z-10 text-[#004595] dark:text-blue-400" fill="none" viewBox="0 0 24 24">
+          <svg v-if="isLoggingOut" class="animate-spin w-5 h-5 mr-2.5 relative z-10 text-[#002147]" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
@@ -184,7 +184,7 @@
             />
           </svg>
           
-          <span class="relative z-10 tracking-wide text-sm font-bold">{{ isLoggingOut ? t('loggingOut') : t('logout') }}</span>
+          <span class="relative z-10 tracking-wide text-sm font-bold text-[#002147]">{{ isLoggingOut ? 'Logging Out' : 'Logout' }}</span>
         </button>
       </div>
     </aside>
@@ -208,19 +208,19 @@
           <!-- Success Message -->
           <div class="text-center space-y-5">
             <div class="space-y-2">
-              <h3 class="text-3xl font-extrabold text-[#002147] tracking-tight">{{ t('logoutSuccess') }}</h3>
+              <h3 class="text-3xl font-extrabold text-[#002147] tracking-tight">Logout Successful</h3>
               <div class="w-24 h-1 bg-linear-to-r from-transparent via-[#004595] to-transparent rounded-full mx-auto"></div>
             </div>
             
             <div class="bg-white/70 backdrop-blur-sm rounded-xl p-5 border border-[#004595]/10 shadow-sm">
               <p class="text-[#00397a] text-lg font-semibold mb-2">
-                {{ t('sessionEnded') }}
+                Session Ended
               </p>
               <div class="flex items-center justify-center gap-2 text-[#00397a]/70 text-sm">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
                 </svg>
-                <span class="font-medium">{{ t('sessionEndedMessage') }}</span>
+                <span class="font-medium">Your session has ended</span>
               </div>
             </div>
             
@@ -231,7 +231,7 @@
                 <div class="loading-shimmer absolute top-0 left-0 h-full w-full bg-linear-to-r from-transparent via-white/30 to-transparent"></div>
               </div>
               <p class="text-[#00397a]/70 text-xs mt-3 font-semibold tracking-wide">
-                {{ t('redirecting') }}
+                Redirecting to login...
               </p>
             </div>
           </div>
@@ -242,7 +242,7 @@
     <!-- Logout Confirmation Modal -->
     <Transition name="modal-fade">
       <div v-if="showLogoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-linear-to-br from-[#002147]/80 via-[#00397a]/70 to-[#004595]/80 backdrop-blur-md">
-        <div class="bg-linear-to-br from-[#f3f1ee] to-white dark:from-gray-800 dark:to-gray-900 rounded-3xl shadow-2xl max-w-md w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20 dark:border-gray-700 relative overflow-hidden">
+        <div class="bg-linear-to-br from-[#f3f1ee] to-white rounded-3xl shadow-2xl max-w-md w-full p-10 transform animate-modal-slide border-2 border-[#004595]/20 relative overflow-hidden">
           
           <!-- Decorative Background Elements -->
           <div class="absolute top-0 right-0 w-40 h-40 bg-linear-to-br from-[#004595]/10 to-transparent rounded-full blur-3xl"></div>
@@ -261,8 +261,8 @@
           
           <!-- Message -->
           <div class="text-center mb-8 relative z-10">
-            <h3 class="text-3xl font-bold bg-linear-to-r from-[#002147] via-[#00397a] to-[#004595] bg-clip-text text-transparent dark:from-blue-400 dark:via-blue-300 dark:to-blue-500 mb-3">{{ t('signOut') }}</h3>
-            <p class="text-[#002147]/70 dark:text-gray-300 text-base leading-relaxed">{{ t('confirmLogout') }}</p>
+            <h3 class="text-3xl font-bold bg-linear-to-r from-[#002147] via-[#00397a] to-[#004595] bg-clip-text text-transparent mb-3">Sign Out</h3>
+            <p class="text-[#002147]/70 text-base leading-relaxed">Are you sure you want to logout?</p>
           </div>
           
           <!-- Buttons -->
@@ -270,10 +270,10 @@
             <button
               @click="showLogoutModal = false"
               :disabled="isLoggingOut"
-              class="flex-1 px-6 py-3.5 bg-linear-to-br from-white to-[#f3f1ee] dark:from-gray-700 dark:to-gray-800 hover:from-[#f3f1ee] hover:to-white dark:hover:from-gray-600 dark:hover:to-gray-700 text-[#002147] dark:text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none border-2 border-[#004595]/20 dark:border-gray-600 hover:border-[#004595]/40 dark:hover:border-gray-500 relative overflow-hidden group"
+              class="flex-1 px-6 py-3.5 bg-linear-to-br from-white to-[#f3f1ee] hover:from-[#f3f1ee] hover:to-white text-[#002147] font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none border-2 border-[#004595]/20 hover:border-[#004595]/40 relative overflow-hidden group"
             >
               <div class="absolute inset-0 bg-linear-to-r from-transparent via-[#004595]/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-              <span class="relative z-10">{{ t('cancel') }}</span>
+              <span class="relative z-10">Cancel</span>
             </button>
             <button
               @click="confirmLogout"
@@ -287,7 +287,7 @@
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              <span class="relative z-10">{{ isLoggingOut ? t('loggingOut') : t('confirm') }}</span>
+              <span class="relative z-10">{{ isLoggingOut ? 'Logging Out' : 'Confirm' }}</span>
             </button>
           </div>
         </div>
@@ -313,26 +313,26 @@
     </main>
 
     <!-- Mobile Bottom Navigation -->
-    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t-2 border-[#004595]/20 dark:border-gray-700 shadow-2xl z-50">
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-linear-to-b from-[#002147] to-[#00397a] border-t-2 border-white/10 shadow-2xl z-50">
       <div class="flex justify-around items-center h-16 px-2">
         <!-- Dashboard -->
         <button
           @click="setActiveView('dashboard')"
           :class="[
             'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
-            activeView === 'dashboard' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+            activeView === 'dashboard' ? 'text-[#004595]' : 'text-gray-300'
           ]"
         >
           <div
             v-if="activeView === 'dashboard'"
-            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-white rounded-b-full"
           ></div>
           <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
             <path
               d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
             />
           </svg>
-          <span class="text-xs font-semibold">{{ t('dashboard') }}</span>
+          <span class="text-xs font-semibold">Dashboard</span>
         </button>
 
         <!-- Governement Offices -->
@@ -340,12 +340,12 @@
           @click="setActiveView('govt-offices')"
           :class="[
             'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
-            activeView === 'govt-offices' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+            activeView === 'govt-offices' ? 'text-[#004595]' : 'text-gray-300'
           ]"
         >
           <div
             v-if="activeView === 'govt-offices'"
-            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-white rounded-b-full"
           ></div>
           <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
             <path
@@ -354,19 +354,19 @@
               clip-rule="evenodd"
             />
           </svg>
-          <span class="text-xs font-semibold">{{ t('Government') }}</span>
+          <span class="text-xs font-semibold">Government</span>
         </button>
         <!-- Calendar -->
         <button
           @click="setActiveView('calendar')"
           :class="[
             'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
-            activeView === 'calendar' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+            activeView === 'calendar' ? 'text-[#004595]' : 'text-gray-300'
           ]"
         >
           <div
             v-if="activeView === 'calendar'"
-            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-white rounded-b-full"
           ></div>
           <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
             <path
@@ -375,7 +375,7 @@
               clip-rule="evenodd"
             />
           </svg>
-          <span class="text-xs font-semibold">{{ t('calendar') }}</span>
+          <span class="text-xs font-semibold">Calendar</span>
         </button>
 
         <!-- Records -->
@@ -383,12 +383,12 @@
           @click="setActiveView('records')"
           :class="[
             'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
-            activeView === 'records' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+            activeView === 'records' ? 'text-[#004595]' : 'text-gray-300'
           ]"
         >
           <div
             v-if="activeView === 'records'"
-            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-white rounded-b-full"
           ></div>
           <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
             <path
@@ -397,7 +397,7 @@
               clip-rule="evenodd"
             />
           </svg>
-          <span class="text-xs font-semibold">{{ t('records') }}</span>
+          <span class="text-xs font-semibold">Records</span>
         </button>
 
         <!-- Settings -->
@@ -405,12 +405,12 @@
           @click="setActiveView('settings')"
           :class="[
             'flex flex-col items-center justify-center flex-1 h-full transition-all duration-300 relative',
-            activeView === 'settings' ? 'text-[#004595] dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'
+            activeView === 'settings' ? 'text-[#004595]' : 'text-gray-300'
           ]"
         >
           <div
             v-if="activeView === 'settings'"
-            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-[#004595] dark:bg-blue-400 rounded-b-full"
+            class="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-white rounded-b-full"
           ></div>
           <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 20 20">
             <path
@@ -419,7 +419,7 @@
               clip-rule="evenodd"
             />
           </svg>
-          <span class="text-xs font-semibold">{{ t('settings') }}</span>
+          <span class="text-xs font-semibold">Settings</span>
         </button>
       </div>
     </nav>
@@ -430,7 +430,6 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { supabase } from '@/lib/supabase'
-import { useGlobal } from '@/composables/useGlobal'
 import DashBoard from './DashBoard.vue'
 import CalendarView from './CalendarView.vue'
 import RecordsView from './RecordsView.vue'
@@ -438,7 +437,6 @@ import SettingsView from './SettingsView.vue'
 import GovtOffices from '@/Components/GovtOffices.vue'
 
 const router = useRouter()
-const { t } = useGlobal()
 const activeView = ref('dashboard')
 const showLogoutModal = ref(false)
 const isLoggingOut = ref(false)

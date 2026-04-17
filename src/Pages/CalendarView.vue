@@ -128,22 +128,22 @@
     <div class="flex flex-col lg:flex-row min-h-[calc(100vh-140px)]">
       <!-- Left Side: Calendar -->
       <aside
-        class="w-full lg:w-1/2 bg-linear-to-b from-white via-[#f3f1ee]/30 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 shadow-2xl lg:border-r border-b lg:border-b-0 border-[#004595]/10 dark:border-gray-700"
+        class="w-full lg:w-1/2 bg-linear-to-b from-white via-[#ffffff] to-white   shadow-2xl lg:border-r border-b lg:border-b-0 border-[#004595]/10 dark:border-gray-700"
       >
         <div class="p-4 sm:p-6 md:p-8 h-full flex flex-col">
           <!-- Calendar Section Title -->
           <div class="mb-4 sm:mb-6">
-            <h2 class="text-lg sm:text-2xl font-bold text-[#002147] dark:text-white mb-1 sm:mb-2">
+            <h2 class="text-lg sm:text-2xl font-bold text-[#002147] dark:text-white-100 mb-1 sm:mb-2">
               Select Event Date
             </h2>
-            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+            <p class="text-sm sm:text-base text-gray-100 dark:text-gray-400">
               Click on any date to view or add events
             </p>
           </div>
 
           <!-- Calendar Navigation -->
           <div
-            class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-[#004595]/10 dark:border-gray-700 overflow-hidden shrink-0"
+            class="bg-white dark:bg-gray-100 rounded-2xl shadow-xl border border-[#004595]/10 dark:border-gray-700 overflow-hidden shrink-0"
           >
             <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-4 sm:px-6 py-3 sm:py-4">
               <div class="flex items-center justify-between gap-2">
@@ -290,7 +290,7 @@
 
       <!-- Right Side: Events List -->
       <main
-        class="w-full lg:w-1/2 bg-linear-to-br from-[#004595]/5 via-transparent to-[#00397a]/5 overflow-auto"
+        class="w-full lg:w-1/2 bg-linear-to-br from-white via-[#ffffff] to-white overflow-auto"
       >
         <div class="p-4 sm:p-6 md:p-8 h-full flex flex-col">
           <!-- Page Header -->
@@ -842,7 +842,7 @@
                       ></div>
                       <h4 class="text-xl font-bold text-purple-700">Barangay Fiestas</h4>
                       <span
-                        class="px-3 py-1bg-linear-to-br  dark:to-gray-800 rounded-full font-bold text-sm"
+                        class="px-3 py-1bg-linear-to-br  dark:to-gray-100 rounded-full border border-black/10 font-bold text-sm"
                       >
                         {{ selectedDateFiestas.length }}
                       </span>
@@ -851,7 +851,7 @@
                       <div
                         v-for="(fiesta, index) in selectedDateFiestas"
                         :key="index"
-                        class="event-card bg-linear-to-br dark:to-gray-800 border border-[#004595]/10  rounded-2xl p-6 hover:shadow-2xl transition-all duration-300"
+                        class="event-card bg-linear-to-br dark:to-gray-100 border border-[#004595]/10  rounded-2xl p-6 hover:shadow-2xl transition-all duration-300"
                       >
                         <div class="flex items-start gap-4">
                           <div class="p-3 bg-purple-100 rounded-xl shrink-0">

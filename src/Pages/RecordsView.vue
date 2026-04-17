@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen bg-linear-to-br from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-['Poppins']"
+    class="min-h-screen bg-white font-['Poppins']"
   >
     <div class="mx-auto max-w-7xl px-8 py-10">
       <!-- Header Banner -->
@@ -25,7 +25,7 @@
       <!-- Category Search Bar -->
       <div class="p-2 sm:p-4 lg:p-6 pb-0">
         <div
-          class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 overflow-hidden"
+          class="relative bg-white dark:bg-gray-100 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 overflow-hidden"
         >
           <div
             class="absolute top-0 right-0 w-64 h-64 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-32 -mt-32"
@@ -40,7 +40,7 @@
                 class="flex items-center justify-center w-12 h-12 bg-[#004595]/10 dark:bg-blue-500/20 rounded-lg"
               >
                 <svg
-                  class="w-6 h-6 text-[#004595] dark:text-blue-400"
+                  class="w-6 h-6 text-[#004595] dark:text-blue-800"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -53,7 +53,7 @@
                   />
                 </svg>
               </div>
-              <h3 class="text-2xl font-bold text-[#002147] dark:text-white">Search Categories</h3>
+              <h3 class="text-2xl font-bold text-[#002147] dark:text-white1-100">Search Categories</h3>
             </div>
 
             <!-- Search Input -->
@@ -78,7 +78,7 @@
                 @keydown.enter="categorySearchFocused = false"
                 type="text"
                 placeholder="Search for a category name (e.g., 'Elementary School', 'Catholic Church')..."
-                class="w-full pl-12 pr-4 py-3 border-2 border-[#004595]/30 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-[#004595] transition-all bg-white dark:bg-gray-700 text-[#002147] dark:text-white placeholder-[#00397a]/60 dark:placeholder-gray-400 shadow-sm hover:border-[#004595]/50"
+                class="w-full pl-12 pr-4 py-3 border-2 border-[#004595]/30 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-[#004595] transition-all bg-white dark:bg-gray-100 text-[#002147] dark:text-white placeholder-[#00397a]/60 dark:placeholder-gray-400 shadow-sm hover:border-[#004595]/50"
               />
 
               <!-- Category Dropdown Menu -->
@@ -263,7 +263,7 @@
                   <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h1a1 1 0 001-1v-6a1 1 0 00-1-1h-1z" />
                 </svg>
               </div>
-              <p class="font-semibold text-[#002147] dark:text-white">
+              <p class="font-semibold text-[#002147] dark:text-white-50">
                 View All Counts
               </p>
               <p class="text-sm text-[#00397a] dark:text-gray-400 mt-1">
@@ -275,7 +275,7 @@
       </div>
       <!-- Search and Filter Section -->
       <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 p-6 mb-6 border border-[#004595]/10 dark:border-gray-700"
+        class="bg-white dark:bg-gray-100 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 p-6 mb-6 border border-[#004595]/10 dark:border-gray-700"
       >
         <div class="flex flex-col md:flex-row gap-4">
           <div class="flex-1">
@@ -283,7 +283,7 @@
               v-model="searchQuery"
               type="text"
               placeholder="Search by barangay name, captain, members, position, patron, or location..."
-              class="w-full px-5 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent transition-all"
+              class="w-full px-5 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-100 dark:text-white-100 dark:placeholder-gray-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent transition-all"
               @input="handleSearch"
             />
           </div>
@@ -324,7 +324,7 @@
       <!-- Records Grid/Cards -->
       <div
         v-if="loading"
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 p-16 text-center border border-[#004595]/10 dark:border-gray-700"
+        class="bg-white dark:bg-gray-100 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 p-16 text-center border border-[#004595]/10 dark:border-gray-700"
       >
         <div class="flex flex-col items-center gap-4">
           <div
@@ -339,12 +339,12 @@
 
       <div
         v-else-if="filteredRecords.length === 0 && searchQuery"
-        class="bg-linear-to-br from-white to-[#f3f1ee]/30 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl p-20 text-center border border-[#004595]/10 dark:border-gray-700"
+        class="bg-linear-to-br from-white to-[#f3f1ee]/30 dark:from-gray-100 dark:to-gray-100 rounded-2xl shadow-xl p-15 text-center border border-[#004595]/10 dark:border-gray-700"
       >
         <div class="flex flex-col items-center gap-4">
           <div class="p-6 bg-amber-500/10 dark:bg-amber-500/20 rounded-full">
             <svg
-              class="w-20 h-20 text-amber-600 dark:text-amber-400"
+              class="w-10 h-10 text-amber-600 dark:text-amber-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -357,7 +357,7 @@
               />
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-gray-800 dark:text-white">No Results Found</h3>
+          <h3 class="text-2xl font-bold text-gray-800 dark:text-white-100">No Results Found</h3>
           <p class="text-gray-600 dark:text-gray-400">
             No barangay records match your search for "<span class="font-semibold">{{
               searchQuery
@@ -464,11 +464,11 @@
     >
       <div
         v-if="showDetailsModal"
-        class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+        class="fixed inset-0 bg-white backdrop-blur-sm flex items-center justify-center z-50 p-4"
         @click.self="closeDetailsModal"
       >
         <div
-          class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl sm:max-w-3xl lg:max-w-4xl max-h-[85vh] sm:max-h-[90vh] overflow-hidden transform transition-all flex flex-col"
+          class="bg-white dark:bg-gray-100 rounded-2xl shadow-2xl w-full max-w-2xl sm:max-w-3xl lg:max-w-4xl max-h-[85vh] sm:max-h-[90vh] overflow-hidden transform transition-all flex flex-col"
         >
           <!-- Modal Header -->
           <div
@@ -764,7 +764,7 @@
 
           <!-- Modal Footer -->
           <div
-            class="bg-gray-50 dark:bg-gray-900 px-4 sm:px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex flex-col-reverse sm:flex-row justify-end gap-3 shrink-0"
+            class="bg-gray-50 dark:bg-gray-100 px-4 sm:px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex flex-col-reverse sm:flex-row justify-end gap-3 shrink-0"
           >
             <button
               @click="closeDetailsModal"
@@ -840,23 +840,41 @@
           </div>
 
           <!-- Modal Body -->
-          <div class="overflow-y-auto flex-1 p-4 sm:p-6 bg-linear-to-br from-[#f3f1ee]/30 to-white dark:from-gray-800 dark:to-gray-900">
+          <div class="overflow-y-auto flex-1 p-4 sm:p-6 bg-white">
             <div class="space-y-3 sm:space-y-4">
               <div
                 v-for="(record, recordIndex) in groupedBarangays[selectedBarangayName]"
                 :key="recordIndex"
-                class="bg-white dark:bg-gray-700 rounded-xl shadow-md border border-[#004595]/10 dark:border-gray-600 overflow-hidden hover:shadow-lg transition-all"
+                class="bg-white dark:bg-gray-100 rounded-xl shadow-md border border-[#004595]/10 dark:border-gray-600 overflow-hidden hover:shadow-lg transition-all"
               >
                 <div class="p-4 sm:p-5">
+
+                  <!-- Record Export Button -->
+                  <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button
+                      @click="exportSingleBarangay(record)"
+                      class="w-full px-4 py-2 bg-linear-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-300 font-medium text-sm flex items-center justify-center gap-2"
+                    >
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                          fill-rule="evenodd"
+                          d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      Export to Excel
+                    </button>
+                  </div>
+                  
                   <!-- Record Header -->
                   <div class="pb-3 sm:pb-4 mb-3 sm:mb-4 border-b border-gray-200 dark:border-gray-700">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
                       <div>
-                        <p class="text-xs font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-1">
+                        <p class="text-xs font-bold text-white-100  uppercase tracking-wider mb-1">
                           Patron Saint & Fiesta
                         </p>
                         <div class="flex flex-wrap items-center gap-2">
-                          <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200">
+                          <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-200 ">
                             <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                               <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" />
                             </svg>
@@ -876,29 +894,29 @@
                   <!-- Record Info Grid - Primary Info -->
                   <div class="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                     <!-- Captain -->
-                    <div class="bg-linear-to-br from-[#002147]/10 to-transparent dark:from-slate-900/30 dark:to-transparent rounded-lg p-3 sm:p-4 border-2 border-[#002147]/20 dark:border-slate-700/50">
+                    <div class="bg-linear-to-br from-[#002147]/10 to-transparent dark:from-slate-600/30 dark:to-transparent rounded-lg p-3 sm:p-4 border-2 border-[#002147]/20 dark:border-slate-700/50">
                       <div class="flex items-center gap-2 mb-2">
-                        <svg class="w-4 h-4 text-[#002147] dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="w-4 h-4 text-[#002147] dark:text-300" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
                         </svg>
-                        <p class="text-xs font-bold text-[#002147] dark:text-gray-300 uppercase tracking-widest">Barangay Captain</p>
+                        <p class="text-xs font-bold text-[#002147] dark:text-white-100 uppercase tracking-widest">Barangay Captain</p>
                       </div>
-                      <p class="text-sm font-semibold text-[#002147] dark:text-white wrap-break-words">{{ record.cptfullname || 'Not assigned' }}</p>
+                      <p class="text-sm font-semibold text-[#002147] dark:text-white-100 wrap-break-words">{{ record.cptfullname || 'Not assigned' }}</p>
                     </div>
 
                     <!-- Schools -->
-                    <div class="bg-linear-to-br from-slate-50 to-transparent dark:from-slate-800/30 dark:to-transparent rounded-lg p-3 sm:p-4 border-2 border-slate-300/50 dark:border-slate-700/50">
+                    <div class="bg-linear-to-br from-slate-50 to-transparent dark:from-slate-600/30 dark:to-transparent rounded-lg p-3 sm:p-4 border-2 border-slate-300/50 dark:border-slate-700/50">
                       <div class="flex items-center gap-2 mb-3">
-                        <svg class="w-4 h-4 text-slate-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="w-4 h-4 text-slate-700 dark:text-black-300" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                         </svg>
-                        <p class="text-xs font-bold text-slate-700 dark:text-gray-300 uppercase tracking-widest">Educational Institutions</p>
+                        <p class="text-xs font-bold text-white-700 dark:text-white-300 uppercase tracking-widest">Educational Institutions</p>
                       </div>
                       <div v-if="getSchoolsList(record).length > 0" class="space-y-2">
                         <p 
                           v-for="(school, idx) in getSchoolsList(record)"
                           :key="idx"
-                          class="text-sm font-semibold text-slate-800 dark:text-gray-200 wrap-break-words"
+                          class="text-sm font-semibold text-slate-800 dark:text-black-200 wrap-break-words"
                         >
                           {{ idx + 1 }}. {{ school }}
                         </p>
@@ -907,23 +925,23 @@
                     </div>
 
                     <!-- Churches -->
-                    <div class="bg-linear-to-br from-amber-50 to-transparent dark:from-amber-900/20 dark:to-transparent rounded-lg p-3 sm:p-4 border-2 border-amber-200/50 dark:border-amber-800/50">
+                    <div class="bg-linear-to-br from-amber-50 to-transparent dark:from-amber-900/20 dark:to-transparent rounded-lg p-3 sm:p-4 border-2 border-amber-200/50 dark:border-black-800/50">
                       <div class="flex items-center gap-2 mb-3">
-                        <svg class="w-4 h-4 text-amber-900 dark:text-amber-100" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="w-4 h-4 text-white-900 dark:text-white-100" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
-                        <p class="text-xs font-bold text-amber-900 dark:text-amber-100 uppercase tracking-widest">Religious Institutions</p>
+                        <p class="text-xs font-bold text-white-100 uppercase tracking-widest">Religious Institutions</p>
                       </div>
                       <div v-if="getChurchesList(record).length > 0" class="space-y-2">
                         <p 
                           v-for="(church, idx) in getChurchesList(record)"
                           :key="idx"
-                          class="text-sm font-semibold text-amber-900 dark:text-amber-100 wrap-break-words"
+                          class="text-sm font-semibold text-white-900 dark:text-white-100 wrap-break-words"
                         >
                           {{ idx + 1 }}. {{ church }}
                         </p>
                       </div>
-                      <p v-else class="text-sm text-amber-800 dark:text-amber-200 italic">No churches listed</p>
+                      <p v-else class="text-sm text-black-800 dark:text-white-200 italic">No churches listed</p>
                     </div>
                   </div>
 
@@ -935,10 +953,10 @@
                     <!-- Officials -->
                     <div class="bg-linear-to-br from-blue-50 to-transparent dark:from-blue-900/20 dark:to-transparent rounded-lg p-3 sm:p-4 border-2 border-blue-200/50 dark:border-blue-800/50">
                       <div class="flex items-center gap-2 mb-3">
-                        <svg class="w-4 h-4 text-blue-900 dark:text-blue-100" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="w-4 h-4 text-blue-900 dark:text-black-100" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 11a6 6 0 00-5.86 0A.75.75 0 006 20.75v-1.5a4.5 4.5 0 019 0v1.5a.75.75 0 01-.07 0z" />
                         </svg>
-                        <p class="text-xs font-bold text-blue-900 dark:text-blue-100 uppercase tracking-widest">Barangay Officials</p>
+                        <p class="text-xs font-bold text-blue-900 dark:text-black-100 uppercase tracking-widest">Barangay Officials</p>
                       </div>
                       <div v-if="getMembersList(record).length > 0" class="space-y-2">
                         <div
@@ -946,13 +964,13 @@
                           :key="idx"
                           class="flex items-start justify-between gap-2"
                         >
-                          <p class="text-sm font-semibold text-blue-900 dark:text-blue-100 wrap-break-words flex-1">{{ idx + 1 }}. {{ member.name }}</p>
+                          <p class="text-sm font-semibold text-blue-900 dark:text-black-100 wrap-break-words flex-1">{{ idx + 1 }}. {{ member.name }}</p>
                           <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-200 dark:bg-blue-900/50 text-blue-900 dark:text-blue-200 whitespace-nowrap">
                             {{ member.position }}
                           </span>
                         </div>
                       </div>
-                      <p v-else class="text-sm text-blue-700 dark:text-blue-300 italic">No officials listed</p>
+                      <p v-else class="text-sm text-white-700 dark:text-white-300 italic">No officials listed</p>
                     </div>
 
                     <!-- Establishments -->
@@ -961,36 +979,19 @@
                         <svg class="w-4 h-4 text-gray-800 dark:text-gray-200" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1h7.586a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM5 16a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
-                        <p class="text-xs font-bold text-gray-800 dark:text-gray-200 uppercase tracking-widest">Commercial Establishments</p>
+                        <p class="text-xs font-bold text-gray-800 dark:text-black-200 uppercase tracking-widest">Commercial Establishments</p>
                       </div>
                       <div v-if="getEstablishmentsList(record).length > 0" class="space-y-2">
                         <p 
                           v-for="(establishment, idx) in getEstablishmentsList(record)"
                           :key="idx"
-                          class="text-sm font-semibold text-gray-800 dark:text-gray-200 wrap-break-words"
+                          class="text-sm font-semibold text-gray-800 dark:text-black-300 wrap-break-words"
                         >
                           {{ idx + 1 }}. {{ establishment }}
                         </p>
                       </div>
-                      <p v-else class="text-sm text-gray-700 dark:text-gray-300 italic">No establishments listed</p>
+                      <p v-else class="text-sm text-gray-700 dark:text-black-300 italic">No establishments listed</p>
                     </div>
-                  </div>
-
-                  <!-- Record Export Button -->
-                  <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700">
-                    <button
-                      @click="exportSingleBarangay(record)"
-                      class="w-full px-4 py-2 bg-linear-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-300 font-medium text-sm flex items-center justify-center gap-2"
-                    >
-                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      Export to Excel
-                    </button>
                   </div>
                 </div>
               </div>

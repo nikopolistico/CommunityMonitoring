@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-1 flex flex-col bg-[#f3f1ee] dark:bg-gray-900">
+  <div class="flex-1 flex flex-col bg-[#f3f1ee]">
     <!-- Top Header -->
     <header class="relative shadow-2xl overflow-hidden h-32 sm:h-40 md:h-44 lg:h-48">
       <div
@@ -17,7 +17,7 @@
                 <h1
                   class="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-white tracking-tight drop-shadow-lg"
                 >
-                  {{ t('policeStationTitle') }}
+                  Butuan City Police Station 1
                 </h1>
               </div>
 
@@ -25,7 +25,7 @@
                 <p
                   class="text-xs sm:text-sm md:text-base lg:text-lg text-[#e0e7ff] mb-1 ms-4 sm:ms-6 md:ms-8 lg:ms-9 font-medium"
                 >
-                  {{ t('communityMonitoring') }}
+                  Community monitoring across 28 barangays
                 </p>
               </div>
             </div>
@@ -142,7 +142,7 @@
         <div class="lg:col-span-2 grid grid-cols-2 gap-2">
           <!-- Total Barangays Card -->
           <div
-            class="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
+            class="relative bg-white Dark:bg-blue-500/10 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
           >
             <div
               class="absolute top-0 right-0 w-32 h-32 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"
@@ -153,18 +153,18 @@
             <div class="relative z-10 flex items-start justify-between">
               <div>
                 <h3
-                  class="text-2xl font-extrabold text-[#002147] dark:text-white mb-1 group-hover:scale-105 transition-transform"
+                  class="text-2xl font-extrabold text-[#002147] dark:text-black-300 mb-1 group-hover:scale-105 transition-transform"
                 >
                   {{ totalBarangays }}
                 </h3>
                 <p
-                  class="text-sm text-[#00397a] dark:text-gray-300 font-semibold uppercase tracking-wide"
+                  class="text-sm text-[#00397a] dark:text-black-300 font-semibold uppercase tracking-wide"
                 >
-                  {{ t('totalBarangays') }}
+                  TOTAL BARANGAYS
                 </p>
               </div>
               <div
-                class="flex items-center justify-center w-10 h-10 bg-linear-to-br from-purple-100 to-purple-50 rounded-lg group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
+                class="flex items-center justify-center w-10 h-10 bg-linear-to-br from-purple-700 to-purple-100 rounded-lg group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
               >
                 <svg
                   class="w-5 h-5 text-purple-600"
@@ -191,7 +191,7 @@
 
           <!-- Total Schools Card -->
           <div
-            class="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
+            class="relative bg-white dark:bg-gray-100 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
           >
             <div
               class="absolute top-0 right-0 w-32 h-32 bg-[#00397a]/5 dark:bg-emerald-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"
@@ -202,18 +202,18 @@
             <div class="relative z-10 flex items-start justify-between">
               <div>
                 <h3
-                  class="text-2xl font-extrabold text-[#002147] dark:text-white mb-1 group-hover:scale-105 transition-transform"
+                  class="text-2xl font-extrabold text-[#002147] dark:text-300 mb-1 group-hover:scale-105 transition-transform"
                 >
                   {{ totalSchools }}
                 </h3>
                 <p
-                  class="text-sm text-[#00397a] dark:text-gray-300 font-semibold uppercase tracking-wide"
+                  class="text-sm text-[#00397a] dark:text-300 font-semibold uppercase tracking-wide"
                 >
-                  {{ t('totalSchools') }}
+                  TOTAL SCHOOLS
                 </p>
               </div>
               <div
-                class="flex items-center justify-center w-10 h-10 bg-linear-to-br from-emerald-100 to-emerald-50 rounded-lg group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
+                class="flex items-center justify-center w-10 h-10 bg-linear-to-br from-emerald-700 to-emerald-100 rounded-lg group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
               >
                 <svg
                   class="w-5 h-5 text-emerald-600"
@@ -246,7 +246,7 @@
 
           <!-- Total Church Card -->
           <div
-            class="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
+            class="relative bg-white dark:bg-gray-100 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
           >
             <div
               class="absolute top-0 right-0 w-32 h-32 bg-[#002147]/5 dark:bg-rose-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"
@@ -257,18 +257,18 @@
             <div class="relative z-10 flex items-start justify-between">
               <div>
                 <h3
-                  class="text-2xl font-extrabold text-[#002147] dark:text-white mb-1 group-hover:scale-105 transition-transform"
+                  class="text-2xl font-extrabold text-[#002147] dark:text-300 mb-1 group-hover:scale-105 transition-transform"
                 >
                   {{ totalChurches }}
                 </h3>
                 <p
-                  class="text-sm text-[#00397a] dark:text-gray-300 font-semibold uppercase tracking-wide"
+                  class="text-sm text-[#00397a] dark:text-300 font-semibold uppercase tracking-wide"
                 >
                   {{ t('totalChurches') }}
                 </p>
               </div>
               <div
-                class="flex items-center justify-center w-10 h-10 bg-linear-to-br from-rose-100 to-rose-50 rounded-lg group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
+                class="flex items-center justify-center w-10 h-10 bg-linear-to-br from-rose-700 to-rose-100 rounded-lg group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
               >
                 <svg class="w-5 h-5 text-rose-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2L10 6H8v3H6v13h12V9h-2V6h-2L12 2z" />
@@ -284,7 +284,7 @@
 
           <!-- Total Establishment Card -->
           <div
-            class="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
+            class="relative bg-white dark:bg-gray-100 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
           >
             <div
               class="absolute top-0 right-0 w-32 h-32 bg-[#004595]/5 dark:bg-amber-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500"
@@ -295,12 +295,12 @@
             <div class="relative z-10 flex items-start justify-between">
               <div>
                 <h3
-                  class="text-2xl font-extrabold text-[#002147] dark:text-white mb-1 group-hover:scale-105 transition-transform"
+                  class="text-2xl font-extrabold text-[#002147] dark:text-300 mb-1 group-hover:scale-105 transition-transform"
                 >
                   {{ totalEstablishments }}
                 </h3>
                 <p
-                  class="text-sm text-[#00397a] dark:text-gray-300 font-semibold uppercase tracking-wide"
+                  class="text-sm text-[#00397a] dark:text-300 font-semibold uppercase tracking-wide"
                 >
                   {{ t('totalEstablishments') }}
                 </p>
@@ -334,7 +334,7 @@
 
         <!-- Right Side Weather Card -->
         <div
-          class="relative bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 flex flex-col items-center justify-center hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
+          class="relative bg-white dark:bg-gray-100 rounded-lg shadow-md p-3 border border-[#004595]/10 dark:border-gray-700 flex flex-col items-center justify-center hover:border-[#004595]/30 dark:hover:border-gray-600 hover:shadow-lg transition-all duration-300 group overflow-hidden"
         >
           <div
             class="absolute top-0 right-0 w-40 h-40 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-500"
@@ -344,7 +344,7 @@
           ></div>
           <div class="relative z-10 w-full">
             <h2
-              class="text-lg font-bold text-[#002147] dark:text-white mb-2 text-center group-hover:scale-105 transition-transform"
+              class="text-lg font-bold text-[#0f1010] dark:text-gray-700 mb-2 text-center group-hover:scale-105 transition-transform"
             >
               {{ t('weather') }}
             </h2>
@@ -425,9 +425,9 @@
                 <circle cx="13" cy="18" r="0.5" />
               </svg>
               <!-- Default Partly Cloudy -->
-              <svg
+              <svg  
                 v-else
-                class="w-12 h-12 text-gray-300 drop-shadow-lg"
+                class="w-12 h-12 text-dark-300 drop-shadow-lg"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -442,11 +442,11 @@
             </div>
             <div class="text-center">
               <p
-                class="text-2xl font-extrabold text-[#002147] dark:text-white group-hover:scale-105 transition-transform mb-1"
+                class="text-2xl font-extrabold text-[#002147] dark:text-blue group-hover:scale-105 transition-transform mb-1"
               >
                 {{ currentTemperature }}°C
               </p>
-              <p class="text-[#00397a] dark:text-gray-300 font-semibold text-xs">
+              <p class="text-[#00397a] dark:text-dark-300 font-semibold text-xs">
                 {{ weatherCondition }}
               </p>
             </div>
@@ -456,7 +456,7 @@
 
       <!-- Barangay List -->
       <div
-        class="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 overflow-hidden"
+        class="relative from-[#004595]/5 via-[#ffffff] to-[#00397a]/5 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 overflow-hidden"
       >
         <div
           class="absolute top-0 right-0 w-64 h-64 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-32 -mt-32"
@@ -486,7 +486,7 @@
                   />
                 </svg>
               </div>
-              <h3 class="text-2xl font-bold text-[#002147] dark:text-white">List of Barangays</h3>
+              <h3 class="text-2xl font-bold text-[#002147] dark:text-dark">List of Barangays</h3>
             </div>
 
             <!-- Search Bar -->
@@ -508,7 +508,7 @@
                 v-model="searchQuery"
                 type="text"
                 placeholder="Search barangay..."
-                class="w-full pl-10 pr-4 py-2.5 border-2 border-[#004595]/30 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-[#004595] transition-all bg-white dark:bg-gray-700 text-[#002147] dark:text-white placeholder-[#00397a]/60 dark:placeholder-gray-400 shadow-sm hover:border-[#004595]/50"
+                class="w-full pl-10 pr-4 py-2.5 border-2 border-[#004595]/30 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-[#004595] transition-all bg-white text-[#002147] dark:text-white placeholder-[#00397a]/60 dark:placeholder-gray-400 shadow-sm hover:border-[#004595]/50"
               />
             </div>
           </div>
@@ -550,7 +550,7 @@
                     class="flex items-center justify-center w-10 h-10 bg-[#004595]/10 dark:bg-blue-500/20 rounded-lg group-hover:bg-[#004595] group-hover:scale-110 transition-all duration-300"
                   >
                     <svg
-                      class="w-5 h-5 text-[#004595] dark:text-blue-400 group-hover:text-white transition-colors duration-300"
+                      class="w-5 h-5 text-[#251a69] dark:text-blue-400 group-hover:text-white transition-colors duration-300"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -891,7 +891,7 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGlobal } from '@/composables/useGlobal'
 import headbk from '@/assets/landing.jpg'
