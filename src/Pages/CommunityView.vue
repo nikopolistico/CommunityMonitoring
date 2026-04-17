@@ -217,35 +217,39 @@
                     class="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full -ml-24 -mb-24"
                   ></div>
 
-                  <div class="relative flex items-center gap-4">
-                    <div class="p-3 bg-white/20 backdrop-blur-sm rounded-2xl ring-4 ring-white/20">
-                      <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                          fill-rule="evenodd"
-                          d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                          clip-rule="evenodd"
-                        />
+                  <div class="relative flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                      <div class="p-3 bg-white/20 backdrop-blur-sm rounded-2xl ring-4 ring-white/20">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path
+                            fill-rule="evenodd"
+                            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <h1 class="text-3xl font-bold text-white tracking-tight">
+                          {{ communityInfo.name }} Overview
+                        </h1>
+                        <p class="text-white/90 text-sm font-medium mt-1">
+                          Butuan City, Agusan Del Norte 8600
+                        </p>
+                      </div>
+                    </div>
+                    <!-- View Map Button -->
+                    <button
+                      v-if="barangayMap"
+                      @click="showMapModal = true"
+                      class="group flex items-center gap-2 px-6 py-3 bg-white/20 hover:bg-white/30 text-white rounded-xl hover:shadow-xl transition-all duration-300 font-bold text-sm shadow-lg backdrop-blur-sm"
+                    >
+                      <svg class="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
                       </svg>
-                    </div>
-                    <div>
-                      <h1 class="text-3xl font-bold text-white tracking-tight">
-                        {{ communityInfo.name }} Overview
-                      </h1>
-                      <p class="text-white/90 text-sm font-medium mt-1">
-                        Butuan City, Agusan Del Norte 8600
-                      </p>
-                    </div>
+                      View Map
+                    </button>
                   </div>
                 </div>
-              </div>
-
-              <div>
-                <img
-                  v-if="communityInfo.map"
-                  :src="communityInfo.map"
-                  alt="Barangay Map"
-                  class="w-full h-64 object-cover rounded-2xl shadow-lg border border-[#004595]/10"
-                />
               </div>
 
               <!-- Statistics Cards -->
@@ -936,6 +940,19 @@
                     </div>
                   </div>
                 </div>
+              </div>
+
+              <!-- Overview Modal Button -->
+              <div class="flex justify-end">
+                <button
+                  @click="showOverviewModal = true"
+                  class="group flex items-center gap-2 px-6 py-3 bg-linear-to-r from-[#002147] to-[#004595] text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold text-sm shadow-lg"
+                >
+                  <svg class="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zm-11-1a1 1 0 11-2 0 1 1 0 012 0zM8 8a1 1 0 000 2h6a1 1 0 100-2H8zm0 4a1 1 0 100 2h3a1 1 0 100-2H8z" clip-rule="evenodd" />
+                  </svg>
+                  View Details
+                </button>
               </div>
             </div>
 
@@ -2680,6 +2697,177 @@
       </div>
     </Transition>
 
+    <!-- Map Modal -->
+    <Transition
+      enter-active-class="transition-all duration-300 ease-out"
+      enter-from-class="opacity-0 scale-95"
+      enter-to-class="opacity-100 scale-100"
+      leave-active-class="transition-all duration-200 ease-in"
+      leave-from-class="opacity-100 scale-100"
+      leave-to-class="opacity-0 scale-95"
+    >
+      <div
+        v-if="showMapModal"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+        @click.self="showMapModal = false"
+      >
+        <div
+          class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+        >
+          <!-- Modal Header -->
+          <div
+            class="bg-linear-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 flex items-center justify-between sticky top-0 z-10"
+          >
+            <div>
+              <h2 class="text-2xl font-bold text-white">{{ communityInfo?.name }} Map</h2>
+              <p class="text-white/90 text-sm mt-1">Community location and territory</p>
+            </div>
+            <button
+              @click="showMapModal = false"
+              class="p-2 hover:bg-white/20 rounded-lg transition-colors"
+            >
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Modal Content -->
+          <div class="p-6">
+            <img
+              v-if="barangayMap"
+              :src="barangayMap"
+              alt="Barangay Map"
+              class="w-full h-auto object-cover rounded-2xl shadow-lg border border-[#004595]/10"
+            />
+          </div>
+        </div>
+      </div>
+    </Transition>
+
+    <!-- Overview Details Modal -->
+    <Transition
+      enter-active-class="transition-all duration-300 ease-out"
+      enter-from-class="opacity-0 scale-95"
+      enter-to-class="opacity-100 scale-100"
+      leave-active-class="transition-all duration-200 ease-in"
+      leave-from-class="opacity-100 scale-100"
+      leave-to-class="opacity-0 scale-95"
+    >
+      <div
+        v-if="showOverviewModal"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+        @click.self="showOverviewModal = false"
+      >
+        <div
+          class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+        >
+          <!-- Modal Header -->
+          <div
+            class="bg-linear-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 flex items-center justify-between sticky top-0 z-10"
+          >
+            <div>
+              <h2 class="text-2xl font-bold text-white">{{ communityInfo?.name }} Overview</h2>
+              <p class="text-white/90 text-sm mt-1">Complete community information</p>
+            </div>
+            <button
+              @click="showOverviewModal = false"
+              class="p-2 hover:bg-white/20 rounded-lg transition-colors"
+            >
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Modal Content -->
+          <div class="p-6 space-y-6">
+            <!-- Captain Information -->
+            <div class="bg-linear-to-br from-[#f3f1ee] to-white rounded-xl p-6 border border-[#004595]/10">
+              <h3 class="text-lg font-bold text-[#002147] mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                </svg>
+                Barangay Captain
+              </h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <p class="text-xs text-gray-600 font-bold uppercase">Name</p>
+                  <p class="text-sm font-semibold text-[#002147] mt-1">{{ captainInfo.name || 'N/A' }}</p>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-600 font-bold uppercase">Phone</p>
+                  <p class="text-sm font-semibold text-[#002147] mt-1">{{ captainInfo.phone || 'N/A' }}</p>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-600 font-bold uppercase">Email</p>
+                  <p class="text-sm font-semibold text-[#002147] mt-1 break-all">{{ captainInfo.email || 'N/A' }}</p>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-600 font-bold uppercase">Office Hours</p>
+                  <p class="text-sm font-semibold text-[#002147] mt-1">{{ captainInfo.officeHours || 'N/A' }}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Community Statistics -->
+            <div class="bg-linear-to-br from-[#f3f1ee] to-white rounded-xl p-6 border border-[#004595]/10">
+              <h3 class="text-lg font-bold text-[#002147] mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                </svg>
+                Community Statistics
+              </h3>
+              <div class="grid grid-cols-3 gap-4">
+                <div class="text-center p-3 bg-white rounded-lg border border-[#004595]/10">
+                  <p class="text-2xl font-bold text-[#004595]">{{ totalOfficers }}</p>
+                  <p class="text-xs text-gray-600 font-bold uppercase mt-2">Officers</p>
+                </div>
+                <div class="text-center p-3 bg-white rounded-lg border border-[#00397a]/10">
+                  <p class="text-2xl font-bold text-[#00397a]">{{ totalLandmarks }}</p>
+                  <p class="text-xs text-gray-600 font-bold uppercase mt-2">Landmarks</p>
+                </div>
+                <div class="text-center p-3 bg-white rounded-lg border border-[#004595]/10">
+                  <p class="text-2xl font-bold text-[#004595]">{{ totalHistory }}</p>
+                  <p class="text-xs text-gray-600 font-bold uppercase mt-2">Records</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Location Information -->
+            <div class="bg-linear-to-br from-[#f3f1ee] to-white rounded-xl p-6 border border-[#004595]/10">
+              <h3 class="text-lg font-bold text-[#002147] mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-[#004595]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                </svg>
+                Location
+              </h3>
+              <div class="space-y-3">
+                <div>
+                  <p class="text-xs text-gray-600 font-bold uppercase">Barangay</p>
+                  <p class="text-sm font-semibold text-[#002147] mt-1">{{ communityInfo?.name || 'N/A' }}</p>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-600 font-bold uppercase">City/Municipality</p>
+                  <p class="text-sm font-semibold text-[#002147] mt-1">Butuan City, Agusan Del Norte 8600</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-end gap-3 sticky bottom-0">
+            <button
+              @click="showOverviewModal = false"
+              class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-all duration-300 font-semibold"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </Transition>
+
     <!-- Toast Notification -->
     <Transition
       enter-active-class="transition-all duration-500 ease-out"
@@ -3111,6 +3299,7 @@ const featureLabels = {
 
 const barangayName = computed(() => (route.params.barangayName || '').toString())
 const communityInfo = ref(null)
+const barangayMap = ref(null)
 const loadingBarangay = ref(false)
 
 // Fetch barangay info from database
@@ -3156,7 +3345,7 @@ const fetchBarangayInfo = async () => {
     for (const pattern of searchPatterns) {
       const result = await supabase
         .from('Barangays')
-        .select('*')
+        .select('*, map')
         .ilike('brgyname', pattern)
         .maybeSingle()
 
@@ -3178,7 +3367,7 @@ const fetchBarangayInfo = async () => {
       const wildcardPattern = `%${barangayName.value.replace(/-/g, '%')}%`
       const result = await supabase
         .from('Barangays')
-        .select('*')
+        .select('*, map')
         .ilike('brgyname', wildcardPattern)
         .limit(1)
         .maybeSingle()
@@ -3189,12 +3378,13 @@ const fetchBarangayInfo = async () => {
       } else {
         // Final attempt: Get all barangays and do client-side fuzzy match
         console.log('🔍 Trying client-side fuzzy match...')
-        const { data: allBarangays } = await supabase.from('Barangays').select('*')
+        const { data: allBarangays } = await supabase.from('Barangays').select('*, map')
 
         if (allBarangays && allBarangays.length > 0) {
           // Try to find a match by comparing URL-safe versions
           const urlSafeParam = barangayName.value.toLowerCase().replace(/[^\w-]/g, '')
           const match = allBarangays.find((b) => {
+            if (!b || !b.brgyname) return false
             const urlSafeName = b.brgyname
               .toLowerCase()
               .trim()
@@ -3213,7 +3403,7 @@ const fetchBarangayInfo = async () => {
             data = match
             console.log('✅ Found via fuzzy match:', data.brgyname)
           } else {
-            console.log('❌ Available barangays:', allBarangays.map((b) => b.brgyname).join(', '))
+            console.log('❌ Available barangays:', allBarangays.map((b) => b?.brgyname || 'Unknown').join(', '))
           }
         }
       }
@@ -3257,6 +3447,12 @@ const fetchBarangayInfo = async () => {
         `${actualName} Commercial Center`,
         `${actualName} Cooperative Store`,
       ],
+    }
+
+    // Store the map image from the database
+    if (data && data.map) {
+      barangayMap.value = data.map
+      console.log('✅ Map image fetched for barangay:', actualName)
     }
 
     console.log('✅ Barangay info loaded:', actualName, data ? '(from database)' : '(default data)')
@@ -3305,6 +3501,8 @@ const submitting = ref(false)
 const isEditMode = ref(false)
 const editingPersonnelId = ref(null)
 const activeTab = ref('dashboard')
+const showOverviewModal = ref(false)
+const showMapModal = ref(false)
 const personnelForm = ref({
   fullname: '',
   phone_number: '',
