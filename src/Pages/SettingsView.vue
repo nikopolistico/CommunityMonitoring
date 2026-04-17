@@ -365,60 +365,7 @@
           </div>
         </div>
 
-        <!-- Appearance Settings -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl shadow-[#004595]/5 dark:shadow-black/20 overflow-hidden border border-[#004595]/10 dark:border-gray-700">
-          <div class="bg-linear-to-r from-[#004595] to-[#00397a] px-6 py-4">
-            <div class="flex items-center gap-3">
-              <div class="p-2.5 bg-white/10 backdrop-blur-sm rounded-xl">
-                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              <div>
-                <h2 class="text-2xl font-bold text-white">Appearance</h2>
-                <p class="text-blue-100 text-sm">Customize your interface</p>
-              </div>
-            </div>
-          </div>
 
-          <div class="p-6 bg-linear-to-br dark:to-gray-900">
-            <div class="grid md:grid-cols-2 gap-4">
-              <div class="p-4 bg-linear-to-br dark:to-gray-800 rounded-xl border border-orange-100/50 dark:border-gray-600 hover:border-orange-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
-                <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
-                  <svg class="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
-                  </svg>
-                  Theme
-                </label>
-                <select
-                  v-model="settings.theme"
-                  class="w-full px-3 py-2.5 rounded-lg border-2 border-orange-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-100 transition-all duration-200 text-sm cursor-pointer"
-                >
-                  <option value="light">☀️ Light</option>
-                  <option value="dark">🌙 Dark</option>
-                  <option value="auto">🔄 Auto</option>
-                </select>
-              </div>
-
-              <div class="p-4 bg-linear-to-br dark:to-gray-800 rounded-xl border border-amber-100/50 dark:border-gray-600 hover:border-amber-300/50 dark:hover:border-gray-500 hover:shadow-sm transition-all duration-300">
-                <label class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center gap-2">
-                  <svg class="w-4 h-4 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M7 2a1 1 0 011 1v1h3a1 1 0 110 2H9.578a18.87 18.87 0 01-1.724 4.78c.29.354.596.696.914 1.026a1 1 0 11-1.44 1.389c-.188-.196-.373-.396-.554-.6a19.098 19.098 0 01-3.107 3.567 1 1 0 01-1.334-1.49 17.087 17.087 0 003.13-3.733 18.992 18.992 0 01-1.487-2.494 1 1 0 111.79-.89c.234.47.489.928.764 1.372.417-.934.752-1.913.997-2.927H3a1 1 0 110-2h3V3a1 1 0 011-1zm6 6a1 1 0 01.894.553l2.991 5.982a.869.869 0 01.02.037l.99 1.98a1 1 0 11-1.79.895L15.383 16h-4.764l-.724 1.447a1 1 0 11-1.788-.894l.99-1.98.019-.038 2.99-5.982A1 1 0 0113 8zm-1.382 6h2.764L13 11.236 11.618 14z" clip-rule="evenodd"/>
-                  </svg>
-                  Language
-                </label>
-                <select
-                  v-model="settings.language"
-                  class="w-full px-3 py-2.5 rounded-lg border-2 border-amber-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-100 transition-all duration-200 text-sm cursor-pointer"
-                >
-                  <option value="en">🇺🇸 English</option>
-                  <option value="fil">🇵🇭 Filipino</option>
-                  <option value="ceb">🌴 Cebuano</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -591,8 +538,8 @@ import { supabase } from '@/lib/supabase'
 import { useSettings } from '@/composables/useSettings'
 import { useTranslation } from '@/composables/useTranslation'
 
-const { saveSettings: saveSettingsToDb, theme: currentTheme, language: currentLanguage, pushNotifications: currentPushNotifications } = useSettings()
-const { t, setLanguage } = useTranslation()
+const { saveSettings: saveSettingsToDb, pushNotifications: currentPushNotifications } = useSettings()
+const { t } = useTranslation()
 
 const adminProfile = ref({
   id: null,
@@ -608,8 +555,6 @@ const settings = ref({
   password: '',
   confirmPassword: '',
   pushNotifications: true,
-  theme: 'light',
-  language: 'en',
 })
 
 const showPassword = ref(false)
@@ -743,38 +688,12 @@ const fetchAdminData = async () => {
       settings.value.username = data.username || ''
       
       // Sync settings from database
-      settings.value.theme = data.theme || 'light'
-      settings.value.language = data.language || 'en'
       settings.value.pushNotifications = data.push_notifications !== false
-      
-      // Set language for translations
-      setLanguage(settings.value.language)
     }
   } catch (error) {
     console.error('Error fetching admin data:', error)
   }
 }
-
-// Watch for theme changes and apply immediately
-watch(() => settings.value.theme, async (newTheme) => {
-  const result = await saveSettingsToDb({ theme: newTheme })
-  if (result.success) {
-    showToast(t('success'), 'success', t('settingsUpdated'))
-  } else {
-    showToast(t('updateFailed'), 'error', result.error)
-  }
-})
-
-// Watch for language changes and apply immediately
-watch(() => settings.value.language, async (newLang) => {
-  setLanguage(newLang)
-  const result = await saveSettingsToDb({ language: newLang })
-  if (result.success) {
-    showToast(t('success'), 'success', t('settingsUpdated'))
-  } else {
-    showToast(t('updateFailed'), 'error', result.error)
-  }
-})
 
 // Watch for push notification changes
 watch(() => settings.value.pushNotifications, async (newValue) => {

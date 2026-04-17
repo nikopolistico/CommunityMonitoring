@@ -268,7 +268,7 @@
                   </div>
                 </div>
 
-                <div class="p-6 bg-linear-to-br from-[#f3f1ee]/20 to-white">
+                <div class="p-6 bg-linear-to-br  bg-[#00397a]/5 dark:bg-blue-400/10">
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <!-- Officers Card -->
                     <div
@@ -380,7 +380,7 @@
 
               <!-- Captain Information Card -->
               <div
-                class="bg-white rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10 hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-300"
+                class="bg-[#00397a]/5 dark:bg-blue-400/10 rounded-2xl shadow-xl shadow-[#004595]/5 overflow-hidden border border-[#004595]/10 hover:shadow-2xl hover:shadow-[#004595]/10 transition-all duration-300"
               >
                 <div
                   class="bg-linear-to-r from-[#002147] via-[#00397a] to-[#004595] px-6 py-5 relative overflow-hidden"

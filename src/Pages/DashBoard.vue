@@ -566,7 +566,7 @@
                 <!-- Text -->
                 <div class="relative z-10 text-center">
                   <span
-                    class="text-xs font-semibold text-[#002147] dark:text-white group-hover:text-[#004595] dark:group-hover:text-blue-400 transition-colors duration-300 block leading-tight"
+                    class="text-xs font-semibold text-[#e1e6ec] dark:text-white group-hover:text-[#cacdd1] dark:group-hover:text-blue-400 transition-colors duration-300 block leading-tight"
                     >{{ option.label }}</span
                   >
                 </div>
