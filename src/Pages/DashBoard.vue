@@ -525,8 +525,22 @@
               <div
                 class="relative p-4 bg-linear-to-br  dark:to-gray-800 rounded-lg border border-[#004595]/10 hover:border-[#004595] dark:hover:border-blue-500 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden h-full flex flex-col items-center justify-center min-h-25"
               >
-                <!-- Decorative Circle -->
+                <!-- Barangay Map Image -->
                 <div
+                  v-if="option.map"
+                  class="absolute inset-0 rounded-lg overflow-hidden"
+                >
+                  <img
+                    :src="option.map"
+                    :alt="option.label"
+                    class="w-full h-full object-cover opacity-70 hover:opacity-90 transition-opacity duration-300"
+                  />
+                  <div class="absolute inset-0 bg-black/30"></div>
+                </div>
+
+                <!-- Fallback Decorative Circle if no map -->
+                <div
+                  v-else
                   class="absolute top-0 right-0 w-16 h-16 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-8 -mt-8 group-hover:scale-150 group-hover:bg-[#004595]/10 dark:group-hover:bg-blue-500/20 transition-all duration-500"
                 ></div>
 
@@ -1167,11 +1181,12 @@ const fetchBarangays = async () => {
   try {
     const { data, error } = await supabase
       .from('Barangays')
-      .select('id, brgyname')
+      .select('id, brgyname, map')
       .order('brgyname', { ascending: true })
 
     if (error) throw error
 
+    console.log('Raw Barangays Data:', data)
     if (data) {
       barangayOptions.value = data.map((item) => {
         // Convert brgyname to URL-safe kebab-case for value
@@ -1189,6 +1204,7 @@ const fetchBarangays = async () => {
           value: value,
           label: item.brgyname,
           dbName: item.brgyname, // Store original database name
+          map: item.map, // Store barangay map URL
         }
       })
     }
@@ -1399,57 +1415,6 @@ const fetchAllCategories = async () => {
             barangay: item.Barangays?.brgyname || 'Unknown',
           })),
           key: `estab-${categoryName}`,
-        })
-      })
-    }
-
-    // Fetch from GovtOffices table
-    const { data: govtData, error: govtError } = await supabase
-      .from('GovtOffices')
-      .select('officeType, brgy_id, officeName, officeAddress, Barangays(brgyname)')
-      .not('officeType', 'is', null)
-
-    if (govtError) {
-      console.error('Error fetching govt offices:', govtError)
-    } else if (govtData && govtData.length > 0) {
-      // Group govt offices by type and barangay
-      const govtByType = {}
-      govtData.forEach((office) => {
-        const type = office.officeType.trim()
-        if (!govtByType[type]) {
-          govtByType[type] = {
-            items: [],
-            barangays: {},
-          }
-        }
-        govtByType[type].items.push(office)
-
-        const brgyName = office.Barangays?.brgyname || 'Unknown'
-        if (!govtByType[type].barangays[brgyName]) {
-          govtByType[type].barangays[brgyName] = 0
-        }
-        govtByType[type].barangays[brgyName]++
-      })
-
-      // Convert to results format
-      Object.entries(govtByType).forEach(([categoryName, data]) => {
-        const barangays = Object.entries(data.barangays).map(([name, count]) => ({
-          name,
-          count,
-        }))
-
-        categories.push({
-          categoryName,
-          type: 'Government Office',
-          totalCount: data.items.length,
-          barangayCount: Object.keys(data.barangays).length,
-          barangays,
-          items: data.items.map((item) => ({
-            name: item.officeName,
-            address: item.officeAddress,
-            barangay: item.Barangays?.brgyname || 'Unknown',
-          })),
-          key: `govt-${categoryName}`,
         })
       })
     }
