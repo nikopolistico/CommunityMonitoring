@@ -471,10 +471,10 @@
           >
             <div class="flex items-center gap-3">
               <div
-                class="flex items-center justify-center w-12 h-12 bg-[#004595]/10 dark:bg-blue-500/20 rounded-lg"
+                class="flex items-center justify-center w-12 h-12 bg-linear-to-br from-blue-100 to-blue-300 rounded-lg"
               >
                 <svg
-                  class="w-6 h-6 text-[#004595] dark:text-blue-400"
+                  class="w-6 h-6 text-[#004595] dark:text-blue-900"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
