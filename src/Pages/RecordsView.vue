@@ -37,7 +37,7 @@
           <div class="relative z-10">
             <div class="flex items-center gap-3 mb-4">
               <div
-                class="flex items-center justify-center w-12 h-12 bg-[#004595]/10 dark:bg-blue-500/20 rounded-lg"
+                class="flex items-center justify-center w-12 h-12  bg-linear-to-br from-blue-700 to-dark-100 rounded-lg"
               >
                 <svg
                   class="w-6 h-6 text-[#004595] dark:text-blue-800"
@@ -53,7 +53,7 @@
                   />
                 </svg>
               </div>
-              <h3 class="text-2xl font-bold text-[#002147] dark:text-white1-100">Search Categories</h3>
+              <h3 class="text-2xl font-bold text-black dark:text-black-100">Search Categories</h3>
             </div>
 
             <!-- Search Input -->
@@ -78,7 +78,7 @@
                 @keydown.enter="categorySearchFocused = false"
                 type="text"
                 placeholder="Search for a category name (e.g., 'Elementary School', 'Catholic Church')..."
-                class="w-full pl-12 pr-4 py-3 border-2 border-[#004595]/30 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-[#004595] transition-all bg-white dark:bg-gray-100 text-[#002147] dark:text-white placeholder-[#00397a]/60 dark:placeholder-gray-400 shadow-sm hover:border-[#004595]/50"
+                class="w-full pl-12 pr-4 py-3 border-2 border-[#004595]/30 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-[#004595] transition-all bg-white dark:bg-gray-100 text-black dark:text-black placeholder-[#00397a]/60 dark:placeholder-gray-400 shadow-sm hover:border-[#004595]/50"
               />
 
               <!-- Category Dropdown Menu -->
@@ -88,7 +88,7 @@
                   categorySearchQuery.trim() &&
                   filteredCategoriesForMenu.length > 0
                 "
-                class="absolute z-50 top-full left-0 right-0 mt-2 bg-white dark:bg-gray-700 border-2 border-[#004595]/30 dark:border-gray-600 rounded-lg shadow-lg max-h-64 overflow-y-auto"
+                class="absolute z-50 top-full left-0 right-0 mt-2 bg-white dark:bg-white-700 border-2 border-[#004595]/30 dark:border-gray-600 rounded-lg shadow-lg max-h-64 overflow-y-auto text-black"
               >
                 <div class="p-2">
                   <button
@@ -100,7 +100,7 @@
                     <div class="flex items-center justify-between">
                       <div class="flex-1">
                         <p
-                          class="font-semibold text-[#002147] dark:text-white group-hover:text-[#004595] dark:group-hover:text-blue-300 transition-colors"
+                          class="font-semibold text-black dark:text-black group-hover:text-[#71a2ec] transition-colors"
                         >
                           {{ cat.name }}
                         </p>
@@ -113,7 +113,7 @@
                         </p>
                       </div>
                       <span
-                        class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-[#004595]/20 dark:bg-blue-500/30 text-[#004595] dark:text-blue-300"
+                        class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-[#004595]/20 dark:bg-white-500/30 text-[#004595] dark:text-blue-500"
                       >
                         {{ cat.count }}
                       </span>
@@ -128,7 +128,7 @@
               <div class="flex items-center gap-2 mb-2">
                 <span
                   v-if="categorySearchResults"
-                  class="inline-block px-3 py-1 bg-[#004595]/10 dark:bg-blue-500/20 text-[#004595] dark:text-blue-400 rounded-full text-sm font-semibold"
+                  class="inline-block px-3 py-1 bg-[#004595]/10 dark:bg-blue-500/20 text-[#004595] dark:text-blue-800 rounded-full text-sm font-semibold"
                 >
                   {{ categorySearchResults.matchingCategories.length }} Matching
                   {{
@@ -141,20 +141,23 @@
 
               <div
                 v-if="categorySearchResults"
-                class="relative bg-linear-to-br from-white to-[#f3f1ee] dark:from-gray-700 dark:to-gray-800 rounded-xl shadow-md hover:shadow-lg border border-[#004595]/20 dark:border-gray-600 hover:border-[#004595] dark:hover:border-blue-500 transition-all duration-300 overflow-hidden group"
+                class="relative bg-white dark:bg-gray-100 rounded-xl shadow-lg p-6 border border-[#004595]/10 dark:border-gray-700 overflow-hidden group"
               >
                 <div
-                  class="absolute top-0 right-0 w-20 h-20 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-500"
+                  class="absolute top-0 right-0 w-64 h-64 bg-[#004595]/5 dark:bg-blue-500/10 rounded-full -mr-32 -mt-32"
+                ></div>
+                <div
+                  class="absolute bottom-0 left-0 w-48 h-48 bg-[#00397a]/5 dark:bg-blue-400/10 rounded-full -ml-24 -mb-24"
                 ></div>
 
                 <div class="relative z-10 p-4 border-b border-[#004595]/10 dark:border-gray-600">
                   <div class="flex items-start justify-between gap-2">
                     <div class="flex-1">
-                      <h4 class="text-lg font-bold text-[#002147] dark:text-white leading-tight">
+                      <h4 class="text-lg font-bold text-black-100 leading-tight">
                         Search Results
                       </h4>
                       <p
-                        class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-400 mt-1"
+                        class="text-xs uppercase tracking-wider font-semibold text-gray-500 dark:text-gray-700 mt-1"
                       >
                         {{ categorySearchResults.matchingCategories.join(', ') }}
                       </p>
@@ -184,8 +187,8 @@
                         </svg>
                       </div>
                       <div>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Barangays</p>
-                        <p class="text-sm font-bold text-[#002147] dark:text-white">
+                        <p class="text-xs text-gray-500 dark:text-gray-700">Barangays</p>
+                        <p class="text-sm font-bold text-black dark:text-white-10">
                           {{ categorySearchResults.totalBarangays }}
                         </p>
                       </div>
@@ -207,8 +210,8 @@
                         </svg>
                       </div>
                       <div>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Total Items</p>
-                        <p class="text-sm font-bold text-[#002147] dark:text-white">
+                        <p class="text-xs text-gray-500 dark:text-gray-700">Total Items</p>
+                        <p class="text-sm font-bold text-black dark:text-white-10">
                           {{ categorySearchResults.totalItems }}
                         </p>
                       </div>
@@ -222,7 +225,7 @@
                       v-for="(brgy, idx) in categorySearchResults.barangays"
                       :key="idx"
                       @click="goToBarangay(brgy.name)"
-                      class="p-3 bg-white dark:bg-gray-700 rounded-lg border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595] dark:hover:border-blue-400 transition-all group cursor-pointer hover:shadow-md flex flex-col items-center justify-center text-center"
+                      class="p-3 bg-white dark:bg-gray-100 rounded-lg border border-[#004595]/10 dark:border-gray-600 hover:border-[#004595] dark:hover:border-blue-400 transition-all group cursor-pointer hover:shadow-md flex flex-col items-center justify-center text-center"
                     >
                       <div class="flex flex-col items-center gap-1 w-full">
                         <svg
@@ -236,11 +239,11 @@
                             clip-rule="evenodd"
                           />
                         </svg>
-                        <h5 class="font-bold text-[#002147] dark:text-white text-xs leading-tight line-clamp-2">
+                        <h5 class="font-bold text-black dark:text-black text-xs leading-tight line-clamp-2">
                           {{ brgy.name }}
                         </h5>
                         <span
-                          class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#004595]/20 dark:bg-blue-500/30 text-[#004595] dark:text-blue-300 group-hover:bg-[#004595] group-hover:text-white dark:group-hover:bg-blue-500 transition-all"
+                          class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-[#004595]/20 dark:bg-blue-500/30 text-[#004595] dark:text-blue-400 group-hover:bg-[#004595] group-hover:text-white dark:group-hover:bg-blue-500 transition-all"
                         >
                           {{ brgy.count }}
                         </span>
@@ -263,7 +266,7 @@
                   <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h1a1 1 0 001-1v-6a1 1 0 00-1-1h-1z" />
                 </svg>
               </div>
-              <p class="font-semibold text-[#002147] dark:text-white-50">
+              <p class="font-semibold text-black dark:text-white-50">
                 View All Counts
               </p>
               <p class="text-sm text-[#00397a] dark:text-gray-400 mt-1">
@@ -283,7 +286,7 @@
               v-model="searchQuery"
               type="text"
               placeholder="Search by barangay name, captain, members, position, patron, or location..."
-              class="w-full px-5 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-100 dark:text-white-100 dark:placeholder-gray-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent transition-all"
+              class="w-full px-5 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-100 text-black dark:text-white-100 dark:placeholder-gray-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#004595] focus:border-transparent transition-all"
               @input="handleSearch"
             />
           </div>
