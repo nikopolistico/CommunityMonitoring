@@ -134,7 +134,7 @@
 					>
 						<!-- Office Image -->
 						<div v-if="item.officeImage" class="w-full h-56 overflow-hidden bg-gray-50">
-							<img :src="item.officeImage" :alt="item.brgyName" class="w-full h-full object-cover" />
+							<img :src="item.officeImage" :alt="item.governmentName" class="w-full h-full object-cover" />
 						</div>
 						<div v-else class="w-full h-56 bg-linear-to-br from-[#002147] via-[#00397a] to-[#004595] flex items-center justify-center relative overflow-hidden">
 							<div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-16 -mt-16"></div>
@@ -224,7 +224,7 @@
 							</div>
 							<!-- View Mode -->
 							<div class="space-y-3">
-								<h2 class="text-xl font-bold text-[#002147]">{{ item.brgyName }}</h2>							
+								<h2 class="text-xl font-bold text-[#002147]">{{ item.governmentName }}</h2>							
 							<!-- Category Badge -->
 							<div v-if="item.category" class="flex items-center gap-2">
 								<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#004595]/10 text-[#004595]">
@@ -309,14 +309,14 @@
 							<td class="px-4 py-3 text-sm font-semibold text-[#002147]">
 								<div class="flex items-center gap-2">
 									<div v-if="item.officeImage" class="w-8 h-8 rounded overflow-hidden flex-shrink-0">
-										<img :src="item.officeImage" :alt="item.brgyName" class="w-full h-full object-cover" />
+										<img :src="item.officeImage" :alt="item.governmentName" class="w-full h-full object-cover" />
 									</div>
 									<div v-else class="w-8 h-8 rounded bg-linear-to-br from-[#002147] to-[#004595] flex items-center justify-center flex-shrink-0">
 										<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
 											<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4z" clip-rule="evenodd"/>
 										</svg>
 									</div>
-									<span class="truncate">{{ item.brgyName }}</span>
+									<span class="truncate">{{ item.governmentName }}</span>
 								</div>
 							</td>
 							<td class="px-4 py-3 text-sm text-gray-600 hidden sm:table-cell">
@@ -519,7 +519,7 @@
 				<div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[85vh] overflow-y-auto transform transition-all">
 					<!-- Modal Header -->
 					<div class="bg-linear-to-r from-[#002147] to-[#004595] px-8 py-6 sticky top-0 z-10 flex items-center justify-between">
-						<h2 class="text-2xl font-bold text-white">{{ viewingItem.brgyName }}</h2>
+						<h2 class="text-2xl font-bold text-white">{{ viewingItem.governmentName }}</h2>
 						<button
 							type="button"
 							@click="closeViewModal"
@@ -537,7 +537,7 @@
 							<!-- Image Section -->
 							<div>
 								<div v-if="viewingItem.officeImage" class="rounded-xl overflow-hidden shadow-lg h-64 lg:h-96">
-									<img :src="viewingItem.officeImage" :alt="viewingItem.brgyName" class="w-full h-full object-cover" />
+									<img :src="viewingItem.officeImage" :alt="viewingItem.governmentName" class="w-full h-full object-cover" />
 								</div>
 								<div v-else class="rounded-xl bg-linear-to-br from-[#002147] to-[#004595] flex items-center justify-center h-64 lg:h-96 shadow-lg">
 									<svg class="w-24 h-24 text-white/50" fill="currentColor" viewBox="0 0 20 20">
@@ -550,7 +550,7 @@
 							<div class="space-y-6">
 								<div>
 									<label class="block text-sm font-semibold text-[#004595] mb-2">Office Name</label>
-									<p class="text-2xl font-bold text-[#002147]">{{ viewingItem.brgyName }}</p>
+									<p class="text-2xl font-bold text-[#002147]">{{ viewingItem.governmentName }}</p>
 								</div>
 
 								<div>
@@ -853,7 +853,7 @@ const filteredItems = computed(() => {
 	if (searchQuery.value) {
 		const query = searchQuery.value.toLowerCase()
 		result = result.filter(item =>
-			item.brgyName?.toLowerCase().includes(query) ||
+			item.governmentName?.toLowerCase().includes(query) ||
 			item.location?.toLowerCase().includes(query)
 		)
 	}
@@ -994,7 +994,7 @@ const fetchItems = async () => {
 		const { data, error } = await supabase
 			.from('GovtOffices')
 			.select('*')
-			.order('brgyName', { ascending: true })
+			.order('governmentName', { ascending: true })
 
 		if (error) throw error
 		items.value = data || []
@@ -1025,7 +1025,7 @@ const addItem = async () => {
 		const { data, error } = await supabase
 			.from('GovtOffices')
 			.insert([{
-				brgyName: newName.value,
+				governmentName: newName.value,
 				location: newLocation.value,
 				category: newCategory.value,
 				officeImage: imageUrl
@@ -1059,7 +1059,7 @@ const startEdit = (id) => {
 	const item = items.value.find(i => i.id === id)
 	if (item) {
 		editingId.value = id
-		editingName.value = item.brgyName
+		editingName.value = item.governmentName
 		editingLocation.value = item.location || ''
 		editingCategory.value = item.category || ''
 		editImagePreview.value = item.officeImage || ''
@@ -1095,7 +1095,7 @@ const saveEdit = async () => {
 		}
 
 		const updateData = {
-			brgyName: editingName.value,
+			governmentName: editingName.value,
 			location: editingLocation.value,
 			category: editingCategory.value
 		}
@@ -1114,7 +1114,7 @@ const saveEdit = async () => {
 
 		const index = items.value.findIndex(i => i.id === editingId.value)
 		if (index !== -1) {
-			items.value[index].brgyName = editingName.value
+			items.value[index].governmentName = editingName.value
 			items.value[index].location = editingLocation.value
 			items.value[index].category = editingCategory.value
 			if (imageUrl) {
